@@ -29,11 +29,11 @@ export class WarpIcon extends BaseIcon {
 
   render() {
     const classes = {
-      "icon": true,
-      "icon--small": this.size === "s",
-      "icon--medium": this.size === "m",
-      "icon--large": this.size === "l",
-      "icon--xtralarge": this.size === "xl",
+      "w-icon": true,
+      "w-icon--small": this.size === "s",
+      "w-icon--medium": this.size === "m",
+      "w-icon--large": this.size === "l",
+      "w-icon--xtralarge": this.size === "xl",
     };
 
     return html` <div class="${classMap(classes)}">${this.svg}</div> `;

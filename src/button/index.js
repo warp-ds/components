@@ -1,6 +1,7 @@
 import { LitElement, html } from "lit";
 import { classMap } from "lit/directives/class-map.js";
 import styles from "./styles.js";
+import sharedStyles from "../sharedStyles.js";
 
 const buttonTypes = [
   "primary",
@@ -19,7 +20,7 @@ export class WarpButton extends LitElement {
     this.ariaValueTextLoading = "Loading...";
   }
 
-  static styles = [styles];
+  static styles = [styles, sharedStyles];
 
   static properties = {
     type: { type: "button" | "submit" | "reset", reflect: true },
@@ -55,11 +56,11 @@ export class WarpButton extends LitElement {
 
   render() {
     const classes = {
-        'button': true,
-        'button--primary': this.variant === "primary",
+        'w-button': true,
+        'w-button--primary': this.variant === "primary",
     };
 
-    return html`<button type=${this.type || "button"} class=${classMap(classes)}>
+    return html`<button part="buttonpart" type=${this.type || "button"} class=${classMap(classes)}>
         <slot></slot>
       </button>
       ${this.loading

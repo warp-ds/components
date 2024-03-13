@@ -1,6 +1,5 @@
 import esbuild from "esbuild";
 import { glob } from "glob";
-import { sassPlugin } from 'esbuild-sass-plugin';
 
 const components = glob.sync("src/**/index.js");
 const reactComponents = glob.sync("react/**/index.js");
@@ -11,7 +10,6 @@ const esbuildDefaults = {
   sourcemap: true,
   target: "es2020",
   minify: false,
-  plugins: [sassPlugin({ type: "lit-css", quietDeps: true, })],
   //external: ["lit", "@warp-ds/elements-core"],
 };
 

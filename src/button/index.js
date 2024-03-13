@@ -1,6 +1,6 @@
 import { LitElement, html } from "lit";
 import { classMap } from "lit/directives/class-map.js";
-import styles from './styles.scss';
+import styles from "./styles.js";
 import sharedStyles from "../sharedStyles.js";
 
 const buttonTypes = [
@@ -46,7 +46,6 @@ export class WarpButton extends LitElement {
         )}.`
       );
     }
-   
   }
 
   firstUpdated() {

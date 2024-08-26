@@ -1,9 +1,13 @@
 {
-  "name": "components",
+  "name": "@warp-ds/components",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "type": "module",
+  "exports": {
+    "./*": "./dist/packages/*/index.js",
+    "./react/*": "./dist/react/*/index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rm -rf dist && mkdir dist && node build.js",
@@ -14,10 +18,12 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@lit/react": "^1.0.3",
     "@web/dev-server": "^0.4.3",
     "esbuild": "^0.20.1",
-    "glob": "^10.3.10",
+    "glob": "^10.3.10"
+  },
+  "peerDependencies": {
+    "@lit/react": "^1.0.3",
     "lit": "^3.1.2"
   }
 }

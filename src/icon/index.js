@@ -30,10 +30,10 @@ export class WarpIcon extends BaseIcon {
   render() {
     const classes = {
       "w-icon": true,
-      "w-icon--small": this.size === "s",
-      "w-icon--medium": this.size === "m",
-      "w-icon--large": this.size === "l",
-      "w-icon--xtralarge": this.size === "xl",
+      "w-icon--small": this.name.includes('16'),
+      "w-icon--medium": this.name.includes('24'),
+      "w-icon--large": this.name.includes('32'),
+      "w-icon--xtralarge": this.name.includes('42'),
     };
 
     return html` <div class="${classMap(classes)}">${this.svg}</div> `;

@@ -2,6 +2,7 @@
   <head>
     <script type="module">
       import "./dist/packages/button/index.js";
+      import "./src/checkbox/index.js";
       import "./dist/packages/icon/index.js";
     </script>
     <link
@@ -24,6 +25,63 @@
     <div>
       <w-button variant="primary">Primary</w-button>
       <w-button variant="secondary">Secondary</w-button>
+    </div>
+    <div style="padding:32px 0;display:grid;grid-template-columns: repeat(3, 340px [col-start]);gap:16px;justify-content: center; text-align:left;">
+      <div style="padding:32px 0;display:grid;gap:16px;">
+        <strong>Unchecked</strong>
+        <w-c-checkbox>Default</w-c-checkbox>
+        <w-c-checkbox disabled>Disabled</w-c-checkbox>
+        <w-c-checkbox disabled invalid>Disabled/Invalid</w-c-checkbox>
+        <w-c-checkbox disabled indeterminate>Disabled/Indeterminate</w-c-checkbox>
+        <w-c-checkbox disabled indeterminate invalid>Disabled/Indeterminate/Invalid</w-c-checkbox>
+        <w-c-checkbox indeterminate>Indeterminate</w-c-checkbox>
+        <w-c-checkbox indeterminate invalid>Indeterminate/Invalid</w-c-checkbox>
+        <w-c-checkbox invalid>Invalid</w-c-checkbox>
+      </div>
+      <div style="padding:32px 0;display:grid;gap:16px;">
+        <strong>Checked</strong>
+        <w-c-checkbox checked>Checked</w-c-checkbox>
+        <w-c-checkbox checked disabled>Checked/Disabled</w-c-checkbox>
+        <w-c-checkbox checked disabled invalid>Checked/Disabled/Invalid</w-c-checkbox>
+        <w-c-checkbox checked disabled indeterminate>Checked/Disabled/Indeterminate</w-c-checkbox>
+        <w-c-checkbox checked disabled indeterminate invalid>Checked/Disabled/Indeterminate/Invalid</w-c-checkbox>
+        <w-c-checkbox checked indeterminate>Checked/Indeterminate</w-c-checkbox>
+        <w-c-checkbox checked indeterminate invalid>Checked/Indeterminate/Invalid</w-c-checkbox>
+        <w-c-checkbox checked invalid>Checked/Invalid</w-c-checkbox>
+      </div>
+      <div style="padding:32px 0;display:grid;gap:16px;">
+        <strong>Disabled</strong>
+        <w-c-checkbox disabled>Disabled</w-c-checkbox>
+        <w-c-checkbox disabled invalid>Disabled/Invalid</w-c-checkbox>
+        <w-c-checkbox disabled checked>Disabled/Checked</w-c-checkbox>
+        <w-c-checkbox disabled checked invalid>Disabled/Checked/Invalid</w-c-checkbox>
+        <w-c-checkbox disabled indeterminate>Disabled/Indeterminate</w-c-checkbox>
+        <w-c-checkbox disabled indeterminate checked>Disabled/Indeterminate/Checked</w-c-checkbox>
+        <w-c-checkbox disabled indeterminate invalid>Disabled/Indeterminate/Invalid</w-c-checkbox>
+        <w-c-checkbox disabled indeterminate invalid checked>Disabled/Indeterminate/Invalid/Checked</w-c-checkbox>
+      </div>
+      <div style="padding:32px 0;display:grid;gap:16px;">
+        <strong>Indeterminate</strong>
+        <w-c-checkbox indeterminate>Indeterminate</w-c-checkbox>
+        <w-c-checkbox indeterminate checked>Indeterminate/Checked</w-c-checkbox>
+        <w-c-checkbox indeterminate disabled>Indeterminate/Disabled</w-c-checkbox>
+        <w-c-checkbox indeterminate disabled checked>Indeterminate/Disabled/Checked</w-c-checkbox>
+        <w-c-checkbox indeterminate disabled invalid>Indeterminate/Disabled/Invalid</w-c-checkbox>
+        <w-c-checkbox indeterminate disabled invalid checked>Indeterminate/Disabled/Invalid/Checked</w-c-checkbox>
+        <w-c-checkbox indeterminate invalid>Indeterminate/Invalid</w-c-checkbox>
+        <w-c-checkbox indeterminate invalid checked>Indeterminate/Invalid/Checked</w-c-checkbox>
+      </div>
+      <div style="padding:32px 0;display:grid;gap:16px;">
+        <strong>Invalid</strong>
+        <w-c-checkbox invalid>Invalid</w-c-checkbox>
+        <w-c-checkbox invalid checked>Invalid/Checked</w-c-checkbox>
+        <w-c-checkbox invalid disabled>Invalid/Disabled</w-c-checkbox>
+        <w-c-checkbox invalid disabled checked>Invalid/Disabled/Checked</w-c-checkbox>
+        <w-c-checkbox invalid indeterminate disabled>Invalid/Disabled/Indeterminate</w-c-checkbox>
+        <w-c-checkbox invalid disabled indeterminate checked>Invalid/Disabled/Indeterminate/Checked</w-c-checkbox>
+        <w-c-checkbox invalid indeterminate>Invalid/Indeterminate</w-c-checkbox>
+        <w-c-checkbox invalid indeterminate checked>Invalid/Indeterminate/Checked</w-c-checkbox>
+      </div>
     </div>
     <div style="display: inline-flex; gap: 10px; padding: 20px">
       <w-icon name="ads-16"></w-icon>

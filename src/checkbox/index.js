@@ -32,20 +32,20 @@ export class WarpCheckbox extends LitElement {
   }
 
   render() {
-    const labelClasses = classMap({
-      'w-checkbox': true,
+    const wrapperClasses = classMap({
       'w-checkbox--invalid': this.invalid,
     });
 
-    return html`<div class="w-checkbox">
+    return html`<div class="w-checkbox ${wrapperClasses}">
       <input
         id="w-c-checkbox__input"
         part="input"
         type="checkbox"
         ?checked=${this.checked}
         ?disabled=${this.disabled}
-        class="w-sr-only" />
-      <label for="w-c-checkbox__input" part="label" class=${labelClasses}><slot></slot></label>
+        class="w-sr-only"
+      />
+      <label for="w-c-checkbox__input" part="label"><slot></slot></label>
     </div>`;
   }
 }

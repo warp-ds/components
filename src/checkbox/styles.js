@@ -3,8 +3,8 @@ import { css } from 'lit';
 export default css`
 label {
   position: relative;
-  color: var(--w-s-color-text);
   border-color: var(--w-s-color-border);
+  color: var(--w-s-color-text);
   padding: .2rem 0 .2rem 2.8rem;
   cursor: pointer;
   user-select: none;
@@ -20,7 +20,7 @@ label:focus-visible {
   outline: 2px solid var(--w-s-color-border-focus);
   outline-offset: var(--w-outline-offset, 1px);
 }
-label:not(:focus-visible){
+label:not(:focus-visible) {
   outline: none;
 }
 label::before {
@@ -44,7 +44,8 @@ input:checked + label::before {
   background-position: center;
   background-image: var(--w-icon-toggle-checked);
 }
-input:checked:not(:disabled) + label::before {
+input:checked:not(:disabled) + label::before,
+input:indeterminate:not(:disabled) + label::before {
   border-color: var(--w-s-color-border-primary);
   background-color: var(--w-s-color-background-primary);
 }
@@ -56,22 +57,6 @@ input:disabled + label::before {
   border-color: var(--w-s-color-border-disabled);
   background-color: var(--w-s-color-background-disabled-subtle);
 }
-input:not(:disabled) + .w-checkbox--invalid::before {
-  border-color: var(--w-s-color-border-negative);
-  background-color: var(--w-s-color-background);
-}
-input:not(:disabled) + .w-checkbox--invalid:hover::before {
-  border-color: var(--w-s-color-border-negative-hover);
-  background-color: var(--w-s-color-background-negative-subtle-hover);
-}
-input:checked:not(:disabled) + .w-checkbox--invalid::before {
-  border-color: var(--w-s-color-border-negative);
-  background-color: var(--w-s-color-background-negative);
-}
-input:checked:not(:disabled) + .w-checkbox--invalid:hover::before{
-  border-color: var(--w-s-color-border-negative-hover);
-  background-color: var(--w-s-color-background-negative-hover);
-}
 input:indeterminate + label::before {
   content:"–";
   text-align: center;
@@ -79,19 +64,25 @@ input:indeterminate + label::before {
   font-weight: 700;
   line-height: 2rem;
 }
-input:indeterminate:not(:disabled) + label::before {
-  border-color:var(--w-s-color-border-primary);
-  background-color:var(--w-s-color-background-primary);
-}
 input:indeterminate:not(:disabled) + label:hover::before {
-  background-color: var(--w-s-color-background-primary-hover);
   border-color: var(--w-s-color-border-primary-hover);
+  background-color: var(--w-s-color-background-primary-hover);
 }
-input:indeterminate:not(:disabled) + .w-checkbox--invalid::before {
+.w-checkbox--invalid input:not(:disabled) + label::before {
+  border-color: var(--w-s-color-border-negative);
+  background-color: var(--w-s-color-background);
+}
+.w-checkbox--invalid input:not(:disabled) + label:hover::before {
+  border-color: var(--w-s-color-border-negative-hover);
+  background-color: var(--w-s-color-background-negative-subtle-hover);
+}
+.w-checkbox--invalid input:indeterminate:not(:disabled) + label::before,
+.w-checkbox--invalid input:checked:not(:disabled) + label::before {
   border-color: var(--w-s-color-border-negative);
   background-color: var(--w-s-color-background-negative);
 }
-input:indeterminate:not(:disabled) + .w-checkbox--invalid:hover::before {
+.w-checkbox--invalid input:checked:not(:disabled) + label:hover::before,
+.w-checkbox--invalid input:indeterminate:not(:disabled) + label:hover::before {
   border-color: var(--w-s-color-border-negative-hover);
   background-color: var(--w-s-color-background-negative-hover);
 }

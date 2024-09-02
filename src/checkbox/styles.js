@@ -15,14 +15,6 @@ input:disabled + label {
   cursor: not-allowed;
   pointer-events: none;
 }
-label:focus,
-label:focus-visible {
-  outline: 2px solid var(--w-s-color-border-focus);
-  outline-offset: var(--w-outline-offset, 1px);
-}
-label:not(:focus-visible) {
-  outline: none;
-}
 label::before {
   content: "";
   position: absolute;
@@ -35,6 +27,14 @@ label::before {
   transition-property: all;
   transition-timing-function:cubic-bezier(.4, 0, .2, 1);
   transition-duration: 150ms;
+}
+input:focus + label::before,
+input:focus-visible + label::before {
+  outline: 2px solid var(--w-s-color-border-focus);
+  outline-offset: var(--w-outline-offset, 1px);
+}
+input:not(:focus-visible):focus + label::before {
+  outline: none;
 }
 input:not(:disabled) + label:hover::before {
   border-color: var(--w-s-color-border-primary);

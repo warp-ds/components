@@ -2,7 +2,7 @@ import { css } from 'lit';
 
 export default css`
 *,:before {
-  box-sizing:border-box;
+  box-sizing: border-box;
 }
 label {
   position: relative;

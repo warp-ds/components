@@ -23,4 +23,7 @@ export default css`
     display: grid;
     gap: 16px;
   }
+  .w-checkbox-group__list--horizontal {
+    display: flex;
+  }
 `;

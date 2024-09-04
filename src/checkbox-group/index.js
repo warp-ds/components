@@ -8,6 +8,7 @@ export class WarpCheckbox extends LitElement {
     label: { type: String },
     disabled: { type: Boolean, reflect: true },
     invalid: { type: Boolean, reflect: true },
+    horizontal: { type: Boolean },
   };
 
   static styles = [styles, sharedStyles];
@@ -24,10 +25,13 @@ export class WarpCheckbox extends LitElement {
     const wrapperClasses = classMap({
       'w-checkbox-group--invalid': this.invalid,
     });
+    const listClasses = classMap({
+      'w-checkbox-group__list--horizontal': this.horizontal,
+    });
 
     return html`<fieldset part="fieldset" aria-labelledby="label" class="w-checkbox-group ${wrapperClasses}">
       <label id="label" part="label"><slot name="label">${ this.label }</slot></label>
-      <div part="list" class="w-checkbox-group__list"><slot></slot></div>
+      <div part="list" class="w-checkbox-group__list ${listClasses}"><slot></slot></div>
     </fieldset>`;
   }
 }

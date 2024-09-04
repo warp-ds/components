@@ -5,6 +5,7 @@ import sharedStyles from '../sharedStyles.js';
 
 export class WarpCheckbox extends LitElement {
   static properties = {
+    label: { type: String },
     checked: { type: Boolean, reflect: true },
     disabled: { type: Boolean, reflect: true },
     indeterminate: { type: Boolean, reflect: true },
@@ -45,7 +46,7 @@ export class WarpCheckbox extends LitElement {
         ?disabled=${this.disabled}
         class="w-sr-only"
       />
-      <label for="w-c-checkbox__input" part="label"><slot></slot></label>
+      <label for="w-c-checkbox__input" part="label"><slot>${ this.label }</slot></label>
     </div>`;
   }
 }

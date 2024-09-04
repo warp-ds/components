@@ -22,7 +22,7 @@ label::before {
   height: 2rem;
   left: 0;
   border: 1px solid var(--w-s-color-border);
-  border-radius: 2px;
+  border-radius: 4px;
   background-color: var(--w-s-color-background);
   transition-property: all;
   transition-timing-function:cubic-bezier(.4, 0, .2, 1);
@@ -58,11 +58,11 @@ input:disabled + label::before {
   background-color: var(--w-s-color-background-disabled-subtle);
 }
 input:indeterminate + label::before {
-  content:"–";
+  content: "–";
   text-align: center;
   color: var(--w-s-color-icon-inverted-static);
   font-weight: 700;
-  line-height: 2rem;
+  line-height: 1.8rem;
 }
 input:indeterminate:not(:disabled) + label:hover::before {
   border-color: var(--w-s-color-border-primary-hover);

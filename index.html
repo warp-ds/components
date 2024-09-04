@@ -27,10 +27,9 @@
       <w-button variant="primary">Primary</w-button>
       <w-button variant="secondary">Secondary</w-button>
     </div>
-    <div style="padding:32px 0;display:grid;grid-template-columns: repeat(3, 340px [col-start]);gap:16px;justify-content: center; text-align:left;">
-      <div style="padding:32px 0;display:grid;gap:16px;">
-        <strong>Unchecked</strong>
-        <w-c-checkbox>Default</w-c-checkbox>
+    <div style="margin: 64px 0;display:grid;grid-template-columns: repeat(3, 340px [col-start]);gap:16px;row-gap:32px;justify-content: center; text-align:left;">
+      <w-c-checkbox-group label="Unchecked" horizontal>
+        <w-c-checkbox label="Default"></w-c-checkbox>
         <w-c-checkbox disabled>Disabled</w-c-checkbox>
         <w-c-checkbox disabled invalid>Disabled/Invalid</w-c-checkbox>
         <w-c-checkbox disabled indeterminate>Disabled/Indeterminate</w-c-checkbox>
@@ -38,7 +37,7 @@
         <w-c-checkbox indeterminate>Indeterminate</w-c-checkbox>
         <w-c-checkbox indeterminate invalid>Indeterminate/Invalid</w-c-checkbox>
         <w-c-checkbox invalid>Invalid</w-c-checkbox>
-      </div>
+      </w-c-checkbox-group>
       <div style="padding:32px 0;display:grid;gap:16px;">
         <strong>Checked</strong>
         <w-c-checkbox checked>Checked</w-c-checkbox>

@@ -25,5 +25,7 @@ export default css`
   }
   .w-checkbox-group__list--horizontal {
     display: flex;
+    flex-wrap: wrap;
+    column-gap: 32px;
   }
 `;

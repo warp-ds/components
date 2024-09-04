@@ -28,7 +28,7 @@
       <w-button variant="secondary">Secondary</w-button>
     </div>
     <div style="margin: 64px 0;display:grid;grid-template-columns: repeat(3, 340px [col-start]);gap:16px;row-gap:32px;justify-content: center; text-align:left;">
-      <w-c-checkbox-group label="Unchecked" horizontal>
+      <w-c-checkbox-group label="Unchecked">
         <w-c-checkbox label="Default"></w-c-checkbox>
         <w-c-checkbox disabled>Disabled</w-c-checkbox>
         <w-c-checkbox disabled invalid>Disabled/Invalid</w-c-checkbox>
@@ -82,13 +82,13 @@
         <w-c-checkbox invalid indeterminate>Invalid/Indeterminate</w-c-checkbox>
         <w-c-checkbox invalid indeterminate checked>Invalid/Indeterminate/Checked</w-c-checkbox>
       </div>
-      <w-c-checkbox-group style="padding:32px 0;">
+      <w-c-checkbox-group>
         <span slot="label">Checkbox Group - Slotted Label</span>
         <w-c-checkbox>Slot label</w-c-checkbox>
         <w-c-checkbox label="Prop Label"></w-c-checkbox>
         <w-c-checkbox disabled invalid>Disabled/Invalid</w-c-checkbox>
         <w-c-checkbox disabled indeterminate>Disabled/Indeterminate</w-c-checkbox>
-        <w-c-checkbox disabled indeterminate invalid>Disabled/Indeterminate/Invalid</w-c-checkbox>
+        <w-c-checkbox disabled indeterminate invalid>Disabled/Indeterminate/Invalid - extremely long text that will break nicely</w-c-checkbox>
         <w-c-checkbox indeterminate>Indeterminate</w-c-checkbox>
         <w-c-checkbox indeterminate invalid>Indeterminate/Invalid</w-c-checkbox>
         <w-c-checkbox invalid>Invalid</w-c-checkbox>

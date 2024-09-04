@@ -5,6 +5,7 @@ export default css`
   box-sizing: border-box;
 }
 label {
+  display: inline-block;
   position: relative;
   border-color: var(--w-s-color-border);
   color: var(--w-s-color-text);
@@ -13,6 +14,9 @@ label {
   user-select: none;
   font-size: var(--w-font-size-m);
   line-height: var(--w-line-height-m);
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 input:disabled + label {
   cursor: not-allowed;

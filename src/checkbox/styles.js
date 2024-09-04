@@ -1,6 +1,9 @@
 import { css } from 'lit';
 
 export default css`
+*,:before {
+  box-sizing:border-box;
+}
 label {
   position: relative;
   border-color: var(--w-s-color-border);

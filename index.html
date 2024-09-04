@@ -3,6 +3,7 @@
     <script type="module">
       import "./dist/packages/button/index.js";
       import "./dist/packages/icon/index.js";
+      import "./dist/packages/radio/index.js";
     </script>
     <link
       rel="stylesheet"
@@ -10,15 +11,23 @@
     />
     <link
       rel="stylesheet"
-      href="https://assets.finn.no/pkg/@warp-ds/css/v1/tokens/finn-no.css"
+      href="https://assets.finn.no/pkg/@warp-ds/css/v2/tokens/finn-no.css"
     />
     <link
       rel="stylesheet"
-      href="https://assets.finn.no/pkg/@warp-ds/css/v1/resets.css"
+      href="https://assets.finn.no/pkg/@warp-ds/css/v2/resets.css"
     />
     <title>Boring HTML app</title>
     <link rel="icon" href="https://lit.dev/images/flame-favicon.svg" />
   </head>
+
+  <style>
+    .text-xs {
+      font-size: 8px;
+      color: var(--w-s-color-text-subtle);
+    }
+
+  </style>
 
   <body style="margin: auto; text-align: center; padding: 20px">
     <div>
@@ -31,5 +40,11 @@
       <w-icon name="attachment-32"></w-icon>
       <w-icon name="car-42"></w-icon>
     </div>
+    <div>
+      <w-c-radio-group class="  ">
+        <w-c-radio id="radio-1" name="radioDemo" class="first-radio" value="1" >Radio 1</w-c-radio>
+        <w-c-radio id="radio-2" name="radioDemo" value="2" checked>Radio 2</w-c-radio>
+        <w-c-radio id="radio-3" name="radioDemo" value="3" disabled>Radio 3</w-c-radio>
+      </w-c-radio-group>
   </body>
 </html>

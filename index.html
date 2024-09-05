@@ -18,15 +18,16 @@
       href="https://assets.finn.no/pkg/@warp-ds/css/v2/resets.css"
     />
     <title>Boring HTML app</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="icon" href="https://lit.dev/images/flame-favicon.svg" />
   </head>
 
   <style>
-    .text-xs {
-      font-size: 8px;
-      color: var(--w-s-color-text-subtle);
-    }
-
+    @supports (font: -apple-system-body) {
+  html {
+    font: -apple-system-body;
+  }
+}
   </style>
 
   <body style="margin: auto; text-align: center; padding: 20px">
@@ -34,6 +35,7 @@
       <w-button variant="primary">Primary</w-button>
       <w-button variant="secondary">Secondary</w-button>
     </div>
+
     <div style="display: inline-flex; gap: 10px; padding: 20px">
       <w-icon name="ads-16"></w-icon>
       <w-icon name="alert-24"></w-icon>
@@ -41,10 +43,22 @@
       <w-icon name="car-42"></w-icon>
     </div>
     <div>
-      <w-c-radio-group class="  ">
+      <w-c-radio-group>
+        <span slot="label">Radio Group - Slotted Label</span>
         <w-c-radio id="radio-1" name="radioDemo" class="first-radio" value="1" >Radio 1</w-c-radio>
         <w-c-radio id="radio-2" name="radioDemo" value="2" checked>Radio 2</w-c-radio>
         <w-c-radio id="radio-3" name="radioDemo" value="3" disabled>Radio 3</w-c-radio>
+        <w-c-radio id="radio-4" name="radioDemo" value="4" invalid>Radio 4</w-c-radio>
+        <w-c-radio id="radio-5" name="radioDemo" value="5" invalid checked>Radio 5</w-c-radio>
+      </w-c-radio-group>
+
+      <w-c-radio-group horizontal>
+        <span slot="label">Radio Group - Slotted Label</span>
+        <w-c-radio id="radio-1" name="radioDemo" class="first-radio" value="1" >Radio 1</w-c-radio>
+        <w-c-radio id="radio-2" name="radioDemo" value="2" checked>Radio 2</w-c-radio>
+        <w-c-radio id="radio-3" name="radioDemo" value="3" disabled>Radio 3</w-c-radio>
+        <w-c-radio id="radio-4" name="radioDemo" value="4" invalid>Radio 4</w-c-radio>
+        <w-c-radio id="radio-5" name="radioDemo" value="5" invalid checked>Radio 5</w-c-radio>
       </w-c-radio-group>
   </body>
 </html>

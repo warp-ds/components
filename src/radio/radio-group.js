@@ -12,43 +12,31 @@ export class WarpRadioGroup extends LitElement {
 
   static properties = {
     disabled: { type: Boolean, reflect: true },
-    checked: { type: Boolean, reflect: true },
     invalid: { type: Boolean, reflect: true },
-    id: { type: String },
+    label: { type: String },
+    horizontal: { type: Boolean },
   };
 
   render() {
-    const groupClasses = {
-      displayGrid: true,
-      displayFlex: this.horizontal && this.items.length <= this.max,
-    };
+    const wrapperClasses = classMap({
+      "w-radio-group--invalid": this.invalid,
+    });
+    const listClasses = classMap({
+      "w-radio-group__list--horizontal": this.horizontal,
+    });
 
-    return html`
-      <fieldset class="${classMap(groupClasses)}" part="radio-group">
-        ${this.required
-          ? html`<legend><slot name="legend"></slot></legend>`
-          : html`<legend>
-              <slot name="legend"></slot>
-              <slot name="optionalLabel">(optional)</slot>
-            </legend>`}
-        <slot @slotchange=${this.handleSlotChange}></slot>
-      </fieldset>
-
-      ${!this.validity ||
-      this.validity === undefined ||
-      this.validity === "valid"
-        ? html` <p class="radioGroupElement-helpText" part="helpText">
-            <slot name="helpText"></slot>
-          </p>`
-        : html` <p
-            class="radioGroupElement-helpText"
-            role="alert"
-            aria-live="assertive"
-            part="helpText"
-          >
-            ${this.setCustomValidity}
-          </p>`}
-    `;
+    return html`<fieldset
+      part="fieldset"
+      aria-labelledby="label"
+      class="w-radio-group ${wrapperClasses}"
+    >
+      <label id="label" part="label"
+        ><slot name="label">${this.label}</slot></label
+      >
+      <div part="list" class="w-radio-group__list ${listClasses}">
+        <slot></slot>
+      </div>
+    </fieldset>`;
   }
 }
 

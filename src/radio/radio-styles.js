@@ -43,12 +43,11 @@ input:not(:disabled) + label:hover::before {
 }
 input:checked + label::before {
   border-color: var(--w-s-color-border-selected);
-  border-width: 0.6rem;
+  border-width: .6rem;
 }
 input:checked:not(:disabled) + label:hover::before {
   border-color: var(--w-s-color-border-primary-hover);
-  background-color: var(--w-s-color-background-primary-hover);
-  border-width: 0.6rem;
+  border-width: .6rem;
 }
 input:disabled + label::before {
   border-color: var(--w-s-color-border-disabled);

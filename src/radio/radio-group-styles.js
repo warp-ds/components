@@ -25,5 +25,6 @@ export default css`
   }
   .w-radio-group__list--horizontal {
     display: flex;
+    column-gap: 32px;
   }
 `;

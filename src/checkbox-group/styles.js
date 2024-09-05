@@ -28,4 +28,7 @@ export default css`
     flex-wrap: wrap;
     column-gap: 32px;
   }
+  ::slotted(w-c-checkbox-group) {
+    padding-left: 2.8rem;
+  }
 `;

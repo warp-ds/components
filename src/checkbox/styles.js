@@ -7,6 +7,7 @@ export default css`
 label {
   display: inline-block;
   position: relative;
+  min-height: var(--w-line-height-m);
   border-color: var(--w-s-color-border);
   color: var(--w-s-color-text);
   padding: .2rem 0 .2rem 2.8rem;

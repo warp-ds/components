@@ -9,11 +9,14 @@ export default css`
     padding: 0;
   }
   label {
-    display: block;
+    display: none;
     margin-bottom: 16px;
     font-size: var(--w-font-size-s);
     line-height: var(--w-line-height-s);
     font-weight: 700;
+  }
+  .w-checkbox-group--labelled label {
+    display: block;
   }
   .w-checkbox-group--invalid {
     cursor: not-allowed;

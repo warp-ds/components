@@ -21,9 +21,14 @@ export class WarpCheckbox extends LitElement {
     super.connectedCallback();
   }
 
+  get _hasLabel() {
+    return !!this.label || this.shadowRoot.querySelector('slot[name=label]')?.assignedNodes({flatten: true}).length > 0;
+  }
+
   render() {
     const wrapperClasses = classMap({
       'w-checkbox-group--invalid': this.invalid,
+      'w-checkbox-group--labelled': this._hasLabel,
     });
     const listClasses = classMap({
       'w-checkbox-group__list--horizontal': this.horizontal,

@@ -27,4 +27,13 @@ export default css`
     display: flex;
     column-gap: 32px;
   }
+  .w-radio-group__help-text {
+    display: block;
+    font-size: var(--w-font-size-xs);
+    line-height: var(--w-line-height-xs);
+    margin-top: 1.6rem;
+  }
+  .w-radio-group__help-text--invalid {
+    color: var(--w-s-color-text-negative);
+  }
 `;

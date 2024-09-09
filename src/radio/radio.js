@@ -15,6 +15,7 @@ export class WarpRadio extends LitElement {
     checked: { type: Boolean, reflect: true },
     disabled: { type: Boolean, reflect: true },
     invalid: { type: Boolean, reflect: true },
+    name: { type: String },
   };
 
   handler(e) {
@@ -42,6 +43,7 @@ export class WarpRadio extends LitElement {
         ?checked="${this.checked}"
         id="w-c-radio__input"
         class="w-sr-only"
+        name="${ifDefined(this.name)}"
       />
       <label for="w-c-radio__input"><slot></slot></label>
     </div>`;

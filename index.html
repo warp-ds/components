@@ -30,7 +30,7 @@
 }
   </style>
 
-  <body style="margin: auto; text-align: center; padding: 20px">
+  <body style="margin: auto; padding: 20px">
     <div>
       <w-button variant="primary">Primary</w-button>
       <w-button variant="secondary">Secondary</w-button>
@@ -43,25 +43,29 @@
       <w-icon name="car-42"></w-icon>
     </div>
     <div>
-      <w-c-radio-group>
+      <w-c-radio-group helpText="Choose the most appropriate option." style="display: block; margin: 32px 0;">
         <span slot="label">Radio Group - Slotted Label</span>
-        <w-c-radio id="radio-1" name="radioDemo" class="first-radio" value="1" >Radio 1</w-c-radio>
-        <w-c-radio id="radio-2" name="radioDemo" value="2" checked>Radio 2</w-c-radio>
-        <w-c-radio id="radio-3" name="radioDemo" value="3" disabled>Radio 3</w-c-radio>
-        <w-c-radio id="radio-3" name="radioDemo" value="3" checked disabled>Radio 4</w-c-radio>
-        <w-c-radio id="radio-4" name="radioDemo" value="4" invalid>Radio 5</w-c-radio>
-        <w-c-radio id="radio-5" name="radioDemo" value="5" invalid checked>Radio 6</w-c-radio>
-        <w-c-radio id="radio-5" name="radioDemo" value="5" invalid disabled>Radio 7</w-c-radio>
-        <w-c-radio id="radio-5" name="radioDemo" value="5" invalid checked disabled>Radio 8</w-c-radio>
+        <w-c-radio value="1" name="radioDemo">Radio 1</w-c-radio>
+        <w-c-radio value="2" name="radioDemo" checked>Radio 2</w-c-radio>
+        <w-c-radio value="3" name="radioDemo" disabled>Radio 3</w-c-radio>
+        <w-c-radio value="4" name="radioDemo" checked disabled>Radio 4</w-c-radio>
+        <w-c-radio value="5" name="radioDemo" invalid>Radio 5</w-c-radio>
+        <w-c-radio value="6" name="radioDemo" invalid checked>Radio 6</w-c-radio>
+        <w-c-radio value="7" name="radioDemo" invalid disabled>Radio 7</w-c-radio>
+        <w-c-radio value="8" name="radioDemo" invalid checked disabled>Radio 8</w-c-radio>
       </w-c-radio-group>
 
-      <w-c-radio-group horizontal>
+      <w-c-radio-group horizontal style="display: block; margin: 32px 0;">
         <span slot="label">Radio Group - Slotted Label</span>
-        <w-c-radio id="radio-1" name="radioDemo" class="first-radio" value="1" >Radio 1</w-c-radio>
-        <w-c-radio id="radio-2" name="radioDemo" value="2" checked>Radio 2</w-c-radio>
-        <w-c-radio id="radio-3" name="radioDemo" value="3" disabled>Radio 3</w-c-radio>
-        <w-c-radio id="radio-4" name="radioDemo" value="4" invalid>Radio 4</w-c-radio>
-        <w-c-radio id="radio-5" name="radioDemo" value="5" invalid checked>Radio 5</w-c-radio>
+        <w-c-radio value="1" >Radio 1</w-c-radio>
+        <w-c-radio value="2" checked>Radio 2</w-c-radio>
+        <w-c-radio value="3" disabled>Radio 3</w-c-radio>
+        <w-c-radio value="4" checked disabled>Radio 4</w-c-radio>
+        <w-c-radio value="5" invalid>Radio 5</w-c-radio>
+        <w-c-radio value="6" invalid checked>Radio 6</w-c-radio>
+        <w-c-radio value="7" invalid disabled>Radio 7</w-c-radio>
+        <w-c-radio value="8" invalid checked disabled>Radio 8</w-c-radio>
+        <div slot="help-text">Choose the most appropriate option.</div>
       </w-c-radio-group>
   </body>
 </html>

@@ -43,8 +43,8 @@
       <w-icon name="car-42"></w-icon>
     </div>
     <div>
-      <w-c-radio-group helpText="Choose the most appropriate option." style="display: block; margin: 32px 0;">
-        <span slot="label">Radio Group - Slotted Label</span>
+      <w-c-radio-group optional helpText="Choose the most appropriate option." style="display: block; margin: 32px 0;">
+        <span slot="legend">Radio Group - Slotted Label</span>
         <w-c-radio value="1" name="radioDemo">Radio 1</w-c-radio>
         <w-c-radio value="2" name="radioDemo" checked>Radio 2</w-c-radio>
         <w-c-radio value="3" name="radioDemo" disabled>Radio 3</w-c-radio>
@@ -55,8 +55,15 @@
         <w-c-radio value="8" name="radioDemo" invalid checked disabled>Radio 8</w-c-radio>
       </w-c-radio-group>
 
+      <w-c-radio-group invalid helpText="Choose the most appropriate option." style="display: block; margin: 32px 0;">
+        <span slot="legend">Radio Group - Slotted Label</span>
+        <w-c-radio value="1" name="radioDemo" checked>Radio 1</w-c-radio>
+        <w-c-radio value="2" name="radioDemo">Radio 2</w-c-radio>
+        <w-c-radio value="3" name="radioDemo">Radio 3</w-c-radio>
+      </w-c-radio-group>
+
       <w-c-radio-group horizontal style="display: block; margin: 32px 0;">
-        <span slot="label">Radio Group - Slotted Label</span>
+        <span slot="legend">Radio Group - Slotted Label</span>
         <w-c-radio value="1" >Radio 1</w-c-radio>
         <w-c-radio value="2" checked>Radio 2</w-c-radio>
         <w-c-radio value="3" disabled>Radio 3</w-c-radio>

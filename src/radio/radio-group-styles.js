@@ -8,12 +8,19 @@ export default css`
     border: 0;
     padding: 0;
   }
-  label {
+  legend {
     display: block;
     margin-bottom: 16px;
     font-size: var(--w-font-size-s);
     line-height: var(--w-line-height-s);
     font-weight: 700;
+  }
+  .optional {
+    font-size: var(--w-font-size-s);
+    line-height: var(--w-line-height-s);
+    font-weight: 400;
+    color: var(--w-s-color-text-subtle);
+    padding-left: .4rem;
   }
   .w-radio-group--invalid {
     cursor: not-allowed;

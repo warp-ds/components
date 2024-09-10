@@ -15,6 +15,7 @@ export class WarpRadioGroup extends LitElement {
   static properties = {
     disabled: { type: Boolean, reflect: true },
     invalid: { type: Boolean, reflect: true },
+    optional: { type: Boolean, reflect: true },
     label: { type: String },
     helpText: { type: String },
     horizontal: { type: Boolean },
@@ -50,6 +51,17 @@ export class WarpRadioGroup extends LitElement {
 
   handleItems() {
     this.items = [...this.querySelectorAll(":scope > *:not([slot])")];
+
+    if (this.disabled) {
+      this.items.forEach((el) => {
+        el.disabled = this.disabled;
+      });
+    }
+
+    this.items.forEach((el) => {
+      el.required = !this.optional;
+      el.invalid = Boolean(this.invalid);
+    });
   }
 
   handleSlotChange() {
@@ -71,13 +83,15 @@ export class WarpRadioGroup extends LitElement {
     return html`<fieldset
       part="fieldset"
       role="radiogroup"
-      aria-labelledby="label"
       aria-describedby="help-text"
       class="w-radio-group ${wrapperClasses}"
     >
-      <label id="label" part="label">
-        <slot name="label">${this.label}</slot>
-      </label>
+      <legend id="legend" part="legend">
+        ${this.optional
+          ? html`<slot name="legend">${this.label}</slot>
+              <slot name="optionalLabel"><span class="optional">(optional)</span></slot>`
+          : html`<slot name="legend">${this.label}</slot>`}
+      </legend>
       <div part="list" class="w-radio-group__list ${listClasses}">
         <slot @slotchange=${this.handleSlotChange}></slot>
       </div>

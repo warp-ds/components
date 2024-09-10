@@ -19,8 +19,42 @@ export class WarpRadioGroup extends LitElement {
     helpText: { type: String },
     horizontal: { type: Boolean },
     value: { type: Array },
-    optionSelected: { type: HTMLElement }
+    optionSelected: { type: Number },
   };
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.handleItems();
+    this.addEventListener("toggleSelected", this.handleToggleSelected);
+  }
+
+  handleToggleSelected(event) {
+    this.index = this.items.indexOf(event.target);
+
+    this.items.forEach((item) => {
+      if (item === event.target) {
+        if (event.target.value) {
+          this.value = event.target.value;
+        }
+      } else {
+        const sdInput = item.shadowRoot.querySelector("input");
+
+        sdInput.checked = false;
+        item.checked = false;
+      }
+    });
+
+    this.optionSelected = this.index;
+    console.log("handleToggleSelected", this.index);
+  }
+
+  handleItems() {
+    this.items = [...this.querySelectorAll(":scope > *:not([slot])")];
+  }
+
+  handleSlotChange() {
+    this.handleItems();
+  }
 
   render() {
     const wrapperClasses = classMap({
@@ -45,7 +79,7 @@ export class WarpRadioGroup extends LitElement {
         <slot name="label">${this.label}</slot>
       </label>
       <div part="list" class="w-radio-group__list ${listClasses}">
-        <slot></slot>
+        <slot @slotchange=${this.handleSlotChange}></slot>
       </div>
       <div id="help-text" class="w-radio-group__help-text ${helpTextClasses}">
         <slot name="help-text">${this.helpText}</slot>

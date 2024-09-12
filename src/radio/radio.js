@@ -5,8 +5,13 @@ import styles from "./radio-styles.js";
 import sharedStyles from "../sharedStyles.js";
 
 export class WarpRadio extends LitElement {
+  static get formAssociated() {
+    return true;
+  }
+
   constructor() {
     super();
+    this.internals = this.attachInternals();
   }
 
   static styles = [styles, sharedStyles];
@@ -37,6 +42,15 @@ export class WarpRadio extends LitElement {
         target: this,
       })
     );
+  }
+
+  firstUpdated(...args) {
+    super.firstUpdated(...args);
+    /** This ensures our element always participates in the form */
+    this.internals.setFormValue(this.value);
+    
+    /** Make sure validations are set up */
+    //this._manageRequired();
   }
 
   render() {

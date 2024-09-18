@@ -96,6 +96,22 @@
         <w-c-checkbox indeterminate>Indeterminate</w-c-checkbox>
         <w-c-checkbox indeterminate invalid>Indeterminate/Invalid</w-c-checkbox>
         <w-c-checkbox invalid>Invalid</w-c-checkbox>
+        <span slot="help">Checkbox Group - Slotted Help</span>
+      </w-c-checkbox-group>
+      <w-c-checkbox-group label="Horizontal" horizontal>
+        <w-c-checkbox>One</w-c-checkbox>
+        <w-c-checkbox>Two</w-c-checkbox>
+        <w-c-checkbox>All the things</w-c-checkbox>
+      </w-c-checkbox-group>
+      <w-c-checkbox-group label="Parented Checkbox Group" name="checkboxgroupwithparent">
+        <span slot="parent-label">Slotted grand parent label</span>
+        <w-c-checkbox label="Child 1" value="child1" checked></w-c-checkbox>
+        <w-c-checkbox label="Child 2" value="child2"></w-c-checkbox>
+        <w-c-checkbox-group name="checkboxgroupwithparent2">
+          <span slot="parent-label">Child 3</span>
+          <w-c-checkbox label="Grand Child 1" value="grandchild1" checked></w-c-checkbox>
+          <w-c-checkbox label="Grand Child 2" value="grandchild2"></w-c-checkbox>
+        </w-c-checkbox-group>
       </w-c-checkbox-group>
     </div>
     <div style="display: inline-flex; gap: 10px; padding: 20px">

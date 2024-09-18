@@ -6,17 +6,14 @@ import sharedStyles from '../sharedStyles.js';
 export class WarpCheckbox extends LitElement {
   static properties = {
     label: { type: String },
+    value: { type: String },
     checked: { type: Boolean, reflect: true },
-    disabled: { type: Boolean, reflect: true },
+    disabled: { type: Boolean },
     indeterminate: { type: Boolean, reflect: true },
-    invalid: { type: Boolean, reflect: true },
+    invalid: { type: Boolean },
   };
 
   static styles = [styles, sharedStyles];
-
-  get _inputEl() {
-    return this.renderRoot?.querySelector('#w-c-checkbox__input') ?? null;
-  }
 
   constructor() {
     super();
@@ -26,10 +23,21 @@ export class WarpCheckbox extends LitElement {
     super.connectedCallback();
   }
 
-  updated(changedProperties) {
-    if (changedProperties.has('indeterminate')) {
-      this._inputEl.indeterminate = this.indeterminate;
-    }
+  handleChange(e) {
+    this.indeterminate = false;
+    this.checked = e.target.checked;
+
+    this.dispatchEvent(new CustomEvent(
+      'change',
+      {
+        detail: {
+          value: this.value,
+          checked: e.target.checked
+        },
+        bubbles: true,
+        composed: true,
+      }
+    ));
   }
 
   render() {
@@ -43,8 +51,11 @@ export class WarpCheckbox extends LitElement {
         part="input"
         type="checkbox"
         ?checked=${this.checked}
+        .checked=${this.checked}
         ?disabled=${this.disabled}
+        .indeterminate=${this.indeterminate}
         class="w-sr-only"
+        @change=${this.handleChange}
       />
       <label for="w-c-checkbox__input" part="label"><slot>${ this.label }</slot></label>
     </div>`;

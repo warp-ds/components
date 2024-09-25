@@ -4,13 +4,9 @@ import { ifDefined } from "lit/directives/if-defined.js";
 import styles from "./radio-group-styles.js";
 
 export class WarpRadioGroup extends LitElement {
-  static get formAssociated() {
-    return true;
-  }
-
   constructor() {
     super();
-    this.internals = this.attachInternals();
+    //this.internals = this.attachInternals();
     this.value = undefined;
     this.optionSelected = undefined;
   }
@@ -24,7 +20,7 @@ export class WarpRadioGroup extends LitElement {
     label: { type: String },
     helpText: { type: String },
     horizontal: { type: Boolean },
-    value: { type: Array },
+    value: { type: String },
     optionSelected: { type: Number },
   };
 

@@ -22,10 +22,7 @@ export default css`
     color: var(--w-s-color-text-subtle);
     padding-left: .4rem;
   }
-  .w-radio-group--invalid {
-    cursor: not-allowed;
-    pointer-events: none;
-  }
+  
   .w-radio-group__list {
     display: grid;
     gap: 16px;

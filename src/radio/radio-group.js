@@ -31,7 +31,7 @@ export class WarpRadioGroup extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     this.handleItems();
-    //this.addEventListener("toggleSelected", this.handleToggleSelected);
+    this.addEventListener("toggleSelected", this.handleToggleSelected);
   }
 
   handleToggleSelected(event) {
@@ -47,8 +47,17 @@ export class WarpRadioGroup extends LitElement {
 
         sdInput.checked = false;
         item.checked = false;
+        sdInput.invalid = false;
+        item.invalid = false;
       }
     });
+
+    if (this.invalid) {
+      this.items.forEach((el) => {
+        el.invalid = false;
+      });
+      this.invalid = false;
+    }
 
     this.optionSelected = this.index;
     console.log("handleToggleSelected", this.index);
@@ -63,10 +72,23 @@ export class WarpRadioGroup extends LitElement {
       });
     }
 
-    this.items.forEach((el) => {
+    if (this.invalid) {
+      this.items.forEach((el) => {
+        el.invalid = this.invalid;
+      });
+    }
+
+    if (this.optionSelected) {
+      console.log('all valid now')
+      this.items.forEach((el) => {
+        el.invalid = false;
+      });
+    }
+
+    /*this.items.forEach((el) => {
       el.required = !this.optional;
       el.invalid = Boolean(this.invalid);
-    });
+    });*/
   }
 
   handleSlotChange() {

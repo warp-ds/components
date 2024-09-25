@@ -57,6 +57,21 @@ export class WarpCheckboxGroup extends LitElement {
   handleListSlotChange(e) {
     const children = [...e.target.assignedElements()];
 
+    children.forEach((item) => {
+      this.dispatchEvent(new CustomEvent(
+        'change',
+        {
+          detail: {
+            checked: !item.indeterminate && (item.hasAttribute('checked') || item.checked),
+            value: item.value
+          },
+          bubbles: true,
+          composed: true,
+        }
+      ));
+
+    });
+
     this.value = children.reduce((selectedValues, item) => {
       if (!item.indeterminate && (item.hasAttribute('checked') || item.checked) && item.value?.length) {
         selectedValues.push(item.value);
@@ -75,25 +90,34 @@ export class WarpCheckboxGroup extends LitElement {
         parent.checked = false;
       }
     }
-
-    this.emitChange();
   }
 
   handleParentCheckboxChange(e) {
-    this.toggleCheckboxes(e.detail.checked);
+    e.stopPropagation();
+    this.toggleChildren(e.detail.checked);
   }
 
-  toggleCheckboxes(checked) {
+  toggleChildren(checked) {
     this._indeterminate = false;
     this.value = [];
     const checkboxes = [...this.renderRoot.querySelector('.w-checkbox-group__list > slot').assignedElements()];
     checkboxes.forEach((item) => {
       item.checked = checked;
-      if (checked) this.value.push(item.value);
-      this.emitChange();
-      if (item._hasParent) {
-        item.toggleCheckboxes(checked);
-        item.renderRoot.querySelector('.w-checkbox-group__parent').checked = checked;
+
+      const parent = item.renderRoot.querySelector('.w-checkbox-group__parent');
+      if (parent) {
+        parent.checked = checked;
+        item.toggleChildren(checked);
+      } else if (item.value) {
+        if (checked) {
+          this.value.push(item.value);
+        } else {
+          const currentValueIndex = this.value.indexOf(item.value);
+          if (currentValueIndex > -1) {
+            this.value.splice(currentValueIndex, 1);
+          }
+        }
+        this.emitChange(item.value, checked);
       }
     });
   }
@@ -101,6 +125,7 @@ export class WarpCheckboxGroup extends LitElement {
   handleChildCheckboxChange(e) {
     e.stopPropagation();
     const currentValueIndex = this.value.indexOf(e.detail.value);
+
     if (e.detail.checked) {
       if (currentValueIndex === -1) this.value.push(e.detail.value);
     } else if (currentValueIndex > -1) {
@@ -121,16 +146,18 @@ export class WarpCheckboxGroup extends LitElement {
       }
     }
 
-    this.emitChange();
+    this.requestUpdate();
+
+    this.emitChange(e.detail.value, e.detail.checked);
   }
 
-  emitChange() {
+  emitChange(value, checked) {
     this.dispatchEvent(new CustomEvent(
       'change',
       {
         detail: {
-          checked: this.value?.length,
-          value: this.value
+          checked: checked,
+          value: value
         },
         bubbles: true,
         composed: true,
@@ -142,7 +169,7 @@ export class WarpCheckboxGroup extends LitElement {
   render() {
     return html`<fieldset part="fieldset" aria-labelledby="group-label" class="w-checkbox-group ${this._wrapperClasses}">
       <label id="group-label" part="label"><slot name="label" @slotchange="${this.handleLabelSlotChange}">${ this.label }</slot></label>
-      <w-c-checkbox ?indeterminate=${this._indeterminate} class="w-checkbox-group__parent" @change="${this.handleParentCheckboxChange}"><slot name="parent-label" @slotchange="${this.handleParentSlotChange}"></slot>: ${this.value}</w-c-checkbox>
+      <w-c-checkbox ?indeterminate=${this._indeterminate} class="w-checkbox-group__parent" @change="${this.handleParentCheckboxChange}"><slot name="parent-label" @slotchange="${this.handleParentSlotChange}"></slot>: ${this.value?.join(', ')}</w-c-checkbox>
       <div part="list" class="w-checkbox-group__list ${this._listClasses}" @change="${this.handleChildCheckboxChange}"><slot @slotchange="${this.handleListSlotChange}"></slot></div>
       <p class="w-checkbox-group__help"><slot name="help" @slotchange="${this.handleHelpSlotChange}">${ this.help }</slot></p>
     </fieldset>`;

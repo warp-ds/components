@@ -27,6 +27,8 @@ export class WarpCheckbox extends LitElement {
     this.indeterminate = false;
     this.checked = e.target.checked;
 
+    e.stopPropagation();
+
     this.dispatchEvent(new CustomEvent(
       'change',
       {

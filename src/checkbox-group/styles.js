@@ -38,8 +38,11 @@ export default css`
     padding-top: 16px;
     padding-left: 2.8rem;
   }
-  .w-checkbox-group:not(.w-checkbox-group--parented) .w-checkbox-group__list ::slotted(w-c-checkbox-group) {
+  ::slotted(w-c-checkbox-group) {
     padding-left: 2.8rem;
+  }
+  ::slotted(w-c-checkbox-group[parented]) {
+    padding-left: 0;
   }
   .w-checkbox-group__help {
     display: none;

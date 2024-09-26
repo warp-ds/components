@@ -21,11 +21,11 @@
       <a href="radio.html">Radio</a>
     </nav>
     <div class="preview-area preview-area--checkbox">
-      <w-c-checkbox-group label="Parented Checkbox Group" name="checkboxgroupwithparent">
+      <w-c-checkbox-group label="Parented Checkbox Group" name="checkbox-group-with-parent">
         <span slot="parent-label">Slotted grand parent label</span>
         <w-c-checkbox label="Child 1" value="child1" checked></w-c-checkbox>
         <w-c-checkbox label="Child 2" value="child2"></w-c-checkbox>
-        <w-c-checkbox-group name="checkboxgroupwithparent2">
+        <w-c-checkbox-group name="sub-checkbox-group-with-parent">
           <span slot="parent-label">Child 3</span>
           <w-c-checkbox label="Grand Child 1" value="grandchild1" checked></w-c-checkbox>
           <w-c-checkbox label="Grand Child 2" value="grandchild2"></w-c-checkbox>
@@ -38,14 +38,15 @@
       </w-c-checkbox-group>
       <w-c-checkbox-group>
         <span slot="label">Checkbox Group - Slotted Label</span>
-        <w-c-checkbox>Slot label</w-c-checkbox>
-        <w-c-checkbox label="Prop Label"></w-c-checkbox>
-        <w-c-checkbox-group label="Sub group">
-          <w-c-checkbox>Sub group checkbox</w-c-checkbox>
-          <w-c-checkbox>Sub group checkbox 2</w-c-checkbox>
+        <w-c-checkbox value="1">Slot label</w-c-checkbox>
+        <w-c-checkbox value="2" label="Prop Label"></w-c-checkbox>
+        <w-c-checkbox-group label="Sub group without parent">
+          <w-c-checkbox value="3.1">Sub group checkbox</w-c-checkbox>
+          <w-c-checkbox value="3.2">Sub group checkbox 2</w-c-checkbox>
           <w-c-checkbox-group>
-            <w-c-checkbox>Sub sub group checkbox</w-c-checkbox>
-            <w-c-checkbox>Sub sub group checkbox 2</w-c-checkbox>
+            <span slot="parent-label">Sub sub group parent</span>
+            <w-c-checkbox value="3.2.1">Sub sub group checkbox 1</w-c-checkbox>
+            <w-c-checkbox value="3.2.2">Sub sub group checkbox 2</w-c-checkbox>
           </w-c-checkbox-group>
         </w-c-checkbox-group>
         <w-c-checkbox disabled invalid>Disabled/Invalid</w-c-checkbox>

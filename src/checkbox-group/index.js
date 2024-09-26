@@ -14,7 +14,7 @@ export class WarpCheckboxGroup extends LitElement {
     horizontal: { type: Boolean },
     value: { type: Array },
     _hasLabel: { state: true, type: Boolean },
-    _hasParent: { state: false, type: Boolean },
+    parented: { type: Boolean, reflect: true },
     _hasHelp: { state: true, type: Boolean },
     _indeterminate: { state: false, type: Boolean },
   };
@@ -35,7 +35,7 @@ export class WarpCheckboxGroup extends LitElement {
     return classMap({
       'w-checkbox-group--invalid': this.invalid,
       'w-checkbox-group--labelled': this._hasLabel,
-      'w-checkbox-group--parented': this._hasParent,
+      'w-checkbox-group--parented': this.parented,
       'w-checkbox-group--help': this._hasHelp,
     });
   }
@@ -52,7 +52,7 @@ export class WarpCheckboxGroup extends LitElement {
     this._hasHelp = e.target.assignedNodes().length > 0 || !!this.help;
   }
   handleParentSlotChange(e) {
-    this._hasParent = e.target.assignedNodes().length > 0 || !!this.parentLabel;
+    this.parented = e.target.assignedNodes().length > 0 || !!this.parentLabel;
   }
   handleListSlotChange(e) {
     const children = [...e.target.assignedElements()];
@@ -79,7 +79,7 @@ export class WarpCheckboxGroup extends LitElement {
       return selectedValues;
     }, []);
 
-    if (this._hasParent) {
+    if (this.parented) {
       const allChecked = children.length && children.length === this.value.length;
       const allUnchecked = !this.value.length && !children.some((item) => item.indeterminate);
       this._indeterminate = !(allChecked || allUnchecked);
@@ -132,7 +132,7 @@ export class WarpCheckboxGroup extends LitElement {
       this.value.splice(currentValueIndex, 1);
     }
 
-    if (this._hasParent) {
+    if (this.parented) {
       const parent = this.renderRoot.querySelector('.w-checkbox-group__parent');
       const children = [...e.target.parentNode.querySelectorAll('w-c-checkbox')];
       const allChecked = children.every((item) => !item.indeterminate && item.checked);

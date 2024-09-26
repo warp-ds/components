@@ -1,0 +1,49 @@
+@supports (font: -apple-system-body) {
+    html {
+        font: -apple-system-body;
+    }
+}
+body {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+}
+.nav-area {
+    background-color: #f5f5f5;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.nav-area h1 {
+    font-size: 1.8rem;
+    line-height: 1;
+}
+.nav-area a {
+    position: relative;
+    margin-left: 12px;
+}
+.nav-area [aria-current]::before {
+    content: "\25BA";
+    font-size: 8px;
+    display: block;
+    position: absolute;
+    margin-left: -12px;
+}
+.preview-area {
+    margin: 0 auto;
+    padding: 48px;
+    display: grid;
+    gap: 16px;
+    row-gap: 48px;
+    justify-content: center;
+    text-align: left;
+}
+.preview-area--button {
+    grid-template-columns: repeat(2, 200px [col-start]);
+}
+.preview-area--checkbox {
+    grid-template-columns: repeat(3, 360px [col-start]);
+}
+.preview-area--icons {
+    grid-template-columns: repeat(4, 40px [col-start]);
+}

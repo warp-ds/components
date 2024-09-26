@@ -15,7 +15,7 @@ const esbuildDefaults = {
 
 function buildComponents(outDir, extraBuildOptions = {}) {
   components.forEach(async (item) => {
-    const regex = /\/(\w+)\//;
+    const regex = /\/([\w-]+)\//;
     const match = item.match(regex);
 
     try {

@@ -1,0 +1,111 @@
+<html>
+  <head>
+    <script type="module">
+      import "../dist/packages/checkbox/index.js";
+      import "../dist/packages/checkbox-group/index.js";
+    </script>
+    <link rel="stylesheet" href="https://assets.finn.no/pkg/@warp-ds/fonts/v1/finn-no.css" />
+    <link rel="stylesheet" href="https://assets.finn.no/pkg/@warp-ds/css/v2/tokens/finn-no.css" />
+    <link rel="stylesheet" href="https://assets.finn.no/pkg/@warp-ds/css/v2/resets.css" />
+    <link rel="stylesheet" href="preview.css" />
+    <title>WARP Component Preview - Checkbox</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="icon" href="https://lit.dev/images/flame-favicon.svg" />
+  </head>
+  <body>
+    <nav class="nav-area">
+      <h1>Component Preview</h1>
+      <a href="button.html">Button</a>
+      <a href="checkbox.html" aria-current="page">Checkbox</a>
+      <a href="icons.html">Icons</a>
+      <a href="radio.html">Radio</a>
+    </nav>
+    <div class="preview-area preview-area--checkbox">
+      <w-c-checkbox-group label="Parented Checkbox Group" name="checkboxgroupwithparent">
+        <span slot="parent-label">Slotted grand parent label</span>
+        <w-c-checkbox label="Child 1" value="child1" checked></w-c-checkbox>
+        <w-c-checkbox label="Child 2" value="child2"></w-c-checkbox>
+        <w-c-checkbox-group name="checkboxgroupwithparent2">
+          <span slot="parent-label">Child 3</span>
+          <w-c-checkbox label="Grand Child 1" value="grandchild1" checked></w-c-checkbox>
+          <w-c-checkbox label="Grand Child 2" value="grandchild2"></w-c-checkbox>
+        </w-c-checkbox-group>
+      </w-c-checkbox-group>
+      <w-c-checkbox-group label="Horizontal" horizontal>
+        <w-c-checkbox>One</w-c-checkbox>
+        <w-c-checkbox>Two</w-c-checkbox>
+        <w-c-checkbox>All the things</w-c-checkbox>
+      </w-c-checkbox-group>
+      <w-c-checkbox-group>
+        <span slot="label">Checkbox Group - Slotted Label</span>
+        <w-c-checkbox>Slot label</w-c-checkbox>
+        <w-c-checkbox label="Prop Label"></w-c-checkbox>
+        <w-c-checkbox-group label="Sub group">
+          <w-c-checkbox>Sub group checkbox</w-c-checkbox>
+          <w-c-checkbox>Sub group checkbox 2</w-c-checkbox>
+          <w-c-checkbox-group>
+            <w-c-checkbox>Sub sub group checkbox</w-c-checkbox>
+            <w-c-checkbox>Sub sub group checkbox 2</w-c-checkbox>
+          </w-c-checkbox-group>
+        </w-c-checkbox-group>
+        <w-c-checkbox disabled invalid>Disabled/Invalid</w-c-checkbox>
+        <w-c-checkbox disabled indeterminate>Disabled/Indeterminate</w-c-checkbox>
+        <w-c-checkbox disabled indeterminate invalid>Disabled/Indeterminate/Invalid - extremely long text that will break nicely</w-c-checkbox>
+        <w-c-checkbox indeterminate>Indeterminate</w-c-checkbox>
+        <w-c-checkbox indeterminate invalid>Indeterminate/Invalid</w-c-checkbox>
+        <w-c-checkbox invalid>Invalid</w-c-checkbox>
+        <span slot="help">Checkbox Group - Slotted Help</span>
+      </w-c-checkbox-group>
+      <w-c-checkbox-group label="Unchecked">
+        <w-c-checkbox label="Default"></w-c-checkbox>
+        <w-c-checkbox disabled>Disabled</w-c-checkbox>
+        <w-c-checkbox disabled invalid>Disabled/Invalid</w-c-checkbox>
+        <w-c-checkbox disabled indeterminate>Disabled/Indeterminate</w-c-checkbox>
+        <w-c-checkbox disabled indeterminate invalid>Disabled/Indeterminate/Invalid</w-c-checkbox>
+        <w-c-checkbox indeterminate>Indeterminate</w-c-checkbox>
+        <w-c-checkbox indeterminate invalid>Indeterminate/Invalid</w-c-checkbox>
+        <w-c-checkbox invalid>Invalid</w-c-checkbox>
+      </w-c-checkbox-group>
+      <w-c-checkbox-group label="Checked">
+        <w-c-checkbox checked>Checked</w-c-checkbox>
+        <w-c-checkbox checked disabled>Checked/Disabled</w-c-checkbox>
+        <w-c-checkbox checked disabled invalid>Checked/Disabled/Invalid</w-c-checkbox>
+        <w-c-checkbox checked disabled indeterminate>Checked/Disabled/Indeterminate</w-c-checkbox>
+        <w-c-checkbox checked disabled indeterminate invalid>Checked/Disabled/Indeterminate/Invalid</w-c-checkbox>
+        <w-c-checkbox checked indeterminate>Checked/Indeterminate</w-c-checkbox>
+        <w-c-checkbox checked indeterminate invalid>Checked/Indeterminate/Invalid</w-c-checkbox>
+        <w-c-checkbox checked invalid>Checked/Invalid</w-c-checkbox>
+      </w-c-checkbox-group>
+      <w-c-checkbox-group label="Disabled">
+        <w-c-checkbox disabled>Disabled</w-c-checkbox>
+        <w-c-checkbox disabled invalid>Disabled/Invalid</w-c-checkbox>
+        <w-c-checkbox disabled checked>Disabled/Checked</w-c-checkbox>
+        <w-c-checkbox disabled checked invalid>Disabled/Checked/Invalid</w-c-checkbox>
+        <w-c-checkbox disabled indeterminate>Disabled/Indeterminate</w-c-checkbox>
+        <w-c-checkbox disabled indeterminate checked>Disabled/Indeterminate/Checked</w-c-checkbox>
+        <w-c-checkbox disabled indeterminate invalid>Disabled/Indeterminate/Invalid</w-c-checkbox>
+        <w-c-checkbox disabled indeterminate invalid checked>Disabled/Indeterminate/Invalid/Checked</w-c-checkbox>
+      </w-c-checkbox-group>
+      <w-c-checkbox-group label="Indeterminate">
+        <w-c-checkbox indeterminate>Indeterminate</w-c-checkbox>
+        <w-c-checkbox indeterminate checked>Indeterminate/Checked</w-c-checkbox>
+        <w-c-checkbox indeterminate disabled>Indeterminate/Disabled</w-c-checkbox>
+        <w-c-checkbox indeterminate disabled checked>Indeterminate/Disabled/Checked</w-c-checkbox>
+        <w-c-checkbox indeterminate disabled invalid>Indeterminate/Disabled/Invalid</w-c-checkbox>
+        <w-c-checkbox indeterminate disabled invalid checked>Indeterminate/Disabled/Invalid/Checked</w-c-checkbox>
+        <w-c-checkbox indeterminate invalid>Indeterminate/Invalid</w-c-checkbox>
+        <w-c-checkbox indeterminate invalid checked>Indeterminate/Invalid/Checked</w-c-checkbox>
+      </w-c-checkbox-group>
+      <w-c-checkbox-group label="Invalid">
+        <w-c-checkbox invalid>Invalid</w-c-checkbox>
+        <w-c-checkbox invalid checked>Invalid/Checked</w-c-checkbox>
+        <w-c-checkbox invalid disabled>Invalid/Disabled</w-c-checkbox>
+        <w-c-checkbox invalid disabled checked>Invalid/Disabled/Checked</w-c-checkbox>
+        <w-c-checkbox invalid indeterminate disabled>Invalid/Disabled/Indeterminate</w-c-checkbox>
+        <w-c-checkbox invalid disabled indeterminate checked>Invalid/Disabled/Indeterminate/Checked</w-c-checkbox>
+        <w-c-checkbox invalid indeterminate>Invalid/Indeterminate</w-c-checkbox>
+        <w-c-checkbox invalid indeterminate checked>Invalid/Indeterminate/Checked</w-c-checkbox>
+      </w-c-checkbox-group>
+    </div>
+  </body>
+</html>

@@ -152,9 +152,19 @@ export class WarpCheckboxGroup extends LitElement {
   render() {
     return html`<fieldset part="fieldset" aria-labelledby="group-label" class="w-checkbox-group ${this._wrapperClasses}">
       <label id="group-label" part="label"><slot name="label" @slotchange="${this.handleLabelSlotChange}">${ this.label }</slot></label>
-      <w-c-checkbox ?indeterminate=${this._indeterminate} class="w-checkbox-group__parent" @change="${this.handleParentCheckboxChange}"><slot name="parent-label" @slotchange="${this.handleParentSlotChange}"></slot>: ${this.value?.join(', ')}</w-c-checkbox>
-      <div part="list" class="w-checkbox-group__list ${this._listClasses}" @change="${this.handleChildCheckboxChange}"><slot @slotchange="${this.handleListSlotChange}"></slot></div>
-      <p class="w-checkbox-group__help"><slot name="help" @slotchange="${this.handleHelpSlotChange}">${ this.help }</slot></p>
+      <w-c-checkbox
+        ?indeterminate=${this._indeterminate}
+        class="w-checkbox-group__parent"
+        @change="${this.handleParentCheckboxChange}"
+      >
+        <slot name="parent-label" @slotchange="${this.handleParentSlotChange}"></slot>
+      </w-c-checkbox>
+      <div part="list" class="w-checkbox-group__list ${this._listClasses}" @change="${this.handleChildCheckboxChange}">
+        <slot @slotchange="${this.handleListSlotChange}"></slot>
+      </div>
+      <p class="w-checkbox-group__help">
+        <slot name="help" @slotchange="${this.handleHelpSlotChange}">${ this.help }</slot>
+      </p>
     </fieldset>`;
   }
 }

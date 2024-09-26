@@ -33,10 +33,10 @@ export class WarpCheckboxGroup extends LitElement {
 
   get _wrapperClasses() {
     return classMap({
+      'w-checkbox-group--help': this._hasHelp,
       'w-checkbox-group--invalid': this.invalid,
       'w-checkbox-group--labelled': this._hasLabel,
       'w-checkbox-group--parented': this.parented,
-      'w-checkbox-group--help': this._hasHelp,
     });
   }
   get _listClasses() {
@@ -58,18 +58,7 @@ export class WarpCheckboxGroup extends LitElement {
     const children = [...e.target.assignedElements()];
 
     children.forEach((item) => {
-      this.dispatchEvent(new CustomEvent(
-        'change',
-        {
-          detail: {
-            checked: !item.indeterminate && (item.hasAttribute('checked') || item.checked),
-            value: item.value
-          },
-          bubbles: true,
-          composed: true,
-        }
-      ));
-
+      this.emitChange(item.value, !item.indeterminate && (item.hasAttribute('checked') || item.checked));
     });
 
     this.value = children.reduce((selectedValues, item) => {
@@ -80,15 +69,7 @@ export class WarpCheckboxGroup extends LitElement {
     }, []);
 
     if (this.parented) {
-      const allChecked = children.length && children.length === this.value.length;
-      const allUnchecked = !this.value.length && !children.some((item) => item.indeterminate);
-      this._indeterminate = !(allChecked || allUnchecked);
-      const parent = this.renderRoot.querySelector('.w-checkbox-group__parent');
-      if (allChecked) {
-        parent.checked = true;
-      } else if (allUnchecked) {
-        parent.checked = false;
-      }
+      this.setParentState(children);
     }
   }
 
@@ -97,15 +78,27 @@ export class WarpCheckboxGroup extends LitElement {
     this.toggleChildren(e.detail.checked);
   }
 
+  setParentState(children) {
+    const allChecked = children.length && children.length === this.value.length;
+    const allUnchecked = !this.value.length && !children.some((item) => item.indeterminate);
+    this._indeterminate = !(allChecked || allUnchecked);
+    const parent = this.renderRoot.querySelector('.w-checkbox-group__parent');
+    if (allChecked) {
+      parent.checked = true;
+    } else if (allUnchecked) {
+      parent.checked = false;
+    }
+  }
+
   toggleChildren(checked) {
     this._indeterminate = false;
     this.value = [];
-    const checkboxes = [...this.renderRoot.querySelector('.w-checkbox-group__list > slot').assignedElements()];
-    checkboxes.forEach((item) => {
+    const children = [...this.renderRoot.querySelector('.w-checkbox-group__list > slot').assignedElements()];
+    children.forEach((item) => {
       item.checked = checked;
 
-      const parent = item.renderRoot.querySelector('.w-checkbox-group__parent');
-      if (parent) {
+      if (item.parented) {
+        const parent = item.renderRoot.querySelector('.w-checkbox-group__parent');
         parent.checked = checked;
         item.toggleChildren(checked);
       } else if (item.value) {
@@ -133,17 +126,8 @@ export class WarpCheckboxGroup extends LitElement {
     }
 
     if (this.parented) {
-      const parent = this.renderRoot.querySelector('.w-checkbox-group__parent');
       const children = [...e.target.parentNode.querySelectorAll('w-c-checkbox')];
-      const allChecked = children.every((item) => !item.indeterminate && item.checked);
-      const allUnchecked = children.every((item) => !item.indeterminate && !item.checked);
-      this._indeterminate = !(allChecked || allUnchecked);
-
-      if (allChecked) {
-        parent.checked = true;
-      } else if (allUnchecked) {
-        parent.checked = false;
-      }
+      this.setParentState(children);
     }
 
     this.requestUpdate();
@@ -163,7 +147,6 @@ export class WarpCheckboxGroup extends LitElement {
         composed: true,
       }
     ));
-
   }
 
   render() {

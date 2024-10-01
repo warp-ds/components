@@ -1,6 +1,5 @@
 import { LitElement, html } from "lit";
 import { classMap } from "lit/directives/class-map.js";
-import { ifDefined } from "lit/directives/if-defined.js";
 import styles from "./radio-group-styles.js";
 
 export class WarpRadioGroup extends LitElement {
@@ -62,22 +61,18 @@ export class WarpRadioGroup extends LitElement {
   handleItems() {
     this.items = [...this.querySelectorAll(":scope > *:not([slot])")];
 
+    const duplicateSelectedItems = this.items.filter((el) => el.checked).slice(0,-1);
+    duplicateSelectedItems.forEach((el) => el.checked = false);
+
     if (this.disabled) {
       this.items.forEach((el) => {
         el.disabled = this.disabled;
       });
     }
 
-    if (this.invalid) {
+    if (this.invalid || this.optionSelected) {
       this.items.forEach((el) => {
-        el.invalid = this.invalid;
-      });
-    }
-
-    if (this.optionSelected) {
-      console.log('all valid now')
-      this.items.forEach((el) => {
-        el.invalid = false;
+        el.invalid = this.optionSelected ? false : this.invalid;
       });
     }
 

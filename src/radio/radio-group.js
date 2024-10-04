@@ -104,11 +104,9 @@ export class WarpRadioGroup extends FormControlMixin(LitElement) {
 
 
   get validationTarget() {
-    if (!this.renderRoot) return;
-
-    const slot = this.renderRoot.querySelector('slot:not([name])');
-    const assignedElements = slot.assignedElements({ flatten: true });
-    const inputElement = assignedElements.map(
+    const slot = this.renderRoot?.querySelector('slot:not([name])');
+    const assignedElements = slot?.assignedElements({ flatten: true });
+    const inputElement = assignedElements?.map(
       el => el.renderRoot ? el.renderRoot.querySelector('input') : el.querySelector('input')
     )[0];
 

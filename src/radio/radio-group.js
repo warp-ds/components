@@ -1,13 +1,18 @@
 import { LitElement, html } from "lit";
 import { classMap } from "lit/directives/class-map.js";
 import styles from "./radio-group-styles.js";
+import { FormControlMixin, requiredValidator } from '@open-wc/form-control'
 
-export class WarpRadioGroup extends LitElement {
+export class WarpRadioGroup extends FormControlMixin(LitElement) {
+  static formControlValidators = [requiredValidator];
+
   constructor() {
     super();
     //this.internals = this.attachInternals();
     this.value = undefined;
     this.optionSelected = undefined;
+    this.required = false;
+    this.addEventListener("toggleSelected", this.handleToggleSelected);
   }
 
   static styles = [styles];
@@ -15,6 +20,7 @@ export class WarpRadioGroup extends LitElement {
   static properties = {
     disabled: { type: Boolean, reflect: true },
     invalid: { type: Boolean, reflect: true },
+    required: { type: Boolean, reflect: true },
     optional: { type: Boolean, reflect: true },
     label: { type: String },
     helpText: { type: String },
@@ -26,7 +32,18 @@ export class WarpRadioGroup extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     this.handleItems();
-    this.addEventListener("toggleSelected", this.handleToggleSelected);
+  }
+
+  validityCallback(key) {
+    if (key === 'valueMissing') {
+      return 'Web components are not so bad';
+    }
+  }
+
+  updated(changedProperties) {
+    if (changedProperties.has('value')) {
+      this.setValue(this.value);
+    }
   }
 
   handleToggleSelected(event) {
@@ -76,14 +93,26 @@ export class WarpRadioGroup extends LitElement {
       });
     }
 
-    /*this.items.forEach((el) => {
-      el.required = !this.optional;
-      el.invalid = Boolean(this.invalid);
-    });*/
+    this.items.forEach((el) => {
+      el.required = this.required;
+    });
   }
 
   handleSlotChange() {
     this.handleItems();
+  }
+
+
+  get validationTarget() {
+    if (!this.renderRoot) return;
+
+    const slot = this.renderRoot.querySelector('slot:not([name])');
+    const assignedElements = slot.assignedElements({ flatten: true });
+    const inputElement = assignedElements.map(
+      el => el.renderRoot ? el.renderRoot.querySelector('input') : el.querySelector('input')
+    )[0];
+
+    return inputElement;
   }
 
   render() {

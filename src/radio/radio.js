@@ -53,6 +53,7 @@ export class WarpRadio extends LitElement {
         @input="${this.handleInput}"
         @change="${this.handleChange}"
         aria-required="${Boolean(this.required)}"
+        ?required="${this.required}"
         id="w-c-radio__input"
         class="w-sr-only"
         .name="${ifDefined(this.name)}"

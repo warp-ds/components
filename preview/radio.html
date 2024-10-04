@@ -21,17 +21,28 @@
     </nav>
     <div class="preview-area preview-area--radio">
       <form id="valform">
-        <w-c-radio-group id="my-radio-group" optional helpText="Choose the most appropriate option." style="display: block; margin: 32px 0;">
+        <w-c-radio-group required id="my-radio-group" name="radioDemo" helpText="Choose the most appropriate option." style="display: block; margin: 32px 0;">
           <span slot="legend">Radio Group - Slotted Label</span>
-          <w-c-radio value="1" name="radioDemo" checked>Radio 1</w-c-radio>
-          <w-c-radio value="2" name="radioDemo" checked>Radio 2</w-c-radio>
+          <w-c-radio value="1" name="radioDemo">Radio 1</w-c-radio>
+          <w-c-radio value="2" name="radioDemo">Radio 2</w-c-radio>
           <w-c-radio value="3" name="radioDemo">Radio 3</w-c-radio>
-          <w-c-radio value="4" name="radioDemo">Radio 4</w-c-radio>
-          <w-c-radio value="5" name="radioDemo">Radio 5</w-c-radio>
-          <w-c-radio value="6" name="radioDemo">Radio 6</w-c-radio>
-          <w-c-radio value="7" name="radioDemo">Radio 7</w-c-radio>
-          <w-c-radio value="8" name="radioDemo">Radio 8</w-c-radio>
         </w-c-radio-group>
+        <button type="submit">Submit</button>
+      </form>
+      
+      <form id="genderForm">
+        <fieldset>
+          <legend slot="legend">Choose your gender:</legend>
+            <input required type="radio" value="male" id="male" name="gender" />
+            <label for="male">Male</label>
+          
+            <input type="radio" value="female" id="female" name="gender" />
+            <label for="female">Female</label>
+          
+            <input type="radio" value="other" id="other" name="gender" />
+            <label for="other">Other</label>
+        </fieldset>
+        <button type="submit">Submit</button>
       </form>
 
       <w-c-radio-group invalid helpText="Choose the most appropriate option." style="display: block; margin: 32px 0;">

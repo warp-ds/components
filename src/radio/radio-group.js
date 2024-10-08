@@ -12,6 +12,7 @@ export class WarpRadioGroup extends FormControlMixin(LitElement) {
     this.value = undefined;
     this.optionSelected = undefined;
     this.required = false;
+    this.validationMessage = "";
     this.addEventListener("toggleSelected", this.handleToggleSelected);
   }
 
@@ -27,6 +28,7 @@ export class WarpRadioGroup extends FormControlMixin(LitElement) {
     horizontal: { type: Boolean },
     value: { type: String },
     optionSelected: { type: Number },
+    validationMessage: { type: String },
   };
 
   connectedCallback() {
@@ -34,10 +36,18 @@ export class WarpRadioGroup extends FormControlMixin(LitElement) {
     this.handleItems();
   }
 
+  /* Note: This works with the form-control mixin but only with default browser popups
   validityCallback(key) {
     if (key === 'valueMissing') {
       return 'Web components are not so bad';
     }
+  } */
+
+  validationMessageCallback(message) {
+    // Log which validity flag is `true` and so passed to setValidity() callback of the mixin
+    console.log("validationMessageCallback", this.validity);
+
+    this.validationMessage = message;
   }
 
   updated(changedProperties) {
@@ -141,7 +151,7 @@ export class WarpRadioGroup extends FormControlMixin(LitElement) {
         <slot @slotchange=${this.handleSlotChange}></slot>
       </div>
       <div id="help-text" class="w-radio-group__help-text ${helpTextClasses}">
-        <slot name="help-text">${this.helpText}</slot>
+        <slot name="help-text">${ this.validationMessage || this.helpText}</slot>
       </div>
     </fieldset>`;
   }

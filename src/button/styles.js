@@ -7,7 +7,7 @@ export default css`
   justify-content: center;
   border: 2px solid var(--w-s-color-border);
   border-radius: 8px;
-  padding: 1rem 1.4rem;
+  padding: 10px 14px;
   background-color: var(--w-s-color-background);
   color: var(--w-s-color-text-link);
   font-size: var(--w-font-size-m);
@@ -32,7 +32,7 @@ export default css`
 
 .w-button--primary {
   border-width: 0;
-  padding: 1.2rem 1.6rem;
+  padding: 12px 16px;
   background-color: var(--w-color-button-primary-background);
   color: var(--w-s-color-text-inverted);
 }

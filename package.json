@@ -17,6 +17,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "nodemonConfig": {
+    "ext": "js,mjs,cjs,json,ts",
     "ignore": [
       "dist/**"
     ],
@@ -30,10 +31,15 @@
     "esbuild": "^0.20.1",
     "glob": "^10.3.10",
     "nodemon": "^3.1.4",
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "ts-lit-plugin": "^2.0.2",
+    "typescript": "^5.6.2"
   },
   "peerDependencies": {
-    "@lit/react": "^1.0.3",
-    "lit": "^3.2.0"
+    "@lit/react": "^1.0.6",
+    "lit": "^3.2.1"
+  },
+  "dependencies": {
+    "@open-wc/form-control": "^1.0.0"
   }
 }

@@ -1,24 +1,35 @@
 import { LitElement, html } from "lit";
+import { customElement, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { ifDefined } from "lit/directives/if-defined.js";
-import styles from "./radio-styles.js";
-import sharedStyles from "../sharedStyles.js";
+import styles from "./radio-styles.ts";
+import sharedStyles from "../sharedStyles.ts";
 
+@customElement("w-c-radio")
 export class WarpRadio extends LitElement {
+  static styles = [styles, sharedStyles];
+
   constructor() {
     super();
   }
 
-  static styles = [styles, sharedStyles];
+  @property()
+  value = "";
 
-  static properties = {
-    checked: { type: Boolean, reflect: true },
-    disabled: { type: Boolean, reflect: true },
-    invalid: { type: Boolean, reflect: true },
-    required: { type: Boolean, reflect: true },
-    value: { type: String },
-    name: { type: String },
-  };
+  @property({ type: Boolean, reflect: true })
+  checked = false;
+
+  @property({ type: Boolean, reflect: true })
+  disabled = false;
+
+  @property({ type: Boolean, reflect: true })
+  invalid = false;
+
+  @property({ type: Boolean, reflect: true })
+  required = false;
+
+  @property()
+  name = "";
 
   handleChange(event) {
     this.checked = event.target.checked;
@@ -52,6 +63,7 @@ export class WarpRadio extends LitElement {
         ?checked="${this.checked}"
         @input="${this.handleInput}"
         @change="${this.handleChange}"
+        ?required="${this.required}"
         aria-required="${Boolean(this.required)}"
         id="w-c-radio__input"
         class="w-sr-only"

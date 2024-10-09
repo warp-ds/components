@@ -7,22 +7,22 @@ export default css`
 }
 
 .w-icon--small {
-    width: 16px;
-    height: 16px;
+    width: 1.6rem;
+    height: 1.6rem;
 }
 
 .w-icon--medium {
-    width: 24px;
-    height: 24px;
+    width: 2.4rem;
+    height: 2.4rem;
 }
 
 .w-icon--large {
-    width: 32px;
-    height: 32px;
+    width: 3.2rem;
+    height: 3.2rem;
 }
 
 .w-icon--xtralarge {
-    width: 42px;
-    height: 42px;
+    width: 4.2rem;
+    height: 4.2rem;
 }
 `;

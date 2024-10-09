@@ -1,7 +1,7 @@
 import esbuild from "esbuild";
 import { glob } from "glob";
 
-const components = glob.sync("src/**/index.js");
+const components = glob.sync("src/**/index.ts");
 const reactComponents = glob.sync("react/**/index.js");
 
 const esbuildDefaults = {

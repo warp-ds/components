@@ -3,12 +3,21 @@
     <script type="module">
       import "../dist/packages/radio/index.js";
     </script>
-    <link rel="stylesheet" href="https://assets.finn.no/pkg/@warp-ds/fonts/v1/finn-no.css" />
-    <link rel="stylesheet" href="https://assets.finn.no/pkg/@warp-ds/css/v2/tokens/finn-no.css" />
-    <link rel="stylesheet" href="https://assets.finn.no/pkg/@warp-ds/css/v2/resets.css" />
+    <link
+      rel="stylesheet"
+      href="https://assets.finn.no/pkg/@warp-ds/fonts/v1/finn-no.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://assets.finn.no/pkg/@warp-ds/css/v2/tokens/finn-no.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://assets.finn.no/pkg/@warp-ds/css/v2/resets.css"
+    />
     <link rel="stylesheet" href="preview.css" />
     <title>WARP Component Preview - Radio</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="icon" href="https://lit.dev/images/flame-favicon.svg" />
   </head>
   <body>
@@ -20,30 +29,60 @@
       <a href="radio.html" aria-current="page">Radio</a>
     </nav>
     <div class="preview-area preview-area--radio">
-      <form id="valform">
-        <w-c-radio-group id="my-radio-group" optional helpText="Choose the most appropriate option." style="display: block; margin: 32px 0;">
-          <span slot="legend">Radio Group - Slotted Label</span>
-          <w-c-radio value="1" name="radioDemo" checked>Radio 1</w-c-radio>
-          <w-c-radio value="2" name="radioDemo" checked>Radio 2</w-c-radio>
-          <w-c-radio value="3" name="radioDemo">Radio 3</w-c-radio>
-          <w-c-radio value="4" name="radioDemo">Radio 4</w-c-radio>
-          <w-c-radio value="5" name="radioDemo">Radio 5</w-c-radio>
-          <w-c-radio value="6" name="radioDemo">Radio 6</w-c-radio>
-          <w-c-radio value="7" name="radioDemo">Radio 7</w-c-radio>
-          <w-c-radio value="8" name="radioDemo">Radio 8</w-c-radio>
-        </w-c-radio-group>
+      <form id="myform">
+        <fieldset>
+          <legend>Select a maintenance drone:</legend>
+          <div>
+            <input required type="radio" id="huey" name="drone" value="huey"  />
+            <label for="huey">Huey</label>
+          </div>
+          <div>
+            <input type="radio" id="dewey" name="drone" value="dewey"  />
+            <label for="dewey">Dewey</label>
+          </div>
+          <div>
+            <input type="radio" id="louie" name="drone" value="louie" />
+            <label for="louie">Louie</label>
+          </div>
+        </fieldset>
+        <button type="submit">Submit</button>
       </form>
 
-      <w-c-radio-group invalid helpText="Choose the most appropriate option." style="display: block; margin: 32px 0;">
-        <span slot="legend">Radio Group - Slotted Label</span>
-        <w-c-radio value="1" name="radioDemo">Radio 1</w-c-radio>
-        <w-c-radio value="2" name="radioDemo">Radio 2</w-c-radio>
-        <w-c-radio value="3" name="radioDemo">Radio 3</w-c-radio>
-      </w-c-radio-group>
+      <form id="valform">
+        <w-c-radio-group
+          id="my-radio-group"
+          name="radioDemo"
+          value="1"
+          helpText="Choose the most appropriate option."
+          style="display: block; margin: 32px 0"
+        >
+          <span slot="legend">Radio Group - Slotted Label</span>
+          <w-c-radio value="1" required>Radio 1</w-c-radio>
+          <w-c-radio value="2">Radio 2</w-c-radio>
+          <w-c-radio value="3">Radio 3</w-c-radio>
+          <w-c-radio value="4">Radio 4</w-c-radio>
+          <w-c-radio value="5">Radio 5</w-c-radio>
+          <w-c-radio value="6">Radio 6</w-c-radio>
+          <w-c-radio value="7">Radio 7</w-c-radio>
+          <w-c-radio value="8">Radio 8</w-c-radio>
+        </w-c-radio-group>
+        <button type="submit">Submit</button>
+      </form>
 
-      <w-c-radio-group horizontal style="display: block; margin: 32px 0;">
+      <w-c-radio-group
+        invalid
+        helpText="Choose the most appropriate option."
+        style="display: block; margin: 32px 0"
+      >
         <span slot="legend">Radio Group - Slotted Label</span>
         <w-c-radio value="1" >Radio 1</w-c-radio>
+        <w-c-radio value="2" >Radio 2</w-c-radio>
+        <w-c-radio value="3" >Radio 3</w-c-radio>
+      </w-c-radio-group>
+
+      <w-c-radio-group horizontal style="display: block; margin: 32px 0">
+        <span slot="legend">Radio Group - Slotted Label</span>
+        <w-c-radio value="1">Radio 1</w-c-radio>
         <w-c-radio value="2" checked>Radio 2</w-c-radio>
         <w-c-radio value="3" disabled>Radio 3</w-c-radio>
         <w-c-radio value="4" checked disabled>Radio 4</w-c-radio>

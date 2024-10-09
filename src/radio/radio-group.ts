@@ -1,33 +1,59 @@
 import { LitElement, html } from "lit";
+import { customElement, property, queryAssignedElements } from "lit/decorators.js";
+import { FormControlMixin, requiredValidator } from '@open-wc/form-control';
 import { classMap } from "lit/directives/class-map.js";
-import { ifDefined } from "lit/directives/if-defined.js";
-import styles from "./radio-group-styles.js";
+import styles from "./radio-group-styles.ts";
 
-export class WarpRadioGroup extends LitElement {
-  constructor() {
-    super();
-    //this.internals = this.attachInternals();
-    this.value = undefined;
-    this.optionSelected = undefined;
-  }
-
+@customElement("w-c-radio-group")
+export class WarpRadioGroup extends FormControlMixin(LitElement) {
   static styles = [styles];
+  static formControlValidators = [requiredValidator];
 
-  static properties = {
-    disabled: { type: Boolean, reflect: true },
-    invalid: { type: Boolean, reflect: true },
-    optional: { type: Boolean, reflect: true },
-    label: { type: String },
-    helpText: { type: String },
-    horizontal: { type: Boolean },
-    value: { type: String },
-    optionSelected: { type: Number },
-  };
+  @property({ reflect: true })
+  value = "";
+
+  @property({ type: Boolean, reflect: true })
+  optional = false;
+
+  @property({ type: Boolean, reflect: true })
+  disabled = false;
+
+  @property({ type: Boolean, reflect: true })
+  invalid = false;
+
+  @property({ type: Boolean, reflect: true })
+  required = false;
+
+  @property()
+  label = "";
+
+  @property()
+  helpText = "";
+  
+  @property()
+  horizontal = false;
+
+  @property()
+  optionSelected = 0;
+
 
   connectedCallback() {
     super.connectedCallback();
-    this.handleItems();
     this.addEventListener("toggleSelected", this.handleToggleSelected);
+    this.handleItems();
+  }
+
+  updated(changedProperties: Map<string, unknown>): void {
+    if (changedProperties.has('value')) {
+      this.setValue(this.value);
+    }
+  }
+
+  validityCallback(key: keyof ValidityState): boolean {
+    console.log(key);
+    if (key === 'valueMissing') {
+      return 'This is a custom error message for valueMissing errors';
+    }
   }
 
   handleToggleSelected(event) {
@@ -37,6 +63,7 @@ export class WarpRadioGroup extends LitElement {
       if (item === event.target) {
         if (event.target.value) {
           this.value = event.target.value;
+          this.setValue(event.target.value);
         }
       } else {
         const sdInput = item.shadowRoot.querySelector("input");
@@ -61,6 +88,7 @@ export class WarpRadioGroup extends LitElement {
 
   handleItems() {
     this.items = [...this.querySelectorAll(":scope > *:not([slot])")];
+    console.log(`this.value=${this.value}`);
 
     if (this.disabled) {
       this.items.forEach((el) => {
@@ -68,23 +96,19 @@ export class WarpRadioGroup extends LitElement {
       });
     }
 
-    if (this.invalid) {
+    if (this.invalid || this.optionSelected) {
       this.items.forEach((el) => {
-        el.invalid = this.invalid;
+        el.invalid = this.optionSelected ? false : this.invalid;
       });
     }
 
-    if (this.optionSelected) {
-      console.log('all valid now')
+    if (this.value) {
       this.items.forEach((el) => {
-        el.invalid = false;
+        if (el.value === this.value) {
+          el.checked = true;
+        }
       });
     }
-
-    /*this.items.forEach((el) => {
-      el.required = !this.optional;
-      el.invalid = Boolean(this.invalid);
-    });*/
   }
 
   handleSlotChange() {
@@ -102,6 +126,7 @@ export class WarpRadioGroup extends LitElement {
     const helpTextClasses = classMap({
       "w-radio-group__help-text--invalid": this.invalid,
     });
+    console.log(this.validationTarget);
 
     return html`<fieldset
       part="fieldset"

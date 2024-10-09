@@ -1,7 +1,7 @@
 import { LitElement, html } from "lit";
 import { classMap } from "lit/directives/class-map.js";
 import styles from "./radio-group-styles.js";
-import { FormControlMixin, requiredValidator } from '@open-wc/form-control'
+import { FormControlMixin, requiredValidator } from '@open-wc/form-control';
 
 export class WarpRadioGroup extends FormControlMixin(LitElement) {
   static formControlValidators = [requiredValidator];
@@ -34,25 +34,36 @@ export class WarpRadioGroup extends FormControlMixin(LitElement) {
   connectedCallback() {
     super.connectedCallback();
     this.handleItems();
-        
-    document.addEventListener('invalid', (function(){
-      return function(e) {
-        //prevent the browser from showing default error bubble / hint
-        e.preventDefault();
-      };
-    })(), true);
+
+    // Prevent the default browser validation bubble from appearing
+    document.addEventListener('invalid', (e) => {
+      e.preventDefault();
+    }, true);
   }
 
+  // Method to propagate the invalid state to each radio
+  propagateInvalidState() {
+    if (this.invalid) {
+      this.items?.forEach((item) => {
+        item.invalid = true; // Only set invalid to true on child radios
+      });
+    } else {
+      this.items?.forEach((item) => {
+        item.invalid = false; // Clear the invalid state when group is valid
+      });
+    }
+  }
 
   validationMessageCallback(message) {
-    if (!this.validity.valid && this.validity.valueMissing) {
-      this.invalid = true;
-    }
-    if (this.invalid) {
-      this.validationMessage = message;
+    if (this.required && !this.value) {
+      this.invalid = true;  // Set invalid if no selection is made
+      this.validationMessage = message || 'Please select an option.';
     } else {
-      return '';
+      this.invalid = false; // Clear invalid if a valid selection is made
+      this.validationMessage = '';  // Clear validation message
     }
+    
+    this.propagateInvalidState();  // Update the invalid state for the child radios
   }
 
   updated(changedProperties) {
@@ -87,7 +98,6 @@ export class WarpRadioGroup extends FormControlMixin(LitElement) {
     }
 
     this.optionSelected = this.index;
-    console.log("handleToggleSelected", this.index);
   }
 
   handleItems() {
@@ -102,11 +112,8 @@ export class WarpRadioGroup extends FormControlMixin(LitElement) {
       });
     }
 
-    if (this.invalid || this.optionSelected) {
-      this.items.forEach((el) => {
-        el.invalid = this.optionSelected ? false : this.invalid;
-      });
-    }
+    // // Pass invalid state to individual radios
+    this.propagateInvalidState();
 
     this.items.forEach((el) => {
       el.required = this.required;
@@ -156,7 +163,7 @@ export class WarpRadioGroup extends FormControlMixin(LitElement) {
         <slot @slotchange=${this.handleSlotChange}></slot>
       </div>
       <div id="help-text" class="w-radio-group__help-text ${helpTextClasses}">
-        <slot name="help-text">${ this.invalid && this.validationMessage ? this.validationMessage :  this.helpText}</slot>
+        <slot name="help-text">${this.invalid ? this.validationMessage : this.helpText}</slot>
       </div>
     </fieldset>`;
   }

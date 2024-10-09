@@ -103,9 +103,6 @@ export class WarpRadioGroup extends FormControlMixin(LitElement) {
   handleItems() {
     this.items = [...this.querySelectorAll(":scope > *:not([slot])")];
 
-    const duplicateSelectedItems = this.items.filter((el) => el.checked).slice(0,-1);
-    duplicateSelectedItems.forEach((el) => el.checked = false);
-
     if (this.disabled) {
       this.items.forEach((el) => {
         el.disabled = this.disabled;
@@ -117,6 +114,7 @@ export class WarpRadioGroup extends FormControlMixin(LitElement) {
 
     this.items.forEach((el) => {
       el.required = this.required;
+      el.checked = el.value === this.value;
     });
   }
 

@@ -36,7 +36,7 @@ export class WarpRadioGroup extends FormControlMixin(LitElement) {
     this.handleItems();
 
     // Prevent the default browser validation bubble from appearing
-    document.addEventListener('invalid', (e) => {
+    this.addEventListener('invalid', (e) => {
       e.preventDefault();
     }, true);
   }

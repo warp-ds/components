@@ -13,22 +13,57 @@ export class WarpCheckboxGroup extends LitElement {
     invalid: { type: Boolean, reflect: true },
     horizontal: { type: Boolean },
     value: { type: Array },
-    _hasLabel: { state: true, type: Boolean },
+    invalidMessage: { type: String },
+    required: { type: Boolean, reflect: true },
     parented: { type: Boolean, reflect: true },
+    _hasLabel: { state: true, type: Boolean },
     _hasHelp: { state: true, type: Boolean },
     _indeterminate: { state: false, type: Boolean },
   };
 
   static styles = [styles, sharedStyles];
 
+  static formAssociated = true;
+
+  static shadowRootOptions = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: true,
+  };
+
+  setFormValue = (value) => {
+    this._internals.setFormValue(value);
+    this._manageRequired();
+  };
+
+  _manageRequired() {
+    if (this.required && !this.value?.length) {
+      this._internals.setValidity(
+        { valueMissing: true },
+        'This checkbox-group is required'
+      );
+    } else {
+      this._internals.setValidity({});
+      this.invalid = false;
+    }
+  }
+
   constructor() {
     super();
+    this._internals = this.attachInternals();
   }
 
   connectedCallback() {
     super.connectedCallback();
     this._hasLabel = !!this.label;
     this._hasHelp = !!this.help;
+    this._internals.ariaRequired = this.required || null;
+    this.addEventListener('invalid', (e) => {
+      this.invalid = true;
+    });
+  }
+
+  firstUpdated(_) {
+    this.setFormValue();
   }
 
   get _wrapperClasses() {
@@ -67,6 +102,8 @@ export class WarpCheckboxGroup extends LitElement {
       }
       return selectedValues;
     }, []);
+
+    this.setFormValue(this.value);
 
     if (this.parented) {
       this.setParentState(children);
@@ -113,6 +150,8 @@ export class WarpCheckboxGroup extends LitElement {
         this.emitChange(item.value, checked);
       }
     });
+
+    this.setFormValue(this.value);
   }
 
   handleChildCheckboxChange(e) {
@@ -121,8 +160,10 @@ export class WarpCheckboxGroup extends LitElement {
 
     if (e.detail.checked) {
       if (currentValueIndex === -1) this.value.push(e.detail.value);
+      this.setFormValue(this.value);
     } else if (currentValueIndex > -1) {
       this.value.splice(currentValueIndex, 1);
+      this.setFormValue(this.value);
     }
 
     if (this.parented) {
@@ -164,6 +205,9 @@ export class WarpCheckboxGroup extends LitElement {
       </div>
       <p class="w-checkbox-group__help">
         <slot name="help" @slotchange="${this.handleHelpSlotChange}">${ this.help }</slot>
+      </p>
+      <p class="w-checkbox-group__invalid-message">
+        <slot name="invalid-message">${ this.invalidMessage }</slot>
       </p>
     </fieldset>`;
   }

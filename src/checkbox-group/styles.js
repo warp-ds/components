@@ -4,6 +4,9 @@ export default css`
   * {
     box-sizing: border-box;
   }
+  :host {
+    display: block;
+  }
   fieldset {
     all: unset;
     display: block;
@@ -15,7 +18,7 @@ export default css`
     line-height: var(--w-line-height-s);
     font-weight: 700;
   }
-  .w-checkbox-group--invalid {
+  .w-checkbox-group--disabled {
     cursor: not-allowed;
     pointer-events: none;
   }
@@ -44,14 +47,19 @@ export default css`
   ::slotted(w-c-checkbox-group[parented]) {
     padding-left: 0;
   }
-  .w-checkbox-group__help {
+  .w-checkbox-group__invalid-message {
+    color: var(--w-s-color-text-negative);
+  }
+  .w-checkbox-group__help,
+  .w-checkbox-group__invalid-message {
     display: none;
     margin-top: 16px;
     font-size: var(--w-font-size-s);
     line-height: var(--w-line-height-s);
   }
   .w-checkbox-group--labelled label,
-  .w-checkbox-group--help .w-checkbox-group__help {
+  .w-checkbox-group--help:not(.w-checkbox-group--invalid) .w-checkbox-group__help,
+  .w-checkbox-group--invalid .w-checkbox-group__invalid-message {
     display: block;
   }
 `;

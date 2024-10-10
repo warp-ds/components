@@ -4,6 +4,14 @@ export default css`
 *,:before {
   box-sizing: border-box;
 }
+:host {
+  position: relative;
+  display: block;
+}  
+input {
+  bottom: 0;
+  left: 10px;
+}
 label {
   display: inline-block;
   position: relative;
@@ -44,7 +52,7 @@ input:focus-visible + label::before {
 input:not(:focus-visible):focus + label::before {
   outline: none;
 }
-input:not(:disabled) + label:hover::before {
+input:enabled + label:hover::before {
   border-color: var(--w-s-color-border-primary);
   background-color: var(--w-s-color-background-hover);
 }
@@ -52,12 +60,12 @@ input:checked + label::before {
   background-position: center;
   background-image: var(--w-icon-toggle-checked);
 }
-input:checked:not(:disabled) + label::before,
-input:indeterminate:not(:disabled) + label::before {
+input:checked:enabled + label::before,
+input:indeterminate:enabled + label::before {
   border-color: var(--w-s-color-border-primary);
   background-color: var(--w-s-color-background-primary);
 }
-input:checked:not(:disabled) + label:hover::before {
+input:checked:enabled + label:hover::before {
   border-color: var(--w-s-color-border-primary-hover);
   background-color: var(--w-s-color-background-primary-hover);
 }
@@ -72,26 +80,36 @@ input:indeterminate + label::before {
   font-weight: 700;
   line-height: 1.8rem;
 }
-input:indeterminate:not(:disabled) + label:hover::before {
+input:indeterminate:enabled + label:hover::before {
   border-color: var(--w-s-color-border-primary-hover);
   background-color: var(--w-s-color-background-primary-hover);
 }
-.w-checkbox--invalid input:not(:disabled) + label::before {
+.w-checkbox--invalid input:enabled + label::before {
   border-color: var(--w-s-color-border-negative);
   background-color: var(--w-s-color-background);
 }
-.w-checkbox--invalid input:not(:disabled) + label:hover::before {
+.w-checkbox--invalid input:enabled + label:hover::before {
   border-color: var(--w-s-color-border-negative-hover);
   background-color: var(--w-s-color-background-negative-subtle-hover);
 }
-.w-checkbox--invalid input:indeterminate:not(:disabled) + label::before,
-.w-checkbox--invalid input:checked:not(:disabled) + label::before {
+.w-checkbox--invalid input:indeterminate:enabled + label::before,
+.w-checkbox--invalid input:checked:enabled + label::before {
   border-color: var(--w-s-color-border-negative);
   background-color: var(--w-s-color-background-negative);
 }
-.w-checkbox--invalid input:checked:not(:disabled) + label:hover::before,
-.w-checkbox--invalid input:indeterminate:not(:disabled) + label:hover::before {
+.w-checkbox--invalid input:checked:enabled + label:hover::before,
+.w-checkbox--invalid input:indeterminate:enabled + label:hover::before {
   border-color: var(--w-s-color-border-negative-hover);
   background-color: var(--w-s-color-background-negative-hover);
+}
+
+.w-checkbox__help,
+.w-checkbox__invalid-message
+{
+  font-size: var(--w-font-size-s);
+  line-height: var(--w-line-height-s);
+}
+.w-checkbox__invalid-message {
+  color: var(--w-s-color-text-negative);
 }
 `;

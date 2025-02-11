@@ -1,29 +1,33 @@
 {
-  "name": "@warp-ds/components",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "type": "module",
-  "exports": {
-    "./*": "./dist/packages/*/index.js",
-    "./react/*": "./dist/react/*/index.js"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -rf dist && mkdir dist && node build.js",
-    "start": "web-dev-server --open / --node-resolve",
-    "start:watch": "web-dev-server --open / --node-resolve --watch"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@web/dev-server": "^0.4.3",
-    "esbuild": "^0.20.1",
-    "glob": "^10.3.10"
-  },
-  "peerDependencies": {
-    "@lit/react": "^1.0.3",
-    "lit": "^3.1.2"
-  }
+	"name": "@warp-ds/components",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"type": "module",
+	"exports": {
+		"./*": "./dist/packages/*/index.js",
+		"./react/*": "./dist/react/*/index.js"
+	},
+	"scripts": {
+		"build": "rm -rf dist && mkdir dist && node build.js",
+		"check": "pnpm biome check --write .",
+		"format": "pnpm biome format --write .",
+		"lint": "pnpm biome lint --write .",
+		"start:watch": "web-dev-server --open / --node-resolve --watch",
+		"start": "web-dev-server --open / --node-resolve",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"@web/dev-server": "^0.4.3",
+		"esbuild": "^0.20.1",
+		"glob": "^10.3.10"
+	},
+	"peerDependencies": {
+		"@lit/react": "^1.0.3",
+		"lit": "^3.1.2"
+	}
 }

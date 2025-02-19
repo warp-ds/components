@@ -1,0 +1,101 @@
+/* === Day Cell === */
+.w-datepicker__day {
+	--_day-color: var(--day-color, var(--w-s-color-text));
+	--_day-background: var(--day-background, var(--w-s-color-background));
+	--_day-width: var(--day-width, 40px);
+	--_day-height: var(--day-height, 40px);
+	--_day-padding: var(--day-padding, 0px);
+	--_day-font-weight: var(--day-font-weight, normal);
+	--_day-border-radius: var(--day-border-radius, 50%);
+
+	--_day-in-range-background: var(
+		--day-in-range-background,
+		var(--w-s-color-background-primary-subtle-active)
+	);
+
+	text-align: center;
+	cursor: pointer;
+	transition: background 0.2s ease-in-out;
+	outline: none;
+	position: relative;
+
+	color: var(--_day-color);
+	background-color: var(--_day-background);
+	width: var(--_day-width);
+	height: var(--_day-height);
+	padding: var(--_day-padding);
+	font-weight: var(--_font-weight);
+	border-radius: var(--_day-border-radius);
+}
+
+.w-datepicker__day:hover {
+	--day-background: var(--w-s-color-background-selected);
+	--day-border-radius: 50%;
+}
+
+.w-datepicker__day:focus {
+	text-decoration: none;
+	--day-background: var(--w-s-color-background-selected);
+}
+
+.w-datepicker__day--start:before,
+.w-datepicker__day--end:before {
+	content: "";
+	position: absolute;
+	display: block;
+	height: 100%;
+	top: 0;
+	z-index: -10;
+
+	background-color: var(--_day-in-range-background);
+	width: calc(var(--day-width) / 2);
+}
+
+.w-datepicker__day--start:before {
+	left: calc(var(--day-width) / 2);
+}
+
+.w-datepicker__day--end:before {
+	left: 0;
+}
+
+/* === Day variants === */
+.w-datepicker__day--today {
+	--day-color: var(--w-s-color-text-link);
+	--day-font-weight: bold;
+}
+
+.w-datepicker__day--selected {
+	--day-background: var(--w-s-color-background-primary);
+	--day-color: var(--w-s-color-text-inverted);
+}
+.w-datepicker__day--selected:hover,
+.w-datepicker__day--selected:focus {
+	--day-background: var(--w-s-color-background-primary-hover);
+}
+
+.w-datepicker__day--in-range {
+	--day-background: var(--_day-in-range-background);
+	--day-color: var(--w-s-text);
+	--day-border-radius: 0;
+}
+.w-datepicker__day--in-range:hover,
+.w-datepicker__day--in-range:focus {
+	--day-background: var(--w-s-color-background-primary-hover);
+	--day-border-radius: 0;
+	--day-color: var(--w-s-color-text-inverted);
+}
+/*
+.w-datepicker__day--booked {
+  --day-background: var(--w-s-color-background-negative-subtle-active);
+  overflow:hidden;
+  color: var(--w-negative-dark, #cc0000);
+}
+*/
+
+.w-datepicker__day--disabled,
+.w-datepicker__day--disabled:hover {
+	--day-color: var(--w-s-color-text-disabled);
+	cursor: not-allowed;
+	pointer-events: none;
+}

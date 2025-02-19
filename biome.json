@@ -24,6 +24,9 @@
 				"noForEach": "off",
 				"noThisInStatic": "off",
 				"noStaticOnlyClass": "off"
+			},
+			"style": {
+				"noUselessElse": "off"
 			}
 		}
 	},

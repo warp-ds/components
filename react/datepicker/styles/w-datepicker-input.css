@@ -1,0 +1,37 @@
+/* === Inputs Wrapper === */
+.w-datepicker__inputs {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+/* === Individual Input Fields === */
+.w-datepicker__input {
+	width: 100%;
+	padding: 10px;
+	font-size: 1rem;
+	border: 1px solid var(--w-border, #ccc);
+	border-radius: 4px;
+	outline: none;
+	transition: border-color 0.2s ease-in-out;
+}
+
+/* === Focused Input === */
+.w-datepicker__input--focused {
+	border-color: var(--w-primary, #007bff);
+	box-shadow: 0 0 4px rgba(0, 123, 255, 0.4);
+}
+
+/* === Invalid Input === */
+.w-datepicker__input--invalid {
+	border-color: var(--w-error, #dc3545);
+	background-color: var(--w-error-light, #f8d7da);
+	color: var(--w-error-dark, #721c24);
+}
+
+/* === Disabled Input === */
+.w-datepicker__input--disabled {
+	background: var(--w-disabled-bg, #f5f5f5);
+	color: var(--w-disabled-text, #aaa);
+	cursor: not-allowed;
+}

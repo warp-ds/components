@@ -1,5 +1,4 @@
-import React from "react";
-
+// @ts-ignore
 import style from "inline:./styles/w-datepicker-nav.css";
 
 import IconChevronLeft16 from "@warp-ds/icons/react/chevron-left-16";
@@ -20,6 +19,7 @@ export const DatePickerNavigation = ({
 				{style}
 			</style>
 			<div className="w-datepicker__navigation">
+				{/* @ts-ignore */}
 				<Button
 					small
 					pill
@@ -29,6 +29,7 @@ export const DatePickerNavigation = ({
 				>
 					<IconChevronLeft16 />
 				</Button>
+				{/* @ts-ignore */}
 				<Button
 					small
 					pill

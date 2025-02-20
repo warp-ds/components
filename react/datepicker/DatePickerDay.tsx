@@ -1,5 +1,5 @@
 import { type KeyboardEvent, type MouseEvent, useContext } from "react";
-
+// @ts-ignore
 import style from "inline:./styles/w-datepicker-day.css";
 import {
 	format,

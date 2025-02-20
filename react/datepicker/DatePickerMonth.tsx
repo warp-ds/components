@@ -1,4 +1,5 @@
-import React, { useContext, useMemo } from "react";
+import { useContext, useMemo } from "react";
+// @ts-ignore
 import style from "inline:./styles/w-datepicker-month.css";
 import {
 	type Locale,

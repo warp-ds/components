@@ -1,6 +1,8 @@
 import {
 	type Dispatch,
 	type KeyboardEvent,
+	ReactElement,
+	ReactNode,
 	type RefObject,
 	type SetStateAction,
 	useContext,
@@ -26,7 +28,7 @@ import {
 	subMonths,
 } from "date-fns";
 import type { Locale } from "date-fns";
-
+// @ts-ignore
 import style from "inline:./styles/w-datepicker-calendar.css";
 import type { DatePickerCalendarProps } from "./DatePickerCalendarProps.js";
 import { DatePickerContext, IDLE } from "./DatePickerContext.js";
@@ -112,8 +114,8 @@ export const DatePickerCalendar = ({
 
 type useNavigationDateProps = {
 	initialDate?: Date | null;
-	calendarRef: RefObject<any>;
-	navigationDayRef: RefObject<any>;
+	calendarRef: RefObject<HTMLDivElement>;
+	navigationDayRef: RefObject<HTMLDivElement>;
 	locale: Locale;
 };
 

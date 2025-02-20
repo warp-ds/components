@@ -1,5 +1,5 @@
 import React, { useContext, useMemo } from "react";
-import "./styles/w-datepicker-month.css";
+import style from "inline:./styles/w-datepicker-month.css";
 import {
 	type Locale,
 	differenceInCalendarDays,
@@ -41,41 +41,46 @@ export const DatePickerMonth = ({
 	}
 
 	return (
-		<div className="w-datepicker__month">
-			<div className="w-datepicker__month__nav">
-				{/* move prev month button here and give it .w-datepicker__month__nav__button as a class*/}
-				<div className="w-datepicker__month__nav__header">
-					{format(month, monthFormat, { locale })}
+		<>
+			<style href="DatePickerMonth" precedence="medium">
+				{style}
+			</style>
+			<div className="w-datepicker__month">
+				<div className="w-datepicker__month__nav">
+					{/* move prev month button here and give it .w-datepicker__month__nav__button as a class*/}
+					<div className="w-datepicker__month__nav__header">
+						{format(month, monthFormat, { locale })}
+					</div>
+					{/* move next month button here and give it .w-datepicker__month__nav__button as a class*/}
 				</div>
-				{/* move next month button here and give it .w-datepicker__month__nav__button as a class*/}
-			</div>
 
-			<table className="w-datepicker__table" role="grid">
-				<thead className="w-datepicker__weekdays" aria-hidden="true">
-					<tr>
-						{weeks[0].map((day, i) => (
-							<th className="w-datepicker__weekday" key={i}>
-								{format(day, weekDayFormat, { locale })}
-							</th>
-						))}
-					</tr>
-				</thead>
-				<tbody>
-					{weeks.map((week, i) => (
-						<tr key={i}>
-							{week.map((day, i) => (
-								<DatePickerDay
-									key={i}
-									day={day}
-									month={month}
-									navigationDate={navigationDate}
-								/>
+				<table className="w-datepicker__table">
+					<thead className="w-datepicker__weekdays" aria-hidden="true">
+						<tr>
+							{weeks[0].map((day) => (
+								<th className="w-datepicker__weekday" key={day.toString()}>
+									{format(day, weekDayFormat, { locale })}
+								</th>
 							))}
 						</tr>
-					))}
-				</tbody>
-			</table>
-		</div>
+					</thead>
+					<tbody>
+						{weeks.map((week) => (
+							<tr key={week[0].toString()}>
+								{week.map((day) => (
+									<DatePickerDay
+										key={day.toString()}
+										day={day}
+										month={month}
+										navigationDate={navigationDate}
+									/>
+								))}
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
+		</>
 	);
 };
 

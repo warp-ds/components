@@ -1,4 +1,5 @@
 import esbuild from "esbuild";
+import inlineImportPlugin from "esbuild-plugin-inline-import";
 import { glob } from "glob";
 
 const components = glob.sync("src/**/index.ts");
@@ -10,6 +11,10 @@ const esbuildDefaults = {
 	sourcemap: true,
 	target: "es2020",
 	minify: false,
+	plugins: [
+		// Always include this plugin before others
+		inlineImportPlugin(),
+	],
 	//external: ["lit", "@warp-ds/elements-core"],
 };
 

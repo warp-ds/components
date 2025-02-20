@@ -27,11 +27,11 @@ import {
 } from "date-fns";
 import type { Locale } from "date-fns";
 
+import style from "inline:./styles/w-datepicker-calendar.css";
 import type { DatePickerCalendarProps } from "./DatePickerCalendarProps.js";
 import { DatePickerContext, IDLE } from "./DatePickerContext.js";
 import { DatePickerMonth } from "./DatePickerMonth.js";
 import { DatePickerNavigation } from "./DatePickerNavigation.js";
-import { style } from "./DatePickerCalendarStyle.tsx";
 
 /**
  * DatePickerCalendar

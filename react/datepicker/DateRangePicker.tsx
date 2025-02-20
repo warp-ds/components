@@ -12,7 +12,6 @@ import {
 	INTERACTING_START_DATE,
 } from "./DatePickerContext.js";
 import type { DatePickerState, Event } from "./DatePickerContextProps.js";
-import { getBookedDatesAndBetween, getDatesBetween } from "./DatePickerDay.js";
 import type {
 	DateRangePickerProps,
 	DaySelectProps,
@@ -42,7 +41,7 @@ export const DateRangePicker = ({
 }: DateRangePickerProps) => {
 	const startInputRef = useRef(null);
 	const endInputRef = useRef(null);
-	const popoverRef = useRef();
+	const popoverRef = useRef(null);
 	const navigationDayRef = useRef<HTMLTableCellElement>(null);
 
 	const [state, dispatch] = useEffectReducer(
@@ -212,7 +211,6 @@ function useDatePickerReducer({
 
 function onDaySelect({
 	startDate,
-	bookedDates,
 	endDate,
 	state,
 	day,
@@ -234,24 +232,6 @@ function onDaySelect({
 
 		if (isStartDateAfterEndDate) {
 			endDate = null;
-		} else {
-			if (endDate && bookedDates) {
-				const bookedDatesBetween = getBookedDatesAndBetween(bookedDates);
-				const datesBetween = getDatesBetween(day, endDate);
-				let dateBetweenIsBooked = false;
-
-				for (const date of datesBetween) {
-					if (dateBetweenIsBooked) break;
-					dateBetweenIsBooked = !!bookedDatesBetween.find(
-						(item) => item.toDateString() === date.toDateString(),
-					);
-				}
-
-				if (dateBetweenIsBooked) {
-					startDate = day;
-					endDate = null;
-				}
-			}
 		}
 
 		effect(() => {
@@ -270,25 +250,6 @@ function onDaySelect({
 			return INTERACTING_START_DATE;
 		} else if (utils.isInclusivelyAfterDay(day, firstAllowedEndDate)) {
 			endDate = day;
-
-			// if day in between selected start and end date is booked, set end date to null and start date to new date
-			if (bookedDates) {
-				const bookedDatesBetween = getBookedDatesAndBetween(bookedDates);
-				const datesBetween = getDatesBetween(startDate, day);
-				let dateBetweenIsBooked = false;
-
-				for (const date of datesBetween) {
-					if (dateBetweenIsBooked) break;
-					dateBetweenIsBooked = !!bookedDatesBetween.find(
-						(item) => item.toDateString() === date.toDateString(),
-					);
-				}
-
-				if (dateBetweenIsBooked) {
-					startDate = day;
-					endDate = null;
-				}
-			}
 
 			effect(() => onChange({ startDate, endDate }));
 			// If we selected the date using a keyboard we move focus back to the input when closing it

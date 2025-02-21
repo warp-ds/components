@@ -6,7 +6,6 @@ import inlinePlugin from "./plugin/inline-vite";
 export default defineConfig({
 	plugins: [
 		React(),
-		// @ts-ignore
 		inlinePlugin(),
 	],
 });

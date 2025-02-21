@@ -1,7 +1,14 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
+import type { PluginOption } from 'vite';
 
-export default function inlinePlugin(options = {}) {
+interface InlinePluginOptions {
+	filter?: RegExp;
+	namespace?: string;
+	transform?: (contents: string, context: { path: string }) => Promise<string>;
+}
+
+export default function inlinePlugin(options: InlinePluginOptions = {}): PluginOption {
 	const {
 		// Match imports starting with "inline:" by default.
 		filter = /^inline:/,
@@ -12,7 +19,7 @@ export default function inlinePlugin(options = {}) {
 	} = options;
 
 	// We'll capture alias information from the resolved Vite config.
-	let aliases = [];
+	let aliases: { find: string | RegExp; replacement: string }[] = [];
 
 	return {
 		name: "vite-inline-plugin",

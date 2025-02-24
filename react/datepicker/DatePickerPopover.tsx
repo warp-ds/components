@@ -24,6 +24,7 @@ export const DatePickerPopover = ({ children }: DatePickerPopoverProps) => {
 	return (
 		<Attention
 			popover
+			canClose
 			placement="bottom"
 			noArrow={isDateRangePicker}
 			flip={true}

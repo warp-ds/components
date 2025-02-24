@@ -1,12 +1,8 @@
 import {
-	type Dispatch,
 	type KeyboardEvent,
-	ReactElement,
-	ReactNode,
-	type RefObject,
-	type SetStateAction,
 	useContext,
 	useEffect,
+	useLayoutEffect,
 	useRef,
 	useState,
 } from "react";
@@ -27,7 +23,6 @@ import {
 	subDays,
 	subMonths,
 } from "date-fns";
-import type { Locale } from "date-fns";
 // @ts-ignore
 import style from "inline:./styles/w-datepicker-calendar.css";
 import type { DatePickerCalendarProps } from "./DatePickerCalendarProps.js";
@@ -44,8 +39,6 @@ export const DatePickerCalendar = ({
 	numberOfMonths = 1,
 	...props
 }: DatePickerCalendarProps) => {
-	const ref = useRef<HTMLDivElement>(null);
-
 	const {
 		locale,
 		startDate,
@@ -55,18 +48,66 @@ export const DatePickerCalendar = ({
 		phrases,
 	} = useContext(DatePickerContext);
 
-	const { navigationDate, setNavigationDate } = useNavigationDate({
-		initialDate: startDate,
-		calendarRef: ref,
-		locale,
-		navigationDayRef,
-	});
+	const [navigationDate, setNavigationDate] = useState(
+		// Must use startOfToday() instead of just new Date() here,
+		// otherwise todays date will be the only date in the calendar that doesn' start at 00:00:00
+		startDate ?? startOfToday(),
+	);
 
 	const months = useWindowingMonths(navigationDate, numberOfMonths);
 
 	// We know we are rendered inline (not in a popover) if calendar component
 	// is rendered while "idle"
 	const isInlineCalendar = datepickerState === IDLE;
+
+	/**
+	 * Keyboard navigation for the calendar
+	 * Arrow keys for horizontal/vertical movement.
+	 * Home/End to move to start/end of week.
+	 * PageUp/PageDown to move to next/prev month.
+	 */
+	const keyHandler = (event: KeyboardEvent) => {
+		let newDate: Date;
+		// eslint-disable-next-line default-case
+		switch (event.key) {
+			case "ArrowUp":
+				newDate = subDays(navigationDate, 7);
+				break;
+			case "ArrowLeft":
+				newDate = subDays(navigationDate, 1);
+				break;
+			case "Home":
+				newDate = startOfWeek(navigationDate, { locale });
+				break;
+			case "PageUp":
+				newDate = subMonths(navigationDate, 1);
+				break;
+			case "ArrowDown":
+				newDate = addDays(navigationDate, 7);
+				break;
+			case "ArrowRight":
+				newDate = addDays(navigationDate, 1);
+				break;
+			case "End":
+				newDate = endOfWeek(navigationDate, { locale });
+				break;
+			case "PageDown":
+				newDate = addMonths(navigationDate, 1);
+				break;
+		}
+
+		if (newDate) {
+			// prevent scrolling
+			event.preventDefault();
+			setNavigationDate(newDate);
+		}
+	};
+
+	useLayoutEffect(() => {
+		if (navigationDayRef.current) {
+		  navigationDayRef.current.focus();
+		}
+	  }, [navigationDayRef.current]);
 
 	return (
 		<>
@@ -83,7 +124,7 @@ export const DatePickerCalendar = ({
 				)}
 				aria-roledescription={phrases.roleDescription}
 				role={isInlineCalendar ? "region" : "dialog"}
-				ref={ref}
+				onKeyUp={keyHandler}
 				{...props}
 			>
 				<DatePickerNavigation
@@ -104,93 +145,6 @@ export const DatePickerCalendar = ({
 		</>
 	);
 };
-
-/**
- * Keyboard navigation for the calendar
- * Arrow keys for horizontal/vertical movement.
- * Home/End to move to start/end of week.
- * PageUp/PageDown to move to next/prev month.
- */
-
-type useNavigationDateProps = {
-	initialDate?: Date | null;
-	calendarRef: RefObject<HTMLDivElement>;
-	navigationDayRef: RefObject<HTMLDivElement>;
-	locale: Locale;
-};
-
-function useNavigationDate({
-	initialDate,
-	calendarRef,
-	navigationDayRef,
-	locale,
-}: useNavigationDateProps): {
-	navigationDate: Date;
-	setNavigationDate: Dispatch<SetStateAction<Date>>;
-} {
-	const [navigationDate, setNavigationDate] = useState(
-		// Must use startOfToday() instead of just new Date() here,
-		// otherwise todays date will be the only date in the calendar that doesn' start at 00:00:00
-		initialDate ?? startOfToday(),
-	);
-
-	const shouldFocusNavigationDate = useRef(false);
-
-	useEffect(() => {
-		const keyHandler = (event: KeyboardEvent) => {
-			let newDate: Date;
-			// eslint-disable-next-line default-case
-			switch (event.key) {
-				case "ArrowUp":
-					newDate = subDays(navigationDate, 7);
-					break;
-				case "ArrowLeft":
-					newDate = subDays(navigationDate, 1);
-					break;
-				case "Home":
-					newDate = startOfWeek(navigationDate, { locale });
-					break;
-				case "PageUp":
-					newDate = subMonths(navigationDate, 1);
-					break;
-				case "ArrowDown":
-					newDate = addDays(navigationDate, 7);
-					break;
-				case "ArrowRight":
-					newDate = addDays(navigationDate, 1);
-					break;
-				case "End":
-					newDate = endOfWeek(navigationDate, { locale });
-					break;
-				case "PageDown":
-					newDate = addMonths(navigationDate, 1);
-					break;
-			}
-			if (newDate) {
-				// prevent scrolling
-				event.preventDefault();
-				setNavigationDate(newDate);
-				shouldFocusNavigationDate.current = true;
-			}
-		};
-
-		const calendarEl = calendarRef.current;
-
-		calendarEl.addEventListener("keydown", keyHandler);
-
-		return () => calendarEl.removeEventListener("keydown", keyHandler);
-	}, [calendarRef, locale, navigationDate]);
-
-	// Focus the navigation date whenever we changed it with our keyboard shortcuts
-	useEffect(() => {
-		if (shouldFocusNavigationDate.current) {
-			navigationDayRef.current.focus();
-		}
-		shouldFocusNavigationDate.current = false;
-	}, [navigationDayRef]);
-
-	return { navigationDate, setNavigationDate };
-}
 
 //  TODO: Memoize? Recalculate on numberOfMonths change
 function useWindowingMonths(

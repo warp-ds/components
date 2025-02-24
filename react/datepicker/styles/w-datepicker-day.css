@@ -15,7 +15,6 @@
 
 	text-align: center;
 	cursor: pointer;
-	transition: background 0.2s ease-in-out;
 	outline: none;
 	position: relative;
 
@@ -29,7 +28,7 @@
 }
 
 .w-datepicker__day:hover {
-	--day-background: var(--w-s-color-background-selected);
+	--day-background: var(--w-s-color-background-hover);
 	--day-border-radius: 50%;
 }
 
@@ -39,7 +38,9 @@
 }
 
 .w-datepicker__day--start:before,
-.w-datepicker__day--end:before {
+.w-datepicker__day--end:before,
+td:last-child.w-datepicker__day--in-range:before,
+td:first-child.w-datepicker__day--in-range:before {
 	content: "";
 	position: absolute;
 	display: block;
@@ -49,6 +50,19 @@
 
 	background-color: var(--_day-in-range-background);
 	width: calc(var(--day-width) / 2);
+}
+
+.w-datepicker__day--start:before,
+td:last-child.w-datepicker__day--in-range:before
+{
+  left: calc(var(--day-width) / 2);
+  width: calc(var(--day-width) /2 + 16px);
+}
+
+.w-datepicker__day--end:before,
+td:first-child.w-datepicker__day--in-range:before{
+  left: -16px;
+  width: calc(var(--day-width) /2 + 16px);
 }
 
 .w-datepicker__day--start:before {

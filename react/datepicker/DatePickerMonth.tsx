@@ -59,7 +59,7 @@ export const DatePickerMonth = ({
 					<thead className="w-datepicker__weekdays" aria-hidden="true">
 						<tr>
 							{weeks[0].map((day) => (
-								<th className="w-datepicker__weekday" key={day.toString()}>
+								<th className="w-datepicker__weekday" key={day.toISOString()}>
 									{format(day, weekDayFormat, { locale })}
 								</th>
 							))}
@@ -70,7 +70,7 @@ export const DatePickerMonth = ({
 							<tr key={week[0].toString()}>
 								{week.map((day) => (
 									<DatePickerDay
-										key={day.toString()}
+										key={day.toISOString()}
 										day={day}
 										month={month}
 										navigationDate={navigationDate}

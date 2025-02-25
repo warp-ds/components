@@ -18,6 +18,7 @@ export const DatePickerPopover = ({ children }: DatePickerPopoverProps) => {
 		datepickerId,
 		startInputRef,
 		isDateRange: isDateRangePicker,
+		dispatch,
 		state: datepickerState,
 	} = useContext(DatePickerContext);
 
@@ -32,6 +33,11 @@ export const DatePickerPopover = ({ children }: DatePickerPopoverProps) => {
 			id={datepickerId}
 			isShowing={datepickerState !== IDLE}
 			targetEl={startInputRef}
+			onDismiss={() =>
+				dispatch({
+					type: "BLUR",
+				})
+			}
 		>
 			{children}
 		</Attention>

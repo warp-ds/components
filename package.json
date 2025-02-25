@@ -17,7 +17,7 @@
 		"start": "web-dev-server --open / --node-resolve",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"storybook:react": "storybook dev -p 6006 -c .storybook-react",
-  		"storybook:lit": "storybook dev -p 6007 -c .storybook-lit"
+		"storybook:lit": "storybook dev -p 6007 -c .storybook-lit"
 	},
 	"keywords": [],
 	"author": "",
@@ -25,8 +25,6 @@
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
 		"@chromatic-com/storybook": "^3.2.4",
-		"@reach/popover": "0.14.0",
-		"@reach/utils": "0.14.0",
 		"@storybook/addon-essentials": "^8.5.7",
 		"@storybook/addon-interactions": "^8.5.7",
 		"@storybook/addon-onboarding": "^8.5.7",

@@ -1,5 +1,5 @@
 import type React from "react";
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, useId } from "react";
 
 import { addDays, subDays } from "date-fns";
 import { nb } from "date-fns/locale";
@@ -19,7 +19,6 @@ import type {
 } from "./DateRangePickerProps.js";
 import defaultPhrases from "./utils/defaultPhrases.js";
 import * as utils from "./utils/helpers.js";
-import { useId } from "./utils/useId.js";
 
 /**
  * DateRangePicker

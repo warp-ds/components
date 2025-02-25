@@ -26,6 +26,7 @@ export const DatePickerNavigation = ({
 					className="w-datepicker__navigation__button--prev"
 					aria-label={phrases.jumpToPrevMonth}
 					onClick={prevMonth}
+					tabIndex={-1}
 				>
 					<IconChevronLeft16 />
 				</Button>
@@ -36,6 +37,7 @@ export const DatePickerNavigation = ({
 					className="w-datepicker__navigation__button--next"
 					aria-label={phrases.jumpToNextMonth}
 					onClick={nextMonth}
+					tabIndex={-1}
 				>
 					<IconChevronRight16 />
 				</Button>

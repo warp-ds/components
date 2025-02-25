@@ -5,6 +5,7 @@ import {
 	useEffect,
 	useReducer,
 	useRef,
+	useId,
 } from "react";
 
 import { nb } from "date-fns/locale";
@@ -17,7 +18,6 @@ import {
 import type { DatePickerState, Event } from "./DatePickerContextProps.js";
 import type { DatePickerProps } from "./DatePickerProps.js";
 import defaultPhrases from "./utils/defaultPhrases.js";
-import { useId } from "./utils/useId.js";
 
 export const DatePicker = ({
 	children,

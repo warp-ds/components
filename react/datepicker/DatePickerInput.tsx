@@ -12,7 +12,6 @@ import { format, isValid, parse } from "date-fns";
 
 import { DatePickerContext, IDLE } from "./DatePickerContext.js";
 import type { DatePickerInputProps } from "./DatePickerInputProps.js";
-import { useBlur } from "./utils/useBlur.js";
 import { useLayoutEffect } from "./utils/useLayoutEffect.js";
 import { wrapEvent } from "./utils/warpEvent.ts";
 
@@ -60,7 +59,6 @@ export const DatePickerInput = (props: DatePickerInputProps) => {
 	// because it could be that the invalid date value is just temporary, we're working towards a valid one
 	const skipInputValueSync = useRef(false);
 
-	const handleBlur = useBlur();
 	const valueParser = useValueParser(displayFormat, locale);
 
 	// We need to partially control the input, because we want to support editing the input field to select dates.

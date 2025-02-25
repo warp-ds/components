@@ -103,11 +103,12 @@ export const DatePickerCalendar = ({
 		}
 	};
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useLayoutEffect(() => {
 		if (navigationDayRef.current) {
-		  navigationDayRef.current.focus();
+			navigationDayRef.current.focus();
 		}
-	  }, [navigationDayRef.current]);
+	}, [navigationDayRef.current, navigationDate]);
 
 	return (
 		<>
@@ -124,7 +125,7 @@ export const DatePickerCalendar = ({
 				)}
 				aria-roledescription={phrases.roleDescription}
 				role={isInlineCalendar ? "region" : "dialog"}
-				onKeyUp={keyHandler}
+				onKeyDown={keyHandler}
 				{...props}
 			>
 				<DatePickerNavigation

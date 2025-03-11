@@ -1,14 +1,14 @@
-import { useContext, useMemo } from "react";
+import { useContext, useMemo } from 'react';
 
-import { DatePickerContext, IDLE } from "../DatePickerContext.js";
+import { DatePickerContext, IDLE } from '../DatePickerContext.js';
 
 export function useDatePickerContext() {
-	const { state } = useContext(DatePickerContext);
+  const { state } = useContext(DatePickerContext);
 
-	return useMemo(
-		() => ({
-			isExpanded: state !== IDLE,
-		}),
-		[state],
-	);
+  return useMemo(
+    () => ({
+      isExpanded: state !== IDLE,
+    }),
+    [state],
+  );
 }

@@ -1,3 +1,3 @@
 export type DatePickerPopoverProps = {
-	children: React.JSX.Element;
+  children: React.JSX.Element;
 };

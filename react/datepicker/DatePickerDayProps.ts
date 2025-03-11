@@ -1,5 +1,5 @@
 export type DatePickerDayProps = {
-	day: Date;
-	month: Date;
-	navigationDate: Date;
+  day: Date;
+  month: Date;
+  navigationDate: Date;
 };

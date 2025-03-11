@@ -1,18 +1,16 @@
-import type { StorybookConfig } from "@storybook/react-vite";
+import type { StorybookConfig } from '@storybook/react-vite';
 
 const config: StorybookConfig = {
-	stories: [
-		"../react/**/*.stories.[tj]sx",
-	],
-	addons: [
-		"@storybook/addon-onboarding",
-		"@storybook/addon-essentials",
-		"@chromatic-com/storybook",
-		"@storybook/addon-interactions",
-	],
-	framework: {
-		name: "@storybook/react-vite",
-		options: {},
-	},
+  stories: ['../react/**/*.stories.[tj]sx'],
+  addons: [
+    '@storybook/addon-onboarding',
+    '@storybook/addon-essentials',
+    '@chromatic-com/storybook',
+    '@storybook/addon-interactions',
+  ],
+  framework: {
+    name: '@storybook/react-vite',
+    options: {},
+  },
 };
 export default config;

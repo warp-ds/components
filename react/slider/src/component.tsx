@@ -788,7 +788,7 @@ const getTooltipCSS = (
     const left = boundingRect.left;
     const right = boundingRect.right;
 
-    // The following code is needed in order to estiamte (calculate) the width of the tooltip box, with
+    // The following code is needed in order to estimate (calculate) the width of the tooltip box, with
     // the given value, before it's rendered.
     //
     // This is needed so that an exact position can be determined, without first rendering and then adjusting the tooltip, which could cause some

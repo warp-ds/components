@@ -1,9 +1,9 @@
-import { useContext } from "react";
+import { useContext } from 'react';
 
-import { Attention } from "@warp-ds/react/components/attention";
+import { Attention } from '@warp-ds/react/components/attention';
 
-import { DatePickerContext, IDLE } from "./DatePickerContext.js";
-import type { DatePickerPopoverProps } from "./DatePickerPopoverProps.js";
+import { DatePickerContext, IDLE } from './DatePickerContext.js';
+import type { DatePickerPopoverProps } from './DatePickerPopoverProps.js';
 
 /**
  * DatePickerPopover
@@ -14,32 +14,32 @@ import type { DatePickerPopoverProps } from "./DatePickerPopoverProps.js";
  *
  */
 export const DatePickerPopover = ({ children }: DatePickerPopoverProps) => {
-	const {
-		datepickerId,
-		startInputRef,
-		isDateRange: isDateRangePicker,
-		dispatch,
-		state: datepickerState,
-	} = useContext(DatePickerContext);
+  const {
+    datepickerId,
+    startInputRef,
+    isDateRange: isDateRangePicker,
+    dispatch,
+    state: datepickerState,
+  } = useContext(DatePickerContext);
 
-	return (
-		<Attention
-			popover
-			canClose
-			placement="bottom"
-			noArrow={isDateRangePicker}
-			flip={true}
-			crossAxis={true}
-			id={datepickerId}
-			isShowing={datepickerState !== IDLE}
-			targetEl={startInputRef}
-			onDismiss={() =>
-				dispatch({
-					type: "BLUR",
-				})
-			}
-		>
-			{children}
-		</Attention>
-	);
+  return (
+    <Attention
+      popover
+      canClose
+      placement="bottom"
+      noArrow={isDateRangePicker}
+      flip={true}
+      crossAxis={true}
+      id={datepickerId}
+      isShowing={datepickerState !== IDLE}
+      targetEl={startInputRef}
+      onDismiss={() =>
+        dispatch({
+          type: 'BLUR',
+        })
+      }
+    >
+      {children}
+    </Attention>
+  );
 };

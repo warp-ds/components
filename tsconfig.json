@@ -1,22 +1,22 @@
 {
-	"compilerOptions": {
-		"target": "ESNext",
-		"jsx": "react-jsx",
-		"lib": ["DOM", "DOM.Iterable", "ESNext"],
-		"useDefineForClassFields": true,
-		"module": "NodeNext",
-		"moduleResolution": "NodeNext",
-		"resolveJsonModule": true,
-		"allowJs": false,
-		"strict": false,
-		"noEmit": true,
-		"allowSyntheticDefaultImports": true,
-		"allowImportingTsExtensions": true,
-		"esModuleInterop": false,
-		"forceConsistentCasingInFileNames": true,
-		"isolatedModules": true,
-		"skipLibCheck": true
-	},
-	"include": ["./src", "./react"],
-	"exclude": ["node_modules"]
+  "compilerOptions": {
+    "target": "ESNext",
+    "jsx": "react-jsx",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "useDefineForClassFields": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "resolveJsonModule": true,
+    "allowJs": false,
+    "strict": false,
+    "noEmit": true,
+    "allowSyntheticDefaultImports": true,
+    "allowImportingTsExtensions": true,
+    "esModuleInterop": false,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "skipLibCheck": true
+  },
+  "include": ["./src", "./react"],
+  "exclude": ["node_modules"]
 }

@@ -1,15 +1,15 @@
 .w-datepicker__navigation {
-	position: relative;
+  position: relative;
 }
 
 .w-datepicker__navigation__button--prev {
-	position: absolute;
-	left: 16px;
-	top: 12px;
+  position: absolute;
+  left: 16px;
+  top: 12px;
 }
 
 .w-datepicker__navigation__button--next {
-	position: absolute;
-	right: 16px;
-	top: 12px;
+  position: absolute;
+  right: 16px;
+  top: 12px;
 }

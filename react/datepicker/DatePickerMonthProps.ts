@@ -1,4 +1,4 @@
 export type DatePickerMonthProps = {
-	month: Date;
-	navigationDate: Date;
+  month: Date;
+  navigationDate: Date;
 };

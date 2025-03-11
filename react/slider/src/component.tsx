@@ -710,7 +710,9 @@ export function Slider({
   // For a standard (non-range) slider, only render the second (top) value elements.
   return (
     <>
-      <style>{style}</style>
+      <style href="RangeSlider" precedence="medium">
+        {style}
+      </style>
       <div className={`wrapper ${disabled ? 'wrapper-disabled' : ''}`} onContextMenu={(e) => e.preventDefault()}>
         <div className="tooltips">
           <ToolTip display={renderToolTip0 && isRange} top={input0Active} ref={tooltip0}>

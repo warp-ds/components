@@ -1,7 +1,7 @@
 import { type RefObject, useCallback, useEffect, useRef, useState } from 'react';
-
-import type { SliderProps } from './props.js';
-import { clamp, clampValues, roundPrecise, roundIfNumber } from './math.js';
+import type { SliderProps } from './props.ts';
+import { clamp, clampValues, roundPrecise, roundIfNumber } from './math.ts';
+import { ToolTip, ToolTipArrow } from './Tooltip.tsx';
 import style from 'inline:./style.css';
 
 const thumbWidth = 28;
@@ -205,13 +205,12 @@ export function Slider({
   const input1 = useRef<HTMLElement>(null);
 
   // Tooltip refs.
-  const tooltip0 = useRef<HTMLElement>(null);
-  const tooltip1 = useRef<HTMLElement>(null);
-  const tooltipArrow0 = useRef<HTMLElement>(null);
-  const tooltipArrow1 = useRef<HTMLElement>(null);
+  const tooltip0 = useRef<HTMLDivElement>(null);
+  const tooltip1 = useRef<HTMLDivElement>(null);
+  const tooltipArrow0 = useRef<SVGSVGElement>(null);
+  const tooltipArrow1 = useRef<SVGSVGElement>(null);
 
-  const widthRef = useRef<any>(null);
-
+  const widthRef = useRef<HTMLDivElement>(null);
   const timeoutId = useRef<any>(0);
 
   // Active state of the input elements.
@@ -220,6 +219,19 @@ export function Slider({
 
   const renderToolTip0 = showTooltips && (isMoving || input0Active) && !input1Active;
   const renderToolTip1 = showTooltips && (isMoving || input1Active) && !input0Active;
+
+  // Update styles on resize.
+  useEffect(() => {
+    const onResize = () => {
+      setStyle(currentValues);
+      setStyleTooltips(currentValues, 0);
+      setStyleTooltips(currentValues, 1);
+    };
+
+    window.addEventListener('resize', onResize);
+
+    return () => window.removeEventListener('resize', onResize);
+  }, [currentValues]);
 
   // Set active input element state (by checking focus state using the focusin/focusout events).
   useEffect(() => {
@@ -422,7 +434,7 @@ export function Slider({
       const getDistance = (values) => {
         const d = values[1] - values[0];
 
-        const width = wrapperRef.current?.clientWidth || 500;
+        const width = wrapperRef.current?.clientWidth || 0;
 
         const pxPerVal = width / (max - min);
 
@@ -531,7 +543,8 @@ export function Slider({
   // Get div containing vertical lines (markers) and marker values.
   // Displays values either centered below the line, or justified to fit in the component.
   const getMarkerDiv = useCallback(() => {
-    const getMarkerLines = () => Array.from(Array(2).keys()).map((k) => <div key={k} className="w-slider__marker-line" />);
+    const getMarkerLines = () =>
+      Array.from(Array(2).keys()).map((k) => <div key={k} className="w-slider__marker-line" />);
 
     const getMarkerValues = () =>
       Array.from(Array(2).keys()).map((k, i) => {
@@ -577,7 +590,9 @@ export function Slider({
         return (
           <div key={k} className="w-slider__marker">
             <div className="w-slider__marker-line" />
-            <div className="w-slider__marker-value">{rangeValues ? getRangeValueItem(displayValue as number) : displayValue}</div>
+            <div className="w-slider__marker-value">
+              {rangeValues ? getRangeValueItem(displayValue as number) : displayValue}
+            </div>
           </div>
         );
       }),
@@ -647,7 +662,10 @@ export function Slider({
       <style href="RangeSlider" precedence="medium">
         {style}
       </style>
-      <div className={`w-slider__wrapper ${disabled ? 'w-slider__wrapper-disabled' : ''}`} onContextMenu={(e) => e.preventDefault()}>
+      <div
+        className={`w-slider__wrapper ${disabled ? 'w-slider__wrapper-disabled' : ''}`}
+        onContextMenu={(e) => e.preventDefault()}
+      >
         <div className="w-slider__tooltips">
           <ToolTip display={renderToolTip0 && isRange} top={input0Active} ref={tooltip0}>
             {getFullValue(0)}
@@ -695,7 +713,7 @@ const getTooltipCSS = (
   widthref: RefObject<HTMLElement>,
   containTooltips: boolean,
 ) => {
-  const width = wrapperRef.current?.clientWidth || 500;
+  const width = wrapperRef.current?.clientWidth || 0;
 
   const left0 = ((currentValues[0] - min) / (max - min)) * width;
   const left1 = ((currentValues[1] - min) / (max - min)) * width;
@@ -903,7 +921,7 @@ const getTrackStyle = (
 ) => {
   let widthFraction = (currentValues[1] - currentValues[0]) / (max - min);
 
-  const width = wrapperRef.current?.clientWidth || 500;
+  const width = wrapperRef.current?.clientWidth || 0;
 
   // Warn if values are incorrect.
   if (widthFraction < 0 || widthFraction > 1) {
@@ -916,40 +934,6 @@ const getTrackStyle = (
   return `
     width: ${widthFraction * 100 + '%'};
     margin-left: ${left + 'px'};`;
-};
-
-// Toolip component that shows a given value above the slider thumb.
-const ToolTip = ({
-  display,
-  top,
-  children,
-  ref,
-}: { display: boolean; top: boolean; children: any; ref: RefObject<any> }) => {
-  return (
-    <div className="w-slider__tooltip" style={{ visibility: display ? 'visible' : 'hidden', zIndex: top ? 10 : 1 }} ref={ref}>
-      {children}
-    </div>
-  );
-};
-
-// Tooltip arrow, with settable visibility and order (z-index).
-const ToolTipArrow = ({ display, top, ref }: { display: boolean; top: boolean; ref: RefObject<any> }) => {
-  return (
-    <svg
-      style={{ visibility: display ? 'visible' : 'hidden', zIndex: top ? 10 : 1 }}
-      width="24"
-      height="8"
-      viewBox="0 0 24 8"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      ref={ref}
-    >
-      <path
-        d="M10.5858 6.58579L6.34315 2.34315C4.84285 0.842855 2.80802 0 0.686291 0H23.3137C21.192 0 19.1571 0.842852 17.6569 2.34314L13.4142 6.58579C12.6332 7.36684 11.3668 7.36684 10.5858 6.58579Z"
-        fill="#1B1B1F"
-      />
-    </svg>
-  );
 };
 
 // Get the x coordinate for the event target (using getBoundingClientRect).

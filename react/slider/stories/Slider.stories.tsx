@@ -9,7 +9,7 @@ export const Regular = () => {
   const [value, setValue] = React.useState(20000);
 
   return (
-    <div>
+    <div style={{ maxWidth: '500px' }}>
       <output>{value}</output>
       <Slider onChange={(value) => setValue(value)} value={value} min={10000} max={60000} step={10} />
       <button onClick={() => setValue(15000)}>Reset</button>
@@ -21,7 +21,7 @@ export const Regular1 = () => {
   const [value, setValue] = React.useState(10000);
 
   return (
-    <div>
+    <div style={{ maxWidth: '500px' }}>
       <output>{value}</output>
       <Slider onChange={(value) => setValue(value)} value={value} min={10000} max={60000} step={10} />
       <button onClick={() => setValue(15000)}>Reset</button>
@@ -33,7 +33,7 @@ export const Regular2 = () => {
   const [value, setValue] = React.useState(20000);
 
   return (
-    <div>
+    <div style={{ maxWidth: '500px' }}>
       <output>{value}</output>
       <Slider
         onChange={(value) => setValue(value)}
@@ -54,7 +54,7 @@ export const Regular3 = () => {
   const [value, setValue] = React.useState(20000);
 
   return (
-    <div>
+    <div style={{ maxWidth: '500px' }}>
       <output>{value}</output>
       <Slider
         onChange={(value) => setValue(value)}
@@ -74,7 +74,7 @@ export const Regular4 = () => {
   const [value, setValue] = React.useState(3);
 
   return (
-    <div>
+    <div style={{ maxWidth: '500px' }}>
       <output>{value}</output>
       <Slider onChange={(value) => setValue(value)} value={value} min={0} max={6} showTooltips markers />
       <button onClick={() => setValue(3)}>Reset</button>
@@ -86,7 +86,7 @@ export const Regular5 = () => {
   const [value, setValue] = React.useState(3);
 
   return (
-    <div>
+    <div style={{ maxWidth: '500px' }}>
       <output>{value}</output>
       <Slider onChange={(value) => setValue(value)} value={value} min={1} max={8} showTooltips markers />
       <button onClick={() => setValue(3)}>Reset</button>
@@ -98,7 +98,7 @@ export const Regular6 = () => {
   const [value, setValue] = React.useState<string | number>(3);
 
   return (
-    <div>
+    <div style={{ maxWidth: '500px' }}>
       <output>{value}</output>
       <Slider
         onChange={(value) => setValue(value)}
@@ -118,7 +118,7 @@ export const Regular7 = () => {
   const [value, setValue] = React.useState<string | number>(3);
 
   return (
-    <div>
+    <div style={{ maxWidth: '500px' }}>
       <output>{value}</output>
       <Slider
         onChange={(value) => setValue(value)}
@@ -138,7 +138,7 @@ export const Range = () => {
   const [values, setValues] = React.useState([1000, 5008970]);
 
   return (
-    <div>
+    <div style={{ maxWidth: '500px' }}>
       <output>
         {values[0]} - {values[1]}
       </output>

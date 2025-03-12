@@ -1,2 +1,2 @@
-export { Slider } from './component.js';
-export type { SliderProps } from './props.js';
+export { Slider } from './Slider.tsx';
+export type { SliderProps } from './props.ts';

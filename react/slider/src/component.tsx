@@ -226,7 +226,6 @@ export function Slider({
   useEffect(() => {
     const focusChange = () => {
       setInput0Active(document.activeElement === input0.current);
-
       setInput1Active(document.activeElement === input1.current);
     };
 
@@ -298,10 +297,10 @@ export function Slider({
 
       setCurrentValues(valueArray);
 
-      setStyle(trackRef, valueArray, wrapperRef, isRange, max, min);
+      setStyle(valueArray);
 
       if (showTooltips) {
-        setStyleTooltips(valueArray, wrapperRef, isRange, max, min);
+        setStyleTooltips(valueArray);
       }
 
       updateInputValues({ values: values as number[], value: value as number }, isRange, input0, input1);
@@ -421,10 +420,7 @@ export function Slider({
     if (isRange) {
       // Get distance between the two points in pxs.
       const getDistance = (values) => {
-        const val0 = values[0];
-        const val1 = values[1];
-
-        const d = val1 - val0;
+        const d = values[1] - values[0];
 
         const width = wrapperRef.current?.clientWidth || 500;
 
@@ -437,9 +433,9 @@ export function Slider({
 
       // If distance is less than thumbwidth, reset to next closest step.
       if (getDistance(values) < thumbWidth) {
-        let collide = true;
+        let colliding = true;
 
-        while (collide) {
+        while (colliding) {
           if (i === 0) {
             values[0] = values[0] - step;
           } else {
@@ -447,7 +443,7 @@ export function Slider({
           }
 
           if (getDistance(values) >= thumbWidth) {
-            collide = false;
+            colliding = false;
           }
         }
       }
@@ -462,7 +458,7 @@ export function Slider({
       setCurrentValues(values);
 
       if (showTooltips) {
-        setStyleTooltips(values, wrapperRef, isRange, max, min, i);
+        setStyleTooltips(values, i);
       }
 
       if (onChange) {
@@ -472,7 +468,7 @@ export function Slider({
       }
     }, 0.01);
 
-    setStyle(trackRef, values, wrapperRef, isRange, max, min);
+    setStyle(values);
   }, []);
 
   // Get full, adjusted onChange value (including startEndValues, etc.)
@@ -481,22 +477,7 @@ export function Slider({
 
     // When using a numerical range, use startEndValues in the return as well.
     if (!rangeValues) {
-      // Convert the input values to full values (including start/end values).
-      const fullValues: (number | string)[] = [...values];
-
-      // Get start/end values.
-      if (startEndValues?.[0] && values[0] < originalMin) {
-        fullValues[0] = startEndValues[0];
-      }
-      if (startEndValues?.[0] && values[1] < originalMin) {
-        fullValues[1] = startEndValues[0];
-      }
-      if (startEndValues?.[1] && values[1] > originalMax) {
-        fullValues[1] = startEndValues[1];
-      }
-      if (startEndValues?.[1] && values[0] > originalMax) {
-        fullValues[0] = startEndValues[1];
-      }
+      const fullValues = getWithStartEndValues(values, startEndValues, originalMin, originalMax);
 
       returnValue = isRange
         ? [roundIfNumber(fullValues[0]), roundIfNumber(fullValues[1])]
@@ -574,19 +555,15 @@ export function Slider({
   }, []);
 
   // Get the range value item text at the given index.
-  const getRangeValueItem = (index: number) => {
+  const getRangeValueItem = useCallback((index: number) => {
     if (rangeValues) {
       const element = rangeValues[index];
 
-      if (typeof element === 'string') {
-        return element;
-      } else {
-        return element.label;
-      }
+      return typeof element === 'string' ? element : element.label;
     } else {
       return '';
     }
-  };
+  }, []);
 
   // Get slider markers (steps), showing step values below the slider.
   // Used for center-aligned display values.
@@ -612,25 +589,7 @@ export function Slider({
     (index: number) => {
       // Default case: use numerical value
       if (!rangeValues) {
-        const returnValues: (number | string | null)[] = [...currentValues];
-
-        if (startEndValues) {
-          if (startEndValues[0] && currentValues[0] < originalMin) {
-            returnValues[0] = startEndValues[0];
-          }
-
-          if (startEndValues[0] && currentValues[0] > originalMax) {
-            returnValues[0] = startEndValues[1];
-          }
-
-          if (startEndValues[1] && currentValues[1] > originalMax) {
-            returnValues[1] = startEndValues[1];
-          }
-
-          if (startEndValues[1] && currentValues[1] < originalMin) {
-            returnValues[1] = startEndValues[0];
-          }
-        }
+        const returnValues = getWithStartEndValues(currentValues, startEndValues, originalMin, originalMax);
 
         return returnValues[index];
       }
@@ -645,65 +604,40 @@ export function Slider({
   );
 
   // Set track ref width.
-  const setStyle = useCallback(
-    (
-      trackRef: RefObject<any>,
-      values: number[],
-      wrapperRef: RefObject<any>,
-      isRange: boolean,
-      max: number,
-      min: number,
-    ) => {
-      if (trackRef.current) trackRef.current.style.cssText = getTrackStyle(values, wrapperRef, isRange, max, min);
-    },
-    [],
-  );
+  const setStyle = useCallback((values: number[]) => {
+    if (trackRef.current) trackRef.current.style.cssText = getTrackStyle(values, wrapperRef, isRange, max, min);
+  }, []);
 
   // Set tooltip positions.
-  const setStyleTooltips = useCallback(
-    (values: number[], wrapperRef: RefObject<any>, isRange: boolean, max: number, min: number, i = -1) => {
-      // Get tooltip and arrow refs.
-      const t0 = tooltip0.current;
-      const t1 = tooltip1.current;
-      const a0 = tooltipArrow0.current;
-      const a1 = tooltipArrow1.current;
+  const setStyleTooltips = useCallback((values: number[], i = -1) => {
+    // Get tooltip and arrow refs.
+    const t0 = tooltip0.current;
+    const t1 = tooltip1.current;
+    const a0 = tooltipArrow0.current;
+    const a1 = tooltipArrow1.current;
 
-      // Set the style for the elements.
-      if (i === -1) {
-        // Initial style.
-        if (t0 && t1 && a0 && a1) {
-          for (const n of [0, 1]) {
-            const [l0, l1, la0, la1] = getTooltipCSS(
-              values,
-              wrapperRef,
-              isRange,
-              max,
-              min,
-              n,
-              widthRef,
-              containTooltips,
-            );
+    const setStyles = (index: number) => {
+      const css = getTooltipCSS(values, wrapperRef, isRange, max, min, index, widthRef, containTooltips);
 
-            Object.assign(t0.style, l0);
-            Object.assign(t1.style, l1);
-            Object.assign(a0.style, la0);
-            Object.assign(a1.style, la1);
-          }
-        }
-      } else {
-        // On movement.
-        if (t0 && t1 && a0 && a1) {
-          const [l0, l1, la0, la1] = getTooltipCSS(values, wrapperRef, isRange, max, min, i, widthRef, containTooltips);
+      // Apply styles.
+      [t0, t1, a0, a1].forEach((element, i) => Object.assign(element.style, css[i]));
+    };
 
-          Object.assign(t0.style, l0);
-          Object.assign(t1.style, l1);
-          Object.assign(a0.style, la0);
-          Object.assign(a1.style, la1);
+    // Set the style for the elements.
+    if (i === -1) {
+      // Initial style.
+      if (t0 && t1 && a0 && a1) {
+        for (const n of [0, 1]) {
+          setStyles(n);
         }
       }
-    },
-    [],
-  );
+    } else {
+      // On movement.
+      if (t0 && t1 && a0 && a1) {
+        setStyles(i);
+      }
+    }
+  }, []);
 
   // Render the range input and tool tips.
   // For a range slider, render two sets of elements: one for the lower and one for the upper value.
@@ -721,8 +655,7 @@ export function Slider({
           <ToolTip display={renderToolTip1} top={input1Active} ref={tooltip1}>
             {getFullValue(1)}
           </ToolTip>
-          <ToolTipArrow display={isRange && renderToolTip0 && isRange} top={input0Active} ref={tooltipArrow0} />
-
+          <ToolTipArrow display={renderToolTip0 && isRange} top={input0Active} ref={tooltipArrow0} />
           <ToolTipArrow display={renderToolTip1} top={input0Active} ref={tooltipArrow1} />
         </div>
         <div className="active-track" ref={trackRef} />
@@ -906,12 +839,12 @@ function validate(value: number | undefined, values: number[] | undefined, min: 
   }
 }
 
-// Set the values for the input elements.
+// Set the values for the slider input elements.
 function updateInputValues(
   { value, values }: { value?: number; values?: number[] },
   isRange: boolean,
-  ref0: any,
-  ref1: any,
+  ref0: RefObject<any>,
+  ref1: RefObject<any>,
 ) {
   if (isRange) {
     if (ref0.current) {
@@ -960,6 +893,7 @@ const getAsValueArray = (
   }
 };
 
+// Get active track style (to set track width).
 const getTrackStyle = (
   currentValues: number[],
   wrapperRef: RefObject<HTMLElement>,
@@ -1038,4 +972,34 @@ const getAdjustedValue = (value: number, step: number) => {
 // Adjust array values.
 const getAdjustedValueArray = (values: number[], step: number) => {
   return [getAdjustedValue(values[0], step), getAdjustedValue(values[1], step)];
+};
+
+// Convert the input values to full values (including start/end values).
+const getWithStartEndValues = (
+  values: number[],
+  startEndValues: string[],
+  originalMin: number,
+  originalMax: number,
+) => {
+  const returnValues: (number | string | null)[] = [...values];
+
+  if (startEndValues) {
+    if (startEndValues[0] && values[0] < originalMin) {
+      returnValues[0] = startEndValues[0];
+    }
+
+    if (startEndValues[0] && values[0] > originalMax) {
+      returnValues[0] = startEndValues[1];
+    }
+
+    if (startEndValues[1] && values[1] > originalMax) {
+      returnValues[1] = startEndValues[1];
+    }
+
+    if (startEndValues[1] && values[1] < originalMin) {
+      returnValues[1] = startEndValues[0];
+    }
+  }
+
+  return returnValues;
 };

@@ -1,10 +1,10 @@
-.wrapper {
+.w-slider__wrapper {
   display: grid;
   width: 500px;
   max-width: 100%;
   margin: 8px 0px;
 }
-.input-wrapper {
+.w-slider__input-wrapper {
   grid-row: 1;
   grid-column: 1;
   display: grid;
@@ -48,7 +48,7 @@ input[type="range"]::-webkit-slider-runnable-track {
   border-radius: 2px;
 }
 
-.tooltips {
+.w-slider__tooltips {
   width: 100%;
   pointer-events: none;
   grid-row: 1;
@@ -57,7 +57,7 @@ input[type="range"]::-webkit-slider-runnable-track {
   display: grid;
   height: 0;
 
-  .tooltip {
+  .w-slider__tooltip {
     grid-row: 1;
     grid-column: 1;
     color: white;
@@ -79,7 +79,7 @@ input[type="range"]::-webkit-slider-runnable-track {
   }
 }
 
-.active-track {
+.w-slider__active-track {
   background-color: var(--w-s-color-background-primary);
   height: 6px;
   border-radius: 3px;
@@ -94,7 +94,7 @@ input[type="range"]::-webkit-slider-runnable-track {
   width: 0px;
 }
 
-.steps {
+.w-slider__steps {
   display: grid;
   transform: translateY(-4px);
   grid-auto-flow: column;
@@ -107,14 +107,14 @@ input[type="range"]::-webkit-slider-runnable-track {
   margin: 0px 11.7px;
   grid-auto-columns: minmax(0, 1fr);
 
-  .marker {
+  .w-slider__marker {
     display: grid;
     justify-items: center;
     grid-row-gap: 3.5px;
   }
 }
 
-.marker-line {
+.w-slider__marker-line {
   display: block;
   overflow: hidden;
   width: 4px;
@@ -123,14 +123,14 @@ input[type="range"]::-webkit-slider-runnable-track {
   background-color: #dedee3;
 }
 
-.marker-value {
+.w-slider__marker-value {
   width: 0;
   overflow: visible;
   display: grid;
   justify-content: center;
 }
 
-.markervalues {
+.w-slider__markervalues {
   display: grid;
   color: var(--w-s-color-text-subtle);
   grid-template-columns: auto auto;
@@ -143,7 +143,7 @@ input[type="range"]::-webkit-slider-runnable-track {
   }
 }
 
-.width-check {
+.w-slider__width-check {
   visibility: hidden;
   pointer-events: none;
   z-index: 0;
@@ -151,8 +151,8 @@ input[type="range"]::-webkit-slider-runnable-track {
   height: 0px;
 }
 
-.wrapper-disabled {
-  .active-track {
+.w-slider__wrapper-disabled {
+  .w-slider__active-track {
     background-color: var(--w-s-color-background-disabled);
   }
   input[type="range"]::-webkit-slider-thumb {

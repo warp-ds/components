@@ -531,7 +531,7 @@ export function Slider({
   // Get div containing vertical lines (markers) and marker values.
   // Displays values either centered below the line, or justified to fit in the component.
   const getMarkerDiv = useCallback(() => {
-    const getMarkerLines = () => Array.from(Array(2).keys()).map((k) => <div key={k} className="marker-line" />);
+    const getMarkerLines = () => Array.from(Array(2).keys()).map((k) => <div key={k} className="w-slider__marker-line" />);
 
     const getMarkerValues = () =>
       Array.from(Array(2).keys()).map((k, i) => {
@@ -543,12 +543,12 @@ export function Slider({
       });
 
     if (markAlignment === 'center') {
-      return <div className="steps">{getMarkers()}</div>;
+      return <div className="w-slider__steps">{getMarkers()}</div>;
     } else {
       return (
         <div>
-          <div className="steps">{getMarkerLines()}</div>
-          <div className="markervalues">{getMarkerValues()}</div>
+          <div className="w-slider__steps">{getMarkerLines()}</div>
+          <div className="w-slider__markervalues">{getMarkerValues()}</div>
         </div>
       );
     }
@@ -575,9 +575,9 @@ export function Slider({
         displayValue = startEndValues?.[i] ? startEndValues[i] : (max - min) * k + min;
 
         return (
-          <div key={k} className="marker">
-            <div className="marker-line" />
-            <div className="marker-value">{rangeValues ? getRangeValueItem(displayValue as number) : displayValue}</div>
+          <div key={k} className="w-slider__marker">
+            <div className="w-slider__marker-line" />
+            <div className="w-slider__marker-value">{rangeValues ? getRangeValueItem(displayValue as number) : displayValue}</div>
           </div>
         );
       }),
@@ -647,8 +647,8 @@ export function Slider({
       <style href="RangeSlider" precedence="medium">
         {style}
       </style>
-      <div className={`wrapper ${disabled ? 'wrapper-disabled' : ''}`} onContextMenu={(e) => e.preventDefault()}>
-        <div className="tooltips">
+      <div className={`w-slider__wrapper ${disabled ? 'w-slider__wrapper-disabled' : ''}`} onContextMenu={(e) => e.preventDefault()}>
+        <div className="w-slider__tooltips">
           <ToolTip display={renderToolTip0 && isRange} top={input0Active} ref={tooltip0}>
             {getFullValue(0)}
           </ToolTip>
@@ -658,9 +658,9 @@ export function Slider({
           <ToolTipArrow display={renderToolTip0 && isRange} top={input0Active} ref={tooltipArrow0} />
           <ToolTipArrow display={renderToolTip1} top={input0Active} ref={tooltipArrow1} />
         </div>
-        <div className="active-track" ref={trackRef} />
+        <div className="w-slider__active-track" ref={trackRef} />
         <div
-          className="input-wrapper"
+          className="w-slider__input-wrapper"
           ref={wrapperRef}
           onMouseDown={onWrapperClick}
           onTouchStart={onWrapperClick}
@@ -677,7 +677,7 @@ export function Slider({
           {markers && getMarkerDiv()}
         </div>
       </div>
-      <div className="width-check" ref={widthRef} />
+      <div className="w-slider__width-check" ref={widthRef} />
     </>
   );
 }
@@ -926,7 +926,7 @@ const ToolTip = ({
   ref,
 }: { display: boolean; top: boolean; children: any; ref: RefObject<any> }) => {
   return (
-    <div className="tooltip" style={{ visibility: display ? 'visible' : 'hidden', zIndex: top ? 10 : 1 }} ref={ref}>
+    <div className="w-slider__tooltip" style={{ visibility: display ? 'visible' : 'hidden', zIndex: top ? 10 : 1 }} ref={ref}>
       {children}
     </div>
   );

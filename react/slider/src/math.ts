@@ -1,4 +1,4 @@
-export function round(value: number, precision?: number) {
+export function roundPrecise(value: number, precision?: number) {
   if (!precision) {
     return Math.round(value);
   }
@@ -9,10 +9,9 @@ export function round(value: number, precision?: number) {
 
 export function roundIfNumber(val: string | number) {
   if (typeof val === 'number') {
-    return round(val);
-  } else {
-    return val;
+    return roundPrecise(val);
   }
+  return val;
 }
 
 export function clamp(val: number, min: number, max: number) {

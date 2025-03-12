@@ -1,7 +1,7 @@
 import { type RefObject, useCallback, useEffect, useRef, useState } from 'react';
 
 import type { SliderProps } from './props.js';
-import { clamp, clampValues, round, roundIfNumber } from './math.js';
+import { clamp, clampValues, roundPrecise, roundIfNumber } from './math.js';
 import style from 'inline:./style.css';
 
 const thumbWidth = 28;
@@ -169,23 +169,22 @@ export function Slider({
 
   // Get initial values. Like getValueArray, but converts range values to index values as well.
   const getInitialValues = useCallback(() => {
-    let initialValues: number[] = [];
     if (rangeValues) {
       if (isRange && values) {
-        initialValues = [getRangeValueIndex(values[0]), getRangeValueIndex(values[1])];
+        return [getRangeValueIndex(values[0]), getRangeValueIndex(values[1])];
       } else if (value) {
-        initialValues = [min, getRangeValueIndex(value)];
+        return [min, getRangeValueIndex(value)];
       }
     } else {
-      initialValues = values
+      const initialValues = values
         ? getAdjustedValueArray(values as number[], step)
         : [min, getAdjustedValue(value as number, step)];
 
       if (values && !initialValues.every((v) => !Number.isNaN(v))) {
         return [min, max];
       }
+      return initialValues;
     }
-    return initialValues;
   }, []);
 
   // Get values in array form, using either the value or values prop.
@@ -958,15 +957,15 @@ const getX = (event: any) => {
   const e = event.target.getBoundingClientRect();
   const xCoordinate = event.touches[0].clientX - e.left;
 
-  return round(xCoordinate);
+  return roundPrecise(xCoordinate);
 };
 
 // Get value adjusted with step amount.
 const getAdjustedValue = (value: number, step: number) => {
   if (!(typeof step === 'string') && step > 1) {
-    return round(value / step) * step;
+    return roundPrecise(value / step) * step;
   } else {
-    return round(value);
+    return roundPrecise(value);
   }
 };
 

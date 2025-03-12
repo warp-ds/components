@@ -224,8 +224,7 @@ export function Slider({
   useEffect(() => {
     const onResize = () => {
       setStyle(currentValues);
-      setStyleTooltips(currentValues, 0);
-      setStyleTooltips(currentValues, 1);
+      setStyleTooltips(currentValues);
     };
 
     window.addEventListener('resize', onResize);
@@ -474,9 +473,7 @@ export function Slider({
       }
 
       if (onChange) {
-        const returnValue = getOnChangeReturnValue(values);
-
-        onChange(returnValue);
+        onChange(getOnChangeReturnValue(values));
       }
     }, 0.01);
 
@@ -484,25 +481,19 @@ export function Slider({
   }, []);
 
   // Get full, adjusted onChange value (including startEndValues, etc.)
-  const getOnChangeReturnValue = (values: number[]) => {
-    let returnValue: (number | RangeValue)[] | number | RangeValue;
-
-    // When using a numerical range, use startEndValues in the return as well.
+  const getOnChangeReturnValue = useCallback((values: number[]) => {
     if (!rangeValues) {
       const fullValues = getWithStartEndValues(values, startEndValues, originalMin, originalMax);
 
-      returnValue = isRange
-        ? [roundIfNumber(fullValues[0]), roundIfNumber(fullValues[1])]
-        : roundIfNumber(fullValues[1]);
+      return isRange ? [roundIfNumber(fullValues[0]), roundIfNumber(fullValues[1])] : roundIfNumber(fullValues[1]);
     }
     // For range values, do a lookup to get the range value items.
     else {
-      returnValue = isRange ? [rangeValues[values[0]], rangeValues[values[1]]] : rangeValues[values[1]];
+      return isRange ? [rangeValues[values[0]], rangeValues[values[1]]] : rangeValues[values[1]];
     }
+  }, []);
 
-    return returnValue;
-  };
-
+  // Input element onChange handler.
   const onInputChange = useCallback(
     (e: any, index: number) => {
       setIsMoving(true);
@@ -640,14 +631,12 @@ export function Slider({
 
     // Set the style for the elements.
     if (i === -1) {
-      // Initial style.
       if (t0 && t1 && a0 && a1) {
         for (const n of [0, 1]) {
           setStyles(n);
         }
       }
     } else {
-      // On movement.
       if (t0 && t1 && a0 && a1) {
         setStyles(i);
       }
@@ -866,10 +855,10 @@ function updateInputValues(
 ) {
   if (isRange) {
     if (ref0.current) {
-      ref0.current.value = (values as number[])[0];
+      ref0.current.value = values[0];
     }
     if (ref1.current) {
-      ref1.current.value = (values as number[])[1];
+      ref1.current.value = values[1];
     }
   } else {
     if (ref1.current) {
@@ -878,7 +867,7 @@ function updateInputValues(
   }
 }
 
-// Use the given value to get full value array.
+// Get a full value array, using the given value (combining it with an existing value for the other index).
 // Returns the value as an adjusted value (rounded, etc.).
 const getAsValueArray = (
   value: number,
@@ -909,6 +898,20 @@ const getAsValueArray = (
   } else {
     return getAdjustedValueArray(values, step);
   }
+};
+
+// Get value adjusted with step amount.
+const getAdjustedValue = (value: number, step: number) => {
+  if (!(typeof step === 'string') && step > 1) {
+    return roundPrecise(value / step) * step;
+  } else {
+    return roundPrecise(value);
+  }
+};
+
+// Adjust array values.
+const getAdjustedValueArray = (values: number[], step: number) => {
+  return [getAdjustedValue(values[0], step), getAdjustedValue(values[1], step)];
 };
 
 // Get active track style (to set track width).
@@ -942,20 +945,6 @@ const getX = (event: any) => {
   const xCoordinate = event.touches[0].clientX - e.left;
 
   return roundPrecise(xCoordinate);
-};
-
-// Get value adjusted with step amount.
-const getAdjustedValue = (value: number, step: number) => {
-  if (!(typeof step === 'string') && step > 1) {
-    return roundPrecise(value / step) * step;
-  } else {
-    return roundPrecise(value);
-  }
-};
-
-// Adjust array values.
-const getAdjustedValueArray = (values: number[], step: number) => {
-  return [getAdjustedValue(values[0], step), getAdjustedValue(values[1], step)];
 };
 
 // Convert the input values to full values (including start/end values).

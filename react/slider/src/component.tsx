@@ -331,11 +331,12 @@ export function Slider({
   }, [input0.current, input1.current]);
 
   // Call onchangeafter.
+  // Run on isMoving and on currentValues to run on dragging and on click.
   useEffect(() => {
     if (onChangeAfter && !isMoving) {
       onChangeAfter(getOnChangeReturnValue(currentValues));
     }
-  }, [isMoving]);
+  }, [isMoving, currentValues]);
 
   // Set value attributes.
   useEffect(() => {

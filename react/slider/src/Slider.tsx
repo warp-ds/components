@@ -513,6 +513,7 @@ export function Slider({
       if (!disabled) {
         return (
           <input
+            className="w-slider__input"
             ref={ref}
             type="range"
             step={step}
@@ -525,7 +526,16 @@ export function Slider({
           />
         );
       } else {
-        return <input type="range" disabled={true} value={currentValues[index]} min={min} max={max} />;
+        return (
+          <input
+            className="w-slider__input"
+            type="range"
+            disabled={true}
+            value={currentValues[index]}
+            min={min}
+            max={max}
+          />
+        );
       }
     },
     [currentValues],

@@ -42,14 +42,14 @@
 }
 
 .w-slider__input[type="range"]:focus-visible::-webkit-slider-thumb {
-  outline: 2px solid #06befb;
+  outline: 2px solid var(--w-s-color-border-focus);
   outline-offset: 1px;
   box-shadow: none;
 }
 
 .w-slider__input[type="range"]::-webkit-slider-runnable-track {
   height: 4px;
-  background: #dedee3;
+  background: var(--w-s-color-background-disabled-subtle);
   box-shadow: none;
   pointer-events: none;
   border-radius: 2px;
@@ -68,11 +68,11 @@
 .w-slider__tooltips .w-slider__tooltip {
   grid-row: 1;
   grid-column: 1;
-  color: white;
+  color: var(--w-s-color-text-inverted-static);
   padding: 5px 12px;
   position: fixed;
   text-align: center;
-  background-color: #1b1b1f;
+  background-color: var(--w-color-tooltip-background-static);
   transform: translateY(-39px);
   z-index: 20;
   justify-self: end;
@@ -127,7 +127,7 @@
   width: 4px;
   height: 8px;
   border-radius: 2px;
-  background-color: #dedee3;
+  background-color: var(--w-s-color-background-disabled-subtle);
 }
 
 .w-slider__marker-value {
@@ -143,9 +143,11 @@
   grid-template-columns: auto auto;
   height: 25.5px;
 }
+
 .w-slider__markervalues > div:nth-child(1) {
   justify-self: start;
 }
+
 .w-slider__markervalues > div:nth-child(2) {
   justify-self: end;
 }

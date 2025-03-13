@@ -162,7 +162,7 @@ export const Range2 = () => {
   const [values, setValues] = React.useState([100, 1500]);
 
   return (
-    <div>
+    <div style={{ maxWidth: '500px' }}>
       <output>
         {values[0]} - {values[1]}
       </output>
@@ -184,7 +184,7 @@ export const Range3 = () => {
   const [values, setValues] = React.useState([-100, 100]);
 
   return (
-    <div>
+    <div style={{ maxWidth: '500px' }}>
       <output>
         {values[0]} - {values[1]}
       </output>
@@ -198,7 +198,7 @@ export const Range4 = () => {
   const [values, setValues] = React.useState([1000, 9000]);
 
   return (
-    <div>
+    <div style={{ maxWidth: '500px' }}>
       <output>
         {values[0]} - {values[1]}
       </output>
@@ -220,7 +220,7 @@ export const Range5 = () => {
   const [values, setValues] = React.useState([10, 1000]);
 
   return (
-    <div>
+    <div style={{ maxWidth: '500px' }}>
       <output>
         {values[0]} - {values[1]}
       </output>
@@ -234,7 +234,7 @@ export const Range6 = () => {
   const [values, setValues] = React.useState([0, 10000]);
 
   return (
-    <div>
+    <div style={{ maxWidth: '500px' }}>
       <output>
         {values[0]} - {values[1]}
       </output>
@@ -256,7 +256,7 @@ export const Range7 = () => {
   const [values, setValues] = React.useState([1, 15]);
 
   return (
-    <div>
+    <div style={{ maxWidth: '500px' }}>
       <output>
         {values[0]} - {values[1]}
       </output>
@@ -270,7 +270,7 @@ export const Range8 = () => {
   const [values, setValues] = React.useState<(number | string)[]>([1000, 5000]);
 
   return (
-    <div>
+    <div style={{ maxWidth: '500px' }}>
       <output>
         {values[0]} - {values[1]}
       </output>
@@ -294,7 +294,7 @@ export const Range9 = () => {
   const [values, setValues] = React.useState<(number | string)[]>(['Less than 1000', 'Over 5000']);
 
   return (
-    <div>
+    <div style={{ maxWidth: '500px' }}>
       <output>
         {values[0]} - {values[1]}
       </output>
@@ -319,7 +319,7 @@ export const Range10changeafter = () => {
   const [values2, setValues2] = React.useState<(number | string)[]>(['Less than 1000', 'Over 5000']);
 
   return (
-    <div>
+    <div style={{ maxWidth: '500px' }}>
       <output>
         {values[0]} - {values[1]}
       </output>
@@ -352,7 +352,7 @@ export const RegularRangeValues = () => {
   const range = ['hi', 'haha', 'yes', 'nr', 'ok', '1', '2'];
 
   return (
-    <div>
+    <div style={{ maxWidth: '500px' }}>
       <output>{value}</output>
       <Slider onChange={(value) => setValue(value)} value={value} rangeValues={range} showTooltips markers />
       <button onClick={() => setValue('yes')}>Reset</button>
@@ -366,7 +366,7 @@ export const DualRangeValues = () => {
   const range = ['hi', 'haha', 'yes', 'nr', 'ok', '1', '2'];
 
   return (
-    <div>
+    <div style={{ maxWidth: '500px' }}>
       <output>
         {values[0]} - {values[1]}
       </output>
@@ -382,7 +382,7 @@ export const DualRangeValues2 = () => {
   const range = ['06:00', '06:30', '07:00', '07:30', '08:00', '08:30', '09:00'];
 
   return (
-    <div>
+    <div style={{ maxWidth: '500px' }}>
       <output>
         {values[0]} - {values[1]}
       </output>
@@ -431,7 +431,7 @@ export const DualRangeValues3 = () => {
   ];
 
   return (
-    <div>
+    <div style={{ maxWidth: '500px' }}>
       <output>
         {values[0].label} - {values[1].label}
       </output>
@@ -464,7 +464,7 @@ export const DualRangeValues3 = () => {
 export const Disabled = () => {
   const [value, setValue] = React.useState(625_000);
   return (
-    <div>
+    <div style={{ maxWidth: '500px' }}>
       <output>{value}</output>
       <Slider onChange={(val) => setValue(val)} value={value} disabled min={1000} max={10_000_000} step={1000} />
     </div>
@@ -476,7 +476,7 @@ export const ChangeAfter = () => {
   const [valueAfter, setValueAfter] = React.useState(value);
 
   return (
-    <div>
+    <div style={{ maxWidth: '500px' }}>
       <output>{valueAfter}</output>
       <Slider
         onChange={(val) => setValue(val)}

@@ -211,7 +211,7 @@ export function Slider({
   const tooltipArrow1 = useRef<SVGSVGElement>(null);
 
   const widthRef = useRef<HTMLDivElement>(null);
-  const timeoutId = useRef<any>(0);
+  const timeoutId = useRef<number>(0);
 
   // Active state of the input elements.
   const [input0Active, setInput0Active] = useState(false);
@@ -435,7 +435,7 @@ export function Slider({
 
         const width = wrapperRef.current?.clientWidth || 0;
 
-        const pxPerVal = width / (max - min);
+        const pxPerVal = (width - thumbWidth) / (max - min);
 
         const pxDistance = d * pxPerVal;
 
@@ -689,9 +689,9 @@ export function Slider({
   );
 }
 
-/**
- * Get full tooltip CSS, to set its position along the slider track.
- */
+// Get full tooltip CSS, to set the position of the tooltips along the slider.
+// This calculates both tooltip box and arrow positions. This is done by calculating the offset from the left,
+// adjusting for input type="range" offset, and adjusting for tooltip box position if containTooltips is used.
 const getTooltipCSS = (
   currentValues: number[],
   wrapperRef: RefObject<HTMLElement>,
@@ -706,13 +706,14 @@ const getTooltipCSS = (
 
   const left0 = ((currentValues[0] - min) / (max - min)) * width;
   const left1 = ((currentValues[1] - min) / (max - min)) * width;
+
   const [offset0, offset1] = getToolTipOffsets(currentValues, max, min);
 
-  let l0 = left0 + offset0 + 0.37 * thumbWidth;
-  let l1 = left1 + offset1 + 0.37 * thumbWidth;
+  const wrapperRect = wrapperRef.current?.getBoundingClientRect();
+  const left = wrapperRect.left;
 
-  let r0 = false;
-  let r1 = false;
+  let l0 = left0 + offset0 + left;
+  let l1 = left1 + offset1 + left;
 
   const lt0 = l0;
   const lt1 = l1;
@@ -723,87 +724,81 @@ const getTooltipCSS = (
   const ttx0 = tx0;
   const ttx1 = tx1;
 
+  let tooltipBox0 = {
+    left: l0 + 'px',
+    transform: `translateY(-39px) ${tx0}`,
+  };
+
+  let tooltipBox1 = {
+    left: l1 + 'px',
+    transform: `translateY(-39px) ${tx1}`,
+  };
+
   // If containTooltips is true, the tooltip boxes only move up to the start/end limits.
   if (containTooltips) {
-    const boundingRect = (wrapperRef.current as HTMLDivElement).getBoundingClientRect();
+    let r0 = false;
+    let r1 = false;
 
-    const left = boundingRect.left;
-    const right = boundingRect.right;
+    const right = wrapperRect.right;
 
-    // The following code is needed in order to estimate (calculate) the width of the tooltip box, with
-    // the given value, before it's rendered.
+    // The following code used in order to estimate (calculate) the width of the tooltip box, with the given value,
+    // before it's rendered.
     //
-    // This is needed so that an exact position can be determined, without first rendering and then adjusting the tooltip, which could cause some
-    // flickering/stuttering.
+    // This is needed so that an exact position can be determined, without first rendering and then adjusting the
+    // tooltip, which would cause some flickering/stuttering.
     //
-    // To do this, the value is rendered in the hidden width-check div, the width is then measured, and that value is used to calculate
-    // tooltip size and alignment.
+    // To do this, the value is rendered in the hidden width-check div, the width is then measured, and that value
+    // is used to calculate tooltip position (before it's rendered).
     const w = getEstimatedWidth(currentValues[i], widthref);
 
     const hw = w * 0.5;
-
-    const th = thumbWidth * 0.5;
+    const wOffset = hw + thumbWidth * 0.5;
 
     if (isRange) {
-      if (l0 + hw + th > right) {
+      if (l0 + wOffset > right) {
         r0 = true;
         tx0 = '';
       }
 
-      if (l0 - hw - th < left) {
+      if (l0 - wOffset < left) {
         l0 = left;
         tx0 = '';
       }
     }
 
-    if (l1 + hw + th > right) {
+    if (l1 + wOffset > right) {
       tx1 = '';
       r1 = true;
     }
 
-    if (l1 - hw - th < left) {
+    if (l1 - wOffset < left) {
       l1 = left;
       tx1 = '';
     }
 
-    return [
-      {
-        left: r0 ? '' : l0 + 'px',
-        transform: `translateY(-39px) ${tx0}`,
-      },
-      {
-        left: r1 ? '' : l1 + 'px',
-        transform: `translateY(-39px) ${tx1}`,
-      },
-      {
-        left: lt0 + 'px',
-        transform: `translateY(-7.2px) ${ttx0}`,
-      },
-      {
-        left: lt1 + 'px',
-        transform: `translateY(-7.2px) ${ttx1}`,
-      },
-    ];
-  } else {
-    return [
-      {
-        left: l0 + 'px',
-        transform: `translateY(-39px) ${tx0}`,
-      },
-      {
-        left: l1 + 'px',
-        transform: `translateY(-39px) ${tx1}`,
-      },
-      {
-        left: lt0 + 'px',
-        transform: `translateY(-7.2px) ${ttx0}`,
-      },
-      {
-        left: lt1 + 'px',
-        transform: `translateY(-7.2px) ${ttx1}`,
-      },
-    ];
+    tooltipBox0 = {
+      left: r0 ? '' : l0 + 'px',
+      transform: `translateY(-39px) ${tx0}`,
+    };
+
+    tooltipBox1 = {
+      left: r1 ? '' : l1 + 'px',
+      transform: `translateY(-39px) ${tx1}`,
+    };
   }
+
+  return [
+    tooltipBox0,
+    tooltipBox1,
+    {
+      left: lt0 + 'px',
+      transform: `translateY(-7.2px) ${ttx0}`,
+    },
+    {
+      left: lt1 + 'px',
+      transform: `translateY(-7.2px) ${ttx1}`,
+    },
+  ];
 };
 
 // Determine (estimate) the width of the tooltip box with the given value, using the width-check element.
@@ -819,10 +814,10 @@ const getEstimatedWidth = (val: number, widthRef: RefObject<HTMLElement>): any =
 
 // Get tooltip offsets, needed to center the tooltip over the thumb (which doesn't follow the active track exactly; see default input type="range" behavior.)
 const getToolTipOffsets = (values: number[], max: number, min: number) => {
-  const tooltipOffset1 = -((values[0] - min) / (max - min) - 0.5) * thumbWidth;
-  const tooltipOffset2 = -((values[1] - min) / (max - min) - 0.5) * thumbWidth;
+  const tooltipOffset0 = ((values[0] - min) / (max - min)) * thumbWidth;
+  const tooltipOffset1 = ((values[1] - min) / (max - min)) * thumbWidth;
 
-  return [tooltipOffset1, tooltipOffset2];
+  return [0.5 * thumbWidth - tooltipOffset0, 0.5 * thumbWidth - tooltipOffset1];
 };
 
 // Aria label data for the slider.

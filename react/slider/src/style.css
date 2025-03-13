@@ -66,14 +66,11 @@
 }
 
 .w-slider__tooltips .w-slider__tooltip {
-  grid-row: 1;
-  grid-column: 1;
   color: var(--w-s-color-text-inverted-static);
   padding: 5px 12px;
   position: fixed;
   text-align: center;
   background-color: var(--w-color-tooltip-background-static);
-  transform: translateY(-39px);
   z-index: 20;
   justify-self: end;
   border-radius: 4px;
@@ -122,8 +119,6 @@
 }
 
 .w-slider__marker-line {
-  display: block;
-  overflow: hidden;
   width: 4px;
   height: 8px;
   border-radius: 2px;
@@ -132,7 +127,7 @@
 
 .w-slider__marker-value {
   width: 0;
-  overflow: visible;
+  white-space: nowrap;
   display: grid;
   justify-content: center;
 }

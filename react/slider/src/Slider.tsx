@@ -762,7 +762,7 @@ const getTooltipCSS = (
 };
 
 // Determine (estimate) the width of the tooltip box with the given value, using the width-check element.
-const getEstimatedWidth = (val: number, widthRef: Ref): any => {
+const getEstimatedWidth = (val: number, widthRef: Ref) => {
   const r = widthRef.current;
 
   if (r) {

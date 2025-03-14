@@ -120,9 +120,9 @@ export function Slider({
   'aria-valuetext': ariaValueText,
   keyboardStepFactor = 0.04,
   showTooltips = false,
-  containTooltips = false,
-  showMarkers = false,
-  containMarkers = false,
+  containTooltips = true,
+  showMarkers = true,
+  containMarkers = true,
   startEndValues,
 }: {
   max?: number;
@@ -603,7 +603,17 @@ export function Slider({
   // Set tooltip positions.
   const setTooltipStyles = useCallback((values: number[], i = -1) => {
     const setStyles = (index: number) => {
-      const css = getTooltipCSS(values, wrapperRef, isRange, max, min, index, widthRef, containTooltips);
+      const css = getTooltipCSS(
+        values,
+        getWithStartEndValues(values, startEndValues, originalMin, originalMax),
+        wrapperRef,
+        isRange,
+        max,
+        min,
+        index,
+        widthRef,
+        containTooltips,
+      );
 
       // Apply styles.
       [tooltip0, tooltip1, tooltipArrow0, tooltipArrow1].forEach((e, i) => Object.assign(e.current.style, css[i]));
@@ -785,7 +795,7 @@ const getX = (event: any) => {
 };
 
 // Convert the input values to full values (including start/end values).
-const getWithStartEndValues = (
+export const getWithStartEndValues = (
   values: number[],
   startEndValues: string[],
   originalMin: number,

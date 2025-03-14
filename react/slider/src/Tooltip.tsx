@@ -47,7 +47,8 @@ export const TooltipArrow = ({
 // This calculates both tooltip box and arrow positions. This is done by calculating the offset from the left,
 // adjusting for input type="range" offset, and adjusting for tooltip box position if containTooltips is used.
 export const getTooltipCSS = (
-  currentValues: number[],
+  values: number[],
+  fullValues: (number | string)[],
   wrapperRef: Ref,
   isRange: boolean,
   max: number,
@@ -58,10 +59,10 @@ export const getTooltipCSS = (
 ) => {
   const width = wrapperRef.current?.clientWidth || 0;
 
-  const left0 = ((currentValues[0] - min) / (max - min)) * width;
-  const left1 = ((currentValues[1] - min) / (max - min)) * width;
+  const left0 = ((values[0] - min) / (max - min)) * width;
+  const left1 = ((values[1] - min) / (max - min)) * width;
 
-  const [offset0, offset1] = getTooltipOffsets(currentValues, max, min);
+  const [offset0, offset1] = getTooltipOffsets(values, max, min);
 
   const wrapperRect = wrapperRef.current?.getBoundingClientRect();
   const left = wrapperRect.left;
@@ -92,7 +93,7 @@ export const getTooltipCSS = (
     //
     // To do this, the value is rendered in the hidden width-check div, the width is then measured, and that value
     // is used to calculate tooltip position (before it's rendered).
-    const wOffset = 0.5 * (getEstimatedWidth(currentValues[i], widthref) + thumbWidth);
+    const wOffset = 0.5 * (getEstimatedWidth(fullValues[i], widthref) + thumbWidth);
 
     // Margin from edges for the tooltip box.
     const margin = 5;
@@ -139,7 +140,7 @@ const getTooltipOffsets = (values: number[], max: number, min: number) => {
 };
 
 // Determine (estimate) the width of the tooltip box with the given value, using the width-check element.
-const getEstimatedWidth = (val: number, widthRef: Ref) => {
+const getEstimatedWidth = (val: number | string, widthRef: Ref) => {
   const r = widthRef.current;
 
   if (r) {

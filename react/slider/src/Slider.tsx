@@ -701,33 +701,22 @@ const getTooltipCSS = (
   const wrapperRect = wrapperRef.current?.getBoundingClientRect();
   const left = wrapperRect.left;
 
-  let l0 = left0 + offset0 + left;
-  let l1 = left1 + offset1 + left;
+  // Get distance from left.
+  const l0 = left0 + offset0 + left;
+  const l1 = left1 + offset1 + left;
 
-  const lt0 = l0;
-  const lt1 = l1;
-
-  let tx0 = 'translateX(-50%)';
-  let tx1 = 'translateX(-50%)';
-
-  const ttx0 = tx0;
-  const ttx1 = tx1;
-
-  let tooltipBox0 = {
+  const tooltipBox0 = {
     left: l0 + 'px',
-    transform: `translateY(-39px) ${tx0}`,
+    transform: 'translateY(-39px) translateX(-50%)',
   };
 
-  let tooltipBox1 = {
+  const tooltipBox1 = {
     left: l1 + 'px',
-    transform: `translateY(-39px) ${tx1}`,
+    transform: 'translateY(-39px) translateX(-50%)',
   };
 
   // If containTooltips is true, the tooltip boxes only move up to the start/end limits.
   if (containTooltips) {
-    let r0 = false;
-    let r1 = false;
-
     const right = wrapperRect.right;
 
     // The following code used in order to estimate (calculate) the width of the tooltip box, with the given value,
@@ -742,49 +731,32 @@ const getTooltipCSS = (
 
     const wOffset = 0.5 * (w + thumbWidth);
 
+    const getStyle = (left?: number) => ({
+      left: left ? left + 'px' : '',
+      transform: 'translateY(-39px)',
+    });
+
     if (isRange) {
-      if (l0 + wOffset > right) {
-        r0 = true;
-        tx0 = '';
-      }
-
-      if (l0 - wOffset < left) {
-        l0 = left;
-        tx0 = '';
-      }
+      if (l0 + wOffset > right) Object.assign(tooltipBox0, getStyle());
+      if (l0 - wOffset < left) Object.assign(tooltipBox0, getStyle(left));
     }
 
-    if (l1 + wOffset > right) {
-      tx1 = '';
-      r1 = true;
-    }
-
-    if (l1 - wOffset < left) {
-      l1 = left;
-      tx1 = '';
-    }
-
-    tooltipBox0 = {
-      left: r0 ? '' : l0 + 'px',
-      transform: `translateY(-39px) ${tx0}`,
-    };
-
-    tooltipBox1 = {
-      left: r1 ? '' : l1 + 'px',
-      transform: `translateY(-39px) ${tx1}`,
-    };
+    if (l1 + wOffset > right) Object.assign(tooltipBox1, getStyle());
+    if (l1 - wOffset < left) Object.assign(tooltipBox1, getStyle(left));
   }
 
   return [
+    // Tooltip boxes.
     tooltipBox0,
     tooltipBox1,
+    // Tooltip arrows.
     {
-      left: lt0 + 'px',
-      transform: `translateY(-7.2px) ${ttx0}`,
+      left: l0 + 'px',
+      transform: 'translateY(-7.2px) translateX(-50%)',
     },
     {
-      left: lt1 + 'px',
-      transform: `translateY(-7.2px) ${ttx1}`,
+      left: l1 + 'px',
+      transform: 'translateY(-7.2px) translateX(-50%)',
     },
   ];
 };

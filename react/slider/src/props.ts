@@ -18,7 +18,7 @@ export type SliderProps = {
   keyboardStepFactor?: number;
 
   // Show markers (steps) and marker values (at min/max values).
-  markers?: boolean;
+  showMarkers?: boolean;
 
   // Show tooltips on dragging.
   showTooltips?: boolean;

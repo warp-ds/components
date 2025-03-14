@@ -42,7 +42,7 @@ export const Regular2 = () => {
         min={10000}
         max={60000}
         showTooltips
-        markers
+        showMarkers
         step={100}
       />
       <button onClick={() => setValue(15000)}>Reset</button>
@@ -62,7 +62,7 @@ export const Regular3 = () => {
         min={10000}
         max={60000}
         showTooltips
-        markers
+        showMarkers
         step={100}
         containTooltips
       />
@@ -77,7 +77,7 @@ export const Regular4 = () => {
   return (
     <div style={{ maxWidth: '500px' }}>
       <output>{value}</output>
-      <Slider onChange={(value) => setValue(value)} value={value} min={0} max={6} showTooltips markers />
+      <Slider onChange={(value) => setValue(value)} value={value} min={0} max={6} showTooltips showMarkers />
       <button onClick={() => setValue(3)}>Reset</button>
     </div>
   );
@@ -89,7 +89,7 @@ export const Regular5 = () => {
   return (
     <div style={{ maxWidth: '500px' }}>
       <output>{value}</output>
-      <Slider onChange={(value) => setValue(value)} value={value} min={1} max={8} showTooltips markers />
+      <Slider onChange={(value) => setValue(value)} value={value} min={1} max={8} showTooltips showMarkers />
       <button onClick={() => setValue(3)}>Reset</button>
     </div>
   );
@@ -107,7 +107,7 @@ export const Regular6 = () => {
         min={2}
         max={10}
         showTooltips
-        markers
+        showMarkers
         startEndValues={['Less than 2', 'gt 10']}
         containMarkers
       />
@@ -128,7 +128,7 @@ export const Regular7 = () => {
         min={2}
         max={10}
         showTooltips
-        markers
+        showMarkers
         startEndValues={[null, 'gt 10']}
       />
       <button onClick={() => setValue(3)}>Reset</button>
@@ -152,7 +152,7 @@ export const Range = () => {
         step={1000}
         containMarkers
         showTooltips
-        markers
+        showMarkers
         containTooltips
       />
       <button onClick={() => setValues([1000, 5008970])}>Reset</button>
@@ -175,7 +175,7 @@ export const Range2 = () => {
         max={1500}
         step={10}
         showTooltips
-        markers
+        showMarkers
       />
       <button onClick={() => setValues([100, 1500])}>Reset</button>
     </div>
@@ -190,7 +190,15 @@ export const Range3 = () => {
       <output>
         {values[0]} - {values[1]}
       </output>
-      <Slider values={values} onChange={(nums) => setValues(nums)} min={-150} max={150} step={1} showTooltips markers />
+      <Slider
+        values={values}
+        onChange={(nums) => setValues(nums)}
+        min={-150}
+        max={150}
+        step={1}
+        showTooltips
+        showMarkers
+      />
       <button onClick={() => setValues([-100, 100])}>Reset</button>
     </div>
   );
@@ -211,7 +219,7 @@ export const Range4 = () => {
         max={10000}
         step={100}
         showTooltips
-        markers
+        showMarkers
       />
       <button onClick={() => setValues([1000, 9000])}>Reset</button>
     </div>
@@ -226,7 +234,7 @@ export const Range5 = () => {
       <output>
         {values[0]} - {values[1]}
       </output>
-      <Slider values={values} onChange={(nums) => setValues(nums)} min={0} max={4000} showTooltips markers />
+      <Slider values={values} onChange={(nums) => setValues(nums)} min={0} max={4000} showTooltips showMarkers />
       <button onClick={() => setValues([10, 1000])}>Reset</button>
     </div>
   );
@@ -246,7 +254,7 @@ export const Range6 = () => {
         min={0}
         max={10000}
         showTooltips
-        markers
+        showMarkers
         step={100}
       />
       <button onClick={() => setValues([0, 10000])}>Reset</button>
@@ -262,7 +270,7 @@ export const Range7 = () => {
       <output>
         {values[0]} - {values[1]}
       </output>
-      <Slider values={values} onChange={(nums) => setValues(nums)} min={0} max={20} step={1} showTooltips markers />
+      <Slider values={values} onChange={(nums) => setValues(nums)} min={0} max={20} step={1} showTooltips showMarkers />
       <button onClick={() => setValues([1, 15])}>Reset</button>
     </div>
   );
@@ -284,7 +292,7 @@ export const Range8 = () => {
         startEndValues={['Less than 1000', 'Over 5000']}
         step={100}
         showTooltips
-        markers
+        showMarkers
         containTooltips
         containMarkers
       />
@@ -309,7 +317,7 @@ export const Range9 = () => {
         startEndValues={['Less than 1000', 'Over 5000']}
         step={100}
         showTooltips
-        markers
+        showMarkers
         containTooltips
         containMarkers
       />
@@ -340,7 +348,7 @@ export const Range10changeafter = () => {
         startEndValues={['Less than 1000', 'Over 5000']}
         step={100}
         showTooltips
-        markers
+        showMarkers
         containTooltips
         containMarkers
       />
@@ -359,7 +367,7 @@ export const RegularRangeValues = () => {
   return (
     <div style={{ maxWidth: '500px' }}>
       <output>{value}</output>
-      <Slider onChange={(value) => setValue(value)} value={value} rangeValues={range} showTooltips markers />
+      <Slider onChange={(value) => setValue(value)} value={value} rangeValues={range} showTooltips showMarkers />
       <button onClick={() => setValue('yes')}>Reset</button>
     </div>
   );
@@ -375,7 +383,7 @@ export const DualRangeValues = () => {
       <output>
         {values[0]} - {values[1]}
       </output>
-      <Slider onChange={(values) => setValues(values)} values={values} rangeValues={range} showTooltips markers />
+      <Slider onChange={(values) => setValues(values)} values={values} rangeValues={range} showTooltips showMarkers />
       <button onClick={() => setValues(['yes', '1'])}>Reset</button>
     </div>
   );
@@ -396,7 +404,7 @@ export const DualRangeValues2 = () => {
         values={values}
         rangeValues={range}
         showTooltips
-        markers
+        showMarkers
         containMarkers
       />
       <button onClick={() => setValues(['06:30', '08:30'])}>Reset</button>
@@ -445,7 +453,7 @@ export const DualRangeValues3 = () => {
         values={values}
         rangeValues={range}
         showTooltips
-        markers
+        showMarkers
         containMarkers
       />
       <button

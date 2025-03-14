@@ -121,7 +121,7 @@ export function Slider({
   keyboardStepFactor = 0.04,
   showTooltips = false,
   containTooltips = false,
-  markers = false,
+  showMarkers = false,
   containMarkers = false,
   startEndValues,
 }: {
@@ -661,7 +661,7 @@ export function Slider({
           {isRange && inputElement(0, input0)}
           {inputElement(1, input1)}
         </div>
-        {markers && getMarkerDiv()}
+        {showMarkers && getMarkerDiv()}
       </div>
       <div className="w-slider__width-check" ref={widthRef} />
     </>

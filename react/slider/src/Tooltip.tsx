@@ -1,7 +1,7 @@
 import type { RefObject } from 'react';
 
-// Toolip component that shows a given value above the slider thumb.
-export const ToolTip = ({
+// Tooltip component that shows a given value above the slider thumb.
+export const Tooltip = ({
   display,
   top,
   children,
@@ -19,7 +19,7 @@ export const ToolTip = ({
 };
 
 // Tooltip arrow, with settable visibility and order (z-index).
-export const ToolTipArrow = ({
+export const TooltipArrow = ({
   display,
   top,
   ref,

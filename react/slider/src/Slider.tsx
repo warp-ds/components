@@ -1,7 +1,7 @@
 import { type RefObject, useCallback, useEffect, useRef, useState } from 'react';
 import type { SliderProps } from './props.ts';
 import { clamp, clampValues, roundPrecise, roundIfNumber } from './math.ts';
-import { ToolTip, ToolTipArrow } from './Tooltip.tsx';
+import { Tooltip, TooltipArrow } from './Tooltip.tsx';
 import style from 'inline:./style.css';
 
 const thumbWidth = 28;
@@ -217,8 +217,8 @@ export function Slider({
   const [input0Active, setInput0Active] = useState(false);
   const [input1Active, setInput1Active] = useState(false);
 
-  const renderToolTip0 = showTooltips && (isMoving || input0Active) && !input1Active;
-  const renderToolTip1 = showTooltips && (isMoving || input1Active) && !input0Active;
+  const renderTooltip0 = showTooltips && (isMoving || input0Active) && !input1Active;
+  const renderTooltip1 = showTooltips && (isMoving || input1Active) && !input0Active;
 
   // Update styles on resize.
   useEffect(() => {
@@ -636,14 +636,14 @@ export function Slider({
         onContextMenu={(e) => e.preventDefault()}
       >
         <div className="w-slider__tooltips">
-          <ToolTip display={renderToolTip0 && isRange} top={input0Active} ref={tooltip0}>
+          <Tooltip display={renderTooltip0 && isRange} top={input0Active} ref={tooltip0}>
             {getFullValue(0)}
-          </ToolTip>
-          <ToolTip display={renderToolTip1} top={input1Active} ref={tooltip1}>
+          </Tooltip>
+          <Tooltip display={renderTooltip1} top={input1Active} ref={tooltip1}>
             {getFullValue(1)}
-          </ToolTip>
-          <ToolTipArrow display={renderToolTip0 && isRange} top={input0Active} ref={tooltipArrow0} />
-          <ToolTipArrow display={renderToolTip1} top={input0Active} ref={tooltipArrow1} />
+          </Tooltip>
+          <TooltipArrow display={renderTooltip0 && isRange} top={input0Active} ref={tooltipArrow0} />
+          <TooltipArrow display={renderTooltip1} top={input0Active} ref={tooltipArrow1} />
         </div>
         <div className="w-slider__active-track" ref={trackRef} />
         <div
@@ -686,7 +686,7 @@ const getTooltipCSS = (
   const left0 = ((currentValues[0] - min) / (max - min)) * width;
   const left1 = ((currentValues[1] - min) / (max - min)) * width;
 
-  const [offset0, offset1] = getToolTipOffsets(currentValues, max, min);
+  const [offset0, offset1] = getTooltipOffsets(currentValues, max, min);
 
   const wrapperRect = wrapperRef.current?.getBoundingClientRect();
   const left = wrapperRect.left;
@@ -750,7 +750,7 @@ const getTooltipCSS = (
 };
 
 // Get tooltip offsets, needed to center the tooltip over the thumb (which doesn't follow the active track exactly; see default input type="range" behavior.)
-const getToolTipOffsets = (values: number[], max: number, min: number) => {
+const getTooltipOffsets = (values: number[], max: number, min: number) => {
   const tooltipOffset0 = ((values[0] - min) / (max - min)) * thumbWidth;
   const tooltipOffset1 = ((values[1] - min) / (max - min)) * thumbWidth;
   

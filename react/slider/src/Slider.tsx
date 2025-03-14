@@ -122,7 +122,7 @@ export function Slider({
   showTooltips = false,
   containTooltips = true,
   showMarkers = true,
-  containMarkers = true,
+  containMarkers = false,
   startEndValues,
 }: {
   max?: number;
@@ -330,10 +330,7 @@ export function Slider({
 
   const moveSlider = useCallback(
     (direction: 'left' | 'right', i: number) => {
-      const multiplier = {
-        left: -1,
-        right: 1,
-      };
+      const multiplier = { left: -1, right: 1 };
 
       const d = max * keyboardStepFactor;
 
@@ -517,30 +514,41 @@ export function Slider({
     [currentValues],
   );
 
-  // Get div containing vertical lines (markers) and marker values.
+  // Get markers and marker values.
   // Displays values either centered below the line, or justified to fit in the component.
-  const getMarkerDiv = useCallback(() => {
-    const getMarkerLines = () =>
-      Array.from(Array(2).keys()).map((k) => <div key={k} className="w-slider__marker-line" />);
+  const getMarkers = useCallback(() => {
+    const markerLines = () => [...Array(2).keys()].map((k) => <div key={k} className="w-slider__marker-line" />);
 
-    const getMarkerValues = () =>
-      Array.from(Array(2).keys()).map((k, i) => {
-        let displayValue: string | number = '';
-
-        displayValue = startEndValues?.[i] ? startEndValues[i] : (max - min) * k + min;
+    const markerValues = () =>
+      [...Array(2).keys()].map((k) => {
+        const displayValue = startEndValues?.[k] ? startEndValues[k] : (max - min) * k + min;
 
         return <div key={k}>{rangeValues ? getRangeValueItem(displayValue as number) : displayValue}</div>;
       });
 
-    if (!containMarkers) {
-      return <div className="w-slider__steps">{getMarkers()}</div>;
-    } else {
+    const markers = () =>
+      [...Array(2).keys()].map((k) => {
+        const displayValue = startEndValues?.[k] ? startEndValues[k] : (max - min) * k + min;
+
+        return (
+          <div key={k} className="w-slider__marker">
+            <div className="w-slider__marker-line" />
+            <div className="w-slider__marker-value">
+              {rangeValues ? getRangeValueItem(displayValue as number) : displayValue}
+            </div>
+          </div>
+        );
+      });
+
+    if (containMarkers) {
       return (
         <div>
-          <div className="w-slider__steps">{getMarkerLines()}</div>
-          <div className="w-slider__markervalues">{getMarkerValues()}</div>
+          <div className="w-slider__steps">{markerLines()}</div>
+          <div className="w-slider__markervalues">{markerValues()}</div>
         </div>
       );
+    } else {
+      return <div className="w-slider__steps">{markers()}</div>;
     }
   }, []);
 
@@ -554,27 +562,6 @@ export function Slider({
       return '';
     }
   }, []);
-
-  // Get slider markers (steps), showing step values below the slider.
-  // Used for center-aligned display values.
-  const getMarkers = useCallback(
-    () =>
-      Array.from(Array(2).keys()).map((k, i) => {
-        let displayValue: string | number = '';
-
-        displayValue = startEndValues?.[i] ? startEndValues[i] : (max - min) * k + min;
-
-        return (
-          <div key={k} className="w-slider__marker">
-            <div className="w-slider__marker-line" />
-            <div className="w-slider__marker-value">
-              {rangeValues ? getRangeValueItem(displayValue as number) : displayValue}
-            </div>
-          </div>
-        );
-      }),
-    [],
-  );
 
   // Get full value as a display value.
   const getFullValue = useCallback(
@@ -671,7 +658,7 @@ export function Slider({
           {isRange && inputElement(0, input0)}
           {inputElement(1, input1)}
         </div>
-        {showMarkers && getMarkerDiv()}
+        {showMarkers && getMarkers()}
       </div>
       <div className="w-slider__width-check" ref={widthRef} />
     </>

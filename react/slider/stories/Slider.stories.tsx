@@ -106,6 +106,7 @@ export const Regular6 = () => {
         max={10}
         showTooltips
         showMarkers
+        containMarkers
         startEndValues={['Less than 2', 'gt 10']}
       />
       <button onClick={() => setValue(3)}>Reset</button>
@@ -149,6 +150,7 @@ export const Range = () => {
         step={1000}
         showTooltips
         showMarkers
+        containMarkers
       />
       <button onClick={() => setValues([1000, 5008970])}>Reset</button>
     </div>
@@ -288,6 +290,7 @@ export const Range8 = () => {
         step={100}
         showTooltips
         showMarkers
+        containMarkers
       />
       <button onClick={() => setValues([1000, 5000])}>Reset</button>
     </div>
@@ -311,6 +314,7 @@ export const Range9 = () => {
         step={100}
         showTooltips
         showMarkers
+        containMarkers
       />
       <button onClick={() => setValues(['Less than 1000', 'Over 5000'])}>Reset</button>
     </div>
@@ -340,6 +344,7 @@ export const Range10changeafter = () => {
         step={100}
         showTooltips
         showMarkers
+        containMarkers
       />
       <button onClick={() => (setValues(['Less than 1000', 'Over 5000']), setValues2(['Less than 1000', 'Over 5000']))}>
         Reset

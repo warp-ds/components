@@ -7,8 +7,8 @@ import style from 'inline:./style.css';
 const thumbWidth = 28;
 
 type ObjectRangeValue = { label: string; [key: string]: any };
-
 type RangeValue = string | ObjectRangeValue;
+type Ref = RefObject<HTMLElement>;
 
 /*
 Slider / range slider component.
@@ -612,30 +612,18 @@ export function Slider({
 
   // Set tooltip positions.
   const setTooltipStyles = useCallback((values: number[], i = -1) => {
-    // Get tooltip and arrow refs.
-    const t0 = tooltip0.current;
-    const t1 = tooltip1.current;
-    const a0 = tooltipArrow0.current;
-    const a1 = tooltipArrow1.current;
-
     const setStyles = (index: number) => {
       const css = getTooltipCSS(values, wrapperRef, isRange, max, min, index, widthRef, containTooltips);
 
       // Apply styles.
-      [t0, t1, a0, a1].forEach((element, i) => Object.assign(element.style, css[i]));
+      [tooltip0, tooltip1, tooltipArrow0, tooltipArrow1].forEach((e, i) => Object.assign(e.current.style, css[i]));
     };
 
     // Set the style for the elements.
     if (i === -1) {
-      if (t0 && t1 && a0 && a1) {
-        for (const n of [0, 1]) {
-          setStyles(n);
-        }
-      }
+      [0, 1].forEach((n) => setStyles(n));
     } else {
-      if (t0 && t1 && a0 && a1) {
-        setStyles(i);
-      }
+      setStyles(i);
     }
   }, []);
 
@@ -695,12 +683,12 @@ export function Slider({
 // adjusting for input type="range" offset, and adjusting for tooltip box position if containTooltips is used.
 const getTooltipCSS = (
   currentValues: number[],
-  wrapperRef: RefObject<HTMLElement>,
+  wrapperRef: Ref,
   isRange: boolean,
   max: number,
   min: number,
   i: number,
-  widthref: RefObject<HTMLElement>,
+  widthref: Ref,
   containTooltips: boolean,
 ) => {
   const width = wrapperRef.current?.clientWidth || 0;
@@ -752,8 +740,7 @@ const getTooltipCSS = (
     // is used to calculate tooltip position (before it's rendered).
     const w = getEstimatedWidth(currentValues[i], widthref);
 
-    const hw = w * 0.5;
-    const wOffset = hw + thumbWidth * 0.5;
+    const wOffset = 0.5 * (w + thumbWidth);
 
     if (isRange) {
       if (l0 + wOffset > right) {
@@ -803,7 +790,7 @@ const getTooltipCSS = (
 };
 
 // Determine (estimate) the width of the tooltip box with the given value, using the width-check element.
-const getEstimatedWidth = (val: number, widthRef: RefObject<HTMLElement>): any => {
+const getEstimatedWidth = (val: number, widthRef: Ref): any => {
   const r = widthRef.current;
 
   if (r) {
@@ -911,13 +898,7 @@ const getAdjustedValueArray = (values: number[], step: number) => {
 };
 
 // Get active track style (to set track width).
-const getTrackStyle = (
-  currentValues: number[],
-  wrapperRef: RefObject<HTMLElement>,
-  isRange: boolean,
-  max: number,
-  min: number,
-) => {
+const getTrackStyle = (currentValues: number[], wrapperRef: Ref, isRange: boolean, max: number, min: number) => {
   let widthFraction = (currentValues[1] - currentValues[0]) / (max - min);
 
   const width = wrapperRef.current?.clientWidth || 0;

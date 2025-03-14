@@ -506,6 +506,8 @@ export function Slider({
             onKeyDown={(e) => onKeyDown(e, index)}
             onKeyUp={() => setIsMoving(false)}
             onChange={(e) => onInputChange(e, index)}
+            onTouchStart={() => (index === 0 ? setInput0Active(true) : setInput1Active(true))}
+            onTouchEnd={() => (index === 0 ? setInput0Active(false) : setInput1Active(false))}
             {...ariaData({ ariaLabel, ariaLabelledBy, ariaValueText })}
           />
         );

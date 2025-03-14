@@ -63,7 +63,8 @@ export const Regular3 = () => {
         max={60000}
         showTooltips
         markers
-        step={2000}
+        step={100}
+        containTooltips
       />
       <button onClick={() => setValue(15000)}>Reset</button>
     </div>

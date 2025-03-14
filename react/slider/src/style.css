@@ -72,7 +72,7 @@
   text-align: center;
   background-color: var(--w-color-tooltip-background-static);
   z-index: 20;
-  justify-self: end;
+  width: max-content;
   border-radius: 4px;
   white-space: nowrap;
 }

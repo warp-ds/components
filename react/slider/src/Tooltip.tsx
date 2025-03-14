@@ -66,7 +66,7 @@ export const getTooltipCSS = (
   const wrapperRect = wrapperRef.current?.getBoundingClientRect();
   const left = wrapperRect.left;
 
-  // Get distance from left.
+  // Get distance from left to tooltip center.
   const l0 = left0 + offset0 + left;
   const l1 = left1 + offset1 + left;
 
@@ -80,8 +80,10 @@ export const getTooltipCSS = (
     transform: 'translateY(-39px) translateX(-50%)',
   };
 
-  // If containTooltips is true, the tooltip boxes only move up to the start/end limits.
+  // If containTooltips is true, the tooltip boxes only move up to the start/end limits of the view.
   if (containTooltips) {
+    const viewportWidth = document.body.clientWidth;
+
     // The following code used in order to estimate (calculate) the width of the tooltip box, with the given value,
     // before it's rendered.
     //
@@ -92,20 +94,24 @@ export const getTooltipCSS = (
     // is used to calculate tooltip position (before it's rendered).
     const wOffset = 0.5 * (getEstimatedWidth(currentValues[i], widthref) + thumbWidth);
 
-    const right = wrapperRect.right;
+    // Margin from edges for the tooltip box.
+    const margin = 5;
 
-    const getStyle = (left?: number) => ({
-      left: left ? left + 'px' : '',
-      transform: 'translateY(-39px)',
-    });
+    const getStyle = (justify: 'left' | 'right') => {
+      return {
+        left: justify === 'left' ? margin + 'px' : '',
+        right: justify === 'right' ? margin + 'px' : '',
+        transform: 'translateY(-39px)',
+      };
+    };
 
     if (isRange) {
-      if (l0 + wOffset > right) Object.assign(tooltipBox0, getStyle());
-      if (l0 - wOffset < left) Object.assign(tooltipBox0, getStyle(left));
+      if (l0 + wOffset > viewportWidth - margin) Object.assign(tooltipBox0, getStyle('right'));
+      if (l0 - wOffset < margin) Object.assign(tooltipBox0, getStyle('left'));
     }
 
-    if (l1 + wOffset > right) Object.assign(tooltipBox1, getStyle());
-    if (l1 - wOffset < left) Object.assign(tooltipBox1, getStyle(left));
+    if (l1 + wOffset > viewportWidth - margin) Object.assign(tooltipBox1, getStyle('right'));
+    if (l1 - wOffset < margin) Object.assign(tooltipBox1, getStyle('left'));
   }
 
   return [

@@ -27,6 +27,10 @@
         "noThisInStatic": "off",
         "noStaticOnlyClass": "off"
       },
+      "a11y": {
+        "noSvgWithoutTitle": "off",
+        "useButtonType": "off"
+      },
       "correctness": {
         "useExhaustiveDependencies": "off"
       },
@@ -35,7 +39,9 @@
       },
       "style": {
         "noUselessElse": "off",
-        "noNonNullAssertion": "off"
+        "noNonNullAssertion": "off",
+        "noParameterAssign": "off",
+        "useTemplate": "off"
       }
     }
   },

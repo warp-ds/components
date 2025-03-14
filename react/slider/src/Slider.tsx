@@ -224,29 +224,13 @@ export function Slider({
   useEffect(() => {
     const onResize = () => {
       setStyle(currentValues);
-      setStyleTooltips(currentValues);
+      setTooltipStyles(currentValues);
     };
 
     window.addEventListener('resize', onResize);
 
     return () => window.removeEventListener('resize', onResize);
   }, [currentValues]);
-
-  // Set active input element state (by checking focus state using the focusin/focusout events).
-  useEffect(() => {
-    const focusChange = () => {
-      setInput0Active(document.activeElement === input0.current);
-      setInput1Active(document.activeElement === input1.current);
-    };
-
-    document.addEventListener('focusin', focusChange);
-    document.addEventListener('focusout', focusChange);
-
-    return () => {
-      document.removeEventListener('focusin', focusChange);
-      document.removeEventListener('focusout', focusChange);
-    };
-  }, []);
 
   // Get the numerical value/values. Converts input values that are either numerical or startEndValues to numerical values.
   const getAsFullValue = useCallback((value: any, values: any) => {
@@ -310,7 +294,7 @@ export function Slider({
       setStyle(valueArray);
 
       if (showTooltips) {
-        setStyleTooltips(valueArray);
+        setTooltipStyles(valueArray);
       }
 
       updateInputValues({ values: values as number[], value: value as number }, isRange, input0, input1);
@@ -469,7 +453,7 @@ export function Slider({
       setCurrentValues(values);
 
       if (showTooltips) {
-        setStyleTooltips(values, i);
+        setTooltipStyles(values, i);
       }
 
       if (onChange) {
@@ -625,7 +609,7 @@ export function Slider({
   }, []);
 
   // Set tooltip positions.
-  const setStyleTooltips = useCallback((values: number[], i = -1) => {
+  const setTooltipStyles = useCallback((values: number[], i = -1) => {
     // Get tooltip and arrow refs.
     const t0 = tooltip0.current;
     const t1 = tooltip1.current;
@@ -651,6 +635,12 @@ export function Slider({
         setStyles(i);
       }
     }
+  }, []);
+
+  // Set active state, in order to show tooltips for the current active element.
+  const setActiveState = useCallback(() => {
+    setInput0Active(document.activeElement === input0.current);
+    setInput1Active(document.activeElement === input1.current);
   }, []);
 
   // Render the range input and tool tips.
@@ -685,14 +675,13 @@ export function Slider({
           onMouseUp={onInputComplete}
           onTouchEnd={onInputComplete}
           onMouseOut={onInputComplete}
-          onBlur={() => {
-            /* todo */
-          }}
+          onBlur={setActiveState}
+          onFocus={setActiveState}
         >
           {isRange && inputElement(0, input0)}
           {inputElement(1, input1)}
-          {markers && getMarkerDiv()}
         </div>
+        {markers && getMarkerDiv()}
       </div>
       <div className="w-slider__width-check" ref={widthRef} />
     </>

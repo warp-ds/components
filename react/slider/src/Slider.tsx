@@ -233,8 +233,8 @@ export function Slider({
   }, [currentValues]);
 
   // Get the numerical value/values. Converts input values that are either numerical or startEndValues to numerical values.
-  const getAsFullValue = useCallback((value: any, values: any) => {
-    const startEndToNumerical = (value: number | string) => {
+  const getAsFullValues = useCallback((value: any, values: any) => {
+    const toNumerical = (value: number | string) => {
       const index = startEndValues.findIndex((v) => v === value);
 
       if (index !== -1) return index === 0 ? min : max;
@@ -243,9 +243,9 @@ export function Slider({
     };
 
     if (value && startEndValues) {
-      value = startEndToNumerical(value);
+      value = toNumerical(value);
     } else if (values && startEndValues) {
-      values = [startEndToNumerical(values[0]), startEndToNumerical(values[1])];
+      values = [toNumerical(values[0]), toNumerical(values[1])];
     }
 
     return { value, values };
@@ -260,7 +260,7 @@ export function Slider({
 
     // If start/end values, convert to numerical value.
     if (!rangeValues && startEndValues) {
-      const vals = getAsFullValue(value, values);
+      const vals = getAsFullValues(value, values);
 
       value = vals.value;
       values = vals.values;
@@ -305,7 +305,7 @@ export function Slider({
     }
 
     if (startEndValues) {
-      const fullValues = getAsFullValue(value, values);
+      const fullValues = getAsFullValues(value, values);
 
       val = fullValues.value;
       vals = fullValues.values;
@@ -795,7 +795,7 @@ const getX = (event: any) => {
 };
 
 // Convert the input values to full values (including start/end values).
-export const getWithStartEndValues = (
+const getWithStartEndValues = (
   values: number[],
   startEndValues: string[],
   originalMin: number,

@@ -74,6 +74,7 @@
   z-index: 20;
   justify-self: end;
   border-radius: 4px;
+  white-space: nowrap;
 }
 
 .w-slider__tooltips svg {

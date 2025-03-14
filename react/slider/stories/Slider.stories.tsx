@@ -37,7 +37,7 @@ export const Regular2 = () => {
       <output>{value}</output>
       <Slider
         onChange={(value) => setValue(value)}
-        markAlignment="justified"
+        containMarkers
         value={value}
         min={10000}
         max={60000}
@@ -109,7 +109,7 @@ export const Regular6 = () => {
         showTooltips
         markers
         startEndValues={['Less than 2', 'gt 10']}
-        markAlignment="justified"
+        containMarkers
       />
       <button onClick={() => setValue(3)}>Reset</button>
     </div>
@@ -150,7 +150,7 @@ export const Range = () => {
         min={1000}
         max={10_000_000}
         step={1000}
-        markAlignment="justified"
+        containMarkers
         showTooltips
         markers
         containTooltips
@@ -286,7 +286,7 @@ export const Range8 = () => {
         showTooltips
         markers
         containTooltips
-        markAlignment="justified"
+        containMarkers
       />
       <button onClick={() => setValues([1000, 5000])}>Reset</button>
     </div>
@@ -311,7 +311,7 @@ export const Range9 = () => {
         showTooltips
         markers
         containTooltips
-        markAlignment="justified"
+        containMarkers
       />
       <button onClick={() => setValues(['Less than 1000', 'Over 5000'])}>Reset</button>
     </div>
@@ -342,7 +342,7 @@ export const Range10changeafter = () => {
         showTooltips
         markers
         containTooltips
-        markAlignment="justified"
+        containMarkers
       />
       <button onClick={() => (setValues(['Less than 1000', 'Over 5000']), setValues2(['Less than 1000', 'Over 5000']))}>
         Reset
@@ -397,7 +397,7 @@ export const DualRangeValues2 = () => {
         rangeValues={range}
         showTooltips
         markers
-        markAlignment="justified"
+        containMarkers
       />
       <button onClick={() => setValues(['06:30', '08:30'])}>Reset</button>
     </div>
@@ -446,7 +446,7 @@ export const DualRangeValues3 = () => {
         rangeValues={range}
         showTooltips
         markers
-        markAlignment="justified"
+        containMarkers
       />
       <button
         onClick={() =>

@@ -122,7 +122,7 @@ export function Slider({
   showTooltips = false,
   containTooltips = false,
   markers = false,
-  markAlignment = 'center',
+  containMarkers = false,
   startEndValues,
 }: {
   max?: number;
@@ -532,7 +532,7 @@ export function Slider({
         return <div key={k}>{rangeValues ? getRangeValueItem(displayValue as number) : displayValue}</div>;
       });
 
-    if (markAlignment === 'center') {
+    if (!containMarkers) {
       return <div className="w-slider__steps">{getMarkers()}</div>;
     } else {
       return (

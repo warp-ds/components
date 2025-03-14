@@ -23,9 +23,9 @@ export type SliderProps = {
   // Show tooltips on dragging.
   showTooltips?: boolean;
 
-  // Align mark values in center or contained within the bounds of the component (justified).
-  markAlignment?: 'center' | 'justified';
+  // Contain markers within the bounds of the component (justified along left/right edges).
+  containMarkers?: boolean;
 
-  // Choose whether to contain tooltips to within bounds.
+  // Contain tooltips to within the viewport.
   containTooltips?: boolean;
 };

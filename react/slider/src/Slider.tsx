@@ -194,11 +194,12 @@ export function Slider({
   // Current slider values.
   // In the rangeValues case, this represents the index (or indices) of the current values.
   const [currentValues, setCurrentValues] = useState<number[]>(() => getInitialValues());
-
   const [isMoving, setIsMoving] = useState(false);
 
+  // Element refs.
   const trackRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const widthRef = useRef<HTMLDivElement>(null);
 
   // Input refs.
   const input0 = useRef<HTMLElement>(null);
@@ -210,7 +211,6 @@ export function Slider({
   const tooltipArrow0 = useRef<SVGSVGElement>(null);
   const tooltipArrow1 = useRef<SVGSVGElement>(null);
 
-  const widthRef = useRef<HTMLDivElement>(null);
   const timeoutId = useRef<number>(0);
 
   // Active state of the input elements.
@@ -234,28 +234,18 @@ export function Slider({
 
   // Get the numerical value/values. Converts input values that are either numerical or startEndValues to numerical values.
   const getAsFullValue = useCallback((value: any, values: any) => {
+    const startEndToNumerical = (value: number | string) => {
+      const index = startEndValues.findIndex((v) => v === value);
+
+      if (index !== -1) return index === 0 ? min : max;
+
+      return value;
+    };
+
     if (value && startEndValues) {
-      const i = startEndValues.findIndex((v) => v === value);
-
-      if (i !== -1) {
-        value = i === 0 ? min : max;
-      }
+      value = startEndToNumerical(value);
     } else if (values && startEndValues) {
-      let value0 = values[0];
-      let value1 = values[1];
-
-      const i0 = startEndValues.findIndex((v) => v === values[0]);
-      const i1 = startEndValues.findIndex((v) => v === values[1]);
-
-      if (i0 !== -1) {
-        value0 = i0 === 0 ? min : max;
-      }
-
-      if (i1 !== -1) {
-        value1 = i1 === 0 ? min : max;
-      }
-
-      values = [value0, value1];
+      values = [startEndToNumerical(values[0]), startEndToNumerical(values[1])];
     }
 
     return { value, values };
@@ -307,7 +297,7 @@ export function Slider({
     let vals = values;
 
     if (rangeValues) {
-      if (isRange && values) {
+      if (isRange) {
         vals = [getRangeValueIndex(values[0]), getRangeValueIndex(values[1])];
       } else {
         val = getRangeValueIndex(value as number);
@@ -717,8 +707,6 @@ const getTooltipCSS = (
 
   // If containTooltips is true, the tooltip boxes only move up to the start/end limits.
   if (containTooltips) {
-    const right = wrapperRect.right;
-
     // The following code used in order to estimate (calculate) the width of the tooltip box, with the given value,
     // before it's rendered.
     //
@@ -727,9 +715,9 @@ const getTooltipCSS = (
     //
     // To do this, the value is rendered in the hidden width-check div, the width is then measured, and that value
     // is used to calculate tooltip position (before it's rendered).
-    const w = getEstimatedWidth(currentValues[i], widthref);
+    const wOffset = 0.5 * (getEstimatedWidth(currentValues[i], widthref) + thumbWidth);
 
-    const wOffset = 0.5 * (w + thumbWidth);
+    const right = wrapperRect.right;
 
     const getStyle = (left?: number) => ({
       left: left ? left + 'px' : '',
@@ -761,6 +749,14 @@ const getTooltipCSS = (
   ];
 };
 
+// Get tooltip offsets, needed to center the tooltip over the thumb (which doesn't follow the active track exactly; see default input type="range" behavior.)
+const getToolTipOffsets = (values: number[], max: number, min: number) => {
+  const tooltipOffset0 = ((values[0] - min) / (max - min)) * thumbWidth;
+  const tooltipOffset1 = ((values[1] - min) / (max - min)) * thumbWidth;
+  
+  return [0.5 * thumbWidth - tooltipOffset0, 0.5 * thumbWidth - tooltipOffset1];
+};
+
 // Determine (estimate) the width of the tooltip box with the given value, using the width-check element.
 const getEstimatedWidth = (val: number, widthRef: Ref) => {
   const r = widthRef.current;
@@ -770,14 +766,6 @@ const getEstimatedWidth = (val: number, widthRef: Ref) => {
 
     return r.clientWidth;
   }
-};
-
-// Get tooltip offsets, needed to center the tooltip over the thumb (which doesn't follow the active track exactly; see default input type="range" behavior.)
-const getToolTipOffsets = (values: number[], max: number, min: number) => {
-  const tooltipOffset0 = ((values[0] - min) / (max - min)) * thumbWidth;
-  const tooltipOffset1 = ((values[1] - min) / (max - min)) * thumbWidth;
-
-  return [0.5 * thumbWidth - tooltipOffset0, 0.5 * thumbWidth - tooltipOffset1];
 };
 
 // Aria label data for the slider.

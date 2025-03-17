@@ -140,8 +140,8 @@ export function Slider({
   const [input0Active, setInput0Active] = useState(false);
   const [input1Active, setInput1Active] = useState(false);
 
-  const renderTooltip0 = showTooltips && (isMoving || input0Active) && !input1Active;
-  const renderTooltip1 = showTooltips && (isMoving || input1Active) && !input0Active;
+  const showTooltip0 = showTooltips && (isMoving || input0Active) && !input1Active;
+  const showTooltip1 = showTooltips && (isMoving || input1Active) && !input0Active;
 
   // Update styles on resize.
   useEffect(() => {
@@ -461,8 +461,13 @@ export function Slider({
 
   // Set active state, in order to show tooltips for the current active element.
   const setActiveState = useCallback(() => {
-    setInput0Active(document.activeElement === input0.current);
-    setInput1Active(document.activeElement === input1.current);
+    const isTouchDevice = () => 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+    // On mobile, don't set the active state here since it sets it to true on wrapper click.
+    if (!isTouchDevice()) {
+      setInput0Active(document.activeElement === input0.current);
+      setInput1Active(document.activeElement === input1.current);
+    }
   }, []);
 
   // Get input element. Index corresponds to the slider thumb index (0 for the 1st one, 1 for the 2nd one).
@@ -552,14 +557,14 @@ export function Slider({
         onContextMenu={(e) => e.preventDefault()}
       >
         <div className="w-slider__tooltips">
-          <Tooltip display={renderTooltip0 && isRange} top={input0Active} ref={tooltip0}>
+          <Tooltip display={showTooltip0 && isRange} top={input0Active} ref={tooltip0}>
             {getFullValue(0)}
           </Tooltip>
-          <Tooltip display={renderTooltip1} top={input1Active} ref={tooltip1}>
+          <Tooltip display={showTooltip1} top={input1Active} ref={tooltip1}>
             {getFullValue(1)}
           </Tooltip>
-          <TooltipArrow display={renderTooltip0 && isRange} top={input0Active} ref={tooltipArrow0} />
-          <TooltipArrow display={renderTooltip1} top={input0Active} ref={tooltipArrow1} />
+          <TooltipArrow display={showTooltip0 && isRange} top={input0Active} ref={tooltipArrow0} />
+          <TooltipArrow display={showTooltip1} top={input0Active} ref={tooltipArrow1} />
         </div>
         <div className="w-slider__active-track" ref={trackRef} />
         <div

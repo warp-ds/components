@@ -1,4 +1,4 @@
-import type { RangeValue } from './Slider.tsx';
+import type { RangeValue } from './core/CoreSlider.tsx';
 
 type Base = {
   // Specifies the value granularity.
@@ -32,62 +32,33 @@ type Base = {
   containTooltips?: boolean;
 };
 
-export type Slider = {
-  max?: number;
-  min?: number;
-  value: number;
-  onChange?: (value: number) => void;
-  onChangeAfter?: (value: number) => void;
-} & Base;
-
-export type SliderStartEndValues = {
+export type SliderProps = {
   max?: number;
   min?: number;
   value: number | string;
-  onChange?: (value: number | string) => void;
-  onChangeAfter?: (value: number | string) => void;
-  // Optional start/end values to use in addition to the given range.
   startEndValues?: (string | null)[];
-} & Base;
-
-export type SliderRangeValues = {
-  rangeValues: RangeValue[];
-  value: RangeValue;
-  onChange?: (value: RangeValue) => void;
-  onChangeAfter?: (value: RangeValue) => void;
-} & Base;
-
-export type RangeSlider = {
-  max?: number;
-  min?: number;
-  values: number[];
-  onChange?: (values: number[]) => void;
-  onChangeAfter?: (values: number[]) => void;
-} & Base;
-
-export type RangeSliderStartEndValues = {
-  max?: number;
-  min?: number;
-  values: (number | string)[];
-  onChange?: (values: (number | string)[]) => void;
-  onChangeAfter?: (values: (number | string)[]) => void;
-  startEndValues?: (string | null)[];
-} & Base;
-
-export type RangeSliderRangeValues = {
-  rangeValues: RangeValue[];
-  values: RangeValue[];
-  onChange?: (values: RangeValue[]) => void;
-  onChangeAfter?: (values: RangeValue[]) => void;
-} & Base;
-
-export type Props = {
-  max?: number;
-  min?: number;
   rangeValues?: RangeValue[];
-  value?: number | RangeValue;
-  values?: (number | string)[] | RangeValue[];
+  onChange?: ((value: number) => void) | ((value: RangeValue) => void);
+  onChangeAfter?: ((value: number) => void) | ((value: RangeValue) => void);
+} & Base;
+
+export type RangeSliderProps = {
+  max?: number;
+  min?: number;
+  values: number[] | RangeValue[];
+  startEndValues?: (string | null)[];
+  rangeValues?: RangeValue[];
+  onChange?: ((values: number[]) => void) | ((values: RangeValue[]) => void);
+  onChangeAfter?: ((values: number[]) => void) | ((values: RangeValue[]) => void);
+} & Base;
+
+export type CoreSliderProps = {
+  max?: number;
+  min?: number;
+  value?: number | string;
+  values?: (number | RangeValue)[];
   onChange?: any;
   onChangeAfter?: any;
   startEndValues?: (string | null)[];
+  rangeValues?: RangeValue[];
 } & Base;

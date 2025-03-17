@@ -1,11 +1,11 @@
-import * as React from 'react';
+import { useState } from 'react';
 import { Slider } from '../src/Slider.tsx';
 
 const metadata = { title: 'Forms/Slider' };
 export default metadata;
 
 export const Regular = () => {
-  const [value, setValue] = React.useState(20000);
+  const [value, setValue] = useState(20000);
 
   return (
     <div style={{ maxWidth: '500px' }}>
@@ -17,7 +17,7 @@ export const Regular = () => {
 };
 
 export const Regular1 = () => {
-  const [value, setValue] = React.useState(10000);
+  const [value, setValue] = useState(10000);
 
   return (
     <div style={{ maxWidth: '500px' }}>
@@ -29,7 +29,7 @@ export const Regular1 = () => {
 };
 
 export const Regular2 = () => {
-  const [value, setValue] = React.useState(20000);
+  const [value, setValue] = useState(20000);
 
   return (
     <div style={{ maxWidth: '500px' }}>
@@ -49,7 +49,7 @@ export const Regular2 = () => {
 };
 
 export const Regular3 = () => {
-  const [value, setValue] = React.useState(20000);
+  const [value, setValue] = useState(20000);
 
   return (
     <div style={{ maxWidth: '500px' }}>
@@ -69,7 +69,7 @@ export const Regular3 = () => {
 };
 
 export const Regular4 = () => {
-  const [value, setValue] = React.useState(3);
+  const [value, setValue] = useState(3);
 
   return (
     <div style={{ maxWidth: '500px' }}>
@@ -81,7 +81,7 @@ export const Regular4 = () => {
 };
 
 export const Regular5 = () => {
-  const [value, setValue] = React.useState(3);
+  const [value, setValue] = useState(3);
 
   return (
     <div style={{ maxWidth: '500px' }}>
@@ -93,7 +93,7 @@ export const Regular5 = () => {
 };
 
 export const Regular6 = () => {
-  const [value, setValue] = React.useState(3);
+  const [value, setValue] = useState(3);
 
   return (
     <div style={{ maxWidth: '500px' }}>
@@ -114,7 +114,7 @@ export const Regular6 = () => {
 };
 
 export const Regular7 = () => {
-  const [value, setValue] = React.useState(3);
+  const [value, setValue] = useState(3);
 
   return (
     <div style={{ maxWidth: '500px' }}>
@@ -134,7 +134,7 @@ export const Regular7 = () => {
 };
 
 export const RegularRangeValues = () => {
-  const [value, setValue] = React.useState('yes');
+  const [value, setValue] = useState('yes');
 
   const range = ['hi', 'haha', 'yes', 'nr', 'ok', '1', '2'];
 
@@ -148,7 +148,7 @@ export const RegularRangeValues = () => {
 };
 
 export const Disabled = () => {
-  const [value, setValue] = React.useState(625_000);
+  const [value, setValue] = useState(625_000);
   return (
     <div style={{ maxWidth: '500px' }}>
       <output>{value}</output>
@@ -158,8 +158,8 @@ export const Disabled = () => {
 };
 
 export const ChangeAfter = () => {
-  const [value, setValue] = React.useState(625_000);
-  const [valueAfter, setValueAfter] = React.useState(value);
+  const [value, setValue] = useState(625_000);
+  const [valueAfter, setValueAfter] = useState(value);
 
   return (
     <div style={{ maxWidth: '500px' }}>

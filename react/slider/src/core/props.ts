@@ -35,7 +35,7 @@ export type Base = {
 export type CoreSliderProps = {
   max?: number;
   min?: number;
-  value?: number | string;
+  value?: number | RangeValue;
   values?: (number | RangeValue)[];
   onChange?: any;
   onChangeAfter?: any;

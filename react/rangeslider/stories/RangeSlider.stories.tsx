@@ -1,11 +1,11 @@
-import * as React from 'react';
+import { useState } from 'react';
 import { RangeSlider } from '../src/RangeSlider.tsx';
 
 const metadata = { title: 'Forms/RangeSlider' };
 export default metadata;
 
 export const Range = () => {
-  const [values, setValues] = React.useState([1000, 5008970]);
+  const [values, setValues] = useState([1000, 5008970]);
 
   return (
     <div style={{ maxWidth: '500px' }}>
@@ -28,7 +28,7 @@ export const Range = () => {
 };
 
 export const Range2 = () => {
-  const [values, setValues] = React.useState([100, 1500]);
+  const [values, setValues] = useState([100, 1500]);
 
   return (
     <div style={{ maxWidth: '500px' }}>
@@ -50,7 +50,7 @@ export const Range2 = () => {
 };
 
 export const Range3 = () => {
-  const [values, setValues] = React.useState([-100, 100]);
+  const [values, setValues] = useState([-100, 100]);
 
   return (
     <div style={{ maxWidth: '500px' }}>
@@ -72,7 +72,7 @@ export const Range3 = () => {
 };
 
 export const Range4 = () => {
-  const [values, setValues] = React.useState([1000, 9000]);
+  const [values, setValues] = useState([1000, 9000]);
 
   return (
     <div style={{ maxWidth: '500px' }}>
@@ -94,7 +94,7 @@ export const Range4 = () => {
 };
 
 export const Range5 = () => {
-  const [values, setValues] = React.useState([10, 1000]);
+  const [values, setValues] = useState([10, 1000]);
 
   return (
     <div style={{ maxWidth: '500px' }}>
@@ -108,7 +108,7 @@ export const Range5 = () => {
 };
 
 export const Range6 = () => {
-  const [values, setValues] = React.useState([0, 10000]);
+  const [values, setValues] = useState([0, 10000]);
 
   return (
     <div style={{ maxWidth: '500px' }}>
@@ -130,7 +130,7 @@ export const Range6 = () => {
 };
 
 export const Range7 = () => {
-  const [values, setValues] = React.useState([1, 15]);
+  const [values, setValues] = useState([1, 15]);
 
   return (
     <div style={{ maxWidth: '500px' }}>
@@ -152,7 +152,7 @@ export const Range7 = () => {
 };
 
 export const Range8 = () => {
-  const [values, setValues] = React.useState([1000, 5000]);
+  const [values, setValues] = useState([1000, 5000]);
 
   return (
     <div style={{ maxWidth: '500px' }}>
@@ -176,7 +176,7 @@ export const Range8 = () => {
 };
 
 export const Range9 = () => {
-  const [values, setValues] = React.useState<string[]>(['Less than 1000', 'Over 5000']);
+  const [values, setValues] = useState(['Less than 1000', 'Over 5000']);
 
   return (
     <div style={{ maxWidth: '500px' }}>
@@ -200,8 +200,8 @@ export const Range9 = () => {
 };
 
 export const Range10changeafter = () => {
-  const [values, setValues] = React.useState(['Less than 1000', 'Over 5000']);
-  const [values2, setValues2] = React.useState(['Less than 1000', 'Over 5000']);
+  const [values, setValues] = useState(['Less than 1000', 'Over 5000']);
+  const [values2, setValues2] = useState(['Less than 1000', 'Over 5000']);
 
   return (
     <div style={{ maxWidth: '500px' }}>
@@ -233,7 +233,7 @@ export const Range10changeafter = () => {
 };
 
 export const DualRangeValues = () => {
-  const [values, setValues] = React.useState(['yes', '1']);
+  const [values, setValues] = useState(['yes', '1']);
 
   const range = ['hi', 'haha', 'yes', 'nr', 'ok', '1', '2'];
 
@@ -255,7 +255,7 @@ export const DualRangeValues = () => {
 };
 
 export const DualRangeValues2 = () => {
-  const [values, setValues] = React.useState(['06:30', '08:30']);
+  const [values, setValues] = useState(['06:30', '08:30']);
 
   const range = ['06:00', '06:30', '07:00', '07:30', '08:00', '08:30', '09:00'];
 
@@ -277,7 +277,7 @@ export const DualRangeValues2 = () => {
 };
 
 export const DualRangeValues3 = () => {
-  const [values, setValues] = React.useState([
+  const [values, setValues] = useState([
     {
       label: '01/01',
     },
@@ -313,7 +313,7 @@ export const DualRangeValues3 = () => {
         {values[0].label} - {values[1].label}
       </output>
       <RangeSlider
-        onChange={(vals) => setValues(vals as typeof values)}
+        onChange={(values) => setValues(values)}
         values={values}
         rangeValues={range}
         showTooltips
@@ -336,3 +336,4 @@ export const DualRangeValues3 = () => {
     </div>
   );
 };
+ 

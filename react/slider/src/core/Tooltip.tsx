@@ -1,4 +1,4 @@
-import type { RefObject } from 'react';
+import { RefObject } from 'react';
 import { thumbWidth, type Ref } from './CoreSlider.tsx';
 
 // Tooltip component that shows a given value above the slider thumb.

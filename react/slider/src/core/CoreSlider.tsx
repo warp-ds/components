@@ -1,8 +1,8 @@
-import { type RefObject, useCallback, useEffect, useRef, useState } from 'react';
-import type { CoreSliderProps } from '../props.ts';
+import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
 import { clamp, clampValues, roundPrecise, roundIfNumber } from './math.ts';
 import { getTooltipCSS, Tooltip, TooltipArrow } from './Tooltip.tsx';
 import style from 'inline:./style.css';
+import { CoreSliderProps } from './props.ts';
 
 export const thumbWidth = 28;
 

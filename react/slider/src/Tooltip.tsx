@@ -28,17 +28,18 @@ export const TooltipArrow = ({
   return (
     <svg
       style={{ visibility: display ? 'visible' : 'hidden', zIndex: top ? 10 : 1 }}
+      ref={ref}
       width="24"
-      height="8"
-      viewBox="0 0 24 8"
+      height="10"
+      viewBox="0 0 24 10"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      ref={ref}
     >
       <path
-        d="M10.5858 6.58579L6.34315 2.34315C4.84285 0.842855 2.80802 0 0.686291 0H23.3137C21.192 0 19.1571 0.842852 17.6569 2.34314L13.4142 6.58579C12.6332 7.36684 11.3668 7.36684 10.5858 6.58579Z"
+        d="M10.5858 8.58579L6.34315 4.34315C4.84285 2.84286 2.80802 2 0.686291 2H23.3137C21.192 2 19.1571 2.84285 17.6569 4.34314L13.4142 8.58579C12.6332 9.36684 11.3668 9.36684 10.5858 8.58579Z"
         fill="#1B1B1F"
       />
+      <line y1="1.48" x2="24" y2="1.48" stroke="#1B1B1F" stroke-width="1.2" />
     </svg>
   );
 };
@@ -122,11 +123,11 @@ export const getTooltipCSS = (
     // Tooltip arrows.
     {
       left: l0 + 'px',
-      transform: 'translateY(-7.2px) translateX(-50%)',
+      transform: 'translateY(-9px) translateX(-50%)',
     },
     {
       left: l1 + 'px',
-      transform: 'translateY(-7.2px) translateX(-50%)',
+      transform: 'translateY(-9px) translateX(-50%)',
     },
   ];
 };

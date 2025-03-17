@@ -669,16 +669,16 @@ const getWithStartEndValues = (values: number[], startEndValues: string[], min: 
       returnValues[0] = startEndValues[0];
     }
 
-    if (startEndValues[0] && values[0] === max) {
+    if (startEndValues[1] && values[0] === max) {
       returnValues[0] = startEndValues[1];
+    }
+
+    if (startEndValues[0] && values[1] === min) {
+      returnValues[1] = startEndValues[0];
     }
 
     if (startEndValues[1] && values[1] === max) {
       returnValues[1] = startEndValues[1];
-    }
-
-    if (startEndValues[1] && values[1] === min) {
-      returnValues[1] = startEndValues[0];
     }
   }
 

@@ -85,7 +85,7 @@ export const getTooltipCSS = (
     //
     // To do this, the value is rendered in the hidden width-check div, the width is then measured, and that value
     // is used to calculate tooltip position (before it's rendered).
-    const wOffset = 0.5 * (getEstimatedWidth(fullValues[i], widthref) + thumbWidth);
+    const wOffset = 0.5 * (getEstimatedWidth(fullValues[i] || values[i], widthref) + thumbWidth);
 
     // Margin from edges for the tooltip box.
     const margin = 5;
@@ -132,11 +132,11 @@ const getTooltipOffsets = (values: number[], max: number, min: number) => {
 };
 
 // Determine (estimate) the width of the tooltip box with the given value, using the width-check element.
-const getEstimatedWidth = (value: number | string, widthRef: Ref) => {
+const getEstimatedWidth = (value: any, widthRef: Ref) => {
   const div = widthRef.current;
 
   if (div) {
-    div.innerText = value.toString();
+    div.innerText = value;
 
     return div.clientWidth;
   }

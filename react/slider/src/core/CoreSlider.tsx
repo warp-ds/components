@@ -346,16 +346,16 @@ export function CoreSlider({
 
       setCurrentValues(values);
 
-      if (showTooltips) {
-        setTooltipStyles(values, i);
-      }
-
       if (onChange) {
         onChange(getOnChangeReturnValue(values));
       }
     }, 0.01);
 
     setStyle(values);
+
+    if (showTooltips) {
+      setTooltipStyles(values, i);
+    }
   }, []);
 
   // Get full, adjusted onChange value (including startEndValues, etc.)

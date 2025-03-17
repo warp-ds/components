@@ -68,7 +68,7 @@
 .w-slider__tooltips .w-slider__tooltip {
   color: var(--w-s-color-text-inverted-static);
   padding: 5px 12px;
-  position: fixed;
+  position: absolute;
   text-align: center;
   background-color: var(--w-color-tooltip-background-static);
   z-index: 20;
@@ -80,7 +80,7 @@
 .w-slider__tooltips svg {
   grid-row: 1;
   grid-column: 1;
-  position: fixed;
+  position: absolute;
   z-index: 20;
 }
 

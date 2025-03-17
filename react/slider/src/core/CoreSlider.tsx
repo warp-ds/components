@@ -322,18 +322,13 @@ export function CoreSlider({
 
       // If distance is less than thumbwidth, reset to next closest step.
       if (getDistance(values) < thumbWidth) {
-        let colliding = true;
+        const valPerPx = (max - min) / ((wrapperRef.current?.clientWidth || 0) - thumbWidth);
 
-        while (colliding) {
-          if (i === 0) {
-            values[0] = values[0] - step;
-          } else {
-            values[1] = values[1] + step;
-          }
-
-          if (getDistance(values) >= thumbWidth) {
-            colliding = false;
-          }
+        // Get px size as value, and offset with that amount.
+        if (i === 0) {
+          values[0] = getAdjustedFloorValue(values[1] - valPerPx * thumbWidth, step);
+        } else {
+          values[1] = getAdjustedCeilValue(values[0] + valPerPx * thumbWidth, step);
         }
       }
 
@@ -645,7 +640,7 @@ const getAsValueArray = (
 
 // Get value adjusted with step amount.
 const getAdjustedValue = (value: number, step: number) => {
-  if (!(typeof step === 'string') && step > 1) {
+  if (step > 1) {
     return roundPrecise(value / step) * step;
   } else {
     return roundPrecise(value);
@@ -656,6 +651,10 @@ const getAdjustedValue = (value: number, step: number) => {
 const getAdjustedValueArray = (values: number[], step: number) => {
   return [getAdjustedValue(values[0], step), getAdjustedValue(values[1], step)];
 };
+
+const getAdjustedCeilValue = (value: number, step: number) => Math.ceil(value / step) * step;
+
+const getAdjustedFloorValue = (value: number, step: number) => Math.floor(value / step) * step;
 
 // Get active track style (to set track width).
 const getTrackStyle = (currentValues: number[], wrapperRef: Ref, isRange: boolean, max: number, min: number) => {

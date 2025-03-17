@@ -89,47 +89,24 @@ export function Slider({
     max = rangeValues.length - 1;
   }
 
-  const originalMin = min;
-  const originalMax = max;
-
-  if (startEndValues?.[0]) {
-    min = min - step;
-  }
-
-  if (startEndValues?.[1]) {
-    max = max + step;
-  }
+  if (startEndValues?.[0]) min = min - step;
+  if (startEndValues?.[1]) max = max + step;
 
   // For a given range value (that appears in the rangevalue array), get the index.
-  const getRangeValueIndex = useCallback((value: number | RangeValue) => {
+  const getRangeValueIndex = useCallback((value: any) => {
     if (rangeValues) {
-      if (typeof value === 'string') {
-        return rangeValues?.findIndex((v) => v === value);
-      } else {
-        return rangeValues?.findIndex((v) => (v as ObjectRangeValue).label === (value as ObjectRangeValue).label);
-      }
-    } else {
-      return 0;
+      return (rangeValues as any[]).findIndex((v) => (v.label ? v.label === value.label : v === value));
     }
+
+    return 0;
   }, []);
 
   // Get initial values. Like getValueArray, but converts range values to index values as well.
   const getInitialValues = useCallback(() => {
     if (rangeValues) {
-      if (isRange && values) {
-        return [getRangeValueIndex(values[0]), getRangeValueIndex(values[1])];
-      } else if (value) {
-        return [min, getRangeValueIndex(value)];
-      }
+      return values ? [getRangeValueIndex(values[0]), getRangeValueIndex(values[1])] : [min, getRangeValueIndex(value)];
     } else {
-      const initialValues = values
-        ? getAdjustedValueArray(values as number[], step)
-        : [min, getAdjustedValue(value as number, step)];
-
-      if (values && !initialValues.every((v) => !Number.isNaN(v))) {
-        return [min, max];
-      }
-      return initialValues;
+      return values ? getAdjustedValueArray(values as number[], step) : [min, getAdjustedValue(value as number, step)];
     }
   }, []);
 
@@ -400,7 +377,7 @@ export function Slider({
   // Get full, adjusted onChange value (including startEndValues, etc.)
   const getOnChangeReturnValue = useCallback((values: number[]) => {
     if (!rangeValues) {
-      const fullValues = getWithStartEndValues(values, startEndValues, originalMin, originalMax);
+      const fullValues = getWithStartEndValues(values, startEndValues, min, max);
 
       return isRange ? [roundIfNumber(fullValues[0]), roundIfNumber(fullValues[1])] : roundIfNumber(fullValues[1]);
     }
@@ -423,6 +400,70 @@ export function Slider({
   );
 
   const onInputComplete = () => setIsMoving(false);
+
+  // Get the range value item text at the given index.
+  const getRangeValueItem = useCallback((index: number) => {
+    const element = rangeValues[index];
+
+    return typeof element === 'string' ? element : element.label;
+  }, []);
+
+  // Get full value as a display value.
+  const getFullValue = useCallback(
+    (index: number) => {
+      // Default case: use numerical value
+      if (!rangeValues) {
+        const returnValues = getWithStartEndValues(currentValues, startEndValues, min, max);
+
+        return returnValues[index];
+      }
+      // Range values: lookup value.
+      else {
+        const i = currentValues[index];
+
+        return typeof rangeValues[i] === 'string' ? rangeValues[i] : rangeValues[i]?.label;
+      }
+    },
+    [currentValues],
+  );
+
+  // Set track ref width.
+  const setStyle = useCallback((values: number[]) => {
+    if (trackRef.current) trackRef.current.style.cssText = getTrackStyle(values, wrapperRef, isRange, max, min);
+  }, []);
+
+  // Set tooltip positions.
+  const setTooltipStyles = useCallback((values: number[], i = -1) => {
+    const setStyles = (index: number) => {
+      const css = getTooltipCSS(
+        values,
+        getWithStartEndValues(values, startEndValues, min, max),
+        wrapperRef,
+        isRange,
+        max,
+        min,
+        index,
+        widthRef,
+        containTooltips,
+      );
+
+      // Apply styles.
+      [tooltip0, tooltip1, tooltipArrow0, tooltipArrow1].forEach((e, i) => Object.assign(e.current.style, css[i]));
+    };
+
+    // Set the style for the elements.
+    if (i === -1) {
+      [0, 1].forEach((n) => setStyles(n));
+    } else {
+      setStyles(i);
+    }
+  }, []);
+
+  // Set active state, in order to show tooltips for the current active element.
+  const setActiveState = useCallback(() => {
+    setInput0Active(document.activeElement === input0.current);
+    setInput1Active(document.activeElement === input1.current);
+  }, []);
 
   // Get input element. Index corresponds to the slider thumb index (0 for the 1st one, 1 for the 2nd one).
   const inputElement = useCallback(
@@ -496,74 +537,6 @@ export function Slider({
     } else {
       return <div className="w-slider__steps">{markers()}</div>;
     }
-  }, []);
-
-  // Get the range value item text at the given index.
-  const getRangeValueItem = useCallback((index: number) => {
-    if (rangeValues) {
-      const element = rangeValues[index];
-
-      return typeof element === 'string' ? element : element.label;
-    } else {
-      return '';
-    }
-  }, []);
-
-  // Get full value as a display value.
-  const getFullValue = useCallback(
-    (index: number) => {
-      // Default case: use numerical value
-      if (!rangeValues) {
-        const returnValues = getWithStartEndValues(currentValues, startEndValues, originalMin, originalMax);
-
-        return returnValues[index];
-      }
-      // Range values: lookup value.
-      else {
-        const i = currentValues[index];
-
-        return typeof rangeValues[i] === 'string' ? rangeValues[i] : rangeValues[i]?.label;
-      }
-    },
-    [currentValues],
-  );
-
-  // Set track ref width.
-  const setStyle = useCallback((values: number[]) => {
-    if (trackRef.current) trackRef.current.style.cssText = getTrackStyle(values, wrapperRef, isRange, max, min);
-  }, []);
-
-  // Set tooltip positions.
-  const setTooltipStyles = useCallback((values: number[], i = -1) => {
-    const setStyles = (index: number) => {
-      const css = getTooltipCSS(
-        values,
-        getWithStartEndValues(values, startEndValues, originalMin, originalMax),
-        wrapperRef,
-        isRange,
-        max,
-        min,
-        index,
-        widthRef,
-        containTooltips,
-      );
-
-      // Apply styles.
-      [tooltip0, tooltip1, tooltipArrow0, tooltipArrow1].forEach((e, i) => Object.assign(e.current.style, css[i]));
-    };
-
-    // Set the style for the elements.
-    if (i === -1) {
-      [0, 1].forEach((n) => setStyles(n));
-    } else {
-      setStyles(i);
-    }
-  }, []);
-
-  // Set active state, in order to show tooltips for the current active element.
-  const setActiveState = useCallback(() => {
-    setInput0Active(document.activeElement === input0.current);
-    setInput1Active(document.activeElement === input1.current);
   }, []);
 
   // Render the range input and tool tips.
@@ -666,15 +639,10 @@ const getAsValueArray = (
   clamp = false,
 ) => {
   let values: number[];
-
   value = Math.round(value);
 
   if (isRange) {
-    if (index === 1) {
-      values = [currentValues[0], value];
-    } else {
-      values = [value, currentValues[1]];
-    }
+    values = index === 1 ? [currentValues[0], value] : [value, currentValues[1]];
   } else {
     values = [min, value];
   }
@@ -728,28 +696,23 @@ const getX = (event: any) => {
 };
 
 // Convert the input values to full values (including start/end values).
-const getWithStartEndValues = (
-  values: number[],
-  startEndValues: string[],
-  originalMin: number,
-  originalMax: number,
-) => {
+const getWithStartEndValues = (values: number[], startEndValues: string[], min: number, max: number) => {
   const returnValues: (number | string | null)[] = [...values];
 
   if (startEndValues) {
-    if (startEndValues[0] && values[0] < originalMin) {
+    if (startEndValues[0] && values[0] === min) {
       returnValues[0] = startEndValues[0];
     }
 
-    if (startEndValues[0] && values[0] > originalMax) {
+    if (startEndValues[0] && values[0] === max) {
       returnValues[0] = startEndValues[1];
     }
 
-    if (startEndValues[1] && values[1] > originalMax) {
+    if (startEndValues[1] && values[1] === max) {
       returnValues[1] = startEndValues[1];
     }
 
-    if (startEndValues[1] && values[1] < originalMin) {
+    if (startEndValues[1] && values[1] === min) {
       returnValues[1] = startEndValues[0];
     }
   }

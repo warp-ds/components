@@ -4,30 +4,21 @@ import { thumbWidth, type Ref } from './CoreSlider.tsx';
 // Tooltip component that shows a given value above the slider thumb.
 export const Tooltip = ({
   display,
-  top,
   children,
   ref,
-}: { display: boolean; top: boolean; children: any; ref: RefObject<HTMLDivElement> }) => {
+}: { display: boolean; children: any; ref: RefObject<HTMLDivElement> }) => {
   return (
-    <div
-      className="w-slider__tooltip"
-      style={{ visibility: display ? 'visible' : 'hidden', zIndex: top ? 10 : 1 }}
-      ref={ref}
-    >
+    <div className="w-slider__tooltip" style={{ visibility: display ? 'visible' : 'hidden' }} ref={ref}>
       {children}
     </div>
   );
 };
 
-// Tooltip arrow, with settable visibility and order (z-index).
-export const TooltipArrow = ({
-  display,
-  top,
-  ref,
-}: { display: boolean; top: boolean; ref: RefObject<SVGSVGElement> }) => {
+// Tooltip arrow, with settable visibility.
+export const TooltipArrow = ({ display, ref }: { display: boolean; ref: RefObject<SVGSVGElement> }) => {
   return (
     <svg
-      style={{ visibility: display ? 'visible' : 'hidden', zIndex: top ? 10 : 1 }}
+      style={{ visibility: display ? 'visible' : 'hidden' }}
       ref={ref}
       width="24"
       height="10"

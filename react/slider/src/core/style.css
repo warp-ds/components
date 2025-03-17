@@ -47,6 +47,13 @@
   box-shadow: none;
 }
 
+@media (hover: none) {
+  .w-slider__input[type="range"]:focus-visible::-webkit-slider-thumb {
+    outline: none !important;
+    box-shadow: 0 0 0 8px #00000014 !important;
+  }
+}
+
 .w-slider__input[type="range"]::-webkit-slider-runnable-track {
   height: 4px;
   background: var(--w-s-color-background-disabled-subtle);

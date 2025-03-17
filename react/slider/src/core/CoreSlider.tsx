@@ -127,11 +127,18 @@ export function CoreSlider({
   const showTooltip0 = showTooltips && (isMoving || input0Active) && !input1Active;
   const showTooltip1 = showTooltips && (isMoving || input1Active) && !input0Active;
 
+  const updateStyles = (values: number[], index = -1) => {
+    setStyle(values);
+
+    if (showTooltips) {
+      setTooltipStyles(values, index);
+    }
+  };
+
   // Update styles on resize.
   useEffect(() => {
     const onResize = () => {
-      setStyle(currentValues);
-      setTooltipStyles(currentValues);
+      updateStyles(currentValues);
     };
 
     window.addEventListener('resize', onResize);
@@ -158,26 +165,26 @@ export function CoreSlider({
     return { value, values };
   }, []);
 
-  // Update current values on prop change.
+  // Update state (and properties, style) on prop change.
   useEffect(() => {
     // Validation.
-    if ((value && typeof value === 'number') || (values && typeof values[0] === 'number')) {
+    if (typeof value === 'number' || values?.every((v) => typeof v === 'number')) {
       validate(value as number, values as number[], min, max);
-    }
-
-    // If start/end values, convert to numerical value.
-    if (!rangeValues && startEndValues) {
-      const vals = getAsFullValues(value, values);
-
-      value = vals.value;
-      values = vals.values;
     }
 
     // Update values if the slider isn't currently selected.
     if (!(input0Active || input1Active)) {
+      // If start/end values, convert to numerical value.
+      if (!rangeValues && startEndValues) {
+        const vals = getAsFullValues(value, values);
+
+        value = vals.value;
+        values = vals.values;
+      }
+
       // If range values, lookup value index.
       if (rangeValues) {
-        if (isRange && values) {
+        if (isRange) {
           values = [getRangeValueIndex(values[0]), getRangeValueIndex(values[1])];
         } else {
           value = getRangeValueIndex(value as number);
@@ -188,38 +195,11 @@ export function CoreSlider({
 
       setCurrentValues(valueArray);
 
-      setStyle(valueArray);
-
-      if (showTooltips) {
-        setTooltipStyles(valueArray);
-      }
+      updateStyles(valueArray);
 
       updateInputValues({ values: values as number[], value: value as number }, isRange, input0, input1);
     }
   }, [values, value]);
-
-  // Init values.
-  useEffect(() => {
-    let val = value;
-    let vals = values;
-
-    if (rangeValues) {
-      if (isRange) {
-        vals = [getRangeValueIndex(values[0]), getRangeValueIndex(values[1])];
-      } else {
-        val = getRangeValueIndex(value as number);
-      }
-    }
-
-    if (startEndValues) {
-      const fullValues = getAsFullValues(value, values);
-
-      val = fullValues.value;
-      vals = fullValues.values;
-    }
-
-    updateInputValues({ values: vals as number[], value: val as number }, isRange, input0, input1);
-  }, [input0.current, input1.current]);
 
   // Call onchangeafter.
   // Run on isMoving and on currentValues to run on dragging and on click.
@@ -308,7 +288,7 @@ export function CoreSlider({
     // Stop slider values from overlapping.
     if (isRange) {
       // Get distance between the two points in pxs.
-      const getDistance = (values) => {
+      const getDistance = (values: number[]) => {
         const d = values[1] - values[0];
 
         const width = wrapperRef.current?.clientWidth || 0;
@@ -346,11 +326,7 @@ export function CoreSlider({
       }
     }, 0.01);
 
-    setStyle(values);
-
-    if (showTooltips) {
-      setTooltipStyles(values, i);
-    }
+    updateStyles(values, i);
   }, []);
 
   // Get full, adjusted onChange value (including startEndValues, etc.)
@@ -440,8 +416,6 @@ export function CoreSlider({
 
   // Set active state, in order to show tooltips for the current active element.
   const setActiveState = useCallback(() => {
-    const isTouchDevice = () => 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
     // On mobile, don't set the active state here since it sets it to true on wrapper click.
     if (!isTouchDevice()) {
       setInput0Active(document.activeElement === input0.current);
@@ -464,7 +438,11 @@ export function CoreSlider({
             onKeyDown={(e) => onKeyDown(e, index)}
             onKeyUp={() => setIsMoving(false)}
             onChange={(e) => onInputChange(e, index)}
-            onTouchStart={() => (index === 0 ? setInput0Active(true) : setInput1Active(true))}
+            onTouchStart={(e) => {
+              index === 0 ? setInput0Active(true) : setInput1Active(true);
+
+              isTouchDevice() && (e.target as HTMLElement).focus();
+            }}
             onTouchEnd={() => (index === 0 ? setInput0Active(false) : setInput1Active(false))}
             {...ariaData({ ariaLabel, ariaLabelledBy, ariaValueText })}
           />
@@ -536,14 +514,14 @@ export function CoreSlider({
         onContextMenu={(e) => e.preventDefault()}
       >
         <div className="w-slider__tooltips">
-          <Tooltip display={showTooltip0 && isRange} top={input0Active} ref={tooltip0}>
+          <Tooltip display={showTooltip0 && isRange} ref={tooltip0}>
             {getFullValue(0)}
           </Tooltip>
-          <Tooltip display={showTooltip1} top={input1Active} ref={tooltip1}>
+          <Tooltip display={showTooltip1} ref={tooltip1}>
             {getFullValue(1)}
           </Tooltip>
-          <TooltipArrow display={showTooltip0 && isRange} top={input0Active} ref={tooltipArrow0} />
-          <TooltipArrow display={showTooltip1} top={input0Active} ref={tooltipArrow1} />
+          <TooltipArrow display={showTooltip0 && isRange} ref={tooltipArrow0} />
+          <TooltipArrow display={showTooltip1} ref={tooltipArrow1} />
         </div>
         <div className="w-slider__active-track" ref={trackRef} />
         <div
@@ -623,7 +601,6 @@ const getAsValueArray = (
   clamp = false,
 ) => {
   let values: number[];
-  value = Math.round(value);
 
   if (isRange) {
     values = index === 1 ? [currentValues[0], value] : [value, currentValues[1]];
@@ -707,3 +684,5 @@ const getWithStartEndValues = (values: number[], startEndValues: string[], min: 
 
   return returnValues;
 };
+
+const isTouchDevice = () => 'ontouchstart' in window || navigator.maxTouchPoints > 0;

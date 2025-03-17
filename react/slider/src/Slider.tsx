@@ -1,5 +1,13 @@
 import { type RefObject, useCallback, useEffect, useRef, useState } from 'react';
-import type { SliderProps } from './props.ts';
+import type {
+  Slider,
+  SliderStartEndValues,
+  SliderRangeValues,
+  RangeSlider,
+  RangeSliderStartEndValues,
+  RangeSliderRangeValues,
+  Props,
+} from './props.ts';
 import { clamp, clampValues, roundPrecise, roundIfNumber } from './math.ts';
 import { getTooltipCSS, Tooltip, TooltipArrow } from './Tooltip.tsx';
 import style from 'inline:./style.css';
@@ -7,7 +15,7 @@ import style from 'inline:./style.css';
 export const thumbWidth = 28;
 
 type ObjectRangeValue = { label: string; [key: string]: any };
-type RangeValue = string | ObjectRangeValue;
+export type RangeValue = string | ObjectRangeValue;
 export type Ref = RefObject<HTMLElement>;
 
 /*
@@ -43,67 +51,14 @@ always match the given input format used, while also limiting the specific combi
 */
 
 // Default slider.
-export function Slider(
-  props: {
-    max?: number;
-    min?: number;
-    value: number;
-    onChange?: (value: number) => void;
-    onChangeAfter?: (value: number) => void;
-  } & SliderProps,
-);
-// With custom start/end values.
-export function Slider(
-  props: {
-    max?: number;
-    min?: number;
-    value: number | string;
-    onChange?: (value: number | string) => void;
-    onChangeAfter?: (value: number | string) => void;
-    // Optional start/end values to use in addition to the given range.
-    startEndValues?: (string | null)[];
-  } & SliderProps,
-);
-// With specific range values.
-export function Slider(
-  props: {
-    rangeValues: RangeValue[];
-    value: RangeValue;
-    onChange?: (value: RangeValue) => void;
-    onChangeAfter?: (value: RangeValue) => void;
-  } & SliderProps,
-);
+export function Slider(props: Slider);
+export function Slider(props: SliderStartEndValues);
+export function Slider(props: SliderRangeValues);
 
 // Range slider.
-export function Slider(
-  props: {
-    max?: number;
-    min?: number;
-    values: number[];
-    onChange?: (values: number[]) => void;
-    onChangeAfter?: (values: number[]) => void;
-  } & SliderProps,
-);
-// With custom start/end values.
-export function Slider(
-  props: {
-    max?: number;
-    min?: number;
-    values: (number | string)[];
-    onChange?: (values: (number | string)[]) => void;
-    onChangeAfter?: (values: (number | string)[]) => void;
-    startEndValues?: (string | null)[];
-  } & SliderProps,
-);
-// With specific range values.
-export function Slider(
-  props: {
-    rangeValues: RangeValue[];
-    values: RangeValue[];
-    onChange?: (values: RangeValue[]) => void;
-    onChangeAfter?: (values: RangeValue[]) => void;
-  } & SliderProps,
-);
+export function Slider(props: RangeSlider);
+export function Slider(props: RangeSliderStartEndValues);
+export function Slider(props: RangeSliderRangeValues);
 
 export function Slider({
   min = 0,
@@ -124,16 +79,7 @@ export function Slider({
   showMarkers = true,
   containMarkers = false,
   startEndValues,
-}: {
-  max?: number;
-  min?: number;
-  rangeValues?: RangeValue[];
-  value?: number | RangeValue;
-  values?: (number | string)[] | RangeValue[];
-  onChange?: any;
-  onChangeAfter?: any;
-  startEndValues?: (string | null)[];
-} & SliderProps) {
+}: Props) {
   // Determine type.
   const type = values ? 'range' : 'standard';
   const isRange = type === 'range';

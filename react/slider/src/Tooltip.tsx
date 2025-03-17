@@ -140,12 +140,12 @@ const getTooltipOffsets = (values: number[], max: number, min: number) => {
 };
 
 // Determine (estimate) the width of the tooltip box with the given value, using the width-check element.
-const getEstimatedWidth = (val: number | string, widthRef: Ref) => {
-  const r = widthRef.current;
+const getEstimatedWidth = (value: number | string, widthRef: Ref) => {
+  const div = widthRef.current;
 
-  if (r) {
-    r.innerText = val.toString();
+  if (div) {
+    div.innerText = value.toString();
 
-    return r.clientWidth;
+    return div.clientWidth;
   }
 };

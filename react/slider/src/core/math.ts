@@ -8,11 +8,11 @@ export function roundPrecise(value: number, precision?: number) {
   return Math.round(value * multiplier) / multiplier;
 }
 
-export function roundIfNumber(val: string | number) {
-  if (typeof val === 'number') {
-    return roundPrecise(val);
+export function roundIfNumber(value: string | number) {
+  if (typeof value === 'number') {
+    return roundPrecise(value);
   }
-  return val;
+  return value;
 }
 
 export function clamp(val: number, min: number, max: number) {

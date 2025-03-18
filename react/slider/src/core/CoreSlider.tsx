@@ -289,13 +289,13 @@ export function CoreSlider({
     if (isRange) {
       // Get distance between the two points in pxs.
       const getDistance = (values: number[]) => {
-        const d = values[1] - values[0];
+        const valueDiff = values[1] - values[0];
 
         const width = wrapperRef.current?.clientWidth || 0;
 
         const pxPerVal = (width - thumbWidth) / (max - min);
 
-        const pxDistance = d * pxPerVal;
+        const pxDistance = valueDiff * pxPerVal;
 
         return pxDistance;
       };
@@ -403,7 +403,7 @@ export function CoreSlider({
       );
 
       // Apply styles.
-      [tooltip0, tooltip1, tooltipArrow0, tooltipArrow1].forEach((e, i) => Object.assign(e.current.style, css[i]));
+      [tooltip0, tooltip1, tooltipArrow0, tooltipArrow1].forEach((ref, i) => Object.assign(ref.current.style, css[i]));
     };
 
     // Set the style for the elements.
@@ -654,8 +654,8 @@ const getTrackStyle = (currentValues: number[], wrapperRef: Ref, isRange: boolea
 
 // Get the x coordinate for the event target (using getBoundingClientRect).
 const getX = (event: any) => {
-  const e = event.target.getBoundingClientRect();
-  const xCoordinate = event.touches[0].clientX - e.left;
+  const clientRect = event.target.getBoundingClientRect();
+  const xCoordinate = event.touches[0].clientX - clientRect.left;
 
   return roundPrecise(xCoordinate);
 };

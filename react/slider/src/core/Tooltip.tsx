@@ -51,25 +51,26 @@ export const getTooltipCSS = (
 ) => {
   const width = wrapperRef.current?.clientWidth || 0;
 
-  const left0 = ((values[0] - min) / (max - min)) * width;
-  const left1 = ((values[1] - min) / (max - min)) * width;
+  const wrapperRect = wrapperRef.current?.getBoundingClientRect();
+  const wrapperLeft = wrapperRect.left;
 
   const [offset0, offset1] = getTooltipOffsets(values, max, min);
 
-  const wrapperRect = wrapperRef.current?.getBoundingClientRect();
-  const left = wrapperRect.left;
+  // Distance from component (wrapper) start.
+  const left0 = ((values[0] - min) / (max - min)) * width;
+  const left1 = ((values[1] - min) / (max - min)) * width;
 
   // Get distance from left to tooltip center.
-  const l0 = left0 + offset0 + left;
-  const l1 = left1 + offset1 + left;
+  const leftOffset0 = left0 + offset0 + wrapperLeft;
+  const leftOffset1 = left1 + offset1 + wrapperLeft;
 
   const tooltipBox0 = {
-    left: l0 + 'px',
+    left: leftOffset0 + 'px',
     transform: 'translateY(-39px) translateX(-50%)',
   };
 
   const tooltipBox1 = {
-    left: l1 + 'px',
+    left: leftOffset1 + 'px',
     transform: 'translateY(-39px) translateX(-50%)',
   };
 
@@ -85,7 +86,7 @@ export const getTooltipCSS = (
     //
     // To do this, the value is rendered in the hidden width-check div, the width is then measured, and that value
     // is used to calculate tooltip position (before it's rendered).
-    const wOffset = 0.5 * (getEstimatedWidth(fullValues[i] || values[i], widthref) + thumbWidth);
+    const widthOffset = 0.5 * (getEstimatedWidth(fullValues[i] || values[i], widthref) + thumbWidth);
 
     // Margin from edges for the tooltip box.
     const margin = 5;
@@ -99,12 +100,12 @@ export const getTooltipCSS = (
     };
 
     if (isRange) {
-      if (l0 + wOffset > viewportWidth - margin) Object.assign(tooltipBox0, getStyle('right'));
-      if (l0 - wOffset < margin) Object.assign(tooltipBox0, getStyle('left'));
+      if (leftOffset0 + widthOffset > viewportWidth - margin) Object.assign(tooltipBox0, getStyle('right'));
+      if (leftOffset0 - widthOffset < margin) Object.assign(tooltipBox0, getStyle('left'));
     }
 
-    if (l1 + wOffset > viewportWidth - margin) Object.assign(tooltipBox1, getStyle('right'));
-    if (l1 - wOffset < margin) Object.assign(tooltipBox1, getStyle('left'));
+    if (leftOffset1 + widthOffset > viewportWidth - margin) Object.assign(tooltipBox1, getStyle('right'));
+    if (leftOffset1 - widthOffset < margin) Object.assign(tooltipBox1, getStyle('left'));
   }
 
   return [
@@ -113,11 +114,11 @@ export const getTooltipCSS = (
     tooltipBox1,
     // Tooltip arrows.
     {
-      left: l0 + 'px',
+      left: leftOffset0 + 'px',
       transform: 'translateY(-9px) translateX(-50%)',
     },
     {
-      left: l1 + 'px',
+      left: leftOffset1 + 'px',
       transform: 'translateY(-9px) translateX(-50%)',
     },
   ];

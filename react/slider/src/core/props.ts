@@ -19,14 +19,14 @@ export type Base = {
   // Select the amount of movement per keyboard step (fraction from 0 to 1).
   keyboardStepFactor?: number;
 
-  // Show markers (steps) and marker values (at min/max values).
-  showMarkers?: boolean;
+  // Show marks (steps) and mark values (at min/max values).
+  showMarks?: boolean;
 
   // Show tooltips on dragging.
   showTooltips?: boolean;
 
-  // Contain markers within the bounds of the component (justified along left/right edges).
-  containMarkers?: boolean;
+  // Contain marks within the bounds of the component (justified along left/right edges).
+  containMarks?: boolean;
 
   // Contain tooltips to within the viewport.
   containTooltips?: boolean;

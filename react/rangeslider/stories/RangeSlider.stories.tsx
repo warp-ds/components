@@ -19,8 +19,8 @@ export const Range = () => {
         max={10_000_000}
         step={1000}
         showTooltips
-        showMarkers
-        containMarkers
+        showMarks
+        containMarks
       />
       <button onClick={() => setValues([1000, 5008970])}>Reset</button>
     </div>
@@ -42,7 +42,7 @@ export const Range2 = () => {
         max={1500}
         step={10}
         showTooltips
-        showMarkers
+        showMarks
       />
       <button onClick={() => setValues([100, 1500])}>Reset</button>
     </div>
@@ -64,7 +64,7 @@ export const Range3 = () => {
         max={150}
         step={1}
         showTooltips
-        showMarkers
+        showMarks
       />
       <button onClick={() => setValues([-100, 100])}>Reset</button>
     </div>
@@ -86,7 +86,7 @@ export const Range4 = () => {
         max={10000}
         step={100}
         showTooltips
-        showMarkers
+        showMarks
       />
       <button onClick={() => setValues([1000, 9000])}>Reset</button>
     </div>
@@ -101,7 +101,7 @@ export const Range5 = () => {
       <output>
         {values[0]} - {values[1]}
       </output>
-      <RangeSlider values={values} onChange={(nums) => setValues(nums)} min={0} max={4000} showTooltips showMarkers />
+      <RangeSlider values={values} onChange={(nums) => setValues(nums)} min={0} max={4000} showTooltips showMarks />
       <button onClick={() => setValues([10, 1000])}>Reset</button>
     </div>
   );
@@ -121,7 +121,7 @@ export const Range6 = () => {
         min={0}
         max={10000}
         showTooltips
-        showMarkers
+        showMarks
         step={100}
       />
       <button onClick={() => setValues([0, 10000])}>Reset</button>
@@ -144,7 +144,7 @@ export const Range7 = () => {
         max={20}
         step={1}
         showTooltips
-        showMarkers
+        showMarks
       />
       <button onClick={() => setValues([1, 15])}>Reset</button>
     </div>
@@ -167,8 +167,8 @@ export const Range8 = () => {
         startEndValues={['Less than 1000', 'Over 5000']}
         step={100}
         showTooltips
-        showMarkers
-        containMarkers
+        showMarks
+        containMarks
       />
       <button onClick={() => setValues([1000, 5000])}>Reset</button>
     </div>
@@ -191,8 +191,8 @@ export const Range9 = () => {
         startEndValues={['Less than 1000', 'Over 5000']}
         step={100}
         showTooltips
-        showMarkers
-        containMarkers
+        showMarks
+        containMarks
       />
       <button onClick={() => setValues(['Less than 1000', 'Over 5000'])}>Reset</button>
     </div>
@@ -221,8 +221,8 @@ export const Range10changeafter = () => {
         startEndValues={['Less than 1000', 'Over 5000']}
         step={100}
         showTooltips
-        showMarkers
-        containMarkers
+        showMarks
+        containMarks
       />
       {/* biome-ignore lint/style/noCommaOperator: <explanation> */}
       <button onClick={() => (setValues(['Less than 1000', 'Over 5000']), setValues2(['Less than 1000', 'Over 5000']))}>
@@ -247,7 +247,7 @@ export const DualRangeValues = () => {
         values={values}
         rangeValues={range}
         showTooltips
-        showMarkers
+        showMarks
       />
       <button onClick={() => setValues(['yes', '1'])}>Reset</button>
     </div>
@@ -269,7 +269,7 @@ export const DualRangeValues2 = () => {
         values={values}
         rangeValues={range}
         showTooltips
-        showMarkers
+        showMarks
       />
       <button onClick={() => setValues(['06:30', '08:30'])}>Reset</button>
     </div>
@@ -317,7 +317,7 @@ export const DualRangeValues3 = () => {
         values={values}
         rangeValues={range}
         showTooltips
-        showMarkers
+        showMarks
       />
       <button
         onClick={() =>

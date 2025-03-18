@@ -20,7 +20,7 @@ The inputs can either be a min/max, or an array of specific values that define t
 
 ## Implementation
 The component is implemented using native input type="range" elements. These are used to render the sliders, and additional elements
-are used for the active track, tooltips and markers / marker values.
+are used for the active track, tooltips and marks.
 
 For a single (non-range) slider, only one of the input elements is accessible. The internal data representation is the same, but only the second (upper)
 value in the array is used.
@@ -60,8 +60,8 @@ export function CoreSlider({
   keyboardStepFactor = 0.04,
   showTooltips = false,
   containTooltips = true,
-  showMarkers = true,
-  containMarkers = false,
+  showMarks = true,
+  containMarks = false,
   startEndValues,
 }: CoreSliderProps) {
   // Determine type.
@@ -463,41 +463,41 @@ export function CoreSlider({
     [currentValues],
   );
 
-  // Get markers and marker values.
+  // Get marks and mark values.
   // Displays values either centered below the line, or justified to fit in the component.
-  const getMarkers = useCallback(() => {
-    const markerLines = () => [...Array(2).keys()].map((k) => <div key={k} className="w-slider__marker-line" />);
+  const getMarks = useCallback(() => {
+    const markLines = () => [...Array(2).keys()].map((k) => <div key={k} className="w-slider__mark-line" />);
 
-    const markerValues = () =>
+    const markValues = () =>
       [...Array(2).keys()].map((k) => {
         const displayValue = startEndValues?.[k] ? startEndValues[k] : (max - min) * k + min;
 
         return <div key={k}>{rangeValues ? getRangeValueItem(displayValue as number) : displayValue}</div>;
       });
 
-    const markers = () =>
+    const marks = () =>
       [...Array(2).keys()].map((k) => {
         const displayValue = startEndValues?.[k] ? startEndValues[k] : (max - min) * k + min;
 
         return (
-          <div key={k} className="w-slider__marker">
-            <div className="w-slider__marker-line" />
-            <div className="w-slider__marker-value">
+          <div key={k} className="w-slider__mark">
+            <div className="w-slider__mark-line" />
+            <div className="w-slider__mark-value">
               {rangeValues ? getRangeValueItem(displayValue as number) : displayValue}
             </div>
           </div>
         );
       });
 
-    if (containMarkers) {
+    if (containMarks) {
       return (
         <div>
-          <div className="w-slider__steps">{markerLines()}</div>
-          <div className="w-slider__markervalues">{markerValues()}</div>
+          <div className="w-slider__steps">{markLines()}</div>
+          <div className="w-slider__markvalues">{markValues()}</div>
         </div>
       );
     } else {
-      return <div className="w-slider__steps">{markers()}</div>;
+      return <div className="w-slider__steps">{marks()}</div>;
     }
   }, []);
 
@@ -539,7 +539,7 @@ export function CoreSlider({
           {isRange && inputElement(0, input0)}
           {inputElement(1, input1)}
         </div>
-        {showMarkers && getMarkers()}
+        {showMarks && getMarks()}
       </div>
       <div className="w-slider__width-check" ref={widthRef} />
     </>

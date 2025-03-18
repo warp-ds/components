@@ -120,38 +120,38 @@
   grid-auto-columns: minmax(0, 1fr);
 }
 
-.w-slider__steps .w-slider__marker {
+.w-slider__steps .w-slider__mark {
   display: grid;
   justify-items: center;
   grid-row-gap: 3.5px;
 }
 
-.w-slider__marker-line {
+.w-slider__mark-line {
   width: 4px;
   height: 8px;
   border-radius: 2px;
   background-color: var(--w-s-color-background-disabled-subtle);
 }
 
-.w-slider__marker-value {
+.w-slider__mark-value {
   width: 0;
   white-space: nowrap;
   display: grid;
   justify-content: center;
 }
 
-.w-slider__markervalues {
+.w-slider__markvalues {
   display: grid;
   color: var(--w-s-color-text-subtle);
   grid-template-columns: auto auto;
   height: 25.5px;
 }
 
-.w-slider__markervalues > div:nth-child(1) {
+.w-slider__markvalues > div:nth-child(1) {
   justify-self: start;
 }
 
-.w-slider__markervalues > div:nth-child(2) {
+.w-slider__markvalues > div:nth-child(2) {
   justify-self: end;
 }
 

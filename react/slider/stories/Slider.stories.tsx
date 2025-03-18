@@ -40,7 +40,7 @@ export const Regular2 = () => {
         min={10000}
         max={60000}
         showTooltips
-        showMarkers
+        showMarks
         step={100}
       />
       <button onClick={() => setValue(15000)}>Reset</button>
@@ -60,7 +60,7 @@ export const Regular3 = () => {
         min={10000}
         max={60000}
         showTooltips
-        showMarkers
+        showMarks
         step={100}
       />
       <button onClick={() => setValue(15000)}>Reset</button>
@@ -74,7 +74,7 @@ export const Regular4 = () => {
   return (
     <div style={{ maxWidth: '500px' }}>
       <output>{value}</output>
-      <Slider onChange={(value) => setValue(value)} value={value} min={0} max={6} showTooltips showMarkers />
+      <Slider onChange={(value) => setValue(value)} value={value} min={0} max={6} showTooltips showMarks />
       <button onClick={() => setValue(3)}>Reset</button>
     </div>
   );
@@ -86,7 +86,7 @@ export const Regular5 = () => {
   return (
     <div style={{ maxWidth: '500px' }}>
       <output>{value}</output>
-      <Slider onChange={(value) => setValue(value)} value={value} min={1} max={8} showTooltips showMarkers />
+      <Slider onChange={(value) => setValue(value)} value={value} min={1} max={8} showTooltips showMarks />
       <button onClick={() => setValue(3)}>Reset</button>
     </div>
   );
@@ -104,8 +104,8 @@ export const Regular6 = () => {
         min={2}
         max={10}
         showTooltips
-        showMarkers
-        containMarkers
+        showMarks
+        containMarks
         startEndValues={['Less than 2', 'gt 10']}
       />
       <button onClick={() => setValue(3)}>Reset</button>
@@ -125,7 +125,7 @@ export const Regular7 = () => {
         min={2}
         max={10}
         showTooltips
-        showMarkers
+        showMarks
         startEndValues={[null, 'gt 10']}
       />
       <button onClick={() => setValue(3)}>Reset</button>
@@ -141,7 +141,7 @@ export const RegularRangeValues = () => {
   return (
     <div style={{ maxWidth: '500px' }}>
       <output>{value}</output>
-      <Slider onChange={(value) => setValue(value)} value={value} rangeValues={range} showTooltips showMarkers />
+      <Slider onChange={(value) => setValue(value)} value={value} rangeValues={range} showTooltips showMarks />
       <button onClick={() => setValue('yes')}>Reset</button>
     </div>
   );

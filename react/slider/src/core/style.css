@@ -2,7 +2,7 @@
   /* Local scoped variables. */
   --_thumb-color: var(--w-s-color-background-primary);
   --_thumb-focus-visible: var(--w-s-color-border-focus);
-  --_thumb-focus: #00000014;
+  --_thumb-focus: #000014;
   --_active-track-color: var(--w-s-color-background-primary);
   --_track-color: var(--w-s-color-background-disabled-subtle);
   --_mark-line: var(--w-s-color-background-disabled-subtle);

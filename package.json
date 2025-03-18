@@ -9,15 +9,19 @@
     "./react/*": "./dist/react/*/index.js"
   },
   "scripts": {
+    "build-storybook:lit": "storybook build -c .storybook-lit -o storybook/lit",
+    "build-storybook:react": "storybook build -c .storybook-react -o storybook/react",
+    "build-storybook": "pnpm run build-storybook:react && pnpm run build-storybook:lit",
     "build": "rm -rf dist && mkdir dist && node build.js",
     "check": "pnpm biome check --write .",
     "format": "pnpm biome format --write .",
     "lint": "pnpm biome lint --write .",
+    "lint:check": "pnpm biome lint .",
     "start:watch": "web-dev-server --open / --node-resolve --watch",
     "start": "web-dev-server --open / --node-resolve",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook:lit": "storybook dev -p 6007 -c .storybook-lit",
     "storybook:react": "storybook dev -p 6006 -c .storybook-react",
-    "storybook:lit": "storybook dev -p 6007 -c .storybook-lit"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",

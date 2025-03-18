@@ -1,0 +1,28 @@
+name: Storybook
+on:
+  push:
+    branches:
+      - next
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - name: Install pnpm and dependencies
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+          run_install: true
+      - name: Build storybook
+        run: pnpm run build-storybook
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: storybook
+          clean-exclude: pr-preview/

@@ -505,7 +505,7 @@ export function CoreSlider({
   // For a range slider, render two sets of elements: one for the lower and one for the upper value.
   // For a standard (non-range) slider, only render the second (top) value elements.
   return (
-    <>
+    <div className="w-slider">
       <style href="RangeSlider" precedence="medium">
         {style}
       </style>
@@ -542,7 +542,7 @@ export function CoreSlider({
         {showMarks && getMarks()}
       </div>
       <div className="w-slider__width-check" ref={widthRef} />
-    </>
+    </div>
   );
 }
 

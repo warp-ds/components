@@ -13,7 +13,7 @@ import {
   startOfMonth,
   startOfWeek,
 } from 'date-fns';
-import { useMemo } from 'react';
+import React from 'react';
 
 import { DatePickerDay } from './DatePickerDay.js';
 import type { DatePickerMonthProps } from './props.js';
@@ -31,7 +31,7 @@ export const DatePickerMonth = ({
   dayAriaLabelFormat,
   onChange,
 }: DatePickerMonthProps) => {
-  const weeks = useMemo(() => getWeeks(month, locale), [month, locale]);
+  const weeks = React.useMemo(() => getWeeks(month, locale), [month, locale]);
 
   // Inserts the navigation date into the date matrix
   if (isSameMonth(navigationDate, month)) {

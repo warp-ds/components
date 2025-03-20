@@ -1,4 +1,3 @@
-import { useContext, useMemo } from 'react';
 // @ts-ignore
 import style from 'inline:./styles/w-datepicker-month.css';
 import {
@@ -14,14 +13,24 @@ import {
   startOfMonth,
   startOfWeek,
 } from 'date-fns';
+import { useMemo } from 'react';
 
-import { DatePickerContext } from './DatePickerContext.js';
 import { DatePickerDay } from './DatePickerDay.js';
 import type { DatePickerMonthProps } from './DatePickerMonthProps.js';
 
-export const DatePickerMonth = ({ month, navigationDate }: DatePickerMonthProps) => {
-  const { locale, monthFormat, weekDayFormat } = useContext(DatePickerContext);
-
+export const DatePickerMonth = ({
+  month,
+  navigationDate,
+  locale,
+  monthFormat,
+  weekDayFormat,
+  isDayDisabled,
+  selectedDate,
+  phrases,
+  navigationDayRef,
+  dayAriaLabelFormat,
+  onChange,
+}: DatePickerMonthProps) => {
   const weeks = useMemo(() => getWeeks(month, locale), [month, locale]);
 
   // Inserts the navigation date into the date matrix
@@ -61,7 +70,19 @@ export const DatePickerMonth = ({ month, navigationDate }: DatePickerMonthProps)
             {weeks.map((week) => (
               <tr key={week[0].toString()}>
                 {week.map((day) => (
-                  <DatePickerDay key={day.toISOString()} day={day} month={month} navigationDate={navigationDate} />
+                  <DatePickerDay
+                    key={day.toISOString()}
+                    day={day}
+                    month={month}
+                    navigationDate={navigationDate}
+                    locale={locale}
+                    isDayDisabled={isDayDisabled}
+                    selectedDate={selectedDate}
+                    phrases={phrases}
+                    navigationDayRef={navigationDayRef}
+                    dayAriaLabelFormat={dayAriaLabelFormat}
+                    onChange={onChange}
+                  />
                 ))}
               </tr>
             ))}

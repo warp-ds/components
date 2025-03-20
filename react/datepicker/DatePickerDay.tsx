@@ -1,28 +1,26 @@
-import { type KeyboardEvent, type MouseEvent, useContext } from 'react';
 // @ts-ignore
 import style from 'inline:./styles/w-datepicker-day.css';
-import { format, getDate, isSameDay, isSameMonth, isToday, isWithinInterval } from 'date-fns';
+import { type Locale, format, getDate, isSameDay, isSameMonth, isToday } from 'date-fns';
+import type { KeyboardEvent, MouseEvent } from 'react';
 
-import { DatePickerContext } from './DatePickerContext.js';
-import type { DatePickerContextProps } from './DatePickerContextProps.js';
 import type { DatePickerDayProps } from './DatePickerDayProps.js';
+import type defaultPhrases from './utils/defaultPhrases.ts';
 
-export const DatePickerDay = ({ month, day, navigationDate }: DatePickerDayProps) => {
-  const {
-    locale,
-    isDayDisabled,
-    isDateRange,
-    startDate,
-    endDate,
-    phrases,
-    navigationDayRef,
-    dayAriaLabelFormat,
-    onChange,
-  } = useContext(DatePickerContext);
-
+export const DatePickerDay = ({
+  month,
+  day,
+  navigationDate,
+  locale,
+  isDayDisabled,
+  selectedDate,
+  phrases,
+  navigationDayRef,
+  dayAriaLabelFormat,
+  onChange,
+}: DatePickerDayProps) => {
   const isDisabled = isDayDisabled(day);
 
-  const isSelected = isStartOrEndDate(day, startDate, endDate);
+  const isSelected = selectedDate ? isSameDay(day, selectedDate) : false;
 
   const handleSelect = (event: MouseEvent | KeyboardEvent) => {
     if (isDisabled) return;
@@ -41,17 +39,12 @@ export const DatePickerDay = ({ month, day, navigationDate }: DatePickerDayProps
 
   const ariaLabel = dayAriaLabel({
     day,
-    startDate,
-    endDate,
     phrases,
     locale,
-    isDateRange,
     dayAriaLabelFormat,
     isSelected,
     isDisabled,
   });
-
-  const dayInRange = isDateRange && isDayInSelectionRange(day, startDate, endDate);
 
   const isNavigationDate = day === navigationDate;
 
@@ -69,13 +62,10 @@ export const DatePickerDay = ({ month, day, navigationDate }: DatePickerDayProps
         aria-label={ariaLabel}
         aria-selected={isSelected}
         className={`w-datepicker__day
-        ${dayInRange ? 'w-datepicker__day--in-range' : ''}
         ${isSelected ? 'w-datepicker__day--selected' : ''}
         ${isDisabled ? 'w-datepicker__day--disabled' : ''}
         ${isToday(day) ? 'w-datepicker__day--today' : ''}
         ${isNavigationDate ? 'w-datepicker__day--navigation' : ''}
-        ${isDateRange && day?.toDateString() === startDate?.toDateString() && endDate ? 'w-datepicker__day--start' : ''}
-        ${isDateRange && day?.toDateString() === endDate?.toDateString() && startDate ? 'w-datepicker__day--end' : ''}
       `}
         onClick={handleSelect}
         onKeyDown={handleSelect}
@@ -90,29 +80,19 @@ export const DatePickerDay = ({ month, day, navigationDate }: DatePickerDayProps
 
 function dayAriaLabel({
   day,
-  startDate,
-  endDate,
   phrases,
   locale,
-  isDateRange,
   dayAriaLabelFormat,
   isDisabled,
   isSelected,
-}: Pick<DatePickerContextProps, 'dayAriaLabelFormat' | 'isDateRange' | 'locale' | 'phrases' | 'endDate' | 'startDate'> &
-  Pick<DatePickerDayProps, 'day'> & {
-    isSelected: boolean;
-    isDisabled: boolean;
-  }): string {
-  if (isDateRange) {
-    if (startDate && isSameDay(startDate, day)) {
-      return phrases.dateIsSelectedAsStartDate(format(day, dayAriaLabelFormat, { locale }));
-    }
-
-    if (endDate && isSameDay(endDate, day)) {
-      return phrases.dateIsSelectedAsEndDate(format(day, dayAriaLabelFormat, { locale }));
-    }
-  }
-
+}: {
+  day: Date;
+  phrases: typeof defaultPhrases;
+  locale: Locale;
+  dayAriaLabelFormat: string;
+  isSelected: boolean;
+  isDisabled: boolean;
+}): string {
   if (isSelected) {
     return phrases.dateIsSelected(format(day, dayAriaLabelFormat, { locale }));
   }
@@ -122,45 +102,4 @@ function dayAriaLabel({
   }
 
   return format(day, dayAriaLabelFormat, { locale });
-}
-
-function isStartOrEndDate(day: Date, startDate: Date | null, endDate: Date | null) {
-  return (startDate != null && isSameDay(day, startDate)) || (endDate != null && isSameDay(day, endDate));
-}
-
-/**
- * Checks if the day is between the start and end day
- */
-function isDayInSelectionRange(day: Date, startDate: Date | null, endDate: Date | null): boolean {
-  return (
-    startDate != null &&
-    endDate != null &&
-    !isSameDay(day, startDate) &&
-    !isSameDay(day, endDate) &&
-    isWithinInterval(day, { start: startDate, end: endDate })
-  );
-}
-
-export function getDatesBetween(startDate: Date, endDate: Date) {
-  const dates: Date[] = [];
-
-  // Strip hours minutes seconds etc.
-  let currentDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
-
-  while (currentDate <= endDate) {
-    if (
-      currentDate.toDateString() !== startDate.toDateString() &&
-      currentDate.toDateString() !== endDate.toDateString()
-    ) {
-      dates.push(currentDate);
-    }
-
-    currentDate = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth(),
-      currentDate.getDate() + 1, // Will increase month if over range
-    );
-  }
-
-  return dates;
 }

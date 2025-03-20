@@ -1,43 +1,25 @@
-import { useContext } from 'react';
-
 import { Attention } from '@warp-ds/react/components/attention';
+import React from 'react';
 
-import { DatePickerContext, IDLE } from './DatePickerContext.js';
-import type { DatePickerPopoverProps } from './DatePickerPopoverProps.js';
+type DatePickerPopoverProps = {
+  children: React.JSX.Element;
+  open: boolean;
+  targetEl: React.RefObject<HTMLElement | null>;
+};
 
-/**
- * DatePickerPopover
- *
- * Contains the popup that renders the calendar. Because some UI needs to render
- * more than the calendar in the popup, you need to render one of these around the
- * calendar. For example, you may want show some information about availability.
- *
- */
-export const DatePickerPopover = ({ children }: DatePickerPopoverProps) => {
-  const {
-    datepickerId,
-    startInputRef,
-    isDateRange: isDateRangePicker,
-    dispatch,
-    state: datepickerState,
-  } = useContext(DatePickerContext);
+export const DatePickerPopover = ({ children, open, targetEl }: DatePickerPopoverProps) => {
+  const datepickerId = React.useId();
 
   return (
     <Attention
       popover
-      canClose
       placement="bottom"
-      noArrow={isDateRangePicker}
+      noArrow={true}
       flip={true}
       crossAxis={true}
       id={datepickerId}
-      isShowing={datepickerState !== IDLE}
-      targetEl={startInputRef}
-      onDismiss={() =>
-        dispatch({
-          type: 'BLUR',
-        })
-      }
+      isShowing={open}
+      targetEl={targetEl}
     >
       {children}
     </Attention>

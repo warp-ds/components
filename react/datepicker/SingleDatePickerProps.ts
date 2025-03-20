@@ -1,10 +1,8 @@
 import type { Locale } from 'date-fns';
 
-import type { Phrases } from './utils/defaultPhrases.js';
+import type { Phrases } from './utils/defaultPhrases.ts';
 
-export type DatePickerProps = {
-  children: React.ReactNode;
-
+export type SingleDatePickerProps = {
   /**
    * The current selected date.
    */

@@ -17,9 +17,9 @@ import {
   subMonths,
 } from 'date-fns';
 import React from 'react';
-import type { DatePickerCalendarProps } from './DatePickerCalendarProps.js';
 import { DatePickerMonth } from './DatePickerMonth.js';
 import { DatePickerNavigation } from './DatePickerNavigation.js';
+import type { DatePickerCalendarProps } from './props.js';
 
 /**
  * DatePickerCalendar

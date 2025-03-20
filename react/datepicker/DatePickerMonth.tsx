@@ -16,7 +16,7 @@ import {
 import { useMemo } from 'react';
 
 import { DatePickerDay } from './DatePickerDay.js';
-import type { DatePickerMonthProps } from './DatePickerMonthProps.js';
+import type { DatePickerMonthProps } from './props.js';
 
 export const DatePickerMonth = ({
   month,

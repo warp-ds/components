@@ -3,8 +3,8 @@ import style from 'inline:./styles/w-datepicker-day.css';
 import { type Locale, format, getDate, isSameDay, isSameMonth, isToday } from 'date-fns';
 import type { KeyboardEvent, MouseEvent } from 'react';
 
-import type { DatePickerDayProps } from './DatePickerDayProps.js';
-import type defaultPhrases from './utils/defaultPhrases.ts';
+import type defaultPhrases from './defaultPhrases.ts';
+import type { DatePickerDayProps } from './props.js';
 
 export const DatePickerDay = ({
   month,

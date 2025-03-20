@@ -7,8 +7,8 @@ import { TextField } from '@warp-ds/react/components/textfield';
 import { format, isValid } from 'date-fns';
 import { DatePickerCalendar } from './DatePickerCalendar.tsx';
 import { DatePickerPopover } from './DatePickerPopover.tsx';
-import type { SingleDatePickerProps } from './SingleDatePickerProps.ts';
-import defaultPhrases from './utils/defaultPhrases.ts';
+import defaultPhrases from './defaultPhrases.ts';
+import type { SingleDatePickerProps } from './props.ts';
 
 export const SingleDatePicker = ({
   locale = nb,

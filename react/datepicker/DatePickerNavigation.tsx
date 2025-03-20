@@ -6,7 +6,7 @@ import IconChevronRight16 from '@warp-ds/icons/react/chevron-right-16';
 
 import { Button } from '@warp-ds/react/components/button';
 
-import type { DatePickerNavigationProps } from './DatePickerNavigationProps.js';
+import type { DatePickerNavigationProps } from './props.js';
 
 export const DatePickerNavigation = ({ phrases, nextMonth, prevMonth }: DatePickerNavigationProps) => {
   return (

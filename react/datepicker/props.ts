@@ -60,7 +60,7 @@ export interface DatePickerNavigationProps {
   phrases: Phrases;
   nextMonth: () => void;
   prevMonth: () => void;
-};
+}
 
 export type DatePickerMonthProps = {
   month: Date;

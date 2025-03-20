@@ -3,10 +3,10 @@ import React from 'react';
 import { nb } from 'date-fns/locale';
 
 import { Affix } from '@warp-ds/react';
+import { Attention } from '@warp-ds/react/components/attention';
 import { TextField } from '@warp-ds/react/components/textfield';
 import { format, isValid } from 'date-fns';
 import { DatePickerCalendar } from './DatePickerCalendar.tsx';
-import { DatePickerPopover } from './DatePickerPopover.tsx';
 import defaultPhrases from './defaultPhrases.ts';
 import type { SingleDatePickerProps } from './props.ts';
 
@@ -22,9 +22,11 @@ export const SingleDatePicker = ({
   dayAriaLabelFormat = 'PPPP',
 }: SingleDatePickerProps) => {
   const datepickerId = React.useId();
-  const navigationDayRef = React.useRef<HTMLTableCellElement>(null);
+
   const [open, setOpen] = React.useState<boolean>(false);
-  const textFieldRef = React.useRef(null);
+
+  const navigationDayRef = React.useRef<HTMLTableCellElement>(null);
+  const textFieldRef = React.useRef<HTMLImageElement>(null);
   const containerRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
@@ -54,12 +56,21 @@ export const SingleDatePicker = ({
   const displayClearDate = isValid(date);
 
   return (
-    <div id={datepickerId} ref={containerRef}>
+    <div ref={containerRef}>
       {/* @ts-ignore */}
       <TextField defaultValue={displayDate} label="Date" onClick={() => setOpen(!open)} ref={textFieldRef}>
         {displayClearDate && <Affix suffix clear aria-label="Clear text" onClick={handleClear} />}
       </TextField>
-      <DatePickerPopover open={open} targetEl={textFieldRef.current}>
+      <Attention
+        popover
+        placement="bottom"
+        noArrow={true}
+        flip={true}
+        crossAxis={true}
+        id={datepickerId}
+        isShowing={open}
+        targetEl={textFieldRef}
+      >
         <DatePickerCalendar
           selectedDate={date}
           locale={locale}
@@ -71,7 +82,7 @@ export const SingleDatePicker = ({
           onChange={handleChange}
           isDayDisabled={isDayDisabled}
         />
-      </DatePickerPopover>
+      </Attention>
     </div>
   );
 };

@@ -8,9 +8,9 @@ import { TextField } from '@warp-ds/react/components/textfield';
 import { format, isValid } from 'date-fns';
 import { DatePickerCalendar } from './DatePickerCalendar.tsx';
 import defaultPhrases from './defaultPhrases.ts';
-import type { SingleDatePickerProps } from './props.ts';
+import type { DatePickerProps } from './props.ts';
 
-export const SingleDatePicker = ({
+export const DatePicker = ({
   locale = nb,
   isDayDisabled = () => false,
   date,
@@ -20,7 +20,7 @@ export const SingleDatePicker = ({
   monthFormat = 'MMMM yyyy',
   weekDayFormat = 'EEEEEE',
   dayAriaLabelFormat = 'PPPP',
-}: SingleDatePickerProps) => {
+}: DatePickerProps) => {
   const datepickerId = React.useId();
 
   const [open, setOpen] = React.useState<boolean>(false);

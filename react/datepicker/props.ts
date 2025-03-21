@@ -2,7 +2,7 @@ import type { Locale } from 'date-fns';
 
 import type { Phrases } from './defaultPhrases.ts';
 
-export type SingleDatePickerProps = {
+export type DatePickerProps = {
   /**
    * The current selected date.
    */

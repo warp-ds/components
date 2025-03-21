@@ -1,1 +1,1 @@
-export { SingleDatePicker } from './SingleDatePicker.tsx';
+export { DatePicker } from './DatePicker.tsx';

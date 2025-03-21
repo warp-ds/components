@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { SingleDatePicker } from './index.js';
+import { DatePicker } from './index.js';
 
 const metadata = { title: 'Forms/DatePicker' };
 export default metadata;
@@ -8,7 +8,7 @@ export default metadata;
 function DatePickerExample() {
   const [date, setDate] = React.useState<Date | null>(null);
 
-  return <SingleDatePicker date={date} onChange={setDate} />;
+  return <DatePicker date={date} onChange={setDate} />;
 }
 
 function DisabledDaysExample() {
@@ -23,7 +23,7 @@ function DisabledDaysExample() {
     return day.getDay() === 0 || day.getDay() === 6;
   };
 
-  return <SingleDatePicker date={date} onChange={setDate} isDayDisabled={isDayDisabled} />;
+  return <DatePicker date={date} onChange={setDate} isDayDisabled={isDayDisabled} />;
 }
 
 export const SingleDate = () => <DatePickerExample />;

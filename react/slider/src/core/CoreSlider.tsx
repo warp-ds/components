@@ -239,7 +239,10 @@ export function CoreSlider({
   const onKeyDown = useCallback(
     (e: any, i: number) => {
       if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(e.key)) {
+        e.preventDefault();
+
         setIsMoving(true);
+
         if (['ArrowLeft', 'ArrowDown'].includes(e.key)) {
           moveSlider(i, 'left');
         }
@@ -572,7 +575,7 @@ export function CoreSlider({
  * Required ARIA data for a slider based on an input type="range" element.
  * https://www.digitala11y.com/slider-role/.
  * https://www.w3.org/WAI/ARIA/apg/practices/range-related-properties/.
- * 
+ *
  * aria-valuenow, valuemin, etc. are not used, according to: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-valuenow.
  * Excerpt:
  * "The first rule of ARIA use is "if you can use a native feature with the semantics and behavior you require already built in, instead of repurposing an element and adding an ARIA role, state or property to make it accessible, then do so.""

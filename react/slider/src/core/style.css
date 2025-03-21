@@ -164,7 +164,8 @@
   display: grid;
   color: var(--_mark-color);
   grid-template-columns: auto auto;
-  height: 25.5px;
+  transform: translateY(-8px);
+  height: 22px;
 }
 
 .w-slider__markvalues > div:nth-child(1) {
@@ -195,4 +196,10 @@
 .w-slider__wrapper-disabled
   .w-slider__input[type="range"]:hover::-webkit-slider-thumb {
   box-shadow: none;
+}
+
+.w-slider__marks-contained {
+  display: grid;
+  grid-row-gap: 1px;
+  grid-template-rows: max-content;
 }

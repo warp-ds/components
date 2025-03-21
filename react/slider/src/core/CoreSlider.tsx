@@ -504,7 +504,7 @@ export function CoreSlider({
 
     if (containMarks) {
       return (
-        <div>
+        <div className="w-slider__marks-contained">
           <div className="w-slider__marks">{markLines()}</div>
           <div className="w-slider__markvalues">{markValues()}</div>
         </div>

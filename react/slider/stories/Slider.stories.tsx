@@ -112,6 +112,18 @@ export const RegularWithStartEndValues = () => {
   );
 };
 
+export const RegularOnChangeAfter = () => {
+  const [value, setValue] = useState(20000);
+
+  return (
+    <div>
+      <output>{value}</output>
+      <Slider onChangeAfter={(value) => setValue(value)} value={value} min={10000} max={60000} />
+      <button onClick={() => setValue(15000)}>Reset</button>
+    </div>
+  );
+};
+
 export const WithRangeValues = () => {
   const range = [
     { label: '12:00' },

@@ -372,25 +372,6 @@ export function CoreSlider({
     return typeof element === 'string' ? element : element.label;
   }, []);
 
-  // Get full value as a display value.
-  const getFullValue = useCallback(
-    (index: number) => {
-      // Default case: use numerical value
-      if (!rangeValues) {
-        const returnValues = getWithStartEndValues(currentValues, startEndValues, min, max);
-
-        return returnValues[index];
-      }
-      // Range values: lookup value.
-      else {
-        const i = currentValues[index];
-
-        return typeof rangeValues[i] === 'string' ? rangeValues[i] : rangeValues[i]?.label;
-      }
-    },
-    [currentValues],
-  );
-
   // Set track ref width.
   const setStyle = useCallback((values: number[]) => {
     if (trackRef.current) trackRef.current.style.cssText = getTrackStyle(values, wrapperRef, isRange, max, min);
@@ -537,10 +518,10 @@ export function CoreSlider({
       >
         <div className="w-slider__tooltips">
           <Tooltip display={showTooltip0 && isRange} ref={tooltip0}>
-            {getFullValue(0)}
+            {getDisplayValues(currentValues)[0]}
           </Tooltip>
           <Tooltip display={showTooltip1} ref={tooltip1}>
-            {getFullValue(1)}
+            {getDisplayValues(currentValues)[1]}
           </Tooltip>
           <TooltipArrow display={showTooltip0 && isRange} ref={tooltipArrow0} />
           <TooltipArrow display={showTooltip1} ref={tooltipArrow1} />

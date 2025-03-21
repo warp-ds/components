@@ -568,9 +568,15 @@ export function CoreSlider({
   );
 }
 
-// Aria label data for the slider.
-// https://www.digitala11y.com/slider-role/.
-// https://www.w3.org/WAI/ARIA/apg/practices/range-related-properties/.
+/**
+ * Required ARIA data for a slider based on an input type="range" element.
+ * https://www.digitala11y.com/slider-role/.
+ * https://www.w3.org/WAI/ARIA/apg/practices/range-related-properties/.
+ * 
+ * aria-valuenow, valuemin, etc. are not used, according to: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-valuenow.
+ * Excerpt:
+ * "The first rule of ARIA use is "if you can use a native feature with the semantics and behavior you require already built in, instead of repurposing an element and adding an ARIA role, state or property to make it accessible, then do so.""
+ */
 function ariaData({ ariaLabel, ariaLabelledBy, ariaValueText }: Record<string, string | undefined>) {
   return {
     'aria-label': ariaLabel,

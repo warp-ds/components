@@ -44,6 +44,18 @@ export const RegularStep1000 = () => {
   );
 };
 
+export const RegularWithLargerKeyboardStepFactor = () => {
+  const [value, setValue] = useState(20000);
+
+  return (
+    <div>
+      <output>{value}</output>
+      <Slider onChange={(value) => setValue(value)} value={value} min={10000} max={60000} keyboardStepFactor={0.1} />
+      <button onClick={() => setValue(15000)}>Reset</button>
+    </div>
+  );
+};
+
 export const RegularWithContainedMarks = () => {
   const [value, setValue] = useState(20000);
 

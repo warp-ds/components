@@ -1,339 +1,76 @@
 import { useState } from 'react';
 import { RangeSlider } from '../src/RangeSlider.tsx';
+import { TextField } from '@warp-ds/react/components/textfield';
 
 const metadata = { title: 'Forms/RangeSlider' };
 export default metadata;
 
-export const Range = () => {
-  const [values, setValues] = useState([1000, 5008970]);
+export const Regular = () => {
+  const [values, setValues] = useState([20000, 40000]);
 
   return (
-    <div style={{ maxWidth: '500px' }}>
+    <div>
       <output>
         {values[0]} - {values[1]}
       </output>
-      <RangeSlider
-        values={values}
-        onChange={(nums) => setValues(nums)}
-        min={1000}
-        max={10_000_000}
-        step={1000}
-        showTooltips
-        showMarks
-        containMarks
-      />
-      <button onClick={() => setValues([1000, 5008970])}>Reset</button>
+      <RangeSlider onChange={(values) => setValues(values)} values={values} min={10000} max={60000} />
+      <button onClick={() => setValues([20000, 40000])}>Reset</button>
     </div>
   );
 };
 
-export const Range2 = () => {
-  const [values, setValues] = useState([100, 1500]);
+export const RegularWithInputs = () => {
+  const [values, setValues] = useState([100, 900]);
 
   return (
-    <div style={{ maxWidth: '500px' }}>
+    <div>
       <output>
         {values[0]} - {values[1]}
       </output>
-      <RangeSlider
-        values={values}
-        onChange={(nums) => setValues(nums)}
-        min={100}
-        max={1500}
-        step={10}
-        showTooltips
-        showMarks
-      />
-      <button onClick={() => setValues([100, 1500])}>Reset</button>
+      <RangeSlider onChange={(values) => setValues(values)} values={values} min={1} max={1000} />
+      <div
+        style={{
+          width: '100%',
+          marginBottom: '10px',
+          display: 'grid',
+          gridAutoFlow: 'column',
+          gap: '25px',
+        }}
+      >
+        <TextField value={values[0].toString()} onChange={(e) => setValues([+e.target.value, values[1]])} />
+        <TextField value={values[1].toString()} onChange={(e) => setValues([values[0], +e.target.value])} />
+      </div>
+      <button onClick={() => setValues([100, 900])}>Reset</button>
     </div>
   );
 };
 
-export const Range3 = () => {
-  const [values, setValues] = useState([-100, 100]);
-
-  return (
-    <div style={{ maxWidth: '500px' }}>
-      <output>
-        {values[0]} - {values[1]}
-      </output>
-      <RangeSlider
-        values={values}
-        onChange={(nums) => setValues(nums)}
-        min={-150}
-        max={150}
-        step={1}
-        showTooltips
-        showMarks
-      />
-      <button onClick={() => setValues([-100, 100])}>Reset</button>
-    </div>
-  );
-};
-
-export const Range4 = () => {
-  const [values, setValues] = useState([1000, 9000]);
-
-  return (
-    <div style={{ maxWidth: '500px' }}>
-      <output>
-        {values[0]} - {values[1]}
-      </output>
-      <RangeSlider
-        values={values}
-        onChange={(nums) => setValues(nums)}
-        min={0}
-        max={10000}
-        step={100}
-        showTooltips
-        showMarks
-      />
-      <button onClick={() => setValues([1000, 9000])}>Reset</button>
-    </div>
-  );
-};
-
-export const Range5 = () => {
-  const [values, setValues] = useState([10, 1000]);
-
-  return (
-    <div style={{ maxWidth: '500px' }}>
-      <output>
-        {values[0]} - {values[1]}
-      </output>
-      <RangeSlider values={values} onChange={(nums) => setValues(nums)} min={0} max={4000} showTooltips showMarks />
-      <button onClick={() => setValues([10, 1000])}>Reset</button>
-    </div>
-  );
-};
-
-export const Range6 = () => {
-  const [values, setValues] = useState([0, 10000]);
-
-  return (
-    <div style={{ maxWidth: '500px' }}>
-      <output>
-        {values[0]} - {values[1]}
-      </output>
-      <RangeSlider
-        values={values}
-        onChange={(nums) => setValues(nums)}
-        min={0}
-        max={10000}
-        showTooltips
-        showMarks
-        step={100}
-      />
-      <button onClick={() => setValues([0, 10000])}>Reset</button>
-    </div>
-  );
-};
-
-export const Range7 = () => {
-  const [values, setValues] = useState([1, 15]);
-
-  return (
-    <div style={{ maxWidth: '500px' }}>
-      <output>
-        {values[0]} - {values[1]}
-      </output>
-      <RangeSlider
-        values={values}
-        onChange={(nums) => setValues(nums)}
-        min={0}
-        max={20}
-        step={1}
-        showTooltips
-        showMarks
-      />
-      <button onClick={() => setValues([1, 15])}>Reset</button>
-    </div>
-  );
-};
-
-export const Range8 = () => {
-  const [values, setValues] = useState([1000, 5000]);
-
-  return (
-    <div style={{ maxWidth: '500px' }}>
-      <output>
-        {values[0]} - {values[1]}
-      </output>
-      <RangeSlider
-        values={values}
-        onChange={(nums) => setValues(nums)}
-        min={1000}
-        max={5000}
-        startEndValues={['Less than 1000', 'Over 5000']}
-        step={100}
-        showTooltips
-        showMarks
-        containMarks
-      />
-      <button onClick={() => setValues([1000, 5000])}>Reset</button>
-    </div>
-  );
-};
-
-export const Range9 = () => {
-  const [values, setValues] = useState(['Less than 1000', 'Over 5000']);
-
-  return (
-    <div style={{ maxWidth: '500px' }}>
-      <output>
-        {values[0]} - {values[1]}
-      </output>
-      <RangeSlider
-        values={values}
-        onChange={(nums) => setValues(nums)}
-        min={1000}
-        max={5000}
-        startEndValues={['Less than 1000', 'Over 5000']}
-        step={100}
-        showTooltips
-        showMarks
-        containMarks
-      />
-      <button onClick={() => setValues(['Less than 1000', 'Over 5000'])}>Reset</button>
-    </div>
-  );
-};
-
-export const Range10changeafter = () => {
-  const [values, setValues] = useState(['Less than 1000', 'Over 5000']);
-  const [values2, setValues2] = useState(['Less than 1000', 'Over 5000']);
-
-  return (
-    <div style={{ maxWidth: '500px' }}>
-      <output>
-        {values[0]} - {values[1]}
-      </output>
-      <br />
-      <output>
-        {values2[0]} - {values2[1]}
-      </output>
-      <RangeSlider
-        values={values}
-        onChange={(nums) => setValues(nums)}
-        onChangeAfter={(nums) => setValues2(nums)}
-        min={1000}
-        max={5000}
-        startEndValues={['Less than 1000', 'Over 5000']}
-        step={100}
-        showTooltips
-        showMarks
-        containMarks
-      />
-      {/* biome-ignore lint/style/noCommaOperator: <explanation> */}
-      <button onClick={() => (setValues(['Less than 1000', 'Over 5000']), setValues2(['Less than 1000', 'Over 5000']))}>
-        Reset
-      </button>
-    </div>
-  );
-};
-
-export const DualRangeValues = () => {
-  const [values, setValues] = useState(['yes', '1']);
-
-  const range = ['hi', 'haha', 'yes', 'nr', 'ok', '1', '2'];
-
-  return (
-    <div style={{ maxWidth: '500px' }}>
-      <output>
-        {values[0]} - {values[1]}
-      </output>
-      <RangeSlider
-        onChange={(values) => setValues(values)}
-        values={values}
-        rangeValues={range}
-        showTooltips
-        showMarks
-      />
-      <button onClick={() => setValues(['yes', '1'])}>Reset</button>
-    </div>
-  );
-};
-
-export const DualRangeValues2 = () => {
-  const [values, setValues] = useState(['06:30', '08:30']);
-
-  const range = ['06:00', '06:30', '07:00', '07:30', '08:00', '08:30', '09:00'];
-
-  return (
-    <div style={{ maxWidth: '500px' }}>
-      <output>
-        {values[0]} - {values[1]}
-      </output>
-      <RangeSlider
-        onChange={(values) => setValues(values)}
-        values={values}
-        rangeValues={range}
-        showTooltips
-        showMarks
-      />
-      <button onClick={() => setValues(['06:30', '08:30'])}>Reset</button>
-    </div>
-  );
-};
-
-export const DualRangeValues3 = () => {
-  const [values, setValues] = useState([
-    {
-      label: '01/01',
-    },
-    {
-      label: '06/01',
-    },
-  ]);
-
+export const RegularWithRangeValues = () => {
   const range = [
-    {
-      label: '01/01',
-    },
-    {
-      label: '02/01',
-    },
-    {
-      label: '03/01',
-    },
-    {
-      label: '04/01',
-    },
-    {
-      label: '05/01',
-    },
-    {
-      label: '06/01',
-    },
+    { label: '12:00' },
+    { label: '12:30' },
+    { label: '13:00' },
+    { label: '13:30' },
+    { label: '14:00' },
+    { label: '14:30' },
+    { label: '15:00' },
   ];
 
+  const [values, setValues] = useState([{ label: '12:30' }, { label: '14:30' }]);
+
   return (
-    <div style={{ maxWidth: '500px' }}>
+    <div>
       <output>
         {values[0].label} - {values[1].label}
       </output>
       <RangeSlider
+        rangeValues={range}
         onChange={(values) => setValues(values)}
         values={values}
-        rangeValues={range}
         showTooltips
-        showMarks
+        containMarks
       />
-      <button
-        onClick={() =>
-          setValues([
-            {
-              label: '01/01',
-            },
-            {
-              label: '06/01',
-            },
-          ])
-        }
-      >
-        Reset
-      </button>
+      <button onClick={() => setValues([{ label: '12:30' }, { label: '14:30' }])}>Reset</button>
     </div>
   );
 };
- 

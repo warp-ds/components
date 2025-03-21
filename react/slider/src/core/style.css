@@ -81,6 +81,8 @@
   background-color: var(--_active-track-color);
   height: 6px;
   border-radius: 3px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
   width: 50%;
   pointer-events: none;
   transform: translateY(19px);

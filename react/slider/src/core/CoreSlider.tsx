@@ -536,7 +536,10 @@ export function CoreSlider({
           <TooltipArrow display={showTooltip0 && isRange} ref={tooltipArrow0} />
           <TooltipArrow display={showTooltip1} ref={tooltipArrow1} />
         </div>
-        <div className="w-slider__active-track" ref={trackRef} />
+        <div
+          className={`w-slider__active-track${(currentValues[1] - min) / (max - min) < 0.5 ? ' w-slider__track-noround' : ''}`}
+          ref={trackRef}
+        />
         <div
           className="w-slider__input-wrapper"
           ref={wrapperRef}

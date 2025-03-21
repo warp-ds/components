@@ -104,6 +104,30 @@ export const RegularWithTooltips = () => {
   );
 };
 
+export const RegularSmallerSize = () => {
+  const [value, setValue] = useState(20000);
+
+  return (
+    <div style={{ width: '350px' }}>
+      <output>{value}</output>
+      <Slider onChange={(value) => setValue(value)} value={value} min={10000} max={60000} showTooltips containMarks />
+      <button onClick={() => setValue(20000)}>Reset</button>
+    </div>
+  );
+};
+
+export const RegularOtherRange = () => {
+  const [value, setValue] = useState(5);
+
+  return (
+    <div>
+      <output>{value}</output>
+      <Slider onChange={(value) => setValue(value)} value={value} min={-20} max={50} showTooltips />
+      <button onClick={() => setValue(5)}>Reset</button>
+    </div>
+  );
+};
+
 export const RegularWithStartEndValues = () => {
   const [value, setValue] = useState(20000);
 

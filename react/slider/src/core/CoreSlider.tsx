@@ -1,14 +1,14 @@
 import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
 import { clamp, clampValues, roundPrecise, roundIfNumber } from './math.ts';
 import { getTooltipCSS, Tooltip, TooltipArrow } from './Tooltip.tsx';
-import style from 'inline:./style.css';
 import { CoreSliderProps } from './props.ts';
-
-export const thumbWidth = 28;
+import style from 'inline:./style.css';
 
 type ObjectRangeValue = { label: string; [key: string]: any };
 export type RangeValue = string | ObjectRangeValue;
 export type Ref = RefObject<HTMLElement>;
+
+export const thumbWidth = 28;
 
 /*
 Slider / range slider component.
@@ -387,12 +387,25 @@ export function CoreSlider({
     if (trackRef.current) trackRef.current.style.cssText = getTrackStyle(values, wrapperRef, isRange, max, min);
   }, []);
 
+  const getDisplayValues = useCallback(
+    (values) => {
+      if (rangeValues) {
+        return values.map((v) =>
+          (rangeValues[v] as any).label ? (rangeValues[v] as ObjectRangeValue).label : rangeValues[v],
+        );
+      } else {
+        return getWithStartEndValues(values, startEndValues, min, max);
+      }
+    },
+    [currentValues, startEndValues, rangeValues],
+  );
+
   // Set tooltip positions.
   const setTooltipStyles = useCallback((values: number[], i = -1) => {
     const setStyles = (index: number) => {
       const css = getTooltipCSS(
         values,
-        getWithStartEndValues(values, startEndValues, min, max),
+        getDisplayValues(values),
         wrapperRef,
         isRange,
         max,
@@ -664,22 +677,14 @@ const getX = (event: any) => {
 const getWithStartEndValues = (values: number[], startEndValues: string[], min: number, max: number) => {
   const returnValues: (number | string | null)[] = [...values];
 
-  if (startEndValues) {
-    if (startEndValues[0] && values[0] === min) {
-      returnValues[0] = startEndValues[0];
-    }
+  if (startEndValues?.[0]) {
+    if (values[0] === min) returnValues[0] = startEndValues[0];
+    if (values[1] === min) returnValues[1] = startEndValues[0];
+  }
 
-    if (startEndValues[1] && values[0] === max) {
-      returnValues[0] = startEndValues[1];
-    }
-
-    if (startEndValues[0] && values[1] === min) {
-      returnValues[1] = startEndValues[0];
-    }
-
-    if (startEndValues[1] && values[1] === max) {
-      returnValues[1] = startEndValues[1];
-    }
+  if (startEndValues?.[1]) {
+    if (values[0] === max) returnValues[0] = startEndValues[1];
+    if (values[1] === max) returnValues[1] = startEndValues[1];
   }
 
   return returnValues;

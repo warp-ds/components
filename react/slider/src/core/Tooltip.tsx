@@ -40,7 +40,7 @@ export const TooltipArrow = ({ display, ref }: { display: boolean; ref: RefObjec
 // adjusting for input type="range" offset, and adjusting for tooltip box position if containTooltips is used.
 export const getTooltipCSS = (
   values: number[],
-  fullValues: (number | string)[],
+  displayValues: (number | string)[],
   wrapperRef: Ref,
   isRange: boolean,
   max: number,
@@ -86,7 +86,7 @@ export const getTooltipCSS = (
     //
     // To do this, the value is rendered in the hidden width-check div, the width is then measured, and that value
     // is used to calculate tooltip position (before it's rendered).
-    const widthOffset = 0.5 * (getEstimatedWidth(fullValues[i] || values[i], widthref) + thumbWidth);
+    const widthOffset = 0.5 * (getEstimatedWidth(displayValues[i] || values[i], widthref) + thumbWidth);
 
     // Margin from edges for the tooltip box.
     const margin = 5;

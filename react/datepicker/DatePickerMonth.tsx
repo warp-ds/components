@@ -1,4 +1,3 @@
-import { useContext, useMemo } from 'react';
 // @ts-ignore
 import style from 'inline:./styles/w-datepicker-month.css';
 import {
@@ -14,15 +13,25 @@ import {
   startOfMonth,
   startOfWeek,
 } from 'date-fns';
+import React from 'react';
 
-import { DatePickerContext } from './DatePickerContext.js';
 import { DatePickerDay } from './DatePickerDay.js';
-import type { DatePickerMonthProps } from './DatePickerMonthProps.js';
+import type { DatePickerMonthProps } from './props.js';
 
-export const DatePickerMonth = ({ month, navigationDate }: DatePickerMonthProps) => {
-  const { locale, monthFormat, weekDayFormat } = useContext(DatePickerContext);
-
-  const weeks = useMemo(() => getWeeks(month, locale), [month, locale]);
+export const DatePickerMonth = ({
+  month,
+  navigationDate,
+  locale,
+  monthFormat,
+  weekDayFormat,
+  isDayDisabled,
+  selectedDate,
+  phrases,
+  navigationDayRef,
+  dayAriaLabelFormat,
+  onChange,
+}: DatePickerMonthProps) => {
+  const weeks = React.useMemo(() => getWeeks(month, locale), [month, locale]);
 
   // Inserts the navigation date into the date matrix
   if (isSameMonth(navigationDate, month)) {
@@ -61,7 +70,19 @@ export const DatePickerMonth = ({ month, navigationDate }: DatePickerMonthProps)
             {weeks.map((week) => (
               <tr key={week[0].toString()}>
                 {week.map((day) => (
-                  <DatePickerDay key={day.toISOString()} day={day} month={month} navigationDate={navigationDate} />
+                  <DatePickerDay
+                    key={day.toISOString()}
+                    day={day}
+                    month={month}
+                    navigationDate={navigationDate}
+                    locale={locale}
+                    isDayDisabled={isDayDisabled}
+                    selectedDate={selectedDate}
+                    phrases={phrases}
+                    navigationDayRef={navigationDayRef}
+                    dayAriaLabelFormat={dayAriaLabelFormat}
+                    onChange={onChange}
+                  />
                 ))}
               </tr>
             ))}

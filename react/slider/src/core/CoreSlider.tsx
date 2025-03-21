@@ -238,7 +238,7 @@ export function CoreSlider({
 
   const onKeyDown = useCallback(
     (e: any, i: number) => {
-      if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'PageUp', 'PageDown'].includes(e.key)) {
+      if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(e.key)) {
         setIsMoving(true);
         if (['ArrowLeft', 'ArrowDown'].includes(e.key)) {
           moveSlider(i, 'left');
@@ -246,10 +246,10 @@ export function CoreSlider({
         if (['ArrowRight', 'ArrowUp'].includes(e.key)) {
           moveSlider(i, 'right');
         }
-        if (e.key === 'PageUp') {
+        if (e.key === 'End') {
           moveSlider(i, undefined, i === 0 ? [max, currentValues[1]] : [currentValues[0], max]);
         }
-        if (e.key === 'PageDown') {
+        if (e.key === 'Home') {
           moveSlider(i, undefined, i === 0 ? [min, currentValues[1]] : [currentValues[0], min]);
         }
       }

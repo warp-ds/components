@@ -143,7 +143,7 @@
 .w-slider__marks .w-slider__mark {
   display: grid;
   justify-items: center;
-  grid-row-gap: 3.5px;
+  grid-row-gap: 1px;
 }
 
 .w-slider__mark-line {

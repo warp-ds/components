@@ -45,7 +45,7 @@ export const RegularWithInputs = () => {
   );
 };
 
-export const RegularWithRangeValues = () => {
+export const WithRangeValues = () => {
   const range = [
     { label: '12:00' },
     { label: '12:30' },

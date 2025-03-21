@@ -197,7 +197,7 @@ export function CoreSlider({
 
       updateStyles(valueArray);
 
-      updateInputValues({ values: values as number[], value: value as number }, isRange, input0, input1);
+      updateInputValues(valueArray, isRange, input0, input1);
     }
   }, [values, value]);
 
@@ -216,35 +216,41 @@ export function CoreSlider({
   }, [currentValues]);
 
   const moveSlider = useCallback(
-    (direction: 'left' | 'right', i: number) => {
-      const multiplier = { left: -1, right: 1 };
+    (i: number, direction?: 'left' | 'right', newValues?: number[]) => {
+      if (direction) {
+        const multiplier = { left: -1, right: 1 };
 
-      const d = max * keyboardStepFactor;
+        const d = max * keyboardStepFactor;
 
-      const value = currentValues[i] + multiplier[direction] * d;
+        const value = currentValues[i] + multiplier[direction] * d;
 
-      const values = getAsValueArray(value, i, isRange, currentValues, min, max, step, true);
+        const values = getAsValueArray(value, i, isRange, currentValues, min, max, step, true);
 
-      updateInputValues({ values, value }, isRange, input0, input1);
-
-      setNewValues(values, i);
+        updateInputValues(values, isRange, input0, input1);
+        setNewValues(values, i);
+      } else {
+        updateInputValues(newValues, isRange, input0, input1);
+        setNewValues(newValues, i);
+      }
     },
     [currentValues],
   );
 
   const onKeyDown = useCallback(
     (e: any, i: number) => {
-      if (['ArrowUp', 'ArrowDown'].includes(e.key)) {
-        e.preventDefault();
-      }
-
-      if (['ArrowLeft', 'ArrowRight'].includes(e.key)) {
+      if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'PageUp', 'PageDown'].includes(e.key)) {
         setIsMoving(true);
-        if (e.key === 'ArrowLeft') {
-          moveSlider('left', i);
+        if (['ArrowLeft', 'ArrowDown'].includes(e.key)) {
+          moveSlider(i, 'left');
         }
-        if (e.key === 'ArrowRight') {
-          moveSlider('right', i);
+        if (['ArrowRight', 'ArrowUp'].includes(e.key)) {
+          moveSlider(i, 'right');
+        }
+        if (e.key === 'PageUp') {
+          moveSlider(i, undefined, i === 0 ? [max, currentValues[1]] : [currentValues[0], max]);
+        }
+        if (e.key === 'PageDown') {
+          moveSlider(i, undefined, i === 0 ? [min, currentValues[1]] : [currentValues[0], min]);
         }
       }
     },
@@ -273,7 +279,7 @@ export function CoreSlider({
 
         setNewValues(values, index);
 
-        updateInputValues({ values, value: values[1] }, isRange, input0, input1);
+        updateInputValues(values, isRange, input0, input1);
       }
     },
     [values, value, currentValues],
@@ -312,7 +318,7 @@ export function CoreSlider({
         }
       }
 
-      updateInputValues({ values, value: values[1] }, isRange, input0, input1);
+      updateInputValues(values, isRange, input0, input1);
     }
 
     // Run update and onchange async.
@@ -584,23 +590,12 @@ function validate(value: number | undefined, values: number[] | undefined, min: 
 }
 
 // Set the values for the slider input elements.
-function updateInputValues(
-  { value, values }: { value?: number; values?: number[] },
-  isRange: boolean,
-  ref0: RefObject<any>,
-  ref1: RefObject<any>,
-) {
-  if (isRange) {
-    if (ref0.current) {
-      ref0.current.value = values[0];
-    }
-    if (ref1.current) {
-      ref1.current.value = values[1];
-    }
-  } else {
-    if (ref1.current) {
-      ref1.current.value = value;
-    }
+function updateInputValues(values: number[], isRange: boolean, ref0: RefObject<any>, ref1: RefObject<any>) {
+  if (isRange && ref0.current) {
+    ref0.current.value = values[0];
+  }
+  if (ref1.current) {
+    ref1.current.value = values[1];
   }
 }
 

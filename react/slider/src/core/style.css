@@ -29,6 +29,8 @@
   height: 44px;
   grid-row: 1;
   grid-column: 1;
+  z-index: 10;
+  background-color: transparent;
   pointer-events: none;
 }
 
@@ -86,7 +88,7 @@
   transform: translateY(19px);
   grid-row: 1;
   grid-column: 1;
-  z-index: 0;
+  z-index: 20;
   pointer-events: none;
   display: grid;
   width: 0px;

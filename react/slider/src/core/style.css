@@ -30,6 +30,7 @@
   grid-row: 1;
   grid-column: 1;
   pointer-events: none;
+  background-color: transparent;
 }
 
 .w-slider__input[type="range"]:focus {
@@ -138,6 +139,7 @@
   align-self: end;
   margin: 0px 11.7px;
   grid-auto-columns: minmax(0, 1fr);
+  z-index: -1;
 }
 
 .w-slider__marks .w-slider__mark {

@@ -505,12 +505,12 @@ export function CoreSlider({
     if (containMarks) {
       return (
         <div>
-          <div className="w-slider__steps">{markLines()}</div>
+          <div className="w-slider__marks">{markLines()}</div>
           <div className="w-slider__markvalues">{markValues()}</div>
         </div>
       );
     } else {
-      return <div className="w-slider__steps">{marks()}</div>;
+      return <div className="w-slider__marks">{marks()}</div>;
     }
   }, []);
 

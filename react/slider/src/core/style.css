@@ -126,9 +126,9 @@
   z-index: 20;
 }
 
-.w-slider__steps {
+.w-slider__marks {
   display: grid;
-  transform: translateY(-4px);
+  transform: translateY(-8px);
   grid-auto-flow: column;
   grid-template-columns: max-content;
   justify-items: end;
@@ -140,7 +140,7 @@
   grid-auto-columns: minmax(0, 1fr);
 }
 
-.w-slider__steps .w-slider__mark {
+.w-slider__marks .w-slider__mark {
   display: grid;
   justify-items: center;
   grid-row-gap: 3.5px;

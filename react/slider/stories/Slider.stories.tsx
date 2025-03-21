@@ -12,7 +12,7 @@ export const Regular = () => {
     <div>
       <output>{value}</output>
       <Slider onChange={(value) => setValue(value)} value={value} min={10000} max={60000} />
-      <button onClick={() => setValue(15000)}>Reset</button>
+      <button onClick={() => setValue(20000)}>Reset</button>
     </div>
   );
 };
@@ -39,7 +39,7 @@ export const RegularStep1000 = () => {
     <div>
       <output>{value}</output>
       <Slider onChange={(value) => setValue(value)} value={value} min={10000} max={60000} step={1000} />
-      <button onClick={() => setValue(15000)}>Reset</button>
+      <button onClick={() => setValue(20000)}>Reset</button>
     </div>
   );
 };
@@ -51,7 +51,7 @@ export const RegularWithLargerKeyboardStepFactor = () => {
     <div>
       <output>{value}</output>
       <Slider onChange={(value) => setValue(value)} value={value} min={10000} max={60000} keyboardStepFactor={0.1} />
-      <button onClick={() => setValue(15000)}>Reset</button>
+      <button onClick={() => setValue(20000)}>Reset</button>
     </div>
   );
 };
@@ -63,7 +63,7 @@ export const RegularWithContainedMarks = () => {
     <div>
       <output>{value}</output>
       <Slider onChange={(value) => setValue(value)} value={value} min={10000} max={60000} containMarks />
-      <button onClick={() => setValue(15000)}>Reset</button>
+      <button onClick={() => setValue(20000)}>Reset</button>
     </div>
   );
 };
@@ -75,7 +75,7 @@ export const RegularWithoutMarks = () => {
     <div>
       <output>{value}</output>
       <Slider onChange={(value) => setValue(value)} value={value} min={10000} max={60000} showMarks={false} />
-      <button onClick={() => setValue(15000)}>Reset</button>
+      <button onClick={() => setValue(20000)}>Reset</button>
     </div>
   );
 };
@@ -87,7 +87,7 @@ export const RegularOnChangeAfter = () => {
     <div>
       <output>{value}</output>
       <Slider onChangeAfter={(value) => setValue(value)} value={value} min={10000} max={60000} />
-      <button onClick={() => setValue(15000)}>Reset</button>
+      <button onClick={() => setValue(20000)}>Reset</button>
     </div>
   );
 };
@@ -99,7 +99,7 @@ export const RegularWithTooltips = () => {
     <div>
       <output>{value}</output>
       <Slider onChange={(value) => setValue(value)} value={value} min={10000} max={60000} showTooltips containMarks />
-      <button onClick={() => setValue(15000)}>Reset</button>
+      <button onClick={() => setValue(20000)}>Reset</button>
     </div>
   );
 };
@@ -119,7 +119,27 @@ export const RegularWithStartEndValues = () => {
         showTooltips
         containMarks
       />
-      <button onClick={() => setValue(15000)}>Reset</button>
+      <button onClick={() => setValue(20000)}>Reset</button>
+    </div>
+  );
+};
+
+export const RegularWithSingleStartEndValue = () => {
+  const [value, setValue] = useState(20000);
+
+  return (
+    <div>
+      <output>{value}</output>
+      <Slider
+        onChange={(value) => setValue(value)}
+        value={value}
+        min={10000}
+        max={60000}
+        startEndValues={[null, 'Over 60 000']}
+        showTooltips
+        containMarks
+      />
+      <button onClick={() => setValue(20000)}>Reset</button>
     </div>
   );
 };

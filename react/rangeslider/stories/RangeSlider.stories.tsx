@@ -45,6 +45,27 @@ export const RegularWithInputs = () => {
   );
 };
 
+export const RegularWithTooltips = () => {
+  const [values, setValues] = useState([20000, 40000]);
+
+  return (
+    <div>
+      <output>
+        {values[0]} - {values[1]}
+      </output>
+      <RangeSlider
+        onChange={(values) => setValues(values)}
+        values={values}
+        min={10000}
+        max={60000}
+        showTooltips
+        showMarks
+      />
+      <button onClick={() => setValues([20000, 40000])}>Reset</button>
+    </div>
+  );
+};
+
 export const WithRangeValues = () => {
   const range = [
     { label: '12:00' },

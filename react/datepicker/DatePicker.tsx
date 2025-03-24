@@ -26,7 +26,7 @@ export const DatePicker = ({
   const [open, setOpen] = React.useState<boolean>(false);
 
   const navigationDayRef = React.useRef<HTMLTableCellElement>(null);
-  const textFieldRef = React.useRef<HTMLImageElement>(null);
+  const textFieldRef = React.useRef<HTMLInputElement>(null);
   const containerRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {

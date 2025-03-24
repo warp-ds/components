@@ -356,9 +356,10 @@ export function CoreSlider({
     (e: any, index: number) => {
       setIsMoving(true);
 
-      const values = getAsValueArray(+e.target.value, index, isRange, currentValues, min, max, step);
+      const values = getAsValueArray(+e.target.value, index, isRange, currentValues, min, max, step, true);
 
       setNewValues(values, index);
+      updateInputValues(values, isRange, input0, input1);
     },
     [currentValues],
   );
@@ -435,7 +436,6 @@ export function CoreSlider({
             className="w-slider__input"
             ref={ref}
             type="range"
-            step={step}
             min={min}
             max={max}
             onKeyDown={(e) => onKeyDown(e, index)}
@@ -610,7 +610,11 @@ const getAsValueArray = (
   }
 
   if (clamp) {
-    return clampValues(getAdjustedValueArray(values, step), min, max);
+    if (value >= max || value <= min) {
+      return clampValues(values, min, max);
+    } else {
+      return clampValues(getAdjustedValueArray(values, step), min, max);
+    }
   } else {
     return getAdjustedValueArray(values, step);
   }

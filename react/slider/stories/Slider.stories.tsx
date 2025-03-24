@@ -128,6 +128,26 @@ export const RegularOtherRange = () => {
   );
 };
 
+export const RegularLargeRange = () => {
+  const [value, setValue] = useState(16846250);
+
+  return (
+    <div>
+      <output>{value}</output>
+      <Slider
+        onChange={(value) => setValue(value)}
+        value={value}
+        min={125374}
+        max={84383641}
+        step={500000}
+        containMarks
+        showTooltips
+      />
+      <button onClick={() => setValue(16846250)}>Reset</button>
+    </div>
+  );
+};
+
 export const RegularWithStartEndValues = () => {
   const [value, setValue] = useState(20000);
 

@@ -269,16 +269,15 @@ export function CoreSlider({
       if (!disabled && e.target.nodeName !== 'INPUT') {
         const x = e.touches ? getX(e) : e.nativeEvent.offsetX;
 
-        const width = (wrapperRef.current as HTMLDivElement).clientWidth;
+        const width = wrapperRef.current?.clientWidth || 0;
 
-        const v = getAdjustedValue((x / width) * (max - min) + min, step);
+        const value = (x / width) * (max - min) + min;
 
         const midPoint = (currentValues[0] + currentValues[1]) / 2;
 
-        // Update values.
-        const index = v > getAdjustedValue(midPoint, step) ? 1 : 0;
+        const index = value > midPoint ? 1 : 0;
 
-        const values = getAsValueArray(v, index, isRange, currentValues, min, max, step);
+        const values = getAsValueArray(value, index, isRange, currentValues, min, max, step);
 
         setNewValues(values, index);
 

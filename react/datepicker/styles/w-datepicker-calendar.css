@@ -9,11 +9,3 @@
   border: var(--_calendar-border-width) var(--_calendar-border-style) var(--_calendar-border-color);
   border-radius: var(--_calendar-border-radius);
 }
-/*untested*/
-.w-datepicker__calendar--inline {
-  --calendar-border-style: solid;
-  --calendar-border-width: 2px;
-  --calendar-border-color: var(--w-s-color-border);
-  --calendar-border-radius: 4px;
-  display: inline-block;
-}

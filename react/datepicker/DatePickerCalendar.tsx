@@ -1,5 +1,5 @@
-import { type KeyboardEvent, useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
-
+// @ts-ignore
+import style from 'inline:./styles/w-datepicker-calendar.css';
 import classNames from 'classnames';
 import {
   addDays,
@@ -16,38 +16,36 @@ import {
   subDays,
   subMonths,
 } from 'date-fns';
-// @ts-ignore
-import style from 'inline:./styles/w-datepicker-calendar.css';
-import type { DatePickerCalendarProps } from './DatePickerCalendarProps.js';
-import { DatePickerContext, IDLE } from './DatePickerContext.js';
+import React from 'react';
 import { DatePickerMonth } from './DatePickerMonth.js';
 import { DatePickerNavigation } from './DatePickerNavigation.js';
+import type { DatePickerCalendarProps } from './props.js';
 
 /**
  * DatePickerCalendar
  * Can be used standalone, or as part of a <DatePicker /> and an input field.
  */
-export const DatePickerCalendar = ({ className, numberOfMonths = 1, ...props }: DatePickerCalendarProps) => {
-  const {
-    locale,
-    startDate,
-    bookedDates,
-    state: datepickerState,
-    navigationDayRef,
-    phrases,
-  } = useContext(DatePickerContext);
-
-  const [navigationDate, setNavigationDate] = useState(
+export const DatePickerCalendar = ({
+  className,
+  numberOfMonths = 1,
+  locale,
+  selectedDate,
+  navigationDayRef,
+  phrases,
+  monthFormat,
+  weekDayFormat,
+  dayAriaLabelFormat,
+  isDayDisabled,
+  onChange,
+  ...props
+}: DatePickerCalendarProps) => {
+  const [navigationDate, setNavigationDate] = React.useState(
     // Must use startOfToday() instead of just new Date() here,
     // otherwise todays date will be the only date in the calendar that doesn' start at 00:00:00
-    startDate ?? startOfToday(),
+    selectedDate ?? startOfToday(),
   );
 
   const months = useWindowingMonths(navigationDate, numberOfMonths);
-
-  // We know we are rendered inline (not in a popover) if calendar component
-  // is rendered while "idle"
-  const isInlineCalendar = datepickerState === IDLE;
 
   /**
    * Keyboard navigation for the calendar
@@ -55,7 +53,7 @@ export const DatePickerCalendar = ({ className, numberOfMonths = 1, ...props }: 
    * Home/End to move to start/end of week.
    * PageUp/PageDown to move to next/prev month.
    */
-  const keyHandler = (event: KeyboardEvent) => {
+  const keyHandler = (event: React.KeyboardEvent) => {
     let newDate: Date;
     // eslint-disable-next-line default-case
     switch (event.key) {
@@ -92,8 +90,7 @@ export const DatePickerCalendar = ({ className, numberOfMonths = 1, ...props }: 
     }
   };
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-  useLayoutEffect(() => {
+  React.useLayoutEffect(() => {
     if (navigationDayRef.current) {
       navigationDayRef.current.focus();
     }
@@ -105,15 +102,8 @@ export const DatePickerCalendar = ({ className, numberOfMonths = 1, ...props }: 
         {style}
       </style>
       <div
-        className={classNames(
-          'w-datepicker__calendar',
-          {
-            'w-datepicker__calendar--booked': isInlineCalendar || bookedDates,
-          },
-          className,
-        )}
+        className={classNames('w-datepicker__calendar', className)}
         aria-roledescription={phrases.roleDescription}
-        role={isInlineCalendar ? 'region' : 'dialog'}
         onKeyDown={keyHandler}
         {...props}
       >
@@ -123,7 +113,20 @@ export const DatePickerCalendar = ({ className, numberOfMonths = 1, ...props }: 
           prevMonth={() => setNavigationDate(subMonths(months[0], 1))}
         />
         {months.map((month) => (
-          <DatePickerMonth key={month.toString()} month={month} navigationDate={navigationDate} />
+          <DatePickerMonth
+            key={month.toString()}
+            month={month}
+            navigationDate={navigationDate}
+            locale={locale}
+            monthFormat={monthFormat}
+            weekDayFormat={weekDayFormat}
+            isDayDisabled={isDayDisabled}
+            selectedDate={selectedDate}
+            phrases={phrases}
+            navigationDayRef={navigationDayRef}
+            dayAriaLabelFormat={dayAriaLabelFormat}
+            onChange={onChange}
+          />
         ))}
       </div>
     </>
@@ -132,7 +135,7 @@ export const DatePickerCalendar = ({ className, numberOfMonths = 1, ...props }: 
 
 //  TODO: Memoize? Recalculate on numberOfMonths change
 function useWindowingMonths(navigationDate: Date, numberOfMonths: number): Date[] {
-  const intervalRef = useRef({
+  const intervalRef = React.useRef({
     start: startOfMonth(navigationDate),
     end: addMonths(navigationDate, numberOfMonths - 1),
   });

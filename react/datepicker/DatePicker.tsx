@@ -1,18 +1,19 @@
-import type React from 'react';
-import { type RefObject, useCallback, useEffect, useReducer, useRef, useId } from 'react';
+import React from 'react';
 
 import { nb } from 'date-fns/locale';
 
-import { DatePickerContext, IDLE, INTERACTING_START_DATE } from './DatePickerContext.js';
-import type { DatePickerState, Event } from './DatePickerContextProps.js';
-import type { DatePickerProps } from './DatePickerProps.js';
-import defaultPhrases from './utils/defaultPhrases.js';
+import { Affix } from '@warp-ds/react';
+import { Attention } from '@warp-ds/react/components/attention';
+import { TextField } from '@warp-ds/react/components/textfield';
+import { format, isValid } from 'date-fns';
+import { DatePickerCalendar } from './DatePickerCalendar.tsx';
+import defaultPhrases from './defaultPhrases.ts';
+import type { DatePickerProps } from './props.ts';
 
 export const DatePicker = ({
-  children,
-  date = null,
   locale = nb,
   isDayDisabled = () => false,
+  date,
   onChange,
   phrases = defaultPhrases,
   displayFormat = 'P',
@@ -20,129 +21,68 @@ export const DatePicker = ({
   weekDayFormat = 'EEEEEE',
   dayAriaLabelFormat = 'PPPP',
 }: DatePickerProps) => {
-  const datepickerId = useId();
-  const navigationDayRef = useRef<HTMLTableCellElement>(null);
-  const startInputRef = useRef<HTMLInputElement>(null);
-  const endInputRef = useRef();
-  const popoverRef = useRef();
+  const datepickerId = React.useId();
 
-  const [{ state, lastEventType }, dispatch] = useReducer(datePickerReducer, {
-    state: 'IDLE',
+  const [open, setOpen] = React.useState<boolean>(false);
+
+  const navigationDayRef = React.useRef<HTMLTableCellElement>(null);
+  const textFieldRef = React.useRef<HTMLInputElement>(null);
+  const containerRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    function onBlurHandler(e) {
+      if (containerRef.current && !containerRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', onBlurHandler);
+    return () => {
+      document.removeEventListener('mousedown', onBlurHandler);
+    };
   });
 
-  useFocusManagement(lastEventType, startInputRef, navigationDayRef);
-
-  const handleClear = useCallback(() => {
+  const handleClear = React.useCallback(() => {
     onChange(null);
   }, [onChange]);
 
-  const handleChange = useCallback(
-    (day: Date, event: React.MouseEvent | React.KeyboardEvent | React.ChangeEvent) => {
+  const handleChange = React.useCallback(
+    (day: Date) => {
       onChange(day);
-      if (event.type === 'keydown') {
-        dispatch({ type: 'SELECT_WITH_KEYBOARD', day });
-      } else {
-        dispatch({ type: 'SELECT_WITH_CLICK', day });
-      }
     },
-    [onChange, dispatch],
+    [onChange],
   );
+
+  const displayDate = isValid(date) ? format(date, displayFormat, { locale }) : '';
+  const displayClearDate = isValid(date);
 
   return (
-    <DatePickerContext.Provider
-      value={{
-        datepickerId,
-        dispatch,
-        startInputRef,
-        endInputRef,
-        popoverRef,
-        navigationDayRef,
-        isDayDisabled,
-        isDateRange: false,
-        state: state,
-        locale,
-        startDate: date,
-        endDate: null,
-        phrases,
-        displayFormat,
-        weekDayFormat,
-        monthFormat,
-        dayAriaLabelFormat,
-        onClear: handleClear,
-        onChange: handleChange,
-      }}
-    >
-      {children}
-    </DatePickerContext.Provider>
+    <div ref={containerRef}>
+      {/* @ts-ignore */}
+      <TextField defaultValue={displayDate} label="Date" onClick={() => setOpen(!open)} ref={textFieldRef}>
+        {displayClearDate && <Affix suffix clear aria-label="Clear text" onClick={handleClear} />}
+      </TextField>
+      <Attention
+        popover
+        placement="bottom"
+        noArrow={true}
+        flip={true}
+        crossAxis={true}
+        id={datepickerId}
+        isShowing={open}
+        targetEl={textFieldRef}
+      >
+        <DatePickerCalendar
+          selectedDate={date}
+          locale={locale}
+          phrases={phrases}
+          navigationDayRef={navigationDayRef}
+          monthFormat={monthFormat}
+          weekDayFormat={weekDayFormat}
+          dayAriaLabelFormat={dayAriaLabelFormat}
+          onChange={handleChange}
+          isDayDisabled={isDayDisabled}
+        />
+      </Attention>
+    </div>
   );
 };
-
-type ReducerState = { state: DatePickerState; lastEventType?: Event };
-
-function datePickerReducer(reducerState: ReducerState, event: Event): ReducerState {
-  const lastEventType = reducerState.lastEventType?.type;
-
-  let stateTransition: DatePickerState;
-
-  switch (event.type) {
-    case 'FOCUS':
-      // Don't reopen the popover when we refocus the input field after closing the popover because of a keyboard interaction
-      if (lastEventType === 'ESCAPE' || lastEventType === 'SELECT_WITH_KEYBOARD') {
-        stateTransition = reducerState.state;
-      } else {
-        stateTransition = INTERACTING_START_DATE;
-      }
-      break;
-
-    // Close the popover
-    case 'BLUR':
-    case 'ESCAPE':
-    case 'SELECT_WITH_CLICK':
-    case 'SELECT_WITH_KEYBOARD':
-      stateTransition = IDLE;
-      break;
-
-    // Make sure we're interacting
-    case 'NAVIGATE_FROM_INPUT': {
-      stateTransition = INTERACTING_START_DATE;
-      break;
-    }
-  }
-  return {
-    state: stateTransition,
-    lastEventType: event,
-  };
-}
-
-/**
- * Focus handling for the datepicker.
- *
- * When the popover closes we should move focus back to the input.
- * Note that we don't do this when click the date using a mouse.
- * This is because if we want to open the popover again, we have to click
- * outside of the input, then click it again for it receive focus and show the popover
- *
- * We also move focus to the focusable date when moving from the input.
- */
-function useFocusManagement(
-  lastEvent: Event | undefined,
-  inputRef: RefObject<HTMLInputElement>,
-  navigationDayRef: RefObject<HTMLTableCellElement>,
-) {
-  const lastEventType = lastEvent?.type;
-
-  useEffect(() => {
-    if (lastEventType === 'ESCAPE' || lastEventType === 'SELECT_WITH_KEYBOARD') {
-      inputRef.current?.focus();
-    }
-  }, [lastEventType, inputRef]);
-
-  useEffect(() => {
-    if (lastEventType === 'NAVIGATE_FROM_INPUT') {
-      // need to do this in a setTimeout to be sure that the popover is open and the ref is set
-      setTimeout(() => {
-        navigationDayRef.current?.focus();
-      });
-    }
-  }, [lastEventType, navigationDayRef]);
-}

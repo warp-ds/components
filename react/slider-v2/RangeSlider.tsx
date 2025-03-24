@@ -1,11 +1,11 @@
-import * as React from 'react';
-import { useEffect, useRef, useState } from 'react';
-import classNames from 'classnames';
-import { Attention } from '@warp-ds/react/components/attention';
-import { Handle, type RangeSliderProps } from './props.ts';
-import { clamp, nextValue, prevValue, ratioToValue, valueToRatio } from './utils.ts';
 // @ts-ignore
 import style from 'inline:./slider.css';
+import { Attention } from '@warp-ds/react/components/attention';
+import classNames from 'classnames';
+import * as React from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { Handle, type RangeSliderProps } from './props.ts';
+import { clamp, nextValue, prevValue, ratioToValue, valueToRatio } from './utils.ts';
 
 // By deducting the handle width we lock the handle to edges of the slider
 function useInnerWidth(slider: React.RefObject<HTMLDivElement>, handle: React.RefObject<HTMLDivElement>): number {
@@ -76,7 +76,7 @@ export const RangeSlider = ({
     if (disabled) return;
 
     const oldValue = values[handle];
-    let newValue;
+    let newValue: number;
     switch (event.key) {
       case 'ArrowLeft':
       case 'ArrowDown':
@@ -130,7 +130,7 @@ export const RangeSlider = ({
     }
     const rect = sliderRef.current?.getBoundingClientRect();
     if (!rect) return;
-    let ratio = clamp((clientX - rect.left) / rect.width, 0, 1);
+    const ratio = clamp((clientX - rect.left) / rect.width, 0, 1);
 
     // Determine which handle to drag
     let dragHandle: Handle;

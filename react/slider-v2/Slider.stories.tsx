@@ -1,5 +1,5 @@
-import React from 'react';
 import { scaleQuantize } from 'd3-scale';
+import React from 'react';
 import { RangeSlider } from './index.ts';
 
 const metadata = { title: 'Forms/Slider' };

@@ -78,7 +78,7 @@ export const getTooltipCSS = (
   if (containTooltips) {
     const viewportWidth = document.body.clientWidth;
 
-    // The following code used in order to estimate (calculate) the width of the tooltip box, with the given value,
+    // The following code is used in order to estimate (calculate) the width of the tooltip box, with the given value,
     // before it's rendered.
     //
     // This is needed so that an exact position can be determined, without first rendering and then adjusting the

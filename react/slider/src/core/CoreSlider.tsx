@@ -207,6 +207,11 @@ export function CoreSlider({
     if (onChangeAfter && !isMoving) {
       onChangeAfter(getOnChangeReturnValue(currentValues));
     }
+    if (!isMoving) {
+      /* Workaround for safari. */
+      setInput0Active(false);
+      setInput1Active(false);
+    }
   }, [isMoving, currentValues]);
 
   // Set value attributes.
@@ -440,6 +445,9 @@ export function CoreSlider({
             onKeyDown={(e) => onKeyDown(e, index)}
             onKeyUp={() => setIsMoving(false)}
             onChange={(e) => onInputChange(e, index)}
+            onMouseDown={() =>
+              /* Workaround for safari. */ index === 0 ? setInput0Active(true) : setInput1Active(true)
+            }
             onTouchStart={(e) => {
               index === 0 ? setInput0Active(true) : setInput1Active(true);
 

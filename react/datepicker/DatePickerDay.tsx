@@ -1,4 +1,3 @@
-// @ts-ignore
 import style from 'inline:./styles/w-datepicker-day.css';
 import { type Locale, format, getDate, isSameDay, isSameMonth, isToday } from 'date-fns';
 import type { KeyboardEvent, MouseEvent } from 'react';

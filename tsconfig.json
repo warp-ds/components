@@ -15,8 +15,9 @@
     "esModuleInterop": false,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "typeRoots": ["./env.d.ts"]
   },
-  "include": ["./src", "./react"],
+  "include": ["./src", "./react", "env.d.ts"],
   "exclude": ["node_modules"]
 }

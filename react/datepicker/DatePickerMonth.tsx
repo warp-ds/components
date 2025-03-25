@@ -1,4 +1,3 @@
-// @ts-ignore
 import style from 'inline:./styles/w-datepicker-month.css';
 import {
   type Locale,

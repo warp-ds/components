@@ -1,4 +1,3 @@
-// @ts-ignore
 import style from 'inline:./styles/w-datepicker-calendar.css';
 import classNames from 'classnames';
 import {

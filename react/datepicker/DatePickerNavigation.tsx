@@ -1,4 +1,3 @@
-// @ts-ignore
 import style from 'inline:./styles/w-datepicker-nav.css';
 
 import IconChevronLeft16 from '@warp-ds/icons/react/chevron-left-16';

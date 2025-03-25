@@ -13,7 +13,6 @@ function DatePickerExample() {
 
 function DisabledDaysExample() {
   const [date, setDate] = React.useState<Date | null>(null);
-
   // Probably don't define this inside your component's render function.
 
   // Disable weekends

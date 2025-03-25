@@ -52,13 +52,32 @@ export const DatePicker = ({
     [onChange],
   );
 
+  const keyHandler = (event: React.KeyboardEvent) => {
+    switch (event.key) {
+      case 'Enter':
+      case ' ':
+        event.preventDefault();
+        setOpen(true);
+        break;
+      case 'Escape':
+        setOpen(false);
+        break;
+    }
+  };
+
   const displayDate = isValid(date) ? format(date, displayFormat, { locale }) : '';
   const displayClearDate = isValid(date);
 
   return (
     <div ref={containerRef}>
       {/* @ts-ignore */}
-      <TextField defaultValue={displayDate} label="Date" onClick={() => setOpen(!open)} ref={textFieldRef}>
+      <TextField
+        defaultValue={displayDate}
+        label="Date"
+        onKeyDown={keyHandler}
+        onClick={() => setOpen(true)}
+        ref={textFieldRef}
+      >
         {displayClearDate && <Affix suffix clear aria-label="Clear text" onClick={handleClear} />}
       </TextField>
       <Attention

@@ -5,11 +5,23 @@
 .w-button--primary {
 }
 
-.w-button--small {
+.w-button--secondary {
 }
 
-.w-button--loading {
+.w-button--negative {
+}
+
+.w-button--utility {
 }
 
 .w-button--quiet {
+}
+
+.w-button--small {
+}
+
+.w-button--pill {
+}
+
+.w-button--loading {
 }

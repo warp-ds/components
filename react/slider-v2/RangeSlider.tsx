@@ -229,7 +229,7 @@ export const RangeSlider = ({
         style={{ cursor: isDragging ? 'grabbing' : 'pointer' }}
         ref={sliderRef}
       >
-        <div className="slider__track-inactive" />
+        <div className="slider__track" />
         <div
           className="slider__track-active"
           style={{

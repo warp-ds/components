@@ -1,46 +1,72 @@
-.slider {
+
+/* TODO:  */
+/*
+  1. Prob use this instead of the opacity on is-disabled
+  --_slider-disabled-color: var(--w-s-color-background-disabled);
+  2. Refactor the position absolute stuff to be vertically centered with flex instead?;
+  3. Doublecheck styling and colors in use against Figma sketches.
+*/
+
+
+/*
+  touch-action: pan-y;
+  Prevent the browser from accidentally intercepting horizontal drag gestures as side-scroll or swipe-to-go-back (especially on iOS).
+  Still allow vertical scrolling when dragging inside a scrollable container.
+*/
+
+  .slider {
+  --_w-slider-track-background: var(--track-background, var(--w-s-color-background-disabled-subtle));
+  --_w-slider-track-active-background: var(--track-active-background, var(--w-s-color-background-primary));
+  --_w-slider-thumb-background: var(--thumb-background, var(--w-s-color-background-primary));
+  --_w-slider-thumb-border: var(--thumb-border, var(--w-s-color-border-primary));
+  --_w-slider-thumb-shadow: var(--thumb-shadow, var(--w-shadow-slider-handle-hover));
+
   height: 34px;
   width: 100%;
   position: relative;
   user-select: none;
   touch-action: pan-y;
 }
-.slider--is-disabled {
-  pointer-events: none;
-  opacity: 0.6;
-}
-.slider__track-inactive {
+
+.slider__track{
   position: absolute;
   height: 3px;
   bottom: 14px;
   width: 100%;
-  background: var(--w-s-color-background-disabled-subtle);
+  background-color: var(--_w-slider-track-background);
   border-radius: 4px;
 }
-.slider__track-active {
+.slider__track-active{
   position: absolute;
   height: 5px;
   bottom: 13px;
-  background: var(--w-s-color-background-primary);
+  background-color: var(--_w-slider-track-active-background);
   border-radius: 4px;
 }
-.slider__thumb {
-  background-color: var(--w-s-color-background-primary);
-  border: 8px solid var(--w-s-color-border-primary);
-
+.slider__thumb{
+  position: absolute;
   border-radius: 50%;
   height: 13px;
   width: 13px;
-  position: absolute;
   bottom: 2px;
   box-sizing: content-box;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
+  background-color: var(--_w-slider-thumb-background);
+  border: 8px solid var(--_w-slider-thumb-border);
+  box-shadow: var(--_w-slider-thumb-shadow);
 }
-.slider__thumb:focus,
+
+.slider__thumb:focus-visible,
 .slider__thumb:hover {
   outline: none;
   padding: 3px;
   border-width: 5px;
-  box-shadow: var(--w-shadow-slider-handle-hover);
+  --thumb-shadow: var(--w-shadow-slider-handle-hover);
+}
+
+.slider--is-disabled {
+  pointer-events: none;
+  opacity: 0.6; /* This should prob set the colors  and not opacity on the entire dialogue */
+  --_slider-disabled-color: var(--w-s-color-background-disabled);
 }

@@ -1,4 +1,4 @@
-export type ButtonProps = {
+export type LinkProps = {
   children: React.ReactNode;
 
   /**
@@ -15,12 +15,6 @@ export type ButtonProps = {
    * CSS styles to inline on the component
    */
   style?: React.CSSProperties;
-
-  /**
-   * Button type.
-   * @default button
-   */
-  type?: 'button' | 'submit' | 'reset';
 
   /**
    * Set the button to be a primary, call to action button. Can be combined with `small`.
@@ -70,10 +64,19 @@ export type ButtonProps = {
   fullWidth?: boolean;
 
   /**
-   * Set the button to look like it is in progress, can be combined with other button types. Can be combined with any button type.
-   * @default false
+   * Sets the button's width to its parent's width. Useful on mobile when button should take full width.
    */
-  loading?: boolean;
+  href?: string;
+
+  /**
+   * Anchor target, see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a
+   */
+  target?: string;
+
+  /**
+   * The relationship of the linked URL
+   */
+  rel?: string;
 
   disabled?: boolean;
 };

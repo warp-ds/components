@@ -11,16 +11,15 @@ import { messages as fiMessages } from './locales/fi/messages.mjs';
 import { messages as nbMessages } from './locales/nb/messages.mjs';
 import { messages as svMessages } from './locales/sv/messages.mjs';
 
-export const buttonVariants = ['primary', 'secondary', 'negative', 'utility', 'pill'] as const;
-
 activateI18n(enMessages, nbMessages, fiMessages, daMessages, svMessages);
 
 export const Button = (props: ButtonProps, ref?: RefObject<any>) => {
-  const { primary, secondary, negative, utility, quiet, small, pill, loading, disabled, className } = props;
+  const { primary, secondary, negative, utility, quiet, small, pill, loading, fullWidth, disabled, className } = props;
 
   // Get the classes from the props.
   const classes = classNames(
-    toClass({ primary, secondary, negative, utility, quiet, small, pill, loading }),
+    'w-button',
+    toClass({ primary, secondary, negative, utility, quiet, small, pill, loading, fullWidth }),
     className,
   );
 
@@ -31,7 +30,7 @@ export const Button = (props: ButtonProps, ref?: RefObject<any>) => {
   });
 
   return (
-    <div className={`w-button ${classes}`}>
+    <div className={classes}>
       <style href="Button" precedence="medium">
         {style}
       </style>
@@ -53,7 +52,7 @@ function toClass(object: Record<string, any>) {
 
   const obj = {};
   for (const key in object) {
-    obj[prefix + key] = object[key];
+    obj[prefix + key.toLowerCase()] = object[key];
   }
   return obj;
 }

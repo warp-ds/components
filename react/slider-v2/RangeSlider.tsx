@@ -1,5 +1,5 @@
 // @ts-ignore
-import style from 'inline:./slider.css';
+import style from 'inline:./w-slider.css';
 import { Attention } from '@warp-ds/react/components/attention';
 import classNames from 'classnames';
 import * as React from 'react';
@@ -218,20 +218,21 @@ export const RangeSlider = ({
 
   return (
     <>
-      <style href="Slider" precedence="medium">
+      <style href="w-slider" precedence="medium">
         {style}
       </style>
       <div
         onMouseDown={onStartDrag}
         onTouchStart={onStartDrag}
         data-body-scroll-lock-ignore
-        className={classNames('slider', { 'slider--is-disabled': disabled }, className)}
+        className={classNames('w-slider', { 'w-slider--is-disabled': disabled }, className)}
         style={{ cursor: isDragging ? 'grabbing' : 'pointer' }}
         ref={sliderRef}
       >
-        <div className="slider__track" />
+
+        <div className="w-slider__track" />
         <div
-          className="slider__track-active"
+          className="w-slider__track-active"
           style={{
             left: `${ratios.lower * 100}%`,
             right: `${(1 - ratios.upper) * 100}%`,
@@ -245,7 +246,7 @@ export const RangeSlider = ({
           aria-valuemin={min}
           aria-valuenow={ratioToValue(ratios.lower, min, max, step, scale)}
           aria-valuetext={props['aria-valuetext']?.[Handle.Lower]}
-          className="slider__thumb"
+          className="w-slider__thumb"
           onKeyDown={handleKeyDown}
           role="slider"
           ref={handleLowerRef}
@@ -266,7 +267,7 @@ export const RangeSlider = ({
           aria-valuemin={values[Handle.Lower]}
           aria-valuenow={ratioToValue(ratios.upper, min, max, step, scale)}
           aria-valuetext={props['aria-valuetext']?.[Handle.Upper]}
-          className="slider__thumb"
+          className="w-slider__thumb"
           onKeyDown={(event) => handleKeyDown(event, Handle.Upper)}
           role="slider"
           ref={handleUpperRef}

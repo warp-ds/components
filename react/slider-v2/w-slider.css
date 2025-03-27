@@ -1,21 +1,17 @@
 /* ==========================================================================
    Component: w-slider
    ==========================================================================
-
    TODOs:
    1. Replace opacity-based disabled state with semantic colors.
    2. Refactor absolute positioning to flex for better vertical alignment?
    3. Double-check styling and colors against Figma sketches.
-
    Sections:
    1. Public override points
    2. Base layout and structure
    3. Internal variable resolution (scoped fallback mapping: --_w-slider-*)
    4. Interaction states (hover, focus)
    5. Modifiers: disabled (.w-slider--is-disabled)
-
    ========================================================================== */
-
 
 /* 1. Public override points (can be safely overridden externally) */
 .w-slider {
@@ -94,4 +90,63 @@
   --w-slider-track-background: var(--w-s-color-background-disabled);
   --w-slider-thumb-background: var(--w-s-color-background-disabled);
   --w-slider-thumb-border: var(--w-s-color-border-disabled);
+}
+
+/* Untested styles below */
+
+.w-slider__marks {
+  display: grid;
+  transform: translateY(-8px);
+  grid-auto-flow: column;
+  grid-template-columns: max-content;
+  justify-items: end;
+  color: var(--_mark-color);
+  pointer-events: none;
+  grid-column: 1;
+  align-self: end;
+  margin: 0px 11.7px;
+  grid-auto-columns: minmax(0, 1fr);
+  z-index: -1;
+}
+
+.w-slider__marks .w-slider__mark {
+  display: grid;
+  justify-items: center;
+  grid-row-gap: 1px;
+}
+
+.w-slider__mark-line {
+  width: 4px;
+  height: 8px;
+  border-radius: 2px;
+  background-color: var(--w-s-color-background-disabled-subtle);
+}
+
+.w-slider__mark-value {
+  width: 0;
+  white-space: nowrap;
+  display: grid;
+  justify-content: center;
+}
+
+.w-slider__markvalues {
+  display: grid;
+  color: var(--w-s-color-text-subtle);
+  grid-template-columns: auto auto;
+  transform: translateY(-8px);
+  height: 22px;
+}
+
+.w-slider__markvalues > div:nth-child(1) {
+  justify-self: start;
+}
+
+.w-slider__markvalues > div:nth-child(2) {
+  justify-self: end;
+}
+.w-slider__marks-contained {
+  padding-top: 44px;
+  display: grid;
+  grid-row-gap: 1px;
+  grid-template-rows: max-content;
 }

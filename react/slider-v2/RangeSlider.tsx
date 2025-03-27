@@ -6,18 +6,7 @@ import * as React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { Handle, type RangeSliderProps } from './props.ts';
 import { clamp, nextValue, prevValue, ratioToValue, valueToRatio } from './utils.ts';
-
-// By deducting the handle width we lock the handle to edges of the slider
-function useInnerWidth(slider: React.RefObject<HTMLDivElement>, handle: React.RefObject<HTMLDivElement>): number {
-  const width = '500px';
-  const [innerWidth, setInnerWidth] = React.useState(width);
-
-  React.useLayoutEffect(() => {
-    setInnerWidth(width - (handle.current?.offsetWidth ?? 0));
-  }, [width, handle]);
-
-  return innerWidth;
-}
+import { getMarks, useInnerWidth } from './useInnerWidth.tsx';
 
 export const RangeSlider = ({
   className,
@@ -29,6 +18,7 @@ export const RangeSlider = ({
   min = 0,
   scale,
   step = 1,
+  showMarks = true,
   ...props
 }: RangeSliderProps) => {
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -229,7 +219,6 @@ export const RangeSlider = ({
         style={{ cursor: isDragging ? 'grabbing' : 'pointer' }}
         ref={sliderRef}
       >
-
         <div className="w-slider__track" />
         <div
           className="w-slider__track-active"
@@ -248,10 +237,12 @@ export const RangeSlider = ({
           aria-valuetext={props['aria-valuetext']?.[Handle.Lower]}
           className="w-slider__thumb"
           onKeyDown={handleKeyDown}
+          onFocus={() => setShowLowerHandle(true)}
+          onBlur={() => setShowLowerHandle(false)}
           role="slider"
           ref={handleLowerRef}
           style={{
-            left: `${ratios.lower * 100}%`,
+            left: `max(calc(${ratios.lower * 100}% - 15px), 0%)`,
             cursor: 'inherit',
           }}
           tabIndex={disabled ? undefined : 0}
@@ -269,17 +260,20 @@ export const RangeSlider = ({
           aria-valuetext={props['aria-valuetext']?.[Handle.Upper]}
           className="w-slider__thumb"
           onKeyDown={(event) => handleKeyDown(event, Handle.Upper)}
+          onFocus={() => setShowUpperHandle(true)}
+          onBlur={() => setShowUpperHandle(false)}
           role="slider"
           ref={handleUpperRef}
           style={{
-            right: `${(1 - ratios.upper) * 100}%`,
+            right: `max(calc(${(1 - ratios.upper) * 100}% - 15px), 0%)`,
             cursor: 'inherit',
           }}
           tabIndex={disabled ? undefined : 0}
         />
-        <Attention tooltip placement="top" flip noArrow targetEl={handleUpperRef} isShowing={showUpperHandle}>
+        <Attention tooltip placement="top" flip targetEl={handleUpperRef} isShowing={showUpperHandle}>
           <p id="tooltip-bubbletext">{ratioToValue(ratios.upper, min, max, step, scale)}</p>
         </Attention>
+        {showMarks && getMarks(min, max)}
       </div>
     </>
   );

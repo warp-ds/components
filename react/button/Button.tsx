@@ -1,16 +1,15 @@
 import classNames from 'classnames';
 import { i18n } from '@lingui/core';
-import { activateI18n } from '../i18n.ts';
+import { RefObject } from 'react';
+import { activateI18n } from '../../i18n.ts';
 import { ButtonProps } from './props.ts';
 import style from 'inline:./style.css';
 
-// wip?
-import { messages as daMessages } from '../../packages/button/src/locales/da/messages.mjs';
-import { messages as enMessages } from '../../packages/button/src/locales/en/messages.mjs';
-import { messages as fiMessages } from '../../packages/button/src/locales/fi/messages.mjs';
-import { messages as nbMessages } from '../../packages/button/src/locales/nb/messages.mjs';
-import { messages as svMessages } from '../../packages/button/src/locales/sv/messages.mjs';
-import { RefObject } from 'react';
+import { messages as daMessages } from './locales/da/messages.mjs';
+import { messages as enMessages } from './locales/en/messages.mjs';
+import { messages as fiMessages } from './locales/fi/messages.mjs';
+import { messages as nbMessages } from './locales/nb/messages.mjs';
+import { messages as svMessages } from './locales/sv/messages.mjs';
 
 export const buttonVariants = ['primary', 'secondary', 'negative', 'utility', 'pill'] as const;
 

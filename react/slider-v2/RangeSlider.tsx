@@ -5,8 +5,8 @@ import classNames from 'classnames';
 import * as React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { Handle, type RangeSliderProps } from './props.ts';
-import { clamp, nextValue, prevValue, ratioToValue, valueToRatio } from './utils.ts';
 import { getMarks, useInnerWidth } from './useInnerWidth.tsx';
+import { clamp, nextValue, prevValue, ratioToValue, valueToRatio } from './utils.ts';
 
 export const RangeSlider = ({
   className,

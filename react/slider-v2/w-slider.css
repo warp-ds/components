@@ -51,6 +51,7 @@
   bottom: 13px;
   border-radius: 4px;
   background-color: var(--_w-slider-track-active-background);
+  transition: left 50ms ease-out, right 50ms ease-out;
 }
 
 .w-slider__thumb {
@@ -66,6 +67,7 @@
   box-sizing: content-box;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
+  transition: left 50ms ease-out, right 50ms ease-out;
 
   background-color: var(--_w-slider-thumb-background);
   border: 8px solid var(--_w-slider-thumb-border);

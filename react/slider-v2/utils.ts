@@ -1,9 +1,4 @@
-// a d3 scale like object.
-export interface Scale {
-  (value: number): number;
-  invertExtent(value: number): [number, number];
-  thresholds(): number[];
-}
+import { Scale } from './props.ts';
 
 /**
  * Restricts the value to the given range.

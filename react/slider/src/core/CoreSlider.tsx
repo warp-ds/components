@@ -1,8 +1,8 @@
-import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
-import { clamp, clampValues, roundPrecise, roundIfNumber } from './math.ts';
-import { getTooltipCSS, Tooltip, TooltipArrow } from './Tooltip.tsx';
-import { CoreSliderProps } from './props.ts';
 import style from 'inline:./style.css';
+import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
+import { Tooltip, TooltipArrow, getTooltipCSS } from './Tooltip.tsx';
+import { clamp, clampValues, roundIfNumber, roundPrecise } from './math.ts';
+import { CoreSliderProps } from './props.ts';
 
 type ObjectRangeValue = { label: string; [key: string]: any };
 export type RangeValue = string | ObjectRangeValue;

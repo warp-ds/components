@@ -218,21 +218,18 @@
   background-color: var(--_slider-disabled-color);
 }
 
-.w-slider__wrapper-disabled
-  .w-slider__input[type="range"]::-webkit-slider-thumb {
+.w-slider__wrapper-disabled .w-slider__input[type="range"]::-webkit-slider-thumb {
   background-color: var(--_slider-disabled-color);
 }
 .w-slider__wrapper-disabled .w-slider__input[type="range"]::-moz-range-thumb {
   background-color: var(--_slider-disabled-color);
 }
 
-.w-slider__wrapper-disabled
-  .w-slider__input[type="range"]:hover::-webkit-slider-thumb {
+.w-slider__wrapper-disabled .w-slider__input[type="range"]:hover::-webkit-slider-thumb {
   box-shadow: none;
 }
 
-.w-slider__wrapper-disabled
-  .w-slider__input[type="range"]:hover::-moz-range-thumb {
+.w-slider__wrapper-disabled .w-slider__input[type="range"]:hover::-moz-range-thumb {
   box-shadow: none;
 }
 

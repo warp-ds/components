@@ -2,6 +2,8 @@ import classNames from 'classnames';
 import { RefObject } from 'react';
 import { LinkProps } from './props.ts';
 import style from 'inline:./style.css';
+import buttonStyle from 'inline:../button/style.css';
+import { toClass } from '../button/Button.tsx';
 
 export const Link = (props: LinkProps, ref?: RefObject<any>) => {
   const { primary, secondary, negative, utility, quiet, small, pill, disabled, className, target, href } = props;
@@ -14,9 +16,12 @@ export const Link = (props: LinkProps, ref?: RefObject<any>) => {
   );
 
   return (
-    <div className={classes}>
+    <>
       <style href="Link" precedence="medium">
         {style}
+      </style>
+      <style href="Button" precedence="medium">
+        {buttonStyle}
       </style>
       <a
         onClick={(e) => props.onClick?.(e)}
@@ -32,17 +37,6 @@ export const Link = (props: LinkProps, ref?: RefObject<any>) => {
       >
         {props.children}
       </a>
-    </div>
+    </>
   );
 };
-
-// Convert the fields to class names with a prefix.
-function toClass(object: Record<string, any>) {
-  const prefix = 'w-link--';
-
-  const obj = {};
-  for (const key in object) {
-    obj[prefix + key.toLowerCase()] = object[key];
-  }
-  return obj;
-}

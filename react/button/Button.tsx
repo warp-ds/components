@@ -30,11 +30,11 @@ export const Button = (props: ButtonProps, ref?: RefObject<any>) => {
   });
 
   return (
-    <div className={classes}>
+    <>
       <style href="Button" precedence="medium">
         {style}
       </style>
-      <button type={props.type || 'button'} ref={ref} /* className={classes} */ disabled={disabled}>
+      <button type={props.type || 'button'} ref={ref} className={classes} disabled={disabled}>
         {props.children}
       </button>
       {props.loading ? (
@@ -42,12 +42,12 @@ export const Button = (props: ButtonProps, ref?: RefObject<any>) => {
         // biome-ignore lint/a11y/useFocusableInteractive: <explanation>
         <span className="sr-only" role="progressbar" aria-valuenow={0} aria-valuetext={ariaValueTextLoading} />
       ) : null}
-    </div>
+    </>
   );
 };
 
 // Convert the fields to class names with a prefix.
-function toClass(object: Record<string, any>) {
+export function toClass(object: Record<string, any>) {
   const prefix = 'w-button--';
 
   const obj = {};

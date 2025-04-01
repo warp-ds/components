@@ -85,7 +85,7 @@ export const Example = () => (
     </div>
 
 
-<h2>All combos</h2>
+    <h2 style={{ marginTop: '100px' }}>All combos</h2>
     <div>
       <h3>Default (Secondary)</h3>
       <Button className="mr-32" >

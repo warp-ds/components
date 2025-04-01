@@ -3,16 +3,14 @@ import { RefObject } from 'react';
 import { LinkProps } from './props.ts';
 import style from 'inline:./style.css';
 import buttonStyle from 'inline:../button/style.css';
-import { toClass } from '../button/Button.tsx';
 
 export const Link = (props: LinkProps, ref?: RefObject<any>) => {
   const { primary, secondary, negative, utility, quiet, small, pill, disabled, className, target, href, ...rest } =
     props;
 
-  // Get the classes from the props.
   const classes = classNames(
     'w-link',
-    toClass({ primary, secondary, negative, utility, quiet, small, pill }),
+    //toClass({ primary, secondary, negative, utility, quiet, small, pill }),
     className,
   );
 

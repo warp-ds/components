@@ -30,10 +30,9 @@ export const Button = (props: ButtonProps, ref?: RefObject<any>) => {
     ...rest
   } = props;
 
-  // Get the classes from the props.
   const classes = classNames(
     'w-button',
-    toClass({ primary, secondary, negative, utility, quiet, link, small, pill, loading, fullWidth }),
+    toClasses({ primary, secondary, negative, utility, quiet, link, small, pill, loading, fullWidth }),
     className,
   );
 
@@ -67,13 +66,27 @@ export const Button = (props: ButtonProps, ref?: RefObject<any>) => {
   );
 };
 
-// Convert the fields to class names with a prefix.
-export function toClass(object: Record<string, any>) {
-  const prefix = 'w-button--';
+// Convert props to class names.
+export function toClasses(props: Partial<ButtonProps>) {
+  const classNames = {
+    primary: 'w-button--primary',
+    secondary: 'w-button--secondary',
+    negative: 'w-button--negative',
+    utility: 'w-button--utility',
+    link: 'w-button--link',
+    quiet: 'w-button--quiet',
+    negativeQuiet: 'w-button--negative-quiet',
+    utilityQuiet: 'w-button--utility-quiet',
+    small: 'w-button--small',
+    fullWidth: 'w-button--full-width',
+    loading: 'w-button--loading',
+  };
 
-  const obj = {};
-  for (const key in object) {
-    obj[prefix + key.toLowerCase()] = object[key];
+  const classes = {};
+
+  for (const key in props) {
+    classes[classNames[key]] = props[key];
   }
-  return obj;
+
+  return classes;
 }

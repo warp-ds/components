@@ -33,8 +33,7 @@ export const Link = (props: LinkProps, ref?: RefObject<any>) => {
         rel={props.target === '_blank' ? props.rel || 'noopener' : undefined}
         ref={ref}
         className={classes}
-        // biome-ignore lint/a11y/useSemanticElements: <explanation>
-        role="button"
+        role={isButton(props) && 'button'}
         aria-disabled={disabled}
       >
         {props.children}
@@ -42,3 +41,7 @@ export const Link = (props: LinkProps, ref?: RefObject<any>) => {
     </>
   );
 };
+
+function isButton(props) {
+  return ['primary', 'secondary', 'negative', 'utility', 'quiet', 'small', 'pill'].some((k) => k in props);
+}

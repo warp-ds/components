@@ -2,7 +2,6 @@ import React from 'react';
 
 import { nb } from 'date-fns/locale';
 
-import { Affix } from '@warp-ds/react';
 import { Attention } from '@warp-ds/react/components/attention';
 import { TextField } from '@warp-ds/react/components/textfield';
 import { format, isValid } from 'date-fns';
@@ -15,6 +14,9 @@ export const DatePicker = ({
   isDayDisabled = () => false,
   date,
   onChange,
+  textFieldOnChange,
+  placeholder,
+  textFieldLabel,
   phrases = defaultPhrases,
   displayFormat = 'P',
   monthFormat = 'MMMM yyyy',
@@ -24,29 +26,15 @@ export const DatePicker = ({
   const datepickerId = React.useId();
 
   const [open, setOpen] = React.useState<boolean>(false);
+  const [isManual, setIsManual] = React.useState<boolean>(false);
+  const [manualValue, setManualValue] = React.useState<string>('');
 
   const navigationDayRef = React.useRef<HTMLTableCellElement>(null);
   const textFieldRef = React.useRef<HTMLInputElement>(null);
-  const containerRef = React.useRef<HTMLDivElement>(null);
-
-  React.useEffect(() => {
-    function onBlurHandler(e) {
-      if (containerRef.current && !containerRef.current.contains(e.target)) {
-        setOpen(false);
-      }
-    }
-    document.addEventListener('mousedown', onBlurHandler);
-    return () => {
-      document.removeEventListener('mousedown', onBlurHandler);
-    };
-  });
-
-  const handleClear = React.useCallback(() => {
-    onChange(null);
-  }, [onChange]);
 
   const handleChange = React.useCallback(
     (day: Date) => {
+      setIsManual(false);
       onChange(day);
     },
     [onChange],
@@ -54,32 +42,39 @@ export const DatePicker = ({
 
   const keyHandler = (event: React.KeyboardEvent) => {
     switch (event.key) {
-      case 'Enter':
-      case ' ':
-        event.preventDefault();
-        setOpen(true);
-        break;
       case 'Escape':
         setOpen(false);
         break;
     }
   };
 
+  // The change handler for the TextField when user types manually.
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Switch to manual mode if not already.
+    if (!isManual) setIsManual(true);
+    const newValue = e.target.value;
+    setManualValue(newValue);
+    // Relay the event.
+    textFieldOnChange?.(e);
+  };
+
   const displayDate = isValid(date) ? format(date, displayFormat, { locale }) : '';
-  const displayClearDate = isValid(date);
 
   return (
-    <div ref={containerRef}>
+    <div onFocus={() => setOpen(true)} onBlur={() => setOpen(false)}>
       {/* @ts-ignore */}
       <TextField
-        defaultValue={displayDate}
-        label="Date"
+        // When not in manual mode, control the input using displayDate.
+        // When in manual mode, let the input be uncontrolled.
+        {...(isManual
+          ? { defaultValue: manualValue, onChange: handleInputChange }
+          : { value: displayDate, onChange: handleInputChange })}
+        label={textFieldLabel}
+        placeholder={placeholder}
         onKeyDown={keyHandler}
         onClick={() => setOpen(true)}
         ref={textFieldRef}
-      >
-        {displayClearDate && <Affix suffix clear aria-label="Clear text" onClick={handleClear} />}
-      </TextField>
+      />
       <Attention
         popover
         placement="bottom"
@@ -91,6 +86,7 @@ export const DatePicker = ({
         targetEl={textFieldRef}
       >
         <DatePickerCalendar
+          key={date?.toDateString()}
           selectedDate={date}
           locale={locale}
           phrases={phrases}

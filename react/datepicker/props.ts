@@ -22,10 +22,23 @@ export type DatePickerProps = {
    */
   locale?: Locale;
   /**
+   * Placeholder text shown on the input of the datepicker.
+   */
+  placeholder: string;
+  /**
+   * Label shown on the input of the datepicker.
+   */
+  textFieldLabel: string;
+  /**
    * Called with the date when the user makes a selection from the calendar or a changes the input.
    *
    */
-  onChange(day: Date | null): void;
+  onChange: (day: Date | null) => void;
+  /**
+   * Called with the value when user types in the date.
+   *
+   */
+  textFieldOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   /**
    * An object of translation strings used by the datepicker for accessibility.
    */

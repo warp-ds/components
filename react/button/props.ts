@@ -47,6 +47,12 @@ export type ButtonProps = {
   utility?: boolean;
 
   /**
+   * Set the button to look like a link
+   * @default false
+   */
+  link?: boolean;
+
+  /**
    * Quieten down the button, can be combined with other button types
    * @default false
    */

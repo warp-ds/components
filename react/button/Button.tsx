@@ -20,6 +20,7 @@ export const Button = (props: ButtonProps, ref?: RefObject<any>) => {
     negative,
     utility,
     quiet,
+    link,
     small,
     pill,
     loading,
@@ -32,7 +33,7 @@ export const Button = (props: ButtonProps, ref?: RefObject<any>) => {
   // Get the classes from the props.
   const classes = classNames(
     'w-button',
-    toClass({ primary, secondary, negative, utility, quiet, small, pill, loading, fullWidth }),
+    toClass({ primary, secondary, negative, utility, quiet, link, small, pill, loading, fullWidth }),
     className,
   );
 
@@ -47,7 +48,14 @@ export const Button = (props: ButtonProps, ref?: RefObject<any>) => {
       <style href="Button" precedence="medium">
         {style}
       </style>
-      <button {...rest} type={props.type || 'button'} ref={ref} className={classes} disabled={disabled}>
+      <button
+        {...rest}
+        type={props.type || 'button'}
+        ref={ref}
+        className={classes}
+        disabled={disabled}
+        role={link ? 'link' : 'button'}
+      >
         {props.children}
       </button>
       {props.loading ? (

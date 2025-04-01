@@ -9,7 +9,7 @@ export type LinkProps = {
   /**
    * Action to be called when the component is clicked
    */
-  onClick?: (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
+  onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
 
   /**
    * CSS styles to inline on the component
@@ -17,61 +17,55 @@ export type LinkProps = {
   style?: React.CSSProperties;
 
   /**
-   * Set the button to be a primary, call to action button. Can be combined with `small`.
+   * Set the link to be a primary, call to action button. Can be combined with `small`.
    * @default false
    */
   primary?: boolean;
 
   /**
-   * Set the button to be a secondary button. Can be combined with `quiet` and `small`.
+   * Set the link to be a secondary button. Can be combined with `quiet` and `small`.
    * @default false
    */
   secondary?: boolean;
 
   /**
-   * Set the button to be a negative, destructive style button. Can be combined with `quiet` and `small`.
+   * Set the link to be a negative, destructive style button. Can be combined with `quiet` and `small`.
    * @default false
    */
   negative?: boolean;
 
   /**
-   * Set the button to be a utility style button. Can be combined with `small`.
+   * Set the link to be a utility style button. Can be combined with `small`.
    * @default false
    */
   utility?: boolean;
 
   /**
-   * Quieten down the button, can be combined with other button types
+   * Quieten down the link, can be combined with other types
    * @default false
    */
   quiet?: boolean;
 
   /**
-   * Set the button to be a small size, can be combined with other button types
+   * Set the link to be a small size, can be combined with other types
    * @default false
    */
   small?: boolean;
 
   /**
-   * Set the button to look like a pill style button
-   * @default false
-   */
-  pill?: boolean;
-
-  /**
-   * Sets the button's width to its parent's width. Useful on mobile when button should take full width.
+   * Sets the link's width to its parent's width. Useful on mobile when link should take full width.
    */
   fullWidth?: boolean;
 
   /**
-   * Sets the button's width to its parent's width. Useful on mobile when button should take full width.
+   * Set the href for the location where clicking the link will take you to.
    */
-  href?: string;
+  href: string;
 
   /**
    * Anchor target, see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a
    */
-  target?: string;
+  target: string;
 
   /**
    * The relationship of the linked URL

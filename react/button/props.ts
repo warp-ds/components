@@ -9,7 +9,7 @@ export type ButtonProps = {
   /**
    * Action to be called when the component is clicked
    */
-  onClick?: (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 
   /**
    * CSS styles to inline on the component
@@ -47,12 +47,6 @@ export type ButtonProps = {
   utility?: boolean;
 
   /**
-   * Set the button to look like a link
-   * @default false
-   */
-  link?: boolean;
-
-  /**
    * Quieten down the button, can be combined with other button types
    * @default false
    */
@@ -65,21 +59,21 @@ export type ButtonProps = {
   small?: boolean;
 
   /**
-   * Set the button to look like a pill style button
+   * Set the button to look like a link
    * @default false
    */
-  pill?: boolean;
-
-  /**
-   * Sets the button's width to its parent's width. Useful on mobile when button should take full width.
-   */
-  fullWidth?: boolean;
+  link?: boolean;
 
   /**
    * Set the button to look like it is in progress, can be combined with other button types. Can be combined with any button type.
    * @default false
    */
   loading?: boolean;
+
+  /**
+   * Sets the button's width to its parent's width. Useful on mobile when button should take full width.
+   */
+  fullWidth?: boolean;
 
   disabled?: boolean;
 };

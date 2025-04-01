@@ -5,12 +5,11 @@ import style from 'inline:./style.css';
 import buttonStyle from 'inline:../button/style.css';
 
 export const Link = (props: LinkProps, ref?: RefObject<any>) => {
-  const { primary, secondary, negative, utility, quiet, small, pill, disabled, className, target, href, ...rest } =
-    props;
+  const { primary, secondary, negative, utility, quiet, small, disabled, className, target, href, ...rest } = props;
 
   const classes = classNames(
     'w-link',
-    //toClass({ primary, secondary, negative, utility, quiet, small, pill }),
+    //toClass({ primary, secondary, negative, utility, quiet, small }),
     className,
   );
 
@@ -41,5 +40,5 @@ export const Link = (props: LinkProps, ref?: RefObject<any>) => {
 };
 
 function isButton(props) {
-  return ['primary', 'secondary', 'negative', 'utility', 'quiet', 'small', 'pill'].some((k) => k in props);
+  return ['primary', 'secondary', 'negative', 'utility', 'quiet', 'small'].some((k) => k in props);
 }

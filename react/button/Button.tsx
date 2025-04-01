@@ -22,7 +22,6 @@ export const Button = (props: ButtonProps, ref?: RefObject<any>) => {
     quiet,
     link,
     small,
-    pill,
     loading,
     fullWidth,
     disabled,
@@ -32,7 +31,7 @@ export const Button = (props: ButtonProps, ref?: RefObject<any>) => {
 
   const classes = classNames(
     'w-button',
-    toClasses({ primary, secondary, negative, utility, quiet, link, small, pill, loading, fullWidth }),
+    toClasses({ primary, secondary, negative, utility, quiet, link, small, loading, fullWidth }),
     className,
   );
 

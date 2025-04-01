@@ -14,7 +14,20 @@ import { messages as svMessages } from './locales/sv/messages.mjs';
 activateI18n(enMessages, nbMessages, fiMessages, daMessages, svMessages);
 
 export const Button = (props: ButtonProps, ref?: RefObject<any>) => {
-  const { primary, secondary, negative, utility, quiet, small, pill, loading, fullWidth, disabled, className } = props;
+  const {
+    primary,
+    secondary,
+    negative,
+    utility,
+    quiet,
+    small,
+    pill,
+    loading,
+    fullWidth,
+    disabled,
+    className,
+    ...rest
+  } = props;
 
   // Get the classes from the props.
   const classes = classNames(
@@ -34,7 +47,7 @@ export const Button = (props: ButtonProps, ref?: RefObject<any>) => {
       <style href="Button" precedence="medium">
         {style}
       </style>
-      <button type={props.type || 'button'} ref={ref} className={classes} disabled={disabled}>
+      <button {...rest} type={props.type || 'button'} ref={ref} className={classes} disabled={disabled}>
         {props.children}
       </button>
       {props.loading ? (

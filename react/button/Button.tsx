@@ -14,12 +14,12 @@ import { messages as svMessages } from './locales/sv/messages.mjs';
 activateI18n(enMessages, nbMessages, fiMessages, daMessages, svMessages);
 
 export const Button = (props: ButtonProps, ref?: RefObject<any>) => {
-  const { primary, secondary, negative, utility, quiet, small, pill, loading, fullWidth, disabled, className } = props;
+  const { primary, secondary, negative, utility, quiet, negativeQuiet, utilityQuiet, link, small, loading, fullWidth, disabled, className } = props;
 
   // Get the classes from the props.
   const classes = classNames(
     'w-button',
-    toClass({ primary, secondary, negative, utility, quiet, small, pill, loading, fullWidth }),
+    toClass({ primary, secondary, negative, utility, quiet, negativeQuiet, utilityQuiet, link, small, loading, fullWidth }),
     className,
   );
 
@@ -47,6 +47,23 @@ export const Button = (props: ButtonProps, ref?: RefObject<any>) => {
 };
 
 // Convert the fields to class names with a prefix.
+/*
+Can we maybe just map theses out ?
+
+  primary: 'w-button--primary',
+  secondary: 'w-button--secondary',
+  negative: 'w-button--negative',
+  utility: 'w-button--utility',
+  link: 'w-button--link',
+  quiet: 'w-button--quiet',
+  negativeQuiet: 'w-button--negative-quiet',
+  utilityQuiet: 'w-button--utility-quiet',
+  small: 'w-button--small',
+  pill: 'w-button--pill',
+  fullWidth: 'w-button--full-width',
+  loading: 'w-button--loading',
+
+*/
 export function toClass(object: Record<string, any>) {
   const prefix = 'w-button--';
 

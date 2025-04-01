@@ -47,10 +47,28 @@ export type ButtonProps = {
   utility?: boolean;
 
   /**
-   * Quieten down the button, can be combined with other button types
+   * Set the button to look like a link
+   * @default false
+   */
+  link?: boolean;
+
+  /**
+   * Quieten down the button
    * @default false
    */
   quiet?: boolean;
+
+  /**
+   * Quieten down the button, negative style
+   * @default false
+   */
+  negativeQuiet?: boolean;
+
+  /**
+   * Quieten down the button, utility style
+   * @default false
+   */
+  utilityQuiet?: boolean;
 
   /**
    * Set the button to be a small size, can be combined with other button types

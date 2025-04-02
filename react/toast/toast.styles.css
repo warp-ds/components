@@ -1,0 +1,12 @@
+
+.w-toast--success {
+  background-color: rgba(0, 255, 106, 0.249);
+}
+
+.w-toast--warning {
+  background-color: rgba(239, 226, 105, 0.88);
+}
+
+.w-toast--negative {
+  background-color: rgba(225, 132, 132, 0.737)
+}

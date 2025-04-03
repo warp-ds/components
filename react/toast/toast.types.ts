@@ -13,9 +13,9 @@ export type ToastTypes = {
 };
 
 export const toastVariantClassMap: Record<ToastTypes["variant"], string> = {
-  success: "w-toast__item--success",
-  warning: "w-toast__item--warning",
-  negative: "w-toast__item--negative",
+  success: "w-toast--positive",
+  warning: "w-toast--warning",
+  negative: "w-toast--negative",
 };
 
-export const toastDismissibleClass = "w-toast__item--dismissible";
+export const toastDismissibleClass = "w-toast--dismissible";

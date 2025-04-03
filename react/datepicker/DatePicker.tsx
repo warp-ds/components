@@ -1,9 +1,11 @@
+import style from 'inline:./styles/w-datepicker.css';
 import React from 'react';
 
 import { nb } from 'date-fns/locale';
 
 import { Attention } from '@warp-ds/react/components/attention';
 import { TextField } from '@warp-ds/react/components/textfield';
+import IconCalendar16 from '@warp-ds/icons/react/calendar-16';
 import { format, isValid } from 'date-fns';
 import { DatePickerCalendar } from './DatePickerCalendar.tsx';
 import defaultPhrases from './defaultPhrases.ts';
@@ -61,7 +63,10 @@ export const DatePicker = ({
   const displayDate = isValid(date) ? format(date, displayFormat, { locale }) : '';
 
   return (
-    <div onFocus={() => setOpen(true)} onBlur={() => setOpen(false)}>
+    <div>
+      <style href="DatePickerCalendar" precedence="medium">
+        {style}
+      </style>
       {/* @ts-ignore */}
       <TextField
         // When not in manual mode, control the input using displayDate.
@@ -72,20 +77,28 @@ export const DatePicker = ({
         label={textFieldLabel}
         placeholder={placeholder}
         onKeyDown={keyHandler}
-        onClick={() => setOpen(true)}
+        // biome-ignore lint/a11y/useSemanticElements: <explanation>
+        role="combobox"
+        aria-haspopup="grid"
+        aria-controls={datepickerId}
+        aria-expanded={open}
         ref={textFieldRef}
-      />
+      >
+        <button prefix="true" type="button" onClick={() => setOpen(!open)} className="w-prefix">
+          <IconCalendar16 />
+        </button>
+      </TextField>
       <Attention
         popover
         placement="bottom"
         noArrow={true}
         flip={true}
         crossAxis={true}
-        id={datepickerId}
         isShowing={open}
         targetEl={textFieldRef}
       >
         <DatePickerCalendar
+          id={datepickerId}
           key={date?.toDateString()}
           selectedDate={date}
           locale={locale}

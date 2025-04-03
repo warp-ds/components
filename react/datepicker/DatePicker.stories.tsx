@@ -30,7 +30,7 @@ function DatePickerExample() {
   return (
     <DatePicker
       placeholder="dd.mm.yyyy"
-      textFieldLabel="Date"
+      textFieldLabel="Dato"
       date={date}
       onChange={setDate}
       textFieldOnChange={setTextFieldValue}
@@ -62,7 +62,7 @@ function DisabledDaysExample() {
 
   return (
     <DatePicker
-      placeholder="dd.mm.yyyy"
+      placeholder="dd/mm/yyyy"
       textFieldLabel="Date"
       date={date}
       onChange={setDate}

@@ -103,6 +103,7 @@ export type DatePickerDayProps = {
 };
 
 export type DatePickerCalendarProps = {
+  id: string; //The id of the datepicker. This is used for accessibility and to link the calendar to the input field.
   className?: string;
   style?: React.CSSProperties;
   numberOfMonths?: number; //The number of months to display in the calendar.

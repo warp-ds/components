@@ -1,4 +1,4 @@
-// ToastContainer.stories.tsx
+// Toast.stories.tsx
 
 import type { Meta, StoryObj } from "@storybook/react";
 import { WToastProvider } from "./WToastProvider.tsx";
@@ -10,7 +10,7 @@ const toastDurations: ToastDuration[] = [5000, 8000, 10000];
 
 // ---- Meta Definition ----
 const meta = {
-  title: "Toast/ToastContainer",
+  title: "Toast",
   component: WToastProvider,
   parameters: {
     layout: "centered",

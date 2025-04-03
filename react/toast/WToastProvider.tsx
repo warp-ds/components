@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import WToastContainer from "./WToastContainer.tsx";
+import WToast from "./WToast.tsx";
 import { ToastTypes } from "./toast.types.ts";
 
 type WToastContextType = {
@@ -25,7 +25,7 @@ export const WToastProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <WToastContext.Provider value={{ addToast, removeToast }}>
       {children}
-      <WToastContainer toasts={toasts} />
+      <WToast toasts={toasts} />
     </WToastContext.Provider>
   );
 };

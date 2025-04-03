@@ -1,6 +1,10 @@
+export type ToastDuration = 5000 | 8000 | 10000;
+
+export type ToastVariant = "success" | "warning" | "negative";
+
 export type ToastTypes = {
-  variant: "success" | "warning" | "negative";
-  duration: 5000 | 8000 | 10000;
+  variant: ToastVariant;
+  duration: ToastDuration;
   text: string;
   dismissible?: boolean;
   icon?: React.ReactElement;

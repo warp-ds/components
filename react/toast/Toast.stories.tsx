@@ -1,14 +1,17 @@
 // ToastContainer.stories.tsx
 
 import type { Meta, StoryObj } from "@storybook/react";
-import { ToastProvider } from "./ToastProvider.tsx";
-import { useToast } from "./useToast.ts";
+import { WToastProvider } from "./WToastProvider.tsx";
+import { useWToast } from "./useWToast.ts";
 import { useState } from "react";
+import { ToastDuration, ToastVariant } from "./toast.types.ts";
+
+const toastDurations: ToastDuration[] = [5000, 8000, 10000];
 
 // ---- Meta Definition ----
 const meta = {
   title: "Toast/ToastContainer",
-  component: ToastProvider,
+  component: WToastProvider,
   parameters: {
     layout: "centered",
   },
@@ -17,26 +20,42 @@ const meta = {
       control: "boolean",
       defaultValue: true,
     },
+    duration: {
+      control: {
+        type: "radio",
+      },
+      options: toastDurations, // your 3 options
+      description: "Duration of timeout",
+      defaultValue: 5000,
+    },
   },
 } satisfies Meta;
-
-// TODO: add token sheet to storybook config
 
 export default meta;
 
 // ---- Story Type ----
-type Story = StoryObj<{ dismissible: boolean; children: object }>;
+type Story = StoryObj<{
+  dismissible: boolean;
+  duration: ToastDuration;
+  children: object;
+}>;
 
 // ---- Toast Demo Component ----
-const ToastDemo = ({ dismissible }: { dismissible: boolean }) => {
-  const { addToast } = useToast();
+const ToastDemo = ({
+  dismissible,
+  duration,
+}: {
+  dismissible: boolean;
+  duration: ToastDuration;
+}) => {
+  const { addToast } = useWToast();
   const [toastNum, setToastNum] = useState(0);
 
-  const handleToast = (variant: "success" | "warning" | "negative") => {
+  const handleToast = (variant: ToastVariant) => {
     addToast({
       text: `This is a ${variant} toast! ${toastNum}`,
       variant,
-      duration: 5000,
+      duration,
       dismissible,
     });
     setToastNum((prev) => prev + 1);
@@ -75,15 +94,12 @@ const ToastDemo = ({ dismissible }: { dismissible: boolean }) => {
 
 // ---- Default Story ----
 export const Default: Story = {
-  args: {
-    dismissible: true,
-  },
   argTypes: {
     children: { table: { disable: true } },
   },
   render: (args) => (
-    <ToastProvider>
+    <WToastProvider>
       <ToastDemo {...args} />
-    </ToastProvider>
+    </WToastProvider>
   ),
 };

@@ -1,15 +1,15 @@
 import { createContext, useContext, useState } from "react";
-import ToastContainer from "./ToastContainer.tsx";
+import WToastContainer from "./WToastContainer.tsx";
 import { ToastTypes } from "./toast.types.ts";
 
-type ToastContextType = {
+type WToastContextType = {
   addToast: (toast: Omit<ToastTypes, "id">) => void;
   removeToast: (id: string) => void;
 };
 
-const ToastContext = createContext<ToastContextType | null>(null);
+const WToastContext = createContext<WToastContextType | null>(null);
 
-export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
+export const WToastProvider = ({ children }: { children: React.ReactNode }) => {
   const [toasts, setToasts] = useState<ToastTypes[]>([]);
 
   const addToast = (toast: Omit<ToastTypes, "id">) => {
@@ -23,15 +23,15 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <ToastContext.Provider value={{ addToast, removeToast }}>
+    <WToastContext.Provider value={{ addToast, removeToast }}>
       {children}
-      <ToastContainer toasts={toasts} />
-    </ToastContext.Provider>
+      <WToastContainer toasts={toasts} />
+    </WToastContext.Provider>
   );
 };
 
-export const useToastContext = () => {
-  const ctx = useContext(ToastContext);
-  if (!ctx) throw new Error("useToast must be used within a ToastProvider");
+export const useWToastContext = () => {
+  const ctx = useContext(WToastContext);
+  if (!ctx) throw new Error("useWToast must be used within a WToastProvider");
   return ctx;
 };

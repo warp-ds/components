@@ -16,6 +16,8 @@ export type LinkProps = {
    */
   style?: React.CSSProperties;
 
+  button?: boolean;
+
   /**
    * Set the link to be a primary, call to action button. Can be combined with `small`.
    * @default false
@@ -47,6 +49,18 @@ export type LinkProps = {
   quiet?: boolean;
 
   /**
+   * Quieten down the button, negative style
+   * @default false
+   */
+  negativeQuiet?: boolean;
+
+  /**
+   * Quieten down the button, utility style
+   * @default false
+   */
+  utilityQuiet?: boolean;
+
+  /**
    * Set the link to be a small size, can be combined with other types
    * @default false
    */
@@ -60,12 +74,12 @@ export type LinkProps = {
   /**
    * Set the href for the location where clicking the link will take you to.
    */
-  href: string;
+  href?: string;
 
   /**
    * Anchor target, see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a
    */
-  target: string;
+  target?: string;
 
   /**
    * The relationship of the linked URL

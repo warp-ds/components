@@ -28,7 +28,6 @@ export const Button = (props: ButtonProps, ref?: RefObject<any>) => {
     fullWidth,
     disabled,
     className,
-
     ...rest
   } = props;
 

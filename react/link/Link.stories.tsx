@@ -6,90 +6,55 @@ export default metadata;
 export const Example = () => (
   <div className="flex flex-col space-y-32">
     <div>
-      <h3>Primary</h3>
-      <Link className="mr-32" primary href="https://google.com">
-        Simple href
+      <h3>Default link</h3>
+
+      <Link href="https://google.com">Link</Link>
+    </div>
+    <p />
+    <div>
+      <h3>Link styled as button</h3>
+
+      <Link button href="https://google.com/" target="_blank">
+        Link as button
+      </Link>
+
+      <Link button primary href="https://google.com/" target="_blank">
+        Link as button primary
+      </Link>
+
+      <Link button negative href="https://google.com/" target="_blank">
+        Link as button negative
+      </Link>
+
+      <Link button quiet href="https://google.com/" target="_blank">
+        Link as button negative
+      </Link>
+
+      <Link button utility href="https://google.com/" target="_blank">
+        Link as button utility
+      </Link>
+
+      <Link button negativeQuiet href="https://google.com/" target="_blank">
+        Link as button negative quiet
+      </Link>
+
+      <Link button utilityQuiet href="https://google.com/" target="_blank">
+        Link as button utility quiet
+      </Link>
+
+      {/* Todo. */}
+      <Link button disabled href="https://google.com/" target="_blank">
+        Link as button disabled
+      </Link>
+
+      <Link button href="https://google.com/" target="_blank" onClick={() => alert("you've clicked")}>
+        Link with onClick
       </Link>
     </div>
-    <div>
-      <h3>Secondary</h3>
-
-      <Link className="mr-32" secondary href="https://google.com">
-        Simple href
-      </Link>
-    </div>
-    <div>
-      <h3>Negative</h3>
-
-      <Link className="mr-32" negative href="https://google.com">
-        Simple href
-      </Link>
-    </div>
-    <div>
-      <h3>Utility</h3>
-
-      <Link className="mr-32" utility href="https://google.com">
-        Simple href
-      </Link>
-    </div>
 
     <div>
-      <h3>Link (href) styled as button</h3>
-
-      <Link className="mr-32" href="https://google.com/" target="_blank">
-        Simple link as button
-      </Link>
-
-      <Link primary className="mr-32" href="https://google.com/" target="_blank">
-        Simple link as button primary
-      </Link>
-
-      <Link negative className="mr-32" href="https://google.com/" target="_blank">
-        Simple link as button negative
-      </Link>
-
-      <Link utility className="mr-32" href="https://google.com/" target="_blank">
-        Simple link as button utility
-      </Link>
-
-      <Link className="mr-32" href="https://google.com/" target="_blank" onClick={() => alert("you've clicked")}>
-        Simple link with onClick
-      </Link>
-    </div>
-    <div>
-      <h3>Disabled button</h3>
-
-      <Link disabled className="mr-32" href="https://google.com/" target="_blank">
-        Simple
-      </Link>
-
-      <Link secondary small quiet disabled className="mr-32" target="_blank">
-        Disabled small quiet secondary button
-      </Link>
-
-      <Link primary disabled className="mr-32" target="_blank">
-        Disabled button primary
-      </Link>
-
-      <Link primary small disabled className="mr-32" target="_blank">
-        Disabled button small primary
-      </Link>
-
-      <Link negative disabled className="mr-32" target="_blank">
-        Disabled button negative
-      </Link>
-
-      <Link utility disabled className="mr-32" target="_blank">
-        Disabled button utility
-      </Link>
-
-      <Link utility disabled small className="mr-32" target="_blank">
-        Disabled button utility small
-      </Link>
-    </div>
-    <div>
-      <h3>Full width link (href) styled as button</h3>
-      <Link fullWidth className="mr-32" primary href="https://google.com/">
+      <h3>Full width Link (href) styled as button</h3>
+      <Link button fullWidth primary href="https://google.com/">
         Go to google.com
       </Link>
     </div>

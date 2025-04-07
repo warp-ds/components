@@ -3,13 +3,43 @@ import { RefObject } from 'react';
 import { LinkProps } from './props.ts';
 import style from 'inline:./style.css';
 import buttonStyle from 'inline:../button/style.css';
+import { toClasses } from '../button/Button.tsx';
 
 export const Link = (props: LinkProps, ref?: RefObject<any>) => {
-  const { primary, secondary, negative, utility, quiet, small, disabled, className, target, href, ...rest } = props;
+  const {
+    button,
+    primary,
+    secondary,
+    negative,
+    utility,
+    quiet,
+    negativeQuiet,
+    utilityQuiet,
+    small,
+    fullWidth,
+    disabled,
+    className,
+    target,
+    href,
+    ...rest
+  } = props;
 
   const classes = classNames(
     'w-link',
-    //toClass({ primary, secondary, negative, utility, quiet, small }),
+    {
+      'w-button': button,
+      ...toClasses({
+        primary,
+        secondary,
+        negative,
+        utility,
+        quiet,
+        negativeQuiet,
+        utilityQuiet,
+        small,
+        fullWidth,
+      }),
+    },
     className,
   );
 
@@ -30,7 +60,7 @@ export const Link = (props: LinkProps, ref?: RefObject<any>) => {
         rel={props.target === '_blank' ? props.rel || 'noopener' : undefined}
         ref={ref}
         className={classes}
-        role={isButton(props) && 'button'}
+        role={button && 'button'}
         aria-disabled={disabled}
       >
         {props.children}
@@ -38,7 +68,3 @@ export const Link = (props: LinkProps, ref?: RefObject<any>) => {
     </>
   );
 };
-
-function isButton(props) {
-  return ['primary', 'secondary', 'negative', 'utility', 'quiet', 'small'].some((k) => k in props);
-}

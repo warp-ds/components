@@ -14,12 +14,39 @@ import { messages as svMessages } from './locales/sv/messages.mjs';
 activateI18n(enMessages, nbMessages, fiMessages, daMessages, svMessages);
 
 export const Button = (props: ButtonProps, ref?: RefObject<any>) => {
-  const { primary, secondary, negative, utility, quiet, negativeQuiet, utilityQuiet, link, small, loading, fullWidth, disabled, className } = props;
+  const {
+    primary,
+    secondary,
+    negative,
+    utility,
+    quiet,
+    negativeQuiet,
+    utilityQuiet,
+    link,
+    small,
+    loading,
+    fullWidth,
+    disabled,
+    className,
 
-  // Get the classes from the props.
+    ...rest
+  } = props;
+
   const classes = classNames(
     'w-button',
-    toClass({ primary, secondary, negative, utility, quiet, negativeQuiet, utilityQuiet, link, small, loading, fullWidth }),
+    toClasses({
+      primary,
+      secondary,
+      negative,
+      utility,
+      quiet,
+      negativeQuiet,
+      utilityQuiet,
+      link,
+      small,
+      loading,
+      fullWidth,
+    }),
     className,
   );
 
@@ -34,7 +61,14 @@ export const Button = (props: ButtonProps, ref?: RefObject<any>) => {
       <style href="Button" precedence="medium">
         {style}
       </style>
-      <button type={props.type || 'button'} ref={ref} className={classes} disabled={disabled}>
+      <button
+        {...rest}
+        type={props.type || 'button'}
+        ref={ref}
+        className={classes}
+        disabled={disabled}
+        role={link ? 'link' : 'button'}
+      >
         {props.children}
       </button>
       {props.loading ? (
@@ -46,30 +80,27 @@ export const Button = (props: ButtonProps, ref?: RefObject<any>) => {
   );
 };
 
-// Convert the fields to class names with a prefix.
-/*
-Can we maybe just map theses out ?
+// Convert props to class names.
+export function toClasses(props: Partial<ButtonProps>) {
+  const classNames = {
+    primary: 'w-button--primary',
+    secondary: 'w-button--secondary',
+    negative: 'w-button--negative',
+    utility: 'w-button--utility',
+    link: 'w-button--link',
+    quiet: 'w-button--quiet',
+    negativeQuiet: 'w-button--negative-quiet',
+    utilityQuiet: 'w-button--utility-quiet',
+    small: 'w-button--small',
+    fullWidth: 'w-button--full-width',
+    loading: 'w-button--loading',
+  };
 
-  primary: 'w-button--primary',
-  secondary: 'w-button--secondary',
-  negative: 'w-button--negative',
-  utility: 'w-button--utility',
-  link: 'w-button--link',
-  quiet: 'w-button--quiet',
-  negativeQuiet: 'w-button--negative-quiet',
-  utilityQuiet: 'w-button--utility-quiet',
-  small: 'w-button--small',
-  pill: 'w-button--pill',
-  fullWidth: 'w-button--full-width',
-  loading: 'w-button--loading',
+  const classes = {};
 
-*/
-export function toClass(object: Record<string, any>) {
-  const prefix = 'w-button--';
-
-  const obj = {};
-  for (const key in object) {
-    obj[prefix + key.toLowerCase()] = object[key];
+  for (const key in props) {
+    classes[classNames[key]] = props[key];
   }
-  return obj;
+
+  return classes;
 }

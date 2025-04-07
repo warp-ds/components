@@ -3,15 +3,13 @@ import { RefObject } from 'react';
 import { LinkProps } from './props.ts';
 import style from 'inline:./style.css';
 import buttonStyle from 'inline:../button/style.css';
-import { toClass } from '../button/Button.tsx';
 
 export const Link = (props: LinkProps, ref?: RefObject<any>) => {
-  const { primary, secondary, negative, utility, quiet, small, pill, disabled, className, target, href } = props;
+  const { primary, secondary, negative, utility, quiet, small, disabled, className, target, href, ...rest } = props;
 
-  // Get the classes from the props.
   const classes = classNames(
     'w-link',
-    toClass({ primary, secondary, negative, utility, quiet, small, pill }),
+    //toClass({ primary, secondary, negative, utility, quiet, small }),
     className,
   );
 
@@ -24,6 +22,7 @@ export const Link = (props: LinkProps, ref?: RefObject<any>) => {
         {buttonStyle}
       </style>
       <a
+        {...rest}
         onClick={(e) => props.onClick?.(e)}
         aria-current={props['aria-current']}
         href={disabled ? undefined : href}
@@ -31,8 +30,7 @@ export const Link = (props: LinkProps, ref?: RefObject<any>) => {
         rel={props.target === '_blank' ? props.rel || 'noopener' : undefined}
         ref={ref}
         className={classes}
-        // biome-ignore lint/a11y/useSemanticElements: <explanation>
-        role="button"
+        role={isButton(props) && 'button'}
         aria-disabled={disabled}
       >
         {props.children}
@@ -40,3 +38,7 @@ export const Link = (props: LinkProps, ref?: RefObject<any>) => {
     </>
   );
 };
+
+function isButton(props) {
+  return ['primary', 'secondary', 'negative', 'utility', 'quiet', 'small'].some((k) => k in props);
+}

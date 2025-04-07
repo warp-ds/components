@@ -41,13 +41,11 @@
     "@storybook/web-components-vite": "8.6.9",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
-    "@use-gesture/react": "^10.3.1",
     "@vitejs/plugin-react": "^4.3.4",
     "@warp-ds/icons": "^2.5.0",
     "@warp-ds/react": "^2.1.0",
     "@web/dev-server": "^0.4.3",
     "classnames": "^2.5.1",
-    "d3-scale": "^4.0.2",
     "date-fns": "^4.1.0",
     "esbuild": "^0.20.1",
     "esbuild-plugin-inline-import": "^1.1.0",
@@ -64,8 +62,5 @@
   "peerDependencies": {
     "@lit/react": "^1.0.3",
     "lit": "^3.1.2"
-  },
-  "dependencies": {
-    "@react-spring/web": "^9.7.5"
   }
 }

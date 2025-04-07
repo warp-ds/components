@@ -1,5 +1,3 @@
-import { Scale } from './props.ts';
-
 /**
  * Restricts the value to the given range.
  */
@@ -7,49 +5,21 @@ export function clamp(value: number, min: number, max: number): number {
   return Math.min(Math.max(value, min), max);
 }
 
-export function valueToRatio(value: number, min: number, max: number, scale?: Scale): number {
-  if (scale) {
-    // if we are above the middle, use the upper part of the segment
-    const extent = (max - min) / 2;
-    return scale.invertExtent(value)[value > extent ? 1 : 0];
-  }
-
+export function valueToRatio(value: number, min: number, max: number): number {
   return clamp((value - min) / (max - min), 0, 1);
 }
 
-export function ratioToValue(ratio: number, min: number, max: number, step: number, scale?: Scale): number {
-  if (scale) {
-    return scale(ratio);
-  }
-
+export function ratioToValue(ratio: number, min: number, max: number, step: number): number {
   let value = (max - min) * ratio;
 
   value = Math.round(value / step) * step + min;
   return clamp(min, value, max);
 }
 
-export function nextValue(value: number, step: number, scale?: Scale): number {
-  if (!scale) {
-    return value + step;
-  }
-
-  const extent = scale.invertExtent(value)[1];
-
-  const next = scale.thresholds().find((v) => v >= extent) ?? 1;
-  return scale(next);
+export function nextValue(value: number, step: number): number {
+  return value + step;
 }
 
-export function prevValue(value: number, step: number, scale?: Scale): number {
-  if (!scale) {
-    return value - step;
-  }
-
-  const extent = scale.invertExtent(value)[0];
-
-  const prev =
-    scale
-      .thresholds()
-      .reverse()
-      .find((v) => v < extent) ?? 0;
-  return scale(prev);
+export function prevValue(value: number, step: number): number {
+  return value - step;
 }

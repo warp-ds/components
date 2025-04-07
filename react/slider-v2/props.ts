@@ -29,11 +29,6 @@ export type RangeSliderProps = {
   // Show marks (steps) and mark values (at min/max values).
   showMarks?: boolean;
 
-  /** A d3-scale object for non linear slider scales.
-   * @see d3-scale repository https://github.com/d3/d3-scale
-   */
-  scale?: Scale;
-
   /** Specifies the value granularity. */
   step?: number;
 
@@ -72,11 +67,6 @@ export type RegularSliderProps = {
   /** The lowest value in the range of permitted values. */
   min?: number;
 
-  /** A d3-scale object for non linear slider scales.
-   * @see d3-scale repository https://github.com/d3/d3-scale
-   */
-  scale?: Scale;
-
   /** Specifies the value granularity. */
   step?: number;
 
@@ -87,11 +77,4 @@ export type RegularSliderProps = {
 export enum Handle {
   Lower = 0,
   Upper = 1,
-}
-
-// a d3 scale like object.
-export interface Scale {
-  (value: number): number;
-  invertExtent(value: number): [number, number];
-  thresholds(): number[];
 }

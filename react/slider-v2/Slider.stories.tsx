@@ -1,4 +1,3 @@
-import { scaleQuantize } from 'd3-scale';
 import { useState } from 'react';
 import { RangeSlider, RegularSlider } from './index.ts';
 import { TextField } from '@warp-ds/react/components/textfield';
@@ -57,40 +56,6 @@ export const DisabledRegular = () => {
         }}
       >
         <TextField label="value" disabled value={value.toString()} onChange={(e) => setValue(+e.target.value)} />
-      </div>
-    </div>
-  );
-};
-
-export const RegularScaled = () => {
-  const radiusScale = scaleQuantize().range([
-    250, 500, 750, 1000, 1500, 2000, 3000, 4000, 5000, 7000, 10000, 15000, 20000, 30000, 60000, 100000, 150000, 200000,
-    250000, 300000,
-  ]);
-  const [value, setValue] = useState(250);
-  const [output, setOutput] = useState(value);
-  return (
-    <div>
-      <output>
-        {output >= 2000 ? Math.floor(output / 1000) : output} {output >= 2000 ? 'km' : 'm'}
-      </output>
-      <RegularSlider
-        aria-label="Radius"
-        onChange={(value) => setValue(value)}
-        onInput={setOutput}
-        min={250}
-        max={300000}
-        scale={radiusScale}
-        value={value}
-      />
-      <div
-        style={{
-          width: '50%',
-          marginBottom: '10px',
-          marginTop: '30px',
-        }}
-      >
-        <TextField label="value" value={value.toString()} onChange={(e) => setValue(+e.target.value)} />
       </div>
     </div>
   );

@@ -8,89 +8,61 @@ export const Example = () => (
     <div>
       <h3>Variants</h3>
       <p>Allowed values: empty, or one of variant</p>
-      <Button>
-        Default
-      </Button>
+      <Button>Default</Button>
 
-      <Button primary>
-        Primary
-      </Button>
+      <Button primary>Primary</Button>
 
-      <Button secondary>
-        Secondary
-      </Button>
+      <Button secondary>Secondary</Button>
 
-      <Button negative>
-        Negative
-      </Button>
+      <Button negative>Negative</Button>
 
-      <Button utility>
-        Utility
-      </Button>
+      <Button utility>Utility</Button>
 
-      <Button quiet>
-        Quiet
-      </Button>
+      <Button quiet>Quiet</Button>
 
-      <Button negativeQuiet>
-        Negative-Quiet
-      </Button>
+      <Button negativeQuiet>Negative-Quiet</Button>
 
-      <Button utilityQuiet>
-        utility-Quiet
-      </Button>
+      <Button utilityQuiet>utility-Quiet</Button>
 
-      <p>This is a <Button link>button</Button> pretending to be a link.</p>
+      <p>
+        This is a <Button link>button</Button> pretending to be a link.
+      </p>
     </div>
 
     <div>
       <h3>Sizes</h3>
       <p>Allowed values: empty(default) or one size </p>
-      <Button>
-        Default
-      </Button>
+      <Button>Default</Button>
 
-      <Button small>
-        Default small
-      </Button>
+      <Button small>Default small</Button>
     </div>
 
     <div>
       <h3>widths</h3>
       <p>Allowed values: empty(default) or one width </p>
-      <Button>
-        Default
-      </Button>
+      <Button>Default</Button>
 
-      <Button fullWidth>
-        Default fullWidth
-      </Button>
+      <Button fullWidth>Default fullWidth</Button>
     </div>
 
     <div>
       <h3>States</h3>
       <p>Allowed values: empty(default) or any number of states</p>
-      <p>Loading state, Pattern is supposed to be: button is triggered, button is disabled until loading success, while in the disabled state it also show loading animation to show something is happening.</p>
-      <Button>
-        Default
-      </Button>
+      <p>
+        Loading state, Pattern is supposed to be: button is triggered, button is disabled until loading success, while
+        in the disabled state it also show loading animation to show something is happening.
+      </p>
+      <Button>Default</Button>
 
-      <Button disabled>
-        Default disabled
-      </Button>
+      <Button disabled>Default disabled</Button>
 
-      <Button loading>
-        Default loading
-      </Button>
+      <Button loading>Default loading</Button>
     </div>
-
 
     <h2 style={{ marginTop: '100px' }}>All combos</h2>
     <div>
       <h3>Default (Secondary)</h3>
-      <Button className="mr-32" >
-        Button
-      </Button>
+      <Button className="mr-32">Button</Button>
 
       <Button className="mr-32" loading disabled>
         Loading
@@ -104,10 +76,9 @@ export const Example = () => (
         Small Loading
       </Button>
 
-      <Button disabled className="mr-32" >
+      <Button disabled className="mr-32">
         Disabled
       </Button>
-
     </div>
     <div>
       <h3>Primary</h3>
@@ -146,7 +117,6 @@ export const Example = () => (
       <Button className="mr-32" secondary small loading>
         Small Loading
       </Button>
-
     </div>
     <div>
       <h3>Negative</h3>
@@ -189,7 +159,18 @@ export const Example = () => (
 
     <div>
       <h3>Link</h3>
-      This is a <Button className="mr-32" link>button</Button> pretending to be a link.
+      This is a{' '}
+      <Button className="mr-32" link>
+        button
+      </Button>{' '}
+      pretending to be a link.
+    </div>
+
+    <div>
+      <h3>Pill button</h3>
+      <Button className="mr-32" pill>
+        Pill button
+      </Button>
     </div>
 
     <div>
@@ -204,8 +185,9 @@ export const Example = () => (
       <h3>Everything</h3>
       <p>primary secondary negative utility quiet link small loading fullwidth disabled</p>
 
-      <Button primary secondary negative utility quiet link small loading fullwidth disabled>All things</Button>
-
+      <Button primary secondary negative utility quiet link small loading fullWidth disabled>
+        All things
+      </Button>
     </div>
   </div>
 );

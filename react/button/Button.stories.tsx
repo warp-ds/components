@@ -167,9 +167,9 @@ export const Example = () => (
     </div>
 
     <div>
-      <h3>Pill button</h3>
-      <Button className="mr-32" pill>
-        Pill button
+      <h3>Overlay button</h3>
+      <Button className="mr-32" overlayQuiet>
+        Overlay button
       </Button>
     </div>
 

@@ -77,10 +77,10 @@ export type ButtonProps = {
   link?: boolean;
 
   /**
-   * Set the button to look like a pill style button
+   * Set the button to look like a pill style / overlay button
    * @default false
    */
-  pill?: boolean;
+  overlayQuiet?: boolean;
 
   /**
    * Set the button to look like it is in progress, can be combined with other button types. Can be combined with any button type.

@@ -1,4 +1,5 @@
-.w-button, .w-button--secondary {
+.w-button,
+.w-button--secondary {
   /* Local scoped variables, given the default button (the secondary variant) as a default */
   --_background: var(--background, var(--w-s-color-background));
   --_background-hover: var(--background-hover, var(--w-s-color-background-hover));
@@ -21,11 +22,12 @@
   align-items: center;
   text-align: center;
   cursor: pointer;
-  transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1),
-              background-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
-              border-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
-              fill 150ms cubic-bezier(0.4, 0, 0.2, 1),
-              stroke 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition:
+    color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+    fill 150ms cubic-bezier(0.4, 0, 0.2, 1),
+    stroke 150ms cubic-bezier(0.4, 0, 0.2, 1);
 
   /* Hook the local vars up to the button stuff  */
   background-color: var(--_background);
@@ -47,7 +49,6 @@
   background-color: var(--_background-active);
   border-color: var(--_border-active);
 }
-
 
 /* Variants config */
 .w-button--primary {
@@ -76,7 +77,8 @@
 .w-button--quiet {
   --border-width: 0px;
 }
-.w-button--negative-quiet, .w-button--negativequiet {
+.w-button--negative-quiet,
+.w-button--negativequiet {
   --background: transparent;
   --background-hover: var(--w-s-color-background-negative-subtle-hover);
   --background-active: var(--w-s-color-background-negative-subtle-active);
@@ -84,13 +86,24 @@
   --border-width: 0px;
 }
 
-.w-button--utility-quiet, .w-button--utilityquiet {
+.w-button--utility-quiet,
+.w-button--utilityquiet {
   --background: transparent;
   --color: var(--w-s-color-text);
   --border-width: 0px;
 }
 
-.w-button--link{
+.w-button--overlay-quiet,
+.w-button--overlayquiet {
+  --background: transparent;
+  --background-hover: var(--w-color-button-pill-background-hover);
+  --background-active: var(--w-color-button-pill-background-active);
+  --color: var(--w-s-color-text);
+  --border-radius: 9999px;
+  --border-width: 0px;
+}
+
+.w-button--link {
   --background: none;
   --background-hover: none;
   --background-active: none;
@@ -124,30 +137,33 @@
 }
 
 /* Width config */
-.w-button--full-width, .w-button--fullwidth{
+.w-button--full-width,
+.w-button--fullwidth {
   width: 100%;
   max-width: 100%;
 }
 
 /* Copy of loading animation from warp  */
 .w-button--loading {
-  background-image: linear-gradient(135deg,
-      rgba(0, 0, 0, 0.05) 25%,
-      transparent 25%,
-      transparent 50%,
-      rgba(0, 0, 0, 0.05) 50%,
-      rgba(0, 0, 0, 0.05) 75%,
-      transparent 75%,
-      transparent);
+  background-image: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.05) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(0, 0, 0, 0.05) 50%,
+    rgba(0, 0, 0, 0.05) 75%,
+    transparent 75%,
+    transparent
+  );
   background-size: 30px 30px;
   animation: animate-inprogress 3s linear infinite;
 }
 
 @keyframes animate-inprogress {
   0% {
-      background-position: 0 0;
+    background-position: 0 0;
   }
   100% {
-      background-position: 60px 0;
+    background-position: 60px 0;
   }
 }

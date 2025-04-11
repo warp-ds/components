@@ -167,9 +167,9 @@ export const Example = () => (
     </div>
 
     <div>
-      <h3>Overlay button</h3>
+      <h3>Overlay</h3>
       <Button className="mr-32" overlayQuiet>
-        Overlay button
+        Overlay quiet
       </Button>
     </div>
 

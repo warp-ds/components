@@ -92,6 +92,7 @@ export function toClasses(props: Partial<ButtonProps>) {
     quiet: 'w-button--quiet',
     negativeQuiet: 'w-button--negative-quiet',
     utilityQuiet: 'w-button--utility-quiet',
+    overlayQuiet: 'w-button--overlay-quiet',
     small: 'w-button--small',
     fullWidth: 'w-button--full-width',
     loading: 'w-button--loading',

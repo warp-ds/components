@@ -96,6 +96,7 @@ export function toClasses(props: Partial<ButtonProps>) {
     small: 'w-button--small',
     fullWidth: 'w-button--full-width',
     loading: 'w-button--loading',
+    disabled: 'w-button--disabled',
   };
 
   const classes = {};

@@ -38,6 +38,7 @@ export const Link = (props: LinkProps, ref?: RefObject<any>) => {
         utilityQuiet,
         small,
         fullWidth,
+        disabled,
       }),
     },
     className,

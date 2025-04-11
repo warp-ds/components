@@ -4,7 +4,7 @@ const metadata = { title: 'Button' };
 export default metadata;
 
 export const Example = () => (
-  <div className="flex flex-col space-32">
+  <div>
     <div>
       <h3>Variants</h3>
       <p>Allowed values: empty, or one of variant</p>

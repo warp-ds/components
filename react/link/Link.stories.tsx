@@ -4,7 +4,7 @@ const metadata = { title: 'Link' };
 export default metadata;
 
 export const Example = () => (
-  <div className="flex flex-col space-y-32">
+  <div>
     <div>
       <h3>Default link</h3>
 
@@ -42,7 +42,6 @@ export const Example = () => (
         Link as button utility quiet
       </Link>
 
-      {/* Todo. */}
       <Link button disabled href="https://google.com/" target="_blank">
         Link as button disabled
       </Link>

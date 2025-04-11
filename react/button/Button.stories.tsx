@@ -62,121 +62,103 @@ export const Example = () => (
     <h2 style={{ marginTop: '100px' }}>All combos</h2>
     <div>
       <h3>Default (Secondary)</h3>
-      <Button className="mr-32">Button</Button>
+      <Button>Button</Button>
 
-      <Button className="mr-32" loading disabled>
+      <Button loading disabled>
         Loading
       </Button>
 
-      <Button className="mr-32" small>
-        Small
-      </Button>
+      <Button small>Small</Button>
 
-      <Button className="mr-32" small loading>
+      <Button small loading>
         Small Loading
       </Button>
 
-      <Button disabled className="mr-32">
-        Disabled
-      </Button>
+      <Button disabled>Disabled</Button>
     </div>
     <div>
       <h3>Primary</h3>
 
-      <Button className="mr-32" primary>
-        Button
-      </Button>
+      <Button primary>Button</Button>
 
-      <Button className="mr-32" primary loading>
+      <Button primary loading>
         Loading
       </Button>
 
-      <Button className="mr-32" primary small>
+      <Button primary small>
         Small
       </Button>
 
-      <Button className="mr-32" primary small loading>
+      <Button primary small loading>
         Small Loading
       </Button>
     </div>
     <div>
       <h3>Secondary</h3>
 
-      <Button className="mr-32" secondary>
-        Button
-      </Button>
+      <Button secondary>Button</Button>
 
-      <Button className="mr-32" secondary loading>
+      <Button secondary loading>
         Loading
       </Button>
 
-      <Button className="mr-32" secondary small>
+      <Button secondary small>
         Small
       </Button>
 
-      <Button className="mr-32" secondary small loading>
+      <Button secondary small loading>
         Small Loading
       </Button>
     </div>
     <div>
       <h3>Negative</h3>
 
-      <Button className="mr-32" negative>
-        Button
-      </Button>
+      <Button negative>Button</Button>
 
-      <Button className="mr-32" negative loading>
+      <Button negative loading>
         Negative Loading
       </Button>
 
-      <Button className="mr-32" negative small>
+      <Button negative small>
         Negative Small
       </Button>
 
-      <Button className="mr-32" negative small loading>
+      <Button negative small loading>
         Negative Small Loading
       </Button>
     </div>
     <div>
       <h3>Utility</h3>
 
-      <Button className="mr-32" utility>
-        Button
-      </Button>
+      <Button utility>Button</Button>
 
-      <Button className="mr-32" utility loading>
+      <Button utility loading>
         Loading
       </Button>
 
-      <Button className="mr-32" utility small>
+      <Button utility small>
         Small
       </Button>
 
-      <Button className="mr-32" utility small loading>
+      <Button utility small loading>
         Small Loading
       </Button>
     </div>
 
     <div>
       <h3>Link</h3>
-      This is a{' '}
-      <Button className="mr-32" link>
-        button
-      </Button>{' '}
-      pretending to be a link.
+      This is a <Button link>button</Button> pretending to be a link.
     </div>
 
     <div>
       <h3>Overlay</h3>
-      <Button className="mr-32" overlayQuiet>
-        Overlay quiet
-      </Button>
+      <Button overlayQuiet>Overlay quiet</Button>
     </div>
 
     <div>
       <h3>Full width button</h3>
 
-      <Button fullWidth className="mr-32" primary>
+      <Button fullWidth primary>
         Full width
       </Button>
     </div>

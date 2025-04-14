@@ -77,8 +77,7 @@
 .w-button--quiet {
   --border-width: 0px;
 }
-.w-button--negative-quiet,
-.w-button--negativequiet {
+.w-button--negative-quiet {
   --background: transparent;
   --background-hover: var(--w-s-color-background-negative-subtle-hover);
   --background-active: var(--w-s-color-background-negative-subtle-active);
@@ -86,15 +85,13 @@
   --border-width: 0px;
 }
 
-.w-button--utility-quiet,
-.w-button--utilityquiet {
+.w-button--utility-quiet {
   --background: transparent;
   --color: var(--w-s-color-text);
   --border-width: 0px;
 }
 
-.w-button--overlay-quiet,
-.w-button--overlayquiet {
+.w-button--overlay-quiet {
   --background: transparent;
   --background-hover: var(--w-color-button-pill-background-hover);
   --background-active: var(--w-color-button-pill-background-active);
@@ -137,8 +134,7 @@
 }
 
 /* Width config */
-.w-button--full-width,
-.w-button--fullwidth {
+.w-button--full-width {
   width: 100%;
   max-width: 100%;
 }

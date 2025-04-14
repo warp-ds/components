@@ -1,9 +1,8 @@
 import classNames from 'classnames';
 import { RefObject } from 'react';
 import { LinkProps } from './props.ts';
-import style from 'inline:./style.css';
-import buttonStyle from 'inline:../button/style.css';
 import { toClasses } from '../button/Button.tsx';
+import buttonStyle from 'inline:../button/style.css';
 
 export const Link = (props: LinkProps, ref?: RefObject<any>) => {
   const {
@@ -46,9 +45,6 @@ export const Link = (props: LinkProps, ref?: RefObject<any>) => {
 
   return (
     <>
-      <style href="Link" precedence="medium">
-        {style}
-      </style>
       <style href="Button" precedence="medium">
         {buttonStyle}
       </style>

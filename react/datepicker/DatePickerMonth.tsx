@@ -55,7 +55,8 @@ export const DatePickerMonth = ({
           {/* move next month button here and give it .w-datepicker__month__nav__button as a class*/}
         </div>
 
-        <table className="w-datepicker__table">
+        {/* biome-ignore lint/a11y/useSemanticElements: <explanation> */}
+        <table className="w-datepicker__table" role="grid">
           <thead className="w-datepicker__weekdays" aria-hidden="true">
             <tr>
               {weeks[0].map((day) => (

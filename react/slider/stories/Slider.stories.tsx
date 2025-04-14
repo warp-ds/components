@@ -1,6 +1,6 @@
+import { TextField } from '@warp-ds/react/components/textfield';
 import { useState } from 'react';
 import { Slider } from '../src/Slider.tsx';
-import { TextField } from '@warp-ds/react/components/textfield';
 
 const metadata = { title: 'Forms/Slider' };
 export default metadata;

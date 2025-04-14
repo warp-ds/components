@@ -25,6 +25,7 @@ import type { DatePickerCalendarProps } from './props.js';
  * Can be used standalone, or as part of a <DatePicker /> and an input field.
  */
 export const DatePickerCalendar = ({
+  id,
   className,
   numberOfMonths = 1,
   locale,
@@ -103,6 +104,7 @@ export const DatePickerCalendar = ({
       <div
         className={classNames('w-datepicker__calendar', className)}
         aria-roledescription={phrases.roleDescription}
+        id={id}
         onKeyDown={keyHandler}
         {...props}
       >

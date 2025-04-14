@@ -60,6 +60,9 @@ export const DatePickerDay = ({
         aria-disabled={isDisabled}
         aria-label={ariaLabel}
         aria-selected={isSelected}
+        // biome-ignore lint/a11y/noNoninteractiveElementToInteractiveRole: <explanation>
+        // biome-ignore lint/a11y/useSemanticElements: <explanation>
+        role="gridcell"
         className={`w-datepicker__day
         ${isSelected ? 'w-datepicker__day--selected' : ''}
         ${isDisabled ? 'w-datepicker__day--disabled' : ''}

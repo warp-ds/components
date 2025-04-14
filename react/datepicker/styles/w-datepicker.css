@@ -13,3 +13,18 @@
 @import './w-datepicker-day.css';
 @import './w-datepicker-nav.css';
 */
+
+.w-prefix {
+  position: absolute;
+  padding-left: 1.2rem;
+  padding-right: 1.2rem;
+  width: max-content;
+  justify-content: center;
+  top: 0rem;
+  left: 0rem;
+  bottom: 0rem;
+  align-items: center;
+  display: flex;
+  border-radius: 4px;
+  background-color: transparent;
+}

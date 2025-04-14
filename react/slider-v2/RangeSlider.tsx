@@ -1,23 +1,10 @@
-// @ts-ignore
-import style from 'inline:./slider.css';
+import style from 'inline:./w-slider.css';
 import { Attention } from '@warp-ds/react/components/attention';
 import classNames from 'classnames';
-import * as React from 'react';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Handle, type RangeSliderProps } from './props.ts';
+import { getMarks } from './Marks.tsx';
 import { clamp, nextValue, prevValue, ratioToValue, valueToRatio } from './utils.ts';
-
-// By deducting the handle width we lock the handle to edges of the slider
-function useInnerWidth(slider: React.RefObject<HTMLDivElement>, handle: React.RefObject<HTMLDivElement>): number {
-  const width = '500px';
-  const [innerWidth, setInnerWidth] = React.useState(width);
-
-  React.useLayoutEffect(() => {
-    setInnerWidth(width - (handle.current?.offsetWidth ?? 0));
-  }, [width, handle]);
-
-  return innerWidth;
-}
 
 export const RangeSlider = ({
   className,
@@ -27,21 +14,20 @@ export const RangeSlider = ({
   onChange = () => {},
   max = 100,
   min = 0,
-  scale,
   step = 1,
+  showMarks = true,
   ...props
 }: RangeSliderProps) => {
   const sliderRef = useRef<HTMLDivElement>(null);
   const handleLowerRef = useRef<HTMLDivElement>(null);
   const handleUpperRef = useRef<HTMLDivElement>(null);
-  const innerWidth = useInnerWidth(sliderRef, handleLowerRef);
   const [showLowerHandle, setShowLowerHandle] = useState(false);
   const [showUpperHandle, setShowUpperHandle] = useState(false);
 
   // Local state for the “ratio” positions (0 to 1) of each handle
   const [ratios, setRatios] = useState({
-    lower: valueToRatio(values[Handle.Lower], min, max, scale),
-    upper: valueToRatio(values[Handle.Upper], min, max, scale),
+    lower: valueToRatio(values[Handle.Lower], min, max),
+    upper: valueToRatio(values[Handle.Upper], min, max),
   });
 
   // A ref to keep track of the current values during dragging.
@@ -57,11 +43,11 @@ export const RangeSlider = ({
   // Update internal state if prop values change.
   useEffect(() => {
     setRatios({
-      lower: valueToRatio(values[Handle.Lower], min, max, scale),
-      upper: valueToRatio(values[Handle.Upper], min, max, scale),
+      lower: valueToRatio(values[Handle.Lower], min, max),
+      upper: valueToRatio(values[Handle.Upper], min, max),
     });
     internalValue.current = [...values];
-  }, [values, min, max, scale]);
+  }, [values, min, max]);
 
   // When a new value is committed (via key press or drag end)
   const handleChange = (value: number, handle: Handle) => {
@@ -81,12 +67,12 @@ export const RangeSlider = ({
       case 'ArrowLeft':
       case 'ArrowDown':
       case 'PageDown':
-        newValue = prevValue(oldValue, step, scale);
+        newValue = prevValue(oldValue, step);
         break;
       case 'ArrowUp':
       case 'ArrowRight':
       case 'PageUp':
-        newValue = nextValue(oldValue, step, scale);
+        newValue = nextValue(oldValue, step);
         break;
       case 'Home':
         newValue = min;
@@ -159,7 +145,7 @@ export const RangeSlider = ({
 
   const onDrag = (e: MouseEvent | TouchEvent) => {
     let clientX = 0;
-    if (e instanceof TouchEvent) {
+    if ('touches' in e) {
       if (e.touches.length > 0) {
         clientX = e.touches[0].clientX;
       } else {
@@ -174,13 +160,13 @@ export const RangeSlider = ({
     let ratio = clamp((clientX - sliderRect.left) / sliderRect.width, 0, 1);
     // Use current values to determine the allowed range.
     if (handle === Handle.Lower) {
-      const currentUpper = valueToRatio(internalValue.current[Handle.Upper], min, max, scale);
+      const currentUpper = valueToRatio(internalValue.current[Handle.Upper], min, max);
       ratio = clamp(ratio, 0, currentUpper);
     } else {
-      const currentLower = valueToRatio(internalValue.current[Handle.Lower], min, max, scale);
+      const currentLower = valueToRatio(internalValue.current[Handle.Lower], min, max);
       ratio = clamp(ratio, currentLower, 1);
     }
-    const dragValue = ratioToValue(ratio, min, max, step, scale);
+    const dragValue = ratioToValue(ratio, min, max, step);
     if (dragValue !== internalValue.current[handle]) {
       internalValue.current[handle] = dragValue;
       onInput([...internalValue.current] as [number, number]);
@@ -190,7 +176,7 @@ export const RangeSlider = ({
   };
 
   const onEndDrag = (e: MouseEvent | TouchEvent) => {
-    if (e instanceof TouchEvent) {
+    if ('touches' in e) {
       document.removeEventListener('touchmove', onDrag);
       document.removeEventListener('touchend', onEndDrag);
     } else {
@@ -218,20 +204,20 @@ export const RangeSlider = ({
 
   return (
     <>
-      <style href="Slider" precedence="medium">
+      <style href="w-slider" precedence="medium">
         {style}
       </style>
       <div
         onMouseDown={onStartDrag}
         onTouchStart={onStartDrag}
         data-body-scroll-lock-ignore
-        className={classNames('slider', { 'slider--is-disabled': disabled }, className)}
+        className={classNames('w-slider', { 'w-slider--is-disabled': disabled }, className)}
         style={{ cursor: isDragging ? 'grabbing' : 'pointer' }}
         ref={sliderRef}
       >
-        <div className="slider__track-inactive" />
+        <div className="w-slider__track" />
         <div
-          className="slider__track-active"
+          className="w-slider__track-active"
           style={{
             left: `${ratios.lower * 100}%`,
             right: `${(1 - ratios.upper) * 100}%`,
@@ -243,20 +229,22 @@ export const RangeSlider = ({
           aria-labelledby={props['aria-labelledby']?.[Handle.Lower]}
           aria-valuemax={values[Handle.Upper]}
           aria-valuemin={min}
-          aria-valuenow={ratioToValue(ratios.lower, min, max, step, scale)}
+          aria-valuenow={ratioToValue(ratios.lower, min, max, step)}
           aria-valuetext={props['aria-valuetext']?.[Handle.Lower]}
-          className="slider__thumb"
+          className="w-slider__thumb"
           onKeyDown={handleKeyDown}
+          onFocus={() => setShowLowerHandle(true)}
+          onBlur={() => setShowLowerHandle(false)}
           role="slider"
           ref={handleLowerRef}
           style={{
-            left: `${ratios.lower * 100}%`,
+            left: `max(calc(${ratios.lower * 100}% - 15px), 0%)`,
             cursor: 'inherit',
           }}
           tabIndex={disabled ? undefined : 0}
         />
         <Attention tooltip placement="top" flip targetEl={handleLowerRef} isShowing={showLowerHandle}>
-          <p id="tooltip-bubbletext">{ratioToValue(ratios.lower, min, max, step, scale)}</p>
+          <p id="tooltip-bubbletext">{ratioToValue(ratios.lower, min, max, step)}</p>
         </Attention>
         <div
           aria-disabled={disabled}
@@ -264,21 +252,24 @@ export const RangeSlider = ({
           aria-labelledby={props['aria-labelledby']?.[Handle.Upper]}
           aria-valuemax={max}
           aria-valuemin={values[Handle.Lower]}
-          aria-valuenow={ratioToValue(ratios.upper, min, max, step, scale)}
+          aria-valuenow={ratioToValue(ratios.upper, min, max, step)}
           aria-valuetext={props['aria-valuetext']?.[Handle.Upper]}
-          className="slider__thumb"
+          className="w-slider__thumb"
           onKeyDown={(event) => handleKeyDown(event, Handle.Upper)}
+          onFocus={() => setShowUpperHandle(true)}
+          onBlur={() => setShowUpperHandle(false)}
           role="slider"
           ref={handleUpperRef}
           style={{
-            right: `${(1 - ratios.upper) * 100}%`,
+            right: `max(calc(${(1 - ratios.upper) * 100}% - 15px), 0%)`,
             cursor: 'inherit',
           }}
           tabIndex={disabled ? undefined : 0}
         />
-        <Attention tooltip placement="top" flip noArrow targetEl={handleUpperRef} isShowing={showUpperHandle}>
-          <p id="tooltip-bubbletext">{ratioToValue(ratios.upper, min, max, step, scale)}</p>
+        <Attention tooltip placement="top" flip targetEl={handleUpperRef} isShowing={showUpperHandle}>
+          <p id="tooltip-bubbletext">{ratioToValue(ratios.upper, min, max, step)}</p>
         </Attention>
+        {showMarks && getMarks(min, max)}
       </div>
     </>
   );

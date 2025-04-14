@@ -1,6 +1,6 @@
+import { TextField } from '@warp-ds/react/components/textfield';
 import { useState } from 'react';
 import { RangeSlider } from '../src/RangeSlider.tsx';
-import { TextField } from '@warp-ds/react/components/textfield';
 
 const metadata = { title: 'Forms/RangeSlider' };
 export default metadata;

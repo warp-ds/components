@@ -24,7 +24,7 @@ export const Example = () => (
 
       <Button utilityQuiet>utility-Quiet</Button>
 
-      <p>
+      <p style={{ marginTop: '10px' }}>
         This is a <Button link>button</Button> pretending to be a link.
       </p>
     </div>

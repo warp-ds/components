@@ -18,53 +18,9 @@ export type LinkProps = {
 
   button?: boolean;
 
-  /**
-   * Set the link to be a primary, call to action button. Can be combined with `small`.
-   * @default false
-   */
-  primary?: boolean;
+  variant?: 'primary' | 'secondary' | 'negative' | 'utility' | 'quiet' | 'negativeQuiet' | 'utilityQuiet';
 
-  /**
-   * Set the link to be a secondary button. Can be combined with `quiet` and `small`.
-   * @default false
-   */
-  secondary?: boolean;
-
-  /**
-   * Set the link to be a negative, destructive style button. Can be combined with `quiet` and `small`.
-   * @default false
-   */
-  negative?: boolean;
-
-  /**
-   * Set the link to be a utility style button. Can be combined with `small`.
-   * @default false
-   */
-  utility?: boolean;
-
-  /**
-   * Quieten down the link, can be combined with other types
-   * @default false
-   */
-  quiet?: boolean;
-
-  /**
-   * Quieten down the button, negative style
-   * @default false
-   */
-  negativeQuiet?: boolean;
-
-  /**
-   * Quieten down the button, utility style
-   * @default false
-   */
-  utilityQuiet?: boolean;
-
-  /**
-   * Set the link to be a small size, can be combined with other types
-   * @default false
-   */
-  small?: boolean;
+  size?: 'small' | 'default';
 
   /**
    * Sets the link's width to its parent's width. Useful on mobile when link should take full width.

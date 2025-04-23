@@ -17,6 +17,8 @@
     "format": "pnpm biome format --write .",
     "lint:check": "pnpm biome lint .",
     "lint": "pnpm biome lint --write .",
+    "messages:compile": "lingui compile",
+    "messages:extract": "lingui extract",
     "start:watch": "web-dev-server --open / --node-resolve --watch",
     "start": "web-dev-server --open / --node-resolve",
     "storybook:lit": "storybook dev -p 6007 -c .storybook-lit",
@@ -28,6 +30,9 @@
   "license": "ISC",
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
+    "@lingui/cli": "5.2.0",
+    "@lingui/conf": "5.2.0",
+    "@lingui/core": "5.2.0",
     "@chromatic-com/storybook": "^3.2.4",
     "@storybook/addon-a11y": "8.6.9",
     "@storybook/addon-essentials": "8.6.9",
@@ -61,6 +66,7 @@
   },
   "peerDependencies": {
     "@lit/react": "^1.0.3",
-    "lit": "^3.1.2"
+    "lit": "^3.1.2",
+    "@lingui/core": "5.x"
   }
 }

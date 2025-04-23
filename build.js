@@ -28,7 +28,7 @@ function buildComponents(outDir, extraBuildOptions = {}) {
       await esbuild.build({
         entryPoints: [item],
         outfile: `${outDir}/packages/${match[1]}/index.js`,
-        external: ['lit'],
+        external: ['lit', '@lingui/core'],
         ...esbuildDefaults,
         ...extraBuildOptions,
       });
@@ -48,7 +48,7 @@ function buildReactComponents(outDir, extraBuildOptions = {}) {
       await esbuild.build({
         entryPoints: [item],
         outfile: `${outDir}/react/${match[1]}/index.js`,
-        external: ['react', 'lit', '@lit/react', 'date-fns', '@warp-ds/react'],
+        external: ['react', 'lit', '@lit/react', 'date-fns', '@warp-ds/react', '@lingui/core'],
         ...esbuildDefaults,
         ...extraBuildOptions,
       });

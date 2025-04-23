@@ -17,7 +17,6 @@ Default.args = {
   variant: 'primary',
   button: true,
   size: 'default',
-  loading: false,
   disabled: false,
   fullWidth: false,
   children: 'This is a link',

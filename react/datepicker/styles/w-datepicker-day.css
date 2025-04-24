@@ -1,7 +1,7 @@
 /* === Day Cell === */
 .w-datepicker__day {
   --_day-color: var(--day-color, var(--w-s-color-text));
-  --_day-background: var(--day-background, var(--w-s-color-background));
+  --_day-background: var(--day-background, transparent);
   --_day-width: var(--day-width, 40px);
   --_day-height: var(--day-height, 40px);
   --_day-padding: var(--day-padding, 0px);
@@ -20,24 +20,25 @@
   width: var(--_day-width);
   height: var(--_day-height);
   padding: var(--_day-padding);
-  font-weight: var(--_font-weight);
+  font-weight: bold;
   border-radius: var(--_day-border-radius);
 }
 
 .w-datepicker__day:hover {
-  --day-background: var(--w-s-color-background-hover);
+  --day-color: var(--w-s-color-icon-hover);
+  --day-background: var(--w-color-button-pill-background-hover);
   --day-border-radius: 50%;
 }
 
-.w-datepicker__day:focus {
+.w-datepicker__day:focus-visible {
   text-decoration: none;
-  --day-background: var(--w-s-color-background-selected);
+  outline: 2px solid var(--w-s-color-border-focus);
+  outline-offset: var(--w-outline-offset, 1px);
 }
 
 /* === Day variants === */
 .w-datepicker__day--today {
   --day-color: var(--w-s-color-text-link);
-  --day-font-weight: bold;
 }
 
 .w-datepicker__day--selected {

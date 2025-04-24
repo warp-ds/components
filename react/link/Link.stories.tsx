@@ -1,7 +1,26 @@
 import { Link } from './Link.tsx';
 
-const metadata = { title: 'Link' };
-export default metadata;
+export default {
+  title: 'Link',
+  component: Link,
+  argTypes: {
+    variant: {
+      control: { type: 'select' },
+      options: ['primary' , 'secondary' , 'negative' , 'utility' , 'quiet' , 'negativeQuiet' , 'utilityQuiet' , 'overlayQuiet'],
+    },
+  },
+};
+
+const Template = (args) => <Link {...args} />;
+export const Default = Template.bind({});
+Default.args = {
+  variant: 'primary',
+  button: true,
+  size: 'default',
+  disabled: false,
+  fullWidth: false,
+  children: 'This is a link',
+};
 
 export const Example = () => (
   <div>
@@ -18,27 +37,27 @@ export const Example = () => (
         Link as button
       </Link>
 
-      <Link button primary href="https://google.com/" target="_blank">
+      <Link button variant="primary" href="https://google.com/" target="_blank">
         Link as button primary
       </Link>
 
-      <Link button negative href="https://google.com/" target="_blank">
+      <Link button variant="negative" href="https://google.com/" target="_blank">
         Link as button negative
       </Link>
 
-      <Link button quiet href="https://google.com/" target="_blank">
+      <Link button variant="quiet" href="https://google.com/" target="_blank">
         Link as button negative
       </Link>
 
-      <Link button utility href="https://google.com/" target="_blank">
+      <Link button variant="utility" href="https://google.com/" target="_blank">
         Link as button utility
       </Link>
 
-      <Link button negativeQuiet href="https://google.com/" target="_blank">
+      <Link button variant="negativeQuiet" href="https://google.com/" target="_blank">
         Link as button negative quiet
       </Link>
 
-      <Link button utilityQuiet href="https://google.com/" target="_blank">
+      <Link button variant="utilityQuiet" href="https://google.com/" target="_blank">
         Link as button utility quiet
       </Link>
 
@@ -53,7 +72,7 @@ export const Example = () => (
 
     <div>
       <h3>Full width Link (href) styled as button</h3>
-      <Link button fullWidth primary href="https://google.com/">
+      <Link button fullWidth variant="primary" href="https://google.com/">
         Go to google.com
       </Link>
     </div>

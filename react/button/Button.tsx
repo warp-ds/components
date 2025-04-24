@@ -15,16 +15,8 @@ activateI18n(enMessages, nbMessages, fiMessages, daMessages, svMessages);
 
 export const Button = (props: ButtonProps, ref?: RefObject<any>) => {
   const {
-    primary,
-    secondary,
-    negative,
-    utility,
-    quiet,
-    negativeQuiet,
-    utilityQuiet,
-    link,
-    overlayQuiet,
-    small,
+    variant,
+    size,
     loading,
     fullWidth,
     disabled,
@@ -34,20 +26,21 @@ export const Button = (props: ButtonProps, ref?: RefObject<any>) => {
 
   const classes = classNames(
     'w-button',
-    toClasses({
-      primary,
-      secondary,
-      negative,
-      utility,
-      quiet,
-      negativeQuiet,
-      utilityQuiet,
-      link,
-      overlayQuiet,
-      small,
-      loading,
-      fullWidth,
-    }),
+    {
+      'w-button--primary': variant === 'primary',
+      'w-button--secondary': variant === 'secondary',
+      'w-button--negative': variant === 'negative',
+      'w-button--utility': variant === 'utility',
+      'w-button--quiet': variant === 'quiet',
+      'w-button--negative-quiet': variant === 'negativeQuiet',
+      'w-button--utility-quiet': variant === 'utilityQuiet',
+      'w-button--overlay-quiet': variant === 'overlayQuiet',
+      'w-button--link': variant === 'link',
+      'w-button--small': size === 'small',
+      'w-button--full-width': fullWidth,
+      'w-button--loading': loading,
+      'w-button--disabled': disabled,
+    },
     className,
   );
 
@@ -68,7 +61,7 @@ export const Button = (props: ButtonProps, ref?: RefObject<any>) => {
         ref={ref}
         className={classes}
         disabled={disabled}
-        role={link ? 'link' : 'button'}
+        role={variant === 'link' ? 'link' : 'button'}
       >
         {props.children}
       </button>
@@ -80,30 +73,3 @@ export const Button = (props: ButtonProps, ref?: RefObject<any>) => {
     </>
   );
 };
-
-// Convert props to class names.
-export function toClasses(props: Partial<ButtonProps>) {
-  const classNames = {
-    primary: 'w-button--primary',
-    secondary: 'w-button--secondary',
-    negative: 'w-button--negative',
-    utility: 'w-button--utility',
-    link: 'w-button--link',
-    quiet: 'w-button--quiet',
-    negativeQuiet: 'w-button--negative-quiet',
-    utilityQuiet: 'w-button--utility-quiet',
-    overlayQuiet: 'w-button--overlay-quiet',
-    small: 'w-button--small',
-    fullWidth: 'w-button--full-width',
-    loading: 'w-button--loading',
-    disabled: 'w-button--disabled',
-  };
-
-  const classes = {};
-
-  for (const key in props) {
-    classes[classNames[key]] = props[key];
-  }
-
-  return classes;
-}

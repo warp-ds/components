@@ -1,20 +1,13 @@
 import classNames from 'classnames';
 import { RefObject } from 'react';
 import { LinkProps } from './props.ts';
-import { toClasses } from '../button/Button.tsx';
 import buttonStyle from 'inline:../button/style.css';
 
 export const Link = (props: LinkProps, ref?: RefObject<any>) => {
   const {
     button,
-    primary,
-    secondary,
-    negative,
-    utility,
-    quiet,
-    negativeQuiet,
-    utilityQuiet,
-    small,
+    variant,
+    size,
     fullWidth,
     disabled,
     className,
@@ -27,18 +20,16 @@ export const Link = (props: LinkProps, ref?: RefObject<any>) => {
     'w-link',
     {
       'w-button': button,
-      ...toClasses({
-        primary,
-        secondary,
-        negative,
-        utility,
-        quiet,
-        negativeQuiet,
-        utilityQuiet,
-        small,
-        fullWidth,
-        disabled,
-      }),
+      'w-button--primary': variant === 'primary',
+      'w-button--secondary': variant === 'secondary',
+      'w-button--negative': variant === 'negative',
+      'w-button--utility': variant === 'utility',
+      'w-button--quiet': variant === 'quiet',
+      'w-button--negative-quiet': variant === 'negativeQuiet',
+      'w-button--utility-quiet': variant === 'utilityQuiet',
+      'w-button--small': size === 'small',
+      'w-button--full-width': fullWidth,
+      'w-button--disabled': disabled,
     },
     className,
   );

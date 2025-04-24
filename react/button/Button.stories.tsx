@@ -1,7 +1,26 @@
 import { Button } from './Button.tsx';
 
-const metadata = { title: 'Button' };
-export default metadata;
+export default {
+  title: 'Button',
+  component: Button,
+  argTypes: {
+    variant: {
+      control: { type: 'select' },
+      options: ['primary' , 'secondary' , 'negative' , 'utility' , 'quiet' , 'negativeQuiet' , 'utilityQuiet' , 'overlayQuiet' , 'link'],
+    },
+  },
+};
+
+const Template = (args) => <Button {...args} />;
+export const Default = Template.bind({});
+Default.args = {
+  variant: 'primary',
+  size: 'default',
+  loading: false,
+  disabled: false,
+  fullWidth: false,
+  children: 'This is a button',
+};
 
 export const Example = () => (
   <div>
@@ -10,22 +29,22 @@ export const Example = () => (
       <p>Allowed values: empty, or one of variant</p>
       <Button>Default</Button>
 
-      <Button primary>Primary</Button>
+      <Button variant="primary">Primary</Button>
 
-      <Button secondary>Secondary</Button>
+      <Button variant="secondary">Secondary</Button>
 
-      <Button negative>Negative</Button>
+      <Button variant="negative">Negative</Button>
 
-      <Button utility>Utility</Button>
+      <Button variant="utility">Utility</Button>
 
-      <Button quiet>Quiet</Button>
+      <Button variant="quiet">Quiet</Button>
 
-      <Button negativeQuiet>Negative-Quiet</Button>
+      <Button variant="negativeQuiet">Negative-Quiet</Button>
 
-      <Button utilityQuiet>utility-Quiet</Button>
+      <Button variant="utilityQuiet">utility-Quiet</Button>
 
       <p style={{ marginTop: '10px' }}>
-        This is a <Button link>button</Button> pretending to be a link.
+        This is a <Button variant="link">button</Button> pretending to be a link.
       </p>
     </div>
 
@@ -34,7 +53,7 @@ export const Example = () => (
       <p>Allowed values: empty(default) or one size </p>
       <Button>Default</Button>
 
-      <Button small>Default small</Button>
+      <Button size="small">Default small</Button>
     </div>
 
     <div>
@@ -68,9 +87,9 @@ export const Example = () => (
         Loading
       </Button>
 
-      <Button small>Small</Button>
+      <Button size="small">Small</Button>
 
-      <Button small loading>
+      <Button size="small" loading>
         Small Loading
       </Button>
 
@@ -79,96 +98,87 @@ export const Example = () => (
     <div>
       <h3>Primary</h3>
 
-      <Button primary>Button</Button>
+      <Button variant="primary">Button</Button>
 
-      <Button primary loading>
+      <Button variant="primary" loading>
         Loading
       </Button>
 
-      <Button primary small>
+      <Button variant="primary" size="small">
         Small
       </Button>
 
-      <Button primary small loading>
+      <Button variant="primary" size="small" loading>
         Small Loading
       </Button>
     </div>
     <div>
       <h3>Secondary</h3>
 
-      <Button secondary>Button</Button>
+      <Button variant="secondary">Button</Button>
 
-      <Button secondary loading>
+      <Button variant="secondary" loading>
         Loading
       </Button>
 
-      <Button secondary small>
+      <Button variant="secondary" size="small">
         Small
       </Button>
 
-      <Button secondary small loading>
+      <Button variant="secondary" size="small" loading>
         Small Loading
       </Button>
     </div>
     <div>
       <h3>Negative</h3>
 
-      <Button negative>Button</Button>
+      <Button variant="negative">Button</Button>
 
-      <Button negative loading>
+      <Button variant="negative" loading>
         Negative Loading
       </Button>
 
-      <Button negative small>
+      <Button variant="negative" size="small">
         Negative Small
       </Button>
 
-      <Button negative small loading>
+      <Button variant="negative" size="small" loading>
         Negative Small Loading
       </Button>
     </div>
     <div>
       <h3>Utility</h3>
 
-      <Button utility>Button</Button>
+      <Button variant="utility">Button</Button>
 
-      <Button utility loading>
+      <Button variant="utility" loading>
         Loading
       </Button>
 
-      <Button utility small>
+      <Button variant="utility" size="small">
         Small
       </Button>
 
-      <Button utility small loading>
+      <Button variant="utility" size="small" loading>
         Small Loading
       </Button>
     </div>
 
     <div>
       <h3>Link</h3>
-      This is a <Button link>button</Button> pretending to be a link.
+      This is a <Button variant="link">button</Button> pretending to be a link.
     </div>
 
     <div>
       <h3>Overlay</h3>
-      <Button overlayQuiet>Overlay quiet</Button>
+      <Button variant="overlayQuiet">Overlay quiet</Button>
     </div>
 
     <div>
       <h3>Full width button</h3>
 
-      <Button fullWidth primary>
+      <Button fullWidth variant="primary">
         Full width
-      </Button>
-    </div>
-
-    <div>
-      <h3>Everything</h3>
-      <p>primary secondary negative utility quiet link small loading fullwidth disabled</p>
-
-      <Button primary secondary negative utility quiet link small loading fullWidth disabled>
-        All things
       </Button>
     </div>
   </div>

@@ -1,3 +1,5 @@
+import { Ref } from 'react';
+
 export type LinkProps = {
   children: React.ReactNode;
 
@@ -43,4 +45,6 @@ export type LinkProps = {
   rel?: string;
 
   disabled?: boolean;
+
+  ref?: Ref<HTMLAnchorElement>;
 };

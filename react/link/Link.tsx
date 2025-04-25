@@ -3,18 +3,8 @@ import { RefObject } from 'react';
 import { LinkProps } from './props.ts';
 import buttonStyle from 'inline:../button/style.css';
 
-export const Link = (props: LinkProps, ref?: RefObject<any>) => {
-  const {
-    button,
-    variant,
-    size,
-    fullWidth,
-    disabled,
-    className,
-    target,
-    href,
-    ...rest
-  } = props;
+export const Link = (props: LinkProps) => {
+  const { button, variant, size, fullWidth, disabled, className, target, href, ref, ...rest } = props;
 
   const classes = classNames(
     'w-link',

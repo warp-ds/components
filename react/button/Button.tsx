@@ -13,16 +13,8 @@ import { messages as svMessages } from './locales/sv/messages.mjs';
 
 activateI18n(enMessages, nbMessages, fiMessages, daMessages, svMessages);
 
-export const Button = (props: ButtonProps, ref?: RefObject<any>) => {
-  const {
-    variant,
-    size,
-    loading,
-    fullWidth,
-    disabled,
-    className,
-    ...rest
-  } = props;
+export const Button = (props: ButtonProps) => {
+  const { variant, size, loading, fullWidth, disabled, className, ref, ...rest } = props;
 
   const classes = classNames(
     'w-button',

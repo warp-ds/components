@@ -1,3 +1,5 @@
+import { Ref } from 'react';
+
 export type ButtonProps = {
   children: React.ReactNode;
 
@@ -22,7 +24,16 @@ export type ButtonProps = {
    */
   type?: 'button' | 'submit' | 'reset';
 
-  variant?: 'primary' | 'secondary' | 'negative' | 'utility' | 'quiet' | 'negativeQuiet' | 'utilityQuiet' | 'overlayQuiet' | 'link';
+  variant?:
+    | 'primary'
+    | 'secondary'
+    | 'negative'
+    | 'utility'
+    | 'quiet'
+    | 'negativeQuiet'
+    | 'utilityQuiet'
+    | 'overlayQuiet'
+    | 'link';
 
   size?: 'small' | 'default';
 
@@ -38,4 +49,6 @@ export type ButtonProps = {
   fullWidth?: boolean;
 
   disabled?: boolean;
+
+  ref?: Ref<HTMLButtonElement>;
 };

@@ -1,15 +1,15 @@
-import { ToastTypes } from "./toast.types.ts";
-import WToastItem from "./WToastItem.tsx";
+import { ToastProps } from "./toast.types.ts";
+import ToastItem from "./ToastItem.tsx";
 
-type ToastProps = {
-  toasts: ToastTypes[];
+type ToastListProps = {
+  toasts: ToastProps[];
 };
 
-const WToast = ({ toasts }: ToastProps) => {
+const ToastContainer = ({ toasts }: ToastListProps) => {
   return (
     <div className="w-toast">
       {toasts.map((toast) => (
-        <WToastItem
+        <ToastItem
           key={toast.id}
           id={toast.id}
           text={toast.text}
@@ -22,4 +22,4 @@ const WToast = ({ toasts }: ToastProps) => {
   );
 };
 
-export default WToast;
+export default ToastContainer;

@@ -1,8 +1,6 @@
-// Toast.stories.tsx
-
 import type { Meta, StoryObj } from "@storybook/react";
-import { WToastProvider } from "./WToastProvider.tsx";
-import { useWToast } from "./useWToast.ts";
+import { ToastProvider } from "./ToastProvider.tsx";
+import { useToast } from "./useToast.ts";
 import { useState } from "react";
 import { ToastDuration, ToastVariant } from "./toast.types.ts";
 
@@ -11,7 +9,7 @@ const toastDurations: ToastDuration[] = [5000, 8000, 10000];
 // ---- Meta Definition ----
 const meta = {
   title: "Toast",
-  component: WToastProvider,
+  component: ToastProvider,
   parameters: {
     layout: "centered",
   },
@@ -24,9 +22,14 @@ const meta = {
       control: {
         type: "radio",
       },
-      options: toastDurations, // your 3 options
+      options: toastDurations,
       description: "Duration of timeout",
       defaultValue: 5000,
+    },
+    text: {
+      control: "text",
+      description: "Toast message content",
+      defaultValue: "This is a toast!",
     },
   },
 } satisfies Meta;
@@ -37,6 +40,7 @@ export default meta;
 type Story = StoryObj<{
   dismissible: boolean;
   duration: ToastDuration;
+  text: string;
   children: object;
 }>;
 
@@ -44,16 +48,18 @@ type Story = StoryObj<{
 const ToastDemo = ({
   dismissible,
   duration,
+  text,
 }: {
   dismissible: boolean;
   duration: ToastDuration;
+  text: string;
 }) => {
-  const { addToast } = useWToast();
+  const { addToast } = useToast();
   const [toastNum, setToastNum] = useState(0);
 
   const handleToast = (variant: ToastVariant) => {
     addToast({
-      text: `This is a ${variant} toast! ${toastNum}`,
+      text: `${text} #${toastNum}`,
       variant,
       duration,
       dismissible,
@@ -97,9 +103,12 @@ export const Default: Story = {
   argTypes: {
     children: { table: { disable: true } },
   },
+  args: {
+    text: "This is a toast!",
+  },
   render: (args) => (
-    <WToastProvider>
+    <ToastProvider>
       <ToastDemo {...args} />
-    </WToastProvider>
+    </ToastProvider>
   ),
 };

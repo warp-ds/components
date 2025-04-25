@@ -2,20 +2,18 @@ export type ToastDuration = 5000 | 8000 | 10000;
 
 export type ToastVariant = "success" | "warning" | "negative";
 
-export type ToastTypes = {
+// TODO: decide on and change type of id
+export type ToastId = any;
+
+export type ToastProps = {
   variant: ToastVariant;
-  duration: ToastDuration;
+  duration?: ToastDuration;
   text: string;
   dismissible?: boolean;
-  icon?: React.ReactElement;
-  // TODO: change type of id
-  id: any;
+  id: ToastId;
 };
 
-export const toastVariantClassMap: Record<ToastTypes["variant"], string> = {
-  success: "w-toast--positive",
-  warning: "w-toast--warning",
-  negative: "w-toast--negative",
+export type ToastContextType = {
+  addToast: (toast: Omit<ToastProps, "id">) => void;
+  removeToast: (id: ToastId) => void;
 };
-
-export const toastDismissibleClass = "w-toast--dismissible";

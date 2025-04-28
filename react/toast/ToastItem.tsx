@@ -1,11 +1,11 @@
-import IconClose16 from "@warp-ds/icons/react/close-16";
-import classNames from "classnames";
-import { useToast } from "./useToast.ts";
-import { ToastProps } from "./toast.types.ts";
-import { toastIcon, toastRole, toastVariantClassMap } from "./helpers.tsx";
-import style from "inline:./toast.styles.css";
-import { Button } from "../button/Button.tsx";
-import { createRef } from "react";
+import style from 'inline:./toast.styles.css';
+import IconClose16 from '@warp-ds/icons/react/close-16';
+import classNames from 'classnames';
+import { createRef } from 'react';
+import { Button } from '../button/Button.tsx';
+import { toastIcon, toastRole, toastVariantClassMap } from './helpers.tsx';
+import { ToastProps } from './toast.types.ts';
+import { useToast } from './useToast.ts';
 
 /* 
   TODO: REMOVE TEMP STYLES, TEST BROWSERS, TEST WEB/MOBILE
@@ -20,14 +20,10 @@ const ToastItem = ({ variant, text, dismissible = false, id }: ToastProps) => {
   const buttonRef = createRef<HTMLButtonElement>();
   const VariantIcon = toastIcon[variant];
 
-  const toastClasses = classNames(
-    "w-toast__item",
-    toastVariantClassMap[variant],
-    {
-      // TODO: check that this class exists
-      "w-toast--dismissible": dismissible,
-    }
-  );
+  const toastClasses = classNames('w-toast__item', toastVariantClassMap[variant], {
+    // TODO: check that this class exists
+    'w-toast--dismissible': dismissible,
+  });
 
   return (
     <>
@@ -41,12 +37,7 @@ const ToastItem = ({ variant, text, dismissible = false, id }: ToastProps) => {
         </span>
         <p>{text}</p>
         {dismissible && (
-          <Button
-            variant="overlayQuiet"
-            size="small"
-            className="p-4"
-            onClick={() => removeToast(id)}
-          >
+          <Button variant="overlayQuiet" size="small" className="p-4" onClick={() => removeToast(id)}>
             <IconClose16 />
           </Button>
         )}

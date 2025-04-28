@@ -6,7 +6,16 @@ export default {
   argTypes: {
     variant: {
       control: { type: 'select' },
-      options: ['primary' , 'secondary' , 'negative' , 'utility' , 'quiet' , 'negativeQuiet' , 'utilityQuiet' , 'overlayQuiet'],
+      options: [
+        'primary',
+        'secondary',
+        'negative',
+        'utility',
+        'quiet',
+        'negativeQuiet',
+        'utilityQuiet',
+        'overlayQuiet',
+      ],
     },
   },
 };

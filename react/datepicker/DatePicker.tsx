@@ -3,9 +3,9 @@ import React from 'react';
 
 import { nb } from 'date-fns/locale';
 
+import IconCalendar16 from '@warp-ds/icons/react/calendar-16';
 import { Attention } from '@warp-ds/react/components/attention';
 import { TextField } from '@warp-ds/react/components/textfield';
-import IconCalendar16 from '@warp-ds/icons/react/calendar-16';
 import { format, isValid } from 'date-fns';
 import { DatePickerCalendar } from './DatePickerCalendar.tsx';
 import defaultPhrases from './defaultPhrases.ts';

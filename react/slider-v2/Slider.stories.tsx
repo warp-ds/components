@@ -1,6 +1,6 @@
+import { TextField } from '@warp-ds/react/components/textfield';
 import { useState } from 'react';
 import { RangeSlider, RegularSlider } from './index.ts';
-import { TextField } from '@warp-ds/react/components/textfield';
 
 export default {
   title: 'Forms/Slider-v2',
@@ -149,8 +149,18 @@ export const DisabledRanged = () => {
           marginTop: '30px',
         }}
       >
-        <TextField label="Min" disabled value={value[0].toString()} onChange={(e) => setValue([+e.target.value, value[1]])} />
-        <TextField label="Max" disabled value={value[1].toString()} onChange={(e) => setValue([value[0], +e.target.value])} />
+        <TextField
+          label="Min"
+          disabled
+          value={value[0].toString()}
+          onChange={(e) => setValue([+e.target.value, value[1]])}
+        />
+        <TextField
+          label="Max"
+          disabled
+          value={value[1].toString()}
+          onChange={(e) => setValue([value[0], +e.target.value])}
+        />
       </div>
     </div>
   );

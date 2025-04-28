@@ -4,12 +4,12 @@
 
 .w-datepicker__navigation__button--prev {
   position: absolute;
-  left: 16px;
-  top: 12px;
+  left: 8px;
+  top: 7px;
 }
 
 .w-datepicker__navigation__button--next {
   position: absolute;
-  right: 16px;
-  top: 12px;
+  right: 8px;
+  top: 7px;
 }

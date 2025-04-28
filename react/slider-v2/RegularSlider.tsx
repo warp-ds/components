@@ -1,10 +1,10 @@
 import style from 'inline:./w-slider.css';
-import React, { useEffect, useRef, useState } from 'react';
-import classNames from 'classnames';
-import { clamp, nextValue, prevValue, ratioToValue, valueToRatio } from './utils.ts';
-import { RegularSliderProps } from './props.ts';
 import { Attention } from '@warp-ds/react/components/attention';
+import classNames from 'classnames';
+import React, { useEffect, useRef, useState } from 'react';
 import { getMarks } from './Marks.tsx';
+import { RegularSliderProps } from './props.ts';
+import { clamp, nextValue, prevValue, ratioToValue, valueToRatio } from './utils.ts';
 
 export const RegularSlider = ({
   className,

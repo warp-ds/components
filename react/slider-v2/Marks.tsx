@@ -1,4 +1,3 @@
-
 export const getMarks = (min: number, max: number) => {
   const indices = [0, 1];
   const getDisplayValue = (k: number) => (max - min) * k + min;

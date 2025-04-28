@@ -1,9 +1,9 @@
-import classNames from 'classnames';
+import style from 'inline:./style.css';
 import { i18n } from '@lingui/core';
+import classNames from 'classnames';
 import { RefObject } from 'react';
 import { activateI18n } from '../../i18n.ts';
 import { ButtonProps } from './props.ts';
-import style from 'inline:./style.css';
 
 import { messages as daMessages } from './locales/da/messages.mjs';
 import { messages as enMessages } from './locales/en/messages.mjs';

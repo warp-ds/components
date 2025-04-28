@@ -1,5 +1,5 @@
-import { ToastProps } from "./toast.types.ts";
-import ToastItem from "./ToastItem.tsx";
+import ToastItem from './ToastItem.tsx';
+import { ToastProps } from './toast.types.ts';
 
 type ToastListProps = {
   toasts: ToastProps[];

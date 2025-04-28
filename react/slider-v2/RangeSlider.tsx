@@ -2,8 +2,8 @@ import style from 'inline:./w-slider.css';
 import { Attention } from '@warp-ds/react/components/attention';
 import classNames from 'classnames';
 import React, { useEffect, useRef, useState } from 'react';
-import { Handle, type RangeSliderProps } from './props.ts';
 import { getMarks } from './Marks.tsx';
+import { Handle, type RangeSliderProps } from './props.ts';
 import { clamp, nextValue, prevValue, ratioToValue, valueToRatio } from './utils.ts';
 
 export const RangeSlider = ({

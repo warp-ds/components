@@ -1,6 +1,6 @@
-import IconWarning16 from '@warp-ds/icons/react/warning-16';
-import IconSuccess16 from '@warp-ds/icons/react/success-16';
 import IconError16 from '@warp-ds/icons/react/error-16';
+import IconSuccess16 from '@warp-ds/icons/react/success-16';
+import IconWarning16 from '@warp-ds/icons/react/warning-16';
 import { ToastProps, ToastVariant } from './toast.types.ts';
 
 export const toastIcon: Record<ToastProps['variant'], () => React.ReactElement> = {

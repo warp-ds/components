@@ -14,7 +14,7 @@ export const ToastProvider = ({ children }) => {
   const defaultDuration: ToastDuration = 5000;
 
   const addToast = (toast: Omit<ToastProps, "id">) => {
-    // TODO: review id? do we want to allow providing id?
+    // TODO: review id? do we need to allow user passing id?
     const id: ToastId = crypto.randomUUID();
     setToasts((prev) => [...prev, { id, ...toast }]);
     setTimeout(() => removeToast(id), toast.duration ?? defaultDuration);

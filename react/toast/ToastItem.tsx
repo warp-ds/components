@@ -2,7 +2,7 @@ import IconClose16 from "@warp-ds/icons/react/close-16";
 import classNames from "classnames";
 import { useToast } from "./useToast.ts";
 import { ToastProps } from "./toast.types.ts";
-import { toastIcon, toastRole, toastVariantClassMap } from "./helpers.tsx";
+import { toastIcon, toastRole, toastVariantClassMap } from "./mappings.tsx";
 import style from "inline:./toast.styles.css";
 import { Button } from "../button/Button.tsx";
 import { createRef } from "react";

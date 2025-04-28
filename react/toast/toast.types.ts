@@ -2,7 +2,7 @@ export type ToastDuration = 5000 | 8000 | 10000;
 
 export type ToastVariant = "success" | "warning" | "negative";
 
-// TODO: decide on and change type of id
+// TODO: decide on and change type of id, currently UUID (string)
 export type ToastId = any;
 
 export type ToastProps = {

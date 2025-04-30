@@ -82,7 +82,7 @@ To ensure consistency across the design system, please follow these conventions 
 
 ---
 
-## 🎨 Styling
+## Styling
 
 - All styles should go in a `styles.css` file colocated with the component.
   - `Toast/styles.css`
@@ -92,14 +92,14 @@ To ensure consistency across the design system, please follow these conventions 
 
 ---
 
-## 📁 Typing
+## Typing
 
 - Type definitions for component props/interfaces should go in a file named `props.ts`.
   - `Toast/props.ts`
 
 ---
 
-## ⚙️ Utility Files
+## Utility Files
 
 - Use `utils.ts` (or a `utils/` folder) for **shared, non-rendering logic**.
 

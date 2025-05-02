@@ -47,8 +47,6 @@ pnpm check
 ## PR Checklist
 Before opening a PR:
 
-- Keep in mind that this component library has to consider 
-
 - Run pnpm check (lint, format)
 
 - Run pnpm build

@@ -91,6 +91,7 @@
 
   --w-slider-track-background: var(--w-s-color-background-disabled);
   --w-slider-thumb-background: var(--w-s-color-background-disabled);
+  --w-slider-track-active-background: var(--w-s-color-background-disabled);
   --w-slider-thumb-border: var(--w-s-color-border-disabled);
 }
 
@@ -151,4 +152,12 @@
   display: grid;
   grid-row-gap: 1px;
   grid-template-rows: max-content;
+}
+.w-slider__input {
+  width: 100%;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
 }

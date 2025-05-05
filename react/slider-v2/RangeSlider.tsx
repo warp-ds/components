@@ -190,12 +190,6 @@ export const RangeSlider = ({
       const { handle } = dragState;
       const finalValue = internalValue.current[handle];
       handleChange(finalValue, handle);
-      // After the drag ends, focus the appropriate handle.
-      if (handle === Handle.Lower) {
-        handleLowerRef.current?.focus();
-      } else {
-        handleUpperRef.current?.focus();
-      }
     }
     setIsDragging(false);
     draggingRef.current = null;

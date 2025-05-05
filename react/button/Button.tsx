@@ -14,7 +14,7 @@ import { messages as svMessages } from './locales/sv/messages.mjs';
 activateI18n(enMessages, nbMessages, fiMessages, daMessages, svMessages);
 
 export const Button = (props: ButtonProps) => {
-  const { variant, size, loading, fullWidth, disabled, className, ref, ...rest } = props;
+  const { variant, size, loading, fullWidth, disabled, hasIconOnly, className, ref, ...rest } = props;
 
   const classes = classNames(
     'w-button',
@@ -27,9 +27,11 @@ export const Button = (props: ButtonProps) => {
       'w-button--negative-quiet': variant === 'negativeQuiet',
       'w-button--utility-quiet': variant === 'utilityQuiet',
       'w-button--overlay-quiet': variant === 'overlayQuiet',
+      'w-button--overlay-inverted-quiet': variant === 'overlayInvertedQuiet',
       'w-button--link': variant === 'link',
       'w-button--small': size === 'small',
       'w-button--full-width': fullWidth,
+      'w-button--has-icon-only': hasIconOnly,
       'w-button--loading': loading,
       'w-button--disabled': disabled,
     },

@@ -29,10 +29,13 @@ export type ButtonProps = {
     | 'secondary'
     | 'negative'
     | 'utility'
+    | 'overlay'
+    | 'overlayInverted'
     | 'quiet'
     | 'negativeQuiet'
     | 'utilityQuiet'
     | 'overlayQuiet'
+    | 'overlayInvertedQuiet'
     | 'link';
 
   size?: 'small' | 'default';
@@ -47,6 +50,12 @@ export type ButtonProps = {
    * Sets the button's width to its parent's width. Useful on mobile when button should take full width.
    */
   fullWidth?: boolean;
+
+  /**
+   * Tightens the button's facilitate a round button for icon.
+  */
+  hasIconOnly?: boolean;
+
 
   disabled?: boolean;
 

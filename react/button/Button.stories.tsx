@@ -11,10 +11,12 @@ export default {
         'secondary',
         'negative',
         'utility',
-        'quiet',
         'negativeQuiet',
         'utilityQuiet',
+        'overlay',
         'overlayQuiet',
+        'overlayInverted',
+        'overlayInvertedQuiet',
         'link',
       ],
     },
@@ -47,7 +49,13 @@ export const Example = () => (
 
       <Button variant="utility">Utility</Button>
 
-      <Button variant="quiet">Quiet</Button>
+      <Button variant="overlay">Overlay</Button>
+
+      <Button variant="overlayInverted">Overlay-Inverted</Button>
+
+      <Button variant="overlayQuiet">Overlay</Button>
+
+      <Button variant="overlayInvertedQuiet">Overlay-Inverted</Button>
 
       <Button variant="negativeQuiet">Negative-Quiet</Button>
 
@@ -181,9 +189,32 @@ export const Example = () => (
 
     <div>
       <h3>Overlay</h3>
-      <Button variant="overlayQuiet">Overlay quiet</Button>
+      <Button variant="overlay">Overlay</Button>
     </div>
-
+    <div>
+      <h3>Overlay Quiet</h3>
+      <Button variant="overlayQuiet">Overlay Quiet</Button>
+    </div>
+    <div>
+      <h3>Overlay Inverted</h3>
+      <Button variant="overlayInverted">Overlay Inverted</Button>
+    </div>
+    <div>
+      <h3>Overlay Inverted Quiet</h3>
+      <Button variant="overlayInvertedQuiet">Overlay Inverted Quiet</Button>
+    </div>
+    <div>
+      <h3>Overlay with Icon</h3>
+      <Button variant="overlayInvertedQuiet" hasIconOnly>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16" class="s-icon"><title>Three dots</title><circle cx="2.4" cy="8" r="1.4" fill="currentColor"></circle><circle cx="8" cy="8" r="1.4" fill="currentColor"></circle><circle cx="13.6" cy="8" r="1.4" fill="currentColor"></circle></svg>
+      </Button>
+    </div>
+    <div>
+      <h3>Overlay with Icon</h3>
+      <Button variant="overlayInvertedQuiet" hasIconOnly>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16" class="s-icon"><title>Three dots</title><circle cx="2.4" cy="8" r="1.4" fill="currentColor"></circle><circle cx="8" cy="8" r="1.4" fill="currentColor"></circle><circle cx="13.6" cy="8" r="1.4" fill="currentColor"></circle></svg>
+      </Button>
+    </div>
     <div>
       <h3>Full width button</h3>
 

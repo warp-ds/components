@@ -21,10 +21,18 @@
   width: max-content;
   justify-content: center;
   top: 0rem;
-  left: 0rem;
+  right: 0rem;
   bottom: 0rem;
   align-items: center;
   display: flex;
-  border-radius: 4px;
-  background-color: transparent;
+  border-radius: 0px 4px 4px 0px;
+  border-color: var(--w-s-color-border);
+  border-width: 1px;
+  border-style: solid;
+  background-color: var(--w-s-color-background-primary-subtle);
+}
+input[type=date], input[type=time], input[type=datetime-local], input[type=month] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }

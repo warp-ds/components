@@ -63,31 +63,37 @@ export const DatePicker = ({
   const displayDate = isValid(date) ? format(date, displayFormat, { locale }) : '';
 
   return (
-    <div>
+    <div onBlur={() => setOpen(false)}>
       <style href="DatePickerCalendar" precedence="medium">
         {style}
       </style>
-      {/* @ts-ignore */}
-      <TextField
-        // When not in manual mode, control the input using displayDate.
-        // When in manual mode, let the input be uncontrolled.
-        {...(isManual
-          ? { defaultValue: manualValue, onChange: handleInputChange }
-          : { value: displayDate, onChange: handleInputChange })}
-        label={textFieldLabel}
-        placeholder={placeholder}
-        onKeyDown={keyHandler}
-        // biome-ignore lint/a11y/useSemanticElements: <explanation>
-        role="combobox"
-        aria-haspopup="grid"
-        aria-controls={datepickerId}
-        aria-expanded={open}
-        ref={textFieldRef}
-      >
-        <button prefix="true" type="button" onClick={() => setOpen(!open)} className="w-prefix">
-          <IconCalendar16 />
-        </button>
-      </TextField>
+      <div>
+        <label htmlFor={datepickerId} className="antialiased block relative text-s font-bold pb-4 cursor-pointer s-text">
+          {textFieldLabel}
+        </label>
+        <div className="relative">
+          <input
+            {...(isManual
+              ? { defaultValue: manualValue, onChange: handleInputChange }
+              : { value: displayDate, onChange: handleInputChange })}
+            className="block text-m leading-m mb-0 px-8 py-12 rounded focusable focus:[--w-outline-offset:-2px] caret-current placeholder:s-text-placeholder border-1 s-text s-bg s-border hover:s-border-hover active:s-border-selected"
+            placeholder={placeholder}
+            onClick={() => setOpen(!open)}
+            onKeyDown={keyHandler}
+            role="combobox"
+            aria-haspopup="grid"
+            aria-controls={datepickerId}
+            aria-expanded={open}
+            ref={textFieldRef}
+            id={datepickerId}
+            type="text"
+            style={{ width: '94.75%', borderRadius: '4px 0px 0px 4px' }}
+          />
+          <button type="button" onClick={() => setOpen(!open)} className="w-prefix">
+            <IconCalendar16 />
+          </button>
+        </div>
+      </div>
       <Attention
         popover
         placement="bottom"

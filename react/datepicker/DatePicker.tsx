@@ -1,15 +1,13 @@
 import style from 'inline:./styles/w-datepicker.css';
 import React from 'react';
 
-import { nb } from 'date-fns/locale';
+import { nb, te } from 'date-fns/locale';
 
-import IconCalendar16 from '@warp-ds/icons/react/calendar-16';
-import { Attention } from '@warp-ds/react/components/attention';
-import { TextField } from '@warp-ds/react/components/textfield';
 import { format, isValid } from 'date-fns';
 import { DatePickerCalendar } from './DatePickerCalendar.tsx';
 import defaultPhrases from './defaultPhrases.ts';
 import type { DatePickerProps } from './props.ts';
+import { useOutsideInteract } from './useOutsideClick.ts';
 
 export const DatePicker = ({
   locale = nb,
@@ -33,6 +31,8 @@ export const DatePicker = ({
 
   const navigationDayRef = React.useRef<HTMLTableCellElement>(null);
   const textFieldRef = React.useRef<HTMLInputElement>(null);
+  const calendarRef = React.useRef<HTMLDivElement>(null);
+  useOutsideInteract([textFieldRef, calendarRef], () => setOpen(false));
 
   const handleChange = React.useCallback(
     (day: Date) => {
@@ -46,6 +46,17 @@ export const DatePicker = ({
     switch (event.key) {
       case 'Escape':
         setOpen(false);
+        break;
+      case 'ArrowDown':
+        setIsManual(false);
+        navigationDayRef.current?.focus();
+        break;
+      case 'Tab':
+        setIsManual(false);
+        break;
+      default:
+        setIsManual(true);
+        setOpen(true);
         break;
     }
   };
@@ -62,13 +73,25 @@ export const DatePicker = ({
 
   const displayDate = isValid(date) ? format(date, displayFormat, { locale }) : '';
 
+  React.useEffect(() => {
+    if (isManual) {
+      if (isValid(date)) {
+        // close datepicker if date entered manually by user is valid
+        setOpen(false);
+      }
+    }
+  }, [date, isManual]);
+
   return (
-    <div onBlur={() => setOpen(false)}>
+    <div>
       <style href="DatePickerCalendar" precedence="medium">
         {style}
       </style>
       <div>
-        <label htmlFor={datepickerId} className="antialiased block relative text-s font-bold pb-4 cursor-pointer s-text">
+        <label
+          htmlFor={datepickerId}
+          className="antialiased block relative text-s font-bold pb-4 cursor-pointer s-text"
+        >
           {textFieldLabel}
         </label>
         <div className="relative">
@@ -76,9 +99,9 @@ export const DatePicker = ({
             {...(isManual
               ? { defaultValue: manualValue, onChange: handleInputChange }
               : { value: displayDate, onChange: handleInputChange })}
-            className="block text-m leading-m mb-0 px-8 py-12 rounded focusable focus:[--w-outline-offset:-2px] caret-current placeholder:s-text-placeholder border-1 s-text s-bg s-border hover:s-border-hover active:s-border-selected"
+            className="block text-m leading-m mb-0 px-8 py-12 rounded-4 w-full focusable focus:[--w-outline-offset:-2px] caret-current placeholder:s-text-placeholder border-1 s-text s-bg s-border hover:s-border-hover active:s-border-selected"
             placeholder={placeholder}
-            onClick={() => setOpen(!open)}
+            onClick={() => setOpen(true)}
             onKeyDown={keyHandler}
             role="combobox"
             aria-haspopup="grid"
@@ -87,22 +110,10 @@ export const DatePicker = ({
             ref={textFieldRef}
             id={datepickerId}
             type="text"
-            style={{ width: '94.75%', borderRadius: '4px 0px 0px 4px' }}
           />
-          <button type="button" onClick={() => setOpen(!open)} className="w-prefix">
-            <IconCalendar16 />
-          </button>
         </div>
       </div>
-      <Attention
-        popover
-        placement="bottom"
-        noArrow={true}
-        flip={true}
-        crossAxis={true}
-        isShowing={open}
-        targetEl={textFieldRef}
-      >
+      <div className={`w-dropdown__popover ${open ? ' w-dropdown__popover--open' : ''}`} ref={calendarRef}>
         <DatePickerCalendar
           id={datepickerId}
           key={date?.toDateString()}
@@ -115,8 +126,10 @@ export const DatePicker = ({
           dayAriaLabelFormat={dayAriaLabelFormat}
           onChange={handleChange}
           isDayDisabled={isDayDisabled}
+          isManual={isManual}
+          setOpen={setOpen}
         />
-      </Attention>
+      </div>
     </div>
   );
 };

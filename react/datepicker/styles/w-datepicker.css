@@ -31,8 +31,18 @@
   border-style: solid;
   background-color: var(--w-s-color-background-primary-subtle);
 }
-input[type=date], input[type=time], input[type=datetime-local], input[type=month] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+.w-dropdown__popover {
+  position: absolute;
+  width: max-content;
+  margin-top: 0.5rem;
+  background-color: var(--w-s-color-background);
+  box-shadow: var(--w-shadow-s);
+  z-index: 100;
+  border-radius: 8px;
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+  visibility: hidden;
+}
+.w-dropdown__popover--open {
+  visibility: visible;
 }

@@ -1,2 +1,4 @@
-export { ToastProvider } from './ToastProvider.js';
-export { useToast } from './useToast.js';
+export {
+  ToastContainer as WToast,
+  addToast as addWToast,
+} from "./ToastContainer.js";

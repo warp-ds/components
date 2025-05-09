@@ -15,7 +15,8 @@ export const DatePickerNavigation = ({ phrases, nextMonth, prevMonth }: DatePick
       </style>
       <div className="w-datepicker__navigation">
         <Button
-          variant="overlayQuiet"
+          variant="utilityQuiet"
+          size="small"
           className="w-datepicker__navigation__button--prev"
           aria-label={phrases.jumpToPrevMonth}
           onClick={prevMonth}
@@ -23,7 +24,8 @@ export const DatePickerNavigation = ({ phrases, nextMonth, prevMonth }: DatePick
           <IconChevronLeft16 />
         </Button>
         <Button
-          variant="overlayQuiet"
+          variant="utilityQuiet"
+          size="small"
           className="w-datepicker__navigation__button--next"
           aria-label={phrases.jumpToNextMonth}
           onClick={nextMonth}

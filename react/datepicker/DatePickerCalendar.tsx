@@ -19,6 +19,7 @@ import React from 'react';
 import { DatePickerMonth } from './DatePickerMonth.js';
 import { DatePickerNavigation } from './DatePickerNavigation.js';
 import type { DatePickerCalendarProps } from './props.js';
+import { se } from 'date-fns/locale';
 
 /**
  * DatePickerCalendar
@@ -37,6 +38,8 @@ export const DatePickerCalendar = ({
   dayAriaLabelFormat,
   isDayDisabled,
   onChange,
+  isManual,
+  setOpen,
   ...props
 }: DatePickerCalendarProps) => {
   const [navigationDate, setNavigationDate] = React.useState(
@@ -44,6 +47,7 @@ export const DatePickerCalendar = ({
     // otherwise todays date will be the only date in the calendar that doesn' start at 00:00:00
     selectedDate ?? startOfToday(),
   );
+  const [isKeyboardNavigation, setIsKeyboardNavigation] = React.useState<boolean>(false);
 
   const months = useWindowingMonths(navigationDate, numberOfMonths);
 
@@ -54,6 +58,7 @@ export const DatePickerCalendar = ({
    * PageUp/PageDown to move to next/prev month.
    */
   const keyHandler = (event: React.KeyboardEvent) => {
+    setIsKeyboardNavigation(true);
     let newDate: Date;
     // eslint-disable-next-line default-case
     switch (event.key) {
@@ -81,6 +86,9 @@ export const DatePickerCalendar = ({
       case 'PageDown':
         newDate = addMonths(navigationDate, 1);
         break;
+      case 'Escape':
+        setOpen(false);
+        break;
     }
 
     if (newDate) {
@@ -90,11 +98,12 @@ export const DatePickerCalendar = ({
     }
   };
 
-  React.useLayoutEffect(() => {
-    if (navigationDayRef.current) {
+  React.useEffect(() => {
+    if (navigationDayRef.current && isKeyboardNavigation) {
+      // Focus the currently selected day in the calendar
       navigationDayRef.current.focus();
     }
-  }, [navigationDayRef.current, navigationDate]);
+  }, [navigationDayRef.current, navigationDate, isKeyboardNavigation]);
 
   return (
     <>
@@ -127,6 +136,7 @@ export const DatePickerCalendar = ({
             navigationDayRef={navigationDayRef}
             dayAriaLabelFormat={dayAriaLabelFormat}
             onChange={onChange}
+            setOpen={setOpen}
           />
         ))}
       </div>

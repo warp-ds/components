@@ -29,6 +29,7 @@ export const DatePickerMonth = ({
   navigationDayRef,
   dayAriaLabelFormat,
   onChange,
+  setOpen,
 }: DatePickerMonthProps) => {
   const weeks = React.useMemo(() => getWeeks(month, locale), [month, locale]);
 
@@ -82,6 +83,7 @@ export const DatePickerMonth = ({
                     navigationDayRef={navigationDayRef}
                     dayAriaLabelFormat={dayAriaLabelFormat}
                     onChange={onChange}
+                    setOpen={setOpen}
                   />
                 ))}
               </tr>

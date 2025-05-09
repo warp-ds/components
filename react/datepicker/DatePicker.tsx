@@ -4,12 +4,11 @@ import React from 'react';
 import { nb } from 'date-fns/locale';
 
 import IconCalendar16 from '@warp-ds/icons/react/calendar-16';
-import { Attention } from '@warp-ds/react/components/attention';
-import { TextField } from '@warp-ds/react/components/textfield';
 import { format, isValid } from 'date-fns';
 import { DatePickerCalendar } from './DatePickerCalendar.tsx';
 import defaultPhrases from './defaultPhrases.ts';
 import type { DatePickerProps } from './props.ts';
+import { useOutsideClick } from './useOutsideClick.ts';
 
 export const DatePicker = ({
   locale = nb,
@@ -33,6 +32,8 @@ export const DatePicker = ({
 
   const navigationDayRef = React.useRef<HTMLTableCellElement>(null);
   const textFieldRef = React.useRef<HTMLInputElement>(null);
+  const calendarRef = React.useRef<HTMLDivElement>(null);
+  useOutsideClick([textFieldRef, calendarRef], () => setOpen(false));
 
   const handleChange = React.useCallback(
     (day: Date) => {
@@ -46,6 +47,19 @@ export const DatePicker = ({
     switch (event.key) {
       case 'Escape':
         setOpen(false);
+        break;
+      case 'ArrowDown':
+        setIsManual(false);
+        setOpen(true);
+        navigationDayRef.current?.focus();
+        break;
+      case 'Tab':
+        setIsManual(false);
+        setOpen(true);
+        break;
+      default:
+        setIsManual(true);
+        setOpen(true);
         break;
     }
   };
@@ -62,55 +76,68 @@ export const DatePicker = ({
 
   const displayDate = isValid(date) ? format(date, displayFormat, { locale }) : '';
 
+  React.useEffect(() => {
+    if (isManual) {
+      if (isValid(date)) {
+        // close datepicker if date entered manually by user is valid
+        setOpen(false);
+      }
+    }
+  }, [date, isManual]);
+
   return (
     <div>
       <style href="DatePickerCalendar" precedence="medium">
         {style}
       </style>
-      {/* @ts-ignore */}
-      <TextField
-        // When not in manual mode, control the input using displayDate.
-        // When in manual mode, let the input be uncontrolled.
-        {...(isManual
-          ? { defaultValue: manualValue, onChange: handleInputChange }
-          : { value: displayDate, onChange: handleInputChange })}
-        label={textFieldLabel}
-        placeholder={placeholder}
-        onKeyDown={keyHandler}
-        // biome-ignore lint/a11y/useSemanticElements: <explanation>
-        role="combobox"
-        aria-haspopup="grid"
-        aria-controls={datepickerId}
-        aria-expanded={open}
-        ref={textFieldRef}
-      >
-        <button prefix="true" type="button" onClick={() => setOpen(!open)} className="w-prefix">
-          <IconCalendar16 />
-        </button>
-      </TextField>
-      <Attention
-        popover
-        placement="bottom"
-        noArrow={true}
-        flip={true}
-        crossAxis={true}
-        isShowing={open}
-        targetEl={textFieldRef}
-      >
-        <DatePickerCalendar
-          id={datepickerId}
-          key={date?.toDateString()}
-          selectedDate={date}
-          locale={locale}
-          phrases={phrases}
-          navigationDayRef={navigationDayRef}
-          monthFormat={monthFormat}
-          weekDayFormat={weekDayFormat}
-          dayAriaLabelFormat={dayAriaLabelFormat}
-          onChange={handleChange}
-          isDayDisabled={isDayDisabled}
-        />
-      </Attention>
+      <div>
+        <label
+          htmlFor={datepickerId}
+          className="antialiased block relative text-s font-bold pb-4 cursor-pointer s-text"
+        >
+          {textFieldLabel}
+        </label>
+        <div className="relative">
+          <input
+            {...(isManual
+              ? { defaultValue: manualValue, onChange: handleInputChange }
+              : { value: displayDate, onChange: handleInputChange })}
+            className="block text-m leading-m mb-0 px-8 py-12 rounded-4 w-full focusable focus:[--w-outline-offset:-2px] caret-current placeholder:s-text-placeholder border-1 s-text s-bg s-border hover:s-border-hover active:s-border-selected"
+            placeholder={placeholder}
+            onClick={() => setOpen(true)}
+            onKeyDown={keyHandler}
+            role="combobox"
+            aria-haspopup="grid"
+            aria-controls={datepickerId}
+            aria-expanded={open}
+            ref={textFieldRef}
+            id={datepickerId}
+            type="text"
+          />
+          <div className="w-suffix">
+            <IconCalendar16 />
+          </div>
+        </div>
+      </div>
+      <div className={'w-dropdown__popover w-dropdown__popover--open'} ref={calendarRef}>
+        {open && (
+          <DatePickerCalendar
+            id={datepickerId}
+            key={date?.toDateString()}
+            selectedDate={date}
+            locale={locale}
+            phrases={phrases}
+            navigationDayRef={navigationDayRef}
+            monthFormat={monthFormat}
+            weekDayFormat={weekDayFormat}
+            dayAriaLabelFormat={dayAriaLabelFormat}
+            onChange={handleChange}
+            isDayDisabled={isDayDisabled}
+            isManual={isManual}
+            setOpen={setOpen}
+          />
+        )}
+      </div>
     </div>
   );
 };

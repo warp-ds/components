@@ -1,35 +1,20 @@
-import { useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 
-type AnyEvent = MouseEvent | TouchEvent | FocusEvent;
-
-export function useOutsideInteract(
-  refs: Array<React.RefObject<HTMLElement>>,
-  onInteractOutside: () => void
-) {
-  useLayoutEffect(() => {
-    console.log('useOutsideInteract', refs);
-    function handlePointerOrTouch(event: MouseEvent | TouchEvent) {
-      const target = event.target as Node;
-      if (refs.every(ref => ref.current && !ref.current.contains(target))) {
-        onInteractOutside();
+export function useOutsideClick(refs: Array<React.RefObject<HTMLElement>>, onClickOutside: () => void) {
+  useEffect(() => {
+    function handleClickOutside(event: Event) {
+      // eslint-disable-next-line
+      // @ts-ignore
+      if (refs.every((ref) => ref.current && !ref.current.contains(event.target))) {
+        onClickOutside();
       }
     }
-
-    function handleFocusIn(event: FocusEvent) {
-      const target = event.target as Node;
-      if (refs.every(ref => ref.current && !ref.current.contains(target))) {
-        onInteractOutside();
-      }
-    }
-
-    document.addEventListener('mousedown', handlePointerOrTouch);
-    document.addEventListener('touchend', handlePointerOrTouch);
-    document.addEventListener('focusin', handleFocusIn);
+    document.addEventListener('mousedown', handleClickOutside);
+    window.addEventListener('touchend', handleClickOutside);
 
     return () => {
-      document.removeEventListener('mousedown', handlePointerOrTouch);
-      document.removeEventListener('touchend', handlePointerOrTouch);
-      document.removeEventListener('focusin', handleFocusIn);
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchend', handleClickOutside);
     };
-  }, [refs, onInteractOutside]);
+  }, [refs]);
 }

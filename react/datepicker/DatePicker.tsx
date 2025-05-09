@@ -1,13 +1,14 @@
 import style from 'inline:./styles/w-datepicker.css';
 import React from 'react';
 
-import { nb, te } from 'date-fns/locale';
+import { nb } from 'date-fns/locale';
 
+import IconCalendar16 from '@warp-ds/icons/react/calendar-16';
 import { format, isValid } from 'date-fns';
 import { DatePickerCalendar } from './DatePickerCalendar.tsx';
 import defaultPhrases from './defaultPhrases.ts';
 import type { DatePickerProps } from './props.ts';
-import { useOutsideInteract } from './useOutsideClick.ts';
+import { useOutsideClick } from './useOutsideClick.ts';
 
 export const DatePicker = ({
   locale = nb,
@@ -32,7 +33,7 @@ export const DatePicker = ({
   const navigationDayRef = React.useRef<HTMLTableCellElement>(null);
   const textFieldRef = React.useRef<HTMLInputElement>(null);
   const calendarRef = React.useRef<HTMLDivElement>(null);
-  useOutsideInteract([textFieldRef, calendarRef], () => setOpen(false));
+  useOutsideClick([textFieldRef, calendarRef], () => setOpen(false));
 
   const handleChange = React.useCallback(
     (day: Date) => {
@@ -49,10 +50,12 @@ export const DatePicker = ({
         break;
       case 'ArrowDown':
         setIsManual(false);
+        setOpen(true);
         navigationDayRef.current?.focus();
         break;
       case 'Tab':
         setIsManual(false);
+        setOpen(true);
         break;
       default:
         setIsManual(true);
@@ -104,6 +107,7 @@ export const DatePicker = ({
             onClick={() => setOpen(true)}
             onKeyDown={keyHandler}
             role="combobox"
+            inputMode="none"
             aria-haspopup="grid"
             aria-controls={datepickerId}
             aria-expanded={open}
@@ -111,24 +115,29 @@ export const DatePicker = ({
             id={datepickerId}
             type="text"
           />
+          <div className="w-suffix">
+            <IconCalendar16 />
+          </div>
         </div>
       </div>
-      <div className={`w-dropdown__popover ${open ? ' w-dropdown__popover--open' : ''}`} ref={calendarRef}>
-        <DatePickerCalendar
-          id={datepickerId}
-          key={date?.toDateString()}
-          selectedDate={date}
-          locale={locale}
-          phrases={phrases}
-          navigationDayRef={navigationDayRef}
-          monthFormat={monthFormat}
-          weekDayFormat={weekDayFormat}
-          dayAriaLabelFormat={dayAriaLabelFormat}
-          onChange={handleChange}
-          isDayDisabled={isDayDisabled}
-          isManual={isManual}
-          setOpen={setOpen}
-        />
+      <div className={'w-dropdown__popover w-dropdown__popover--open'} ref={calendarRef}>
+        {open && (
+          <DatePickerCalendar
+            id={datepickerId}
+            key={date?.toDateString()}
+            selectedDate={date}
+            locale={locale}
+            phrases={phrases}
+            navigationDayRef={navigationDayRef}
+            monthFormat={monthFormat}
+            weekDayFormat={weekDayFormat}
+            dayAriaLabelFormat={dayAriaLabelFormat}
+            onChange={handleChange}
+            isDayDisabled={isDayDisabled}
+            isManual={isManual}
+            setOpen={setOpen}
+          />
+        )}
       </div>
     </div>
   );

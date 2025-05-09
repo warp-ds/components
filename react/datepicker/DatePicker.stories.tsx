@@ -40,6 +40,9 @@ function DatePickerExample() {
         setDate(parsedDate);
       }
     }
+    if (event.target.value === '') {
+      setDate(null);
+    }
   };
 
   const isDayDisabled = (day: Date) => {
@@ -81,6 +84,9 @@ function DisabledDaysExample() {
       if (parsedDate) {
         setDate(parsedDate);
       }
+    }
+    if (event.target.value === '') {
+      setDate(null);
     }
   };
 

@@ -107,7 +107,6 @@ export const DatePicker = ({
             onClick={() => setOpen(true)}
             onKeyDown={keyHandler}
             role="combobox"
-            inputMode="none"
             aria-haspopup="grid"
             aria-controls={datepickerId}
             aria-expanded={open}

@@ -24,34 +24,36 @@
 
 /* 2. Base layout and structure */
 .w-slider {
-  height: 34px;
   width: 100%;
   position: relative;
   user-select: none;
   touch-action: pan-y;
+  padding-inline: 14.5px;
 }
-
+.w-slider__wrap{
+  display: flex;
+  align-items: center;
+  height: 29px;
+  position: relative;
+}
 /* 3. Internal variable resolution (scoped where used) */
 .w-slider__track {
   --_w-slider-track-background: var(--w-slider-track-background);
-
-  position: absolute;
+  display: flex;
   height: 3px;
-  bottom: 14px;
   width: 100%;
   border-radius: 4px;
   background-color: var(--_w-slider-track-background);
+  position: relative;
 }
 
 .w-slider__track-active {
   --_w-slider-track-active-background: var(--w-slider-track-active-background);
-
-  position: absolute;
-  height: 5px;
-  bottom: 13px;
-  border-radius: 4px;
+  height: 3px;
+  border-radius: inherit;
+  flex-grow:0;
   background-color: var(--_w-slider-track-active-background);
-  transition: left 50ms ease-out, right 50ms ease-out;
+  xtransition: left 50ms ease-out, right 50ms ease-out;
 }
 
 .w-slider__thumb {
@@ -60,14 +62,12 @@
   --_w-slider-thumb-shadow: var(--w-slider-thumb-shadow);
 
   position: absolute;
-  height: 13px;
-  width: 13px;
-  bottom: 2px;
+  height: 29px;
+  width: 29px;
   border-radius: 50%;
-  box-sizing: content-box;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  transition: left 50ms ease-out, right 50ms ease-out;
+  xtransition: left 50ms ease-out, right 50ms ease-out;
 
   background-color: var(--_w-slider-thumb-background);
   border: 8px solid var(--_w-slider-thumb-border);
@@ -76,7 +76,7 @@
 
 /* 4. Interaction states (sets public tokens) */
 .w-slider__thumb:hover,
-.w-slider__thumb:focus {
+.w-slider__thumb:focus-visible {
   outline: none;
   padding: 3px;
   border-width: 5px;
@@ -95,69 +95,42 @@
   --w-slider-thumb-border: var(--w-s-color-border-disabled);
 }
 
-/* Untested styles below */
-
-.w-slider__marks {
+.w-slider__ticks{
+  margin-top: 8px;
   display: grid;
-  transform: translateY(-8px);
-  grid-auto-flow: column;
-  grid-template-columns: max-content;
-  justify-items: end;
-  color: var(--_mark-color);
-  pointer-events: none;
-  grid-column: 1;
-  align-self: end;
-  margin: 0px 11.7px;
-  grid-auto-columns: minmax(0, 1fr);
-  z-index: -1;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 10px;
 }
 
-.w-slider__marks .w-slider__mark {
-  display: grid;
-  justify-items: center;
-  grid-row-gap: 1px;
+.w-slider__ticks--left {
+  justify-self: start; /* align to the left */
 }
 
-.w-slider__mark-line {
-  width: 4px;
-  height: 8px;
-  border-radius: 2px;
+.w-slider__ticks--right {
+  justify-self: end;   /* align to the right */
+}
+
+.w-slider__tick {
+  width: 2px;
+  height: 10px;
   background-color: var(--w-s-color-background-disabled-subtle);
+  border-radius: 1px;
 }
 
-.w-slider__mark-value {
-  width: 0;
-  white-space: nowrap;
-  display: grid;
-  justify-content: center;
-}
-
-.w-slider__markvalues {
-  display: grid;
+.w-slider__value {
+  font-size: 12px;
   color: var(--w-s-color-text-subtle);
-  grid-template-columns: auto auto;
-  transform: translateY(-8px);
-  height: 22px;
+  position: relative;
 }
 
-.w-slider__markvalues > div:nth-child(1) {
-  justify-self: start;
-}
-
-.w-slider__markvalues > div:nth-child(2) {
-  justify-self: end;
-}
-.w-slider__marks-contained {
-  padding-top: 44px;
-  display: grid;
-  grid-row-gap: 1px;
-  grid-template-rows: max-content;
-}
 .w-slider__input {
-  width: 100%;
-  margin-top: 30px;
-  margin-bottom: 10px;
+  margin-top: 12px;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
 }
+
+.w-slider,
+.w-slider__wrap
+ {outline: 1px dashed red;}

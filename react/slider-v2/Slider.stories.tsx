@@ -10,8 +10,7 @@ export const Regular = () => {
   const [value, setValue] = useState(0);
   const [output, setOutput] = useState(value);
   return (
-    <div>
-      <output>{output}</output>
+    <div style={{ width: '320px' }}>
       <RegularSlider
         onChange={(value) => setValue(value)}
         onInput={setOutput}
@@ -19,9 +18,14 @@ export const Regular = () => {
         max={100}
         step={10}
         value={value}
+        showMarks={true}
       />
       <div className="w-slider__input">
-        <TextField label="value" value={value.toString()} onChange={(e) => setValue(+e.target.value)} />
+        <TextField
+          label="value"
+          value={value.toString()}
+          onChange={(e) => setValue(+e.target.value)}
+        />
       </div>
     </div>
   );
@@ -43,14 +47,21 @@ export const DisabledRegular = () => {
         value={value}
       />
       <div className="w-slider__input">
-        <TextField label="value" disabled value={value.toString()} onChange={(e) => setValue(+e.target.value)} />
+        <TextField
+          label="value"
+          disabled
+          value={value.toString()}
+          onChange={(e) => setValue(+e.target.value)}
+        />
       </div>
     </div>
   );
 };
 
 export const Ranged = () => {
-  const [value, setValue] = useState<[number, number]>([1000000, 10000000]);
+  const [value, setValue] = useState<[number, number]>([
+    1000000, 10000000,
+  ]);
   const [output, setOutput] = useState(value);
   const [errorMax, setErrorMax] = useState(false);
   const [errorMin, setErrorMin] = useState(false);
@@ -75,7 +86,14 @@ export const Ranged = () => {
       <output>
         {output[0]} - {output[1]} kr
       </output>
-      <RangeSlider onChange={setValue} onInput={setOutput} min={1000000} max={10000000} step={50000} value={value} />
+      <RangeSlider
+        onChange={setValue}
+        onInput={setOutput}
+        min={1000000}
+        max={10000000}
+        step={50000}
+        value={value}
+      />
       <div className="w-slider__input">
         <TextField
           label="Min"
@@ -119,15 +137,25 @@ export const RangedSimple = () => {
         aria-valuetext={[`${value[0]} kr`, `${value[1]} kr`]}
       />
       <div className="w-slider__input">
-        <TextField label="Min" value={value[0].toString()} onChange={(e) => setValue([+e.target.value, value[1]])} />
-        <TextField label="Max" value={value[1].toString()} onChange={(e) => setValue([value[0], +e.target.value])} />
+        <TextField
+          label="Min"
+          value={value[0].toString()}
+          onChange={(e) => setValue([+e.target.value, value[1]])}
+        />
+        <TextField
+          label="Max"
+          value={value[1].toString()}
+          onChange={(e) => setValue([value[0], +e.target.value])}
+        />
       </div>
     </div>
   );
 };
 
 export const DisabledRanged = () => {
-  const [value, setValue] = useState<[number, number]>([1000000, 10000000]);
+  const [value, setValue] = useState<[number, number]>([
+    1000000, 10000000,
+  ]);
   const [output, setOutput] = useState(value);
   return (
     <div>

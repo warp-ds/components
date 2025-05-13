@@ -78,6 +78,7 @@ const ToastDemo = ({
     >
       {(['success', 'warning', 'negative'] as const).map((variant) => (
         <button
+          type="button"
           key={variant}
           onClick={() => handleToast(variant)}
           style={{

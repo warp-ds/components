@@ -34,7 +34,7 @@ const ToastItem = ({ variant, text, dismissible = false, id }: ToastProps) => {
         </span>
         <p>{text}</p>
         {dismissible && (
-          <Button variant="overlayQuiet" size="small" type="button" hasIconOnly onClick={() => removeToast(id)}>
+          <Button variant="overlayQuiet" size="small" hasIconOnly onClick={() => removeToast(id)}>
             <IconClose16 />
           </Button>
         )}

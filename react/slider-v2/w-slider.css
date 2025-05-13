@@ -17,9 +17,13 @@
 .w-slider {
   --w-slider-track-background: var(--w-s-color-background-disabled-subtle);
   --w-slider-track-active-background: var(--w-s-color-background-primary);
+  --w-slider-track-height: 3px;
   --w-slider-thumb-background: var(--w-s-color-background-primary);
   --w-slider-thumb-border: var(--w-s-color-border-primary);
   --w-slider-thumb-shadow: none;
+  --w-slider-thumb-size: 29px;
+  --w-slider-tick-color: var(--w-s-color-background-disabled-subtle);
+  --w-slider-tick-value-color: var(--w-s-color-text-subtle);
 }
 
 /* 2. Base layout and structure */
@@ -28,19 +32,19 @@
   position: relative;
   user-select: none;
   touch-action: pan-y;
-  padding-inline: 14.5px;
+  padding-inline:  calc(var(--w-slider-thumb-size)/2); /* Pull track half a thumb size in from the edges */
 }
 .w-slider__wrap{
   display: flex;
   align-items: center;
-  height: 29px;
+  height: var(--w-slider-thumb-size);
   position: relative;
 }
 /* 3. Internal variable resolution (scoped where used) */
 .w-slider__track {
   --_w-slider-track-background: var(--w-slider-track-background);
   display: flex;
-  height: 3px;
+  height: var(--w-slider-track-height);
   width: 100%;
   border-radius: 4px;
   background-color: var(--_w-slider-track-background);
@@ -49,26 +53,23 @@
 
 .w-slider__track-active {
   --_w-slider-track-active-background: var(--w-slider-track-active-background);
-  height: 3px;
+  height: var(--w-slider-track-height);
   border-radius: inherit;
   flex-grow:0;
   background-color: var(--_w-slider-track-active-background);
-  xtransition: left 50ms ease-out, right 50ms ease-out;
 }
 
 .w-slider__thumb {
   --_w-slider-thumb-background: var(--w-slider-thumb-background);
   --_w-slider-thumb-border: var(--w-slider-thumb-border);
   --_w-slider-thumb-shadow: var(--w-slider-thumb-shadow);
-
+  --_w-slider-thumb-size: var(--w-slider-thumb-size);
   position: absolute;
-  height: 29px;
-  width: 29px;
+  height: var(--_w-slider-thumb-size);
+  width: var(--_w-slider-thumb-size);
   border-radius: 50%;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  xtransition: left 50ms ease-out, right 50ms ease-out;
-
   background-color: var(--_w-slider-thumb-background);
   border: 8px solid var(--_w-slider-thumb-border);
   box-shadow: var(--_w-slider-thumb-shadow);
@@ -87,7 +88,7 @@
 /* 5. Modifiers */
 .w-slider--is-disabled {
   pointer-events: none;
-  opacity: 0.6; /* TODO 1: Replace this with semantic disabled colors */
+  xopacity: 0.6; /* TODO 1: Replace this with semantic disabled colors */
 
   --w-slider-track-background: var(--w-s-color-background-disabled);
   --w-slider-thumb-background: var(--w-s-color-background-disabled);
@@ -100,7 +101,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto auto;
-  gap: 10px;
+  gap: 4px;
 }
 
 .w-slider__ticks--left {
@@ -112,18 +113,31 @@
 }
 
 .w-slider__tick {
+  --_w-slider-tick-color: var(--w-slider-tick-color);
   width: 2px;
   height: 10px;
-  background-color: var(--w-s-color-background-disabled-subtle);
+  background-color: var(--_w-slider-tick-color);
   border-radius: 1px;
 }
 
-.w-slider__value {
+.w-slider__min-value,
+.w-slider__max-value {
+  --w_slider-tick-value-color: var(--w-slider-tick-value-color);
   font-size: 12px;
-  color: var(--w-s-color-text-subtle);
+  color: var(--_w-slider-tick-value-color);
   position: relative;
 }
 
+.w-slider__label {
+  font-size: var(--w-font-size-s);
+  line-height: var(--w-line-height-s);
+  font-weight: 700;
+  cursor: pointer;
+  padding-bottom: .4rem;
+  color: var(--w-s-color-text);
+  position: relative;
+  display: block;
+}
 .w-slider__input {
   margin-top: 12px;
   display: grid;

@@ -1,10 +1,10 @@
-import style from "inline:./styles.css";
-import IconClose16 from "@warp-ds/icons/react/close-16";
-import classNames from "classnames";
-import { Button } from "../button/Button.tsx";
-import { toastConfig } from "./utils.tsx";
-import { ToastProps } from "./props.ts";
-import { removeToast } from "./ToastContainer.tsx";
+import style from 'inline:./styles.css';
+import IconClose16 from '@warp-ds/icons/react/close-16';
+import classNames from 'classnames';
+import { Button } from '../button/Button.tsx';
+import { removeToast } from './ToastContainer.tsx';
+import { ToastProps } from './props.ts';
+import { toastConfig } from './utils.tsx';
 
 /* 
   TODO: REMOVE TEMP STYLES, TEST BROWSERS, TEST WEB/MOBILE
@@ -13,17 +13,12 @@ import { removeToast } from "./ToastContainer.tsx";
   Q: Is the component self-contained?
   */
 
-const ToastItem = ({
-  variant,
-  text,
-  dismissible = false,
-  id,
-}: ToastProps) => {
+const ToastItem = ({ variant, text, dismissible = false, id }: ToastProps) => {
   const { icon: Icon, role, className } = toastConfig[variant];
 
-  const toastClasses = classNames("w-toast__item", className, {
+  const toastClasses = classNames('w-toast__item', className, {
     // TODO: check that this class exists
-    "w-toast--dismissible": dismissible,
+    'w-toast--dismissible': dismissible,
   });
 
   return (
@@ -39,14 +34,7 @@ const ToastItem = ({
         </span>
         <p>{text}</p>
         {dismissible && (
-          <Button
-            variant="overlayQuiet"
-            size="small"
-            //TODO: remove ts-ignore when button branch is merged
-            //@ts-ignore
-            hasIconOnly
-            onClick={() => removeToast(id)}
-          >
+          <Button variant="overlayQuiet" size="small" type="button" hasIconOnly onClick={() => removeToast(id)}>
             <IconClose16 />
           </Button>
         )}

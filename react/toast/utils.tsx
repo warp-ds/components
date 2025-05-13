@@ -1,29 +1,29 @@
-import IconError16 from "@warp-ds/icons/react/error-16";
-import IconSuccess16 from "@warp-ds/icons/react/success-16";
-import IconWarning16 from "@warp-ds/icons/react/warning-16";
-import { ToastProps } from "./props.ts";
+import IconError16 from '@warp-ds/icons/react/error-16';
+import IconSuccess16 from '@warp-ds/icons/react/success-16';
+import IconWarning16 from '@warp-ds/icons/react/warning-16';
+import { ToastProps } from './props.ts';
 
 export const toastConfig: Record<
-  ToastProps["variant"],
+  ToastProps['variant'],
   {
     icon: () => React.ReactElement;
-    role: "status" | "alert";
+    role: 'status' | 'alert';
     className: string;
   }
 > = {
   success: {
     icon: () => <IconSuccess16 />,
-    role: "status",
-    className: "w-toast--positive",
+    role: 'status',
+    className: 'w-toast--positive',
   },
   warning: {
     icon: () => <IconWarning16 />,
-    role: "alert",
-    className: "w-toast--warning",
+    role: 'alert',
+    className: 'w-toast--warning',
   },
   negative: {
     icon: () => <IconError16 />,
-    role: "alert",
-    className: "w-toast--negative",
+    role: 'alert',
+    className: 'w-toast--negative',
   },
 };

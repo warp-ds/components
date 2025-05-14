@@ -30,11 +30,11 @@ export const toastConfig: Record<
 
 export const generateToastId = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
 
-export const getToasts = () => {
+export const getStorageToasts = () => {
   const existingToasts = JSON.parse(sessionStorage.getItem('wtoasts') || '[]');
   return existingToasts;
 };
 
-export const setToasts = (toasts: ToastProps[]) => {
+export const setStorageToasts = (toasts: ToastProps[]) => {
   sessionStorage.setItem('wtoasts', JSON.stringify(toasts));
 };

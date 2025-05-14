@@ -6,10 +6,7 @@ import { removeToast } from './ToastContainer.tsx';
 import { ToastProps } from './props.ts';
 import { toastConfig } from './utils.tsx';
 
-/* 
-  TODO: REMOVE TEMP STYLES, TEST BROWSERS, TEST WEB/MOBILE
-  TODO: Test all 3 variants simultaneously and see if the styles override each other
-  */
+//  TODO: TEST BROWSERS, TEST WEB/MOBILE
 
 const ToastItem = ({ variant, text, dismissible = false, id }: ToastProps) => {
   const { icon: Icon, role, className } = toastConfig[variant];

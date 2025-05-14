@@ -1,16 +1,14 @@
-import { useEffect, useId, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ToastItem from './ToastItem.tsx';
 import { ToastDuration, ToastId, ToastProps } from './props.ts';
-import { generateToastId, getToasts, setToasts } from './utils.tsx';
-
-// TODO: remove console.logs
+import { generateToastId, getStorageToasts, setStorageToasts } from './utils.tsx';
 
 const defaultDuration: ToastDuration = 5000;
 
 const removeToast = (id: ToastId) => {
-  const existingToasts = getToasts();
+  const existingToasts = getStorageToasts();
   const updatedToasts = existingToasts.filter((toast: ToastProps) => toast.id !== id);
-  setToasts(updatedToasts);
+  setStorageToasts(updatedToasts);
 
   window?.dispatchEvent(
     new StorageEvent('storage', {
@@ -30,12 +28,9 @@ const addToast = (toast: Omit<ToastProps, 'id'>) => {
     duration: toast.duration || defaultDuration,
     id: newId,
   };
-  const existingToasts = getToasts();
+  const existingToasts = getStorageToasts();
   const updatedToasts = [...existingToasts, newToast];
-  setToasts(updatedToasts);
-
-  //TODO: remove console.logs
-  console.log(sessionStorage.getItem('wtoasts'));
+  setStorageToasts(updatedToasts);
 
   window?.dispatchEvent(
     new StorageEvent('storage', {
@@ -54,26 +49,28 @@ const addToast = (toast: Omit<ToastProps, 'id'>) => {
 const ToastContainer = () => {
   const [toasts, setToasts] = useState<ToastProps[]>([]);
   const handleStorage = (event: StorageEvent) => {
-    console.log('Storage event triggered');
-    console.log(JSON.parse(event.newValue));
     if (event.key === 'wtoasts') {
       const toasts = JSON.parse(event.newValue || '[]');
       setToasts(toasts);
     }
   };
-  
+
   useEffect(() => {
     window?.addEventListener('storage', handleStorage);
+    // Adding this to mitigate the Storybook issue
+    window?.addEventListener('beforeunload', () => setStorageToasts([]));
 
     return () => {
+      setToasts([]);
       sessionStorage.removeItem('wtoasts');
       window?.removeEventListener('storage', handleStorage);
+      window?.removeEventListener('beforeunload', () => setStorageToasts([]));
     };
   }, []);
 
   return (
     <div className="w-toast">
-      {toasts.map((toast) => (
+      {toasts?.map((toast) => (
         <ToastItem
           key={toast.id}
           id={toast.id}
@@ -87,5 +84,4 @@ const ToastContainer = () => {
   );
 };
 
-// Exports added at the bottom for clarity
 export { addToast, removeToast, ToastContainer };

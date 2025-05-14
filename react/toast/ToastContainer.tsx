@@ -1,25 +1,18 @@
 import { useEffect, useId, useState } from 'react';
 import ToastItem from './ToastItem.tsx';
 import { ToastDuration, ToastId, ToastProps } from './props.ts';
+import { generateToastId, getToasts, setToasts } from './utils.tsx';
 
 // TODO: remove console.logs
 
 const defaultDuration: ToastDuration = 5000;
-
-const getToasts = () => {
-  const existingToasts = JSON.parse(sessionStorage.getItem('wtoasts') || '[]');
-  return existingToasts;
-};
-const setToasts = (toasts: ToastProps[]) => {
-  sessionStorage.setItem('wtoasts', JSON.stringify(toasts));
-};
 
 const removeToast = (id: ToastId) => {
   const existingToasts = getToasts();
   const updatedToasts = existingToasts.filter((toast: ToastProps) => toast.id !== id);
   setToasts(updatedToasts);
 
-  window.dispatchEvent(
+  window?.dispatchEvent(
     new StorageEvent('storage', {
       key: 'wtoasts',
       newValue: JSON.stringify(updatedToasts),
@@ -30,7 +23,6 @@ const removeToast = (id: ToastId) => {
 };
 
 const addToast = (toast: Omit<ToastProps, 'id'>) => {
-  const generateToastId = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
   const newId: ToastId = generateToastId();
 
   const newToast = {
@@ -41,9 +33,11 @@ const addToast = (toast: Omit<ToastProps, 'id'>) => {
   const existingToasts = getToasts();
   const updatedToasts = [...existingToasts, newToast];
   setToasts(updatedToasts);
+
+  //TODO: remove console.logs
   console.log(sessionStorage.getItem('wtoasts'));
 
-  window.dispatchEvent(
+  window?.dispatchEvent(
     new StorageEvent('storage', {
       key: 'wtoasts',
       newValue: JSON.stringify(updatedToasts),
@@ -67,12 +61,13 @@ const ToastContainer = () => {
       setToasts(toasts);
     }
   };
+  
   useEffect(() => {
-    window.addEventListener('storage', handleStorage);
+    window?.addEventListener('storage', handleStorage);
 
     return () => {
       sessionStorage.removeItem('wtoasts');
-      window.removeEventListener('storage', handleStorage);
+      window?.removeEventListener('storage', handleStorage);
     };
   }, []);
 

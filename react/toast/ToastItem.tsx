@@ -9,8 +9,6 @@ import { toastConfig } from './utils.tsx';
 /* 
   TODO: REMOVE TEMP STYLES, TEST BROWSERS, TEST WEB/MOBILE
   TODO: Test all 3 variants simultaneously and see if the styles override each other
-  TODO: Check button component usage!! Currently using button overlayQuiet with custom padding
-  Q: Is the component self-contained?
   */
 
 const ToastItem = ({ variant, text, dismissible = false, id }: ToastProps) => {

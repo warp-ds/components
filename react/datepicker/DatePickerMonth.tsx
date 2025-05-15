@@ -14,6 +14,9 @@ import {
 } from 'date-fns';
 import React from 'react';
 
+import IconChevronLeft16 from '@warp-ds/icons/react/chevron-left-16';
+import IconChevronRight16 from '@warp-ds/icons/react/chevron-right-16';
+import { Button } from '../button/Button.tsx';
 import { DatePickerDay } from './DatePickerDay.js';
 import type { DatePickerMonthProps } from './props.js';
 
@@ -29,7 +32,9 @@ export const DatePickerMonth = ({
   navigationDayRef,
   dayAriaLabelFormat,
   onChange,
-  setOpen,
+  nextMonth,
+  prevMonth,
+  setIsKeyboardNavigation,
 }: DatePickerMonthProps) => {
   const weeks = React.useMemo(() => getWeeks(month, locale), [month, locale]);
 
@@ -50,14 +55,35 @@ export const DatePickerMonth = ({
         {style}
       </style>
       <div className="w-datepicker__month">
-        <div className="w-datepicker__month__nav">
-          {/* move prev month button here and give it .w-datepicker__month__nav__button as a class*/}
+        <div className="w-datepicker__month-nav">
+          <Button
+            variant="utilityQuiet"
+            size="small"
+            className="w-datepicker__month__nav__button"
+            aria-label={phrases.jumpToPrevMonth}
+            onClick={prevMonth}
+          >
+            <IconChevronLeft16 />
+          </Button>
           <div className="w-datepicker__month__nav__header">{format(month, monthFormat, { locale })}</div>
-          {/* move next month button here and give it .w-datepicker__month__nav__button as a class*/}
+          <Button
+            variant="utilityQuiet"
+            size="small"
+            className="w-datepicker__month__nav__button"
+            aria-label={phrases.jumpToNextMonth}
+            onClick={nextMonth}
+          >
+            <IconChevronRight16 />
+          </Button>
         </div>
 
-        {/* biome-ignore lint/a11y/useSemanticElements: <explanation> */}
-        <table className="w-datepicker__table" role="grid">
+        <table
+          className="w-datepicker__table"
+          // biome-ignore lint/a11y/useSemanticElements: <explanation>
+          role="grid"
+          onFocus={() => setIsKeyboardNavigation(true)}
+          onBlur={() => setIsKeyboardNavigation(false)}
+        >
           <thead className="w-datepicker__weekdays" aria-hidden="true">
             <tr>
               {weeks[0].map((day) => (
@@ -83,7 +109,6 @@ export const DatePickerMonth = ({
                     navigationDayRef={navigationDayRef}
                     dayAriaLabelFormat={dayAriaLabelFormat}
                     onChange={onChange}
-                    setOpen={setOpen}
                   />
                 ))}
               </tr>

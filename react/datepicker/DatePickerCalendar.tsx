@@ -17,7 +17,6 @@ import {
 } from 'date-fns';
 import React from 'react';
 import { DatePickerMonth } from './DatePickerMonth.js';
-import { DatePickerNavigation } from './DatePickerNavigation.js';
 import type { DatePickerCalendarProps } from './props.js';
 import { se } from 'date-fns/locale';
 
@@ -38,7 +37,6 @@ export const DatePickerCalendar = ({
   dayAriaLabelFormat,
   isDayDisabled,
   onChange,
-  isManual,
   setOpen,
   ...props
 }: DatePickerCalendarProps) => {
@@ -50,6 +48,8 @@ export const DatePickerCalendar = ({
   const [isKeyboardNavigation, setIsKeyboardNavigation] = React.useState<boolean>(false);
 
   const months = useWindowingMonths(navigationDate, numberOfMonths);
+  const nextMonth = () => setNavigationDate(addMonths(months[months.length - 1], 1));
+  const prevMonth = () => setNavigationDate(subMonths(months[0], 1));
 
   /**
    * Keyboard navigation for the calendar
@@ -58,7 +58,6 @@ export const DatePickerCalendar = ({
    * PageUp/PageDown to move to next/prev month.
    */
   const keyHandler = (event: React.KeyboardEvent) => {
-    setIsKeyboardNavigation(true);
     let newDate: Date;
     // eslint-disable-next-line default-case
     switch (event.key) {
@@ -95,6 +94,7 @@ export const DatePickerCalendar = ({
       // prevent scrolling
       event.preventDefault();
       setNavigationDate(newDate);
+      //setIsKeyboardNavigation(true);
     }
   };
 
@@ -102,8 +102,10 @@ export const DatePickerCalendar = ({
     if (navigationDayRef.current && isKeyboardNavigation) {
       // Focus the currently selected day in the calendar
       navigationDayRef.current.focus();
-    }
+    } 
   }, [navigationDayRef.current, navigationDate, isKeyboardNavigation]);
+
+  //console.log('isKeyboardNavigation', isKeyboardNavigation);
 
   return (
     <>
@@ -117,11 +119,6 @@ export const DatePickerCalendar = ({
         onKeyDown={keyHandler}
         {...props}
       >
-        <DatePickerNavigation
-          phrases={phrases}
-          nextMonth={() => setNavigationDate(addMonths(months[months.length - 1], 1))}
-          prevMonth={() => setNavigationDate(subMonths(months[0], 1))}
-        />
         {months.map((month) => (
           <DatePickerMonth
             key={month.toString()}
@@ -136,7 +133,9 @@ export const DatePickerCalendar = ({
             navigationDayRef={navigationDayRef}
             dayAriaLabelFormat={dayAriaLabelFormat}
             onChange={onChange}
-            setOpen={setOpen}
+            nextMonth={nextMonth}
+            prevMonth={prevMonth}
+            setIsKeyboardNavigation={setIsKeyboardNavigation}
           />
         ))}
       </div>

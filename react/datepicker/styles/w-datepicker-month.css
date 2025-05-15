@@ -42,12 +42,13 @@
   width: 100%;
   border-spacing: 0;
   border-collapse: collapse;
+  padding-top: 8px;
+  display: block;
   min-width: var(--_month-table-min-width);
 }
 
 .w-datepicker__weekday {
   text-align: center;
-  text-transform: uppercase;
 
   font-size: var(--_weekdays-font-size);
   line-height: var(--_weekdays-line-height);
@@ -56,11 +57,10 @@
 }
 
 /* Proposed changes */
-/*
 
-Move navigation buttons (prev, and next month so they render directly into
+/*Move navigation buttons (prev, and next month so they render directly into
 w-datepicker__month-header div instead of all the absolute positioning mess)
-
+*/
 
 .w-datepicker__month-nav {
   display: flex;
@@ -80,4 +80,3 @@ w-datepicker__month-header div instead of all the absolute positioning mess)
   justify-content: center;
   text-align: center;
 }
-*/

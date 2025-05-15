@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { DatePicker } from './index.js';
 import { isBefore, startOfDay } from 'date-fns';
+import { CustomDatePicker, DatePicker } from './index.js';
 
 const metadata = { title: 'Forms/DatePicker' };
 export default metadata;
@@ -65,6 +65,29 @@ function DatePickerExample() {
   );
 }
 
+function CustomDatePickerExample() {
+  const [value, setValue] = React.useState<string>('');
+
+  const isDayDisabled = (day: Date) => {
+    return isBefore(startOfDay(day), startOfDay(new Date()));
+  };
+
+  return (
+    <>
+      <DummyFields id="dummy-1" />
+      <CustomDatePicker
+        value={value}
+        label="Dato"
+        //date={date}
+        onChange={setValue}
+        //textFieldOnChange={setTextFieldValue}
+        isDayDisabled={isDayDisabled}
+      />
+      <DummyFields id="dummy-2" />
+    </>
+  );
+}
+
 function DisabledDaysExample() {
   const [date, setDate] = React.useState<Date | null>(null);
   const [value, setValue] = React.useState('');
@@ -102,5 +125,6 @@ function DisabledDaysExample() {
   );
 }
 
-export const SingleDate = () => <DatePickerExample />;
-export const DisabledDays = () => <DisabledDaysExample />;
+//export const SingleDate = () => <DatePickerExample />;
+export const CustomDate = () => <CustomDatePickerExample />;
+//export const DisabledDays = () => <DisabledDaysExample />;

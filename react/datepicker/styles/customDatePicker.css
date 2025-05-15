@@ -1,0 +1,96 @@
+/* CustomDatePicker.css */
+
+/* container */
+.cdp-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  font-size: var(--w-font-size-m);
+  line-height: var(--w-line-height-m);
+}
+.cdp-input-wrapper {
+    position: relative;
+}
+/* hide the browser’s calendar icon, and prevent the native popup */
+.cdp-native-input {
+  /* remove default arrows/appearance */
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+  appearance: none;
+
+  /* basic styling */
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
+  padding-left: .8rem;
+  padding-right: .8rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+
+/* extra rules for IE/Edge */
+.cdp-native-input::-ms-clear,
+.cdp-native-input::-ms-expand {
+  display: none;
+}
+.label {
+    font-size: var(--w-font-size-s);
+    line-height: var(--w-line-height-s);
+    font-weight: 700;
+    cursor: pointer;
+    padding-bottom: .4rem;
+    color: var(--w-s-color-text);
+    display: block;
+}
+
+/* custom calendar button */
+.cdp-button {
+  position: absolute;
+  right: 0px;
+  padding: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  pointer-events: auto; /* override parent’s none */
+}
+
+/* the popover that holds react-datepicker */
+.cdp-popover {
+  position: absolute;
+  z-index: 1000;
+  top: calc(100% + 4px);
+  left: 0;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"],
+input[type="month"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+.w-dropdown__popover {
+  position: absolute;
+  width: max-content;
+  margin-top: 0.5rem;
+  background-color: var(--w-s-color-background);
+  box-shadow: var(--w-shadow-s);
+  z-index: 100;
+  border-radius: 8px;
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+  visibility: hidden;
+}
+.w-dropdown__popover--open {
+  visibility: visible;
+}

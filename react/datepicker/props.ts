@@ -6,7 +6,7 @@ export type DatePickerProps = {
   /**
    * The current selected date.
    */
-  date?: Date | null;
+  value?: string;
   /**
    * Called with the day of an entry in the calendar to determine if the day is disabled.
    *
@@ -22,23 +22,14 @@ export type DatePickerProps = {
    */
   locale?: Locale;
   /**
-   * Placeholder text shown on the input of the datepicker.
-   */
-  placeholder: string;
-  /**
    * Label shown on the input of the datepicker.
    */
-  textFieldLabel: string;
+  label: string;
   /**
    * Called with the date when the user makes a selection from the calendar or a changes the input.
    *
    */
-  onChange: (day: Date | null) => void;
-  /**
-   * Called with the value when user types in the date.
-   *
-   */
-  textFieldOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (day: string) => void;
   /**
    * An object of translation strings used by the datepicker for accessibility.
    */
@@ -86,8 +77,10 @@ export type DatePickerMonthProps = {
   phrases: Phrases;
   navigationDayRef: React.RefObject<HTMLTableCellElement>;
   dayAriaLabelFormat: string;
-  onChange: (date: Date, event: React.MouseEvent | React.KeyboardEvent | React.ChangeEvent) => void;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  onChange: (date: string, event: React.MouseEvent | React.KeyboardEvent | React.ChangeEvent) => void;
+  nextMonth: () => void;
+  prevMonth: () => void;
+  setIsKeyboardNavigation: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export type DatePickerDayProps = {
@@ -100,8 +93,7 @@ export type DatePickerDayProps = {
   phrases: Phrases;
   navigationDayRef: React.RefObject<HTMLTableCellElement>;
   dayAriaLabelFormat: string;
-  onChange: (date: Date, event: React.MouseEvent | React.KeyboardEvent | React.ChangeEvent) => void;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  onChange: (date: string, event: React.MouseEvent | React.KeyboardEvent | React.ChangeEvent) => void;
 };
 
 export type DatePickerCalendarProps = {
@@ -117,7 +109,6 @@ export type DatePickerCalendarProps = {
   weekDayFormat: string; //A date-fns format string for the weekday.
   dayAriaLabelFormat: string; //A date-fns format string for a day. Used for screen readers together with `phrases`.
   isDayDisabled: (day: Date) => boolean;
-  isManual: boolean; //A boolean indicating if the datepicker is in manual mode. This means that the user can type in the input field instead of selecting a date from the calendar.
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  onChange: (date: Date, event: React.MouseEvent | React.KeyboardEvent | React.ChangeEvent) => void;
+  onChange: (date: string, event: React.MouseEvent | React.KeyboardEvent | React.ChangeEvent) => void;
 };

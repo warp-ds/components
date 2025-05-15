@@ -1,5 +1,5 @@
 import style from 'inline:./styles/w-datepicker-day.css';
-import { type Locale, format, getDate, isSameDay, isSameMonth, isToday, set } from 'date-fns';
+import { type Locale, format, formatISO, getDate, isSameDay, isSameMonth, isToday } from 'date-fns';
 import type { KeyboardEvent, MouseEvent } from 'react';
 
 import type defaultPhrases from './defaultPhrases.ts';
@@ -16,7 +16,6 @@ export const DatePickerDay = ({
   navigationDayRef,
   dayAriaLabelFormat,
   onChange,
-  setOpen,
 }: DatePickerDayProps) => {
   const isDisabled = isDayDisabled(day);
 
@@ -24,17 +23,18 @@ export const DatePickerDay = ({
 
   const handleSelect = (event: MouseEvent | KeyboardEvent) => {
     if (isDisabled) return;
+    const isoDate = formatISO(day, { representation: 'date' });
+    //console.log('handleSelect', isoDate);
 
-    setOpen(false);
     // For key events we want to select on Enter and Space
     if ('key' in event) {
       if (event.key === 'Enter' || event.key === ' ') {
         // Prevents whitespace from being added to the input field
         event.preventDefault();
-        onChange(day, event);
+        onChange(isoDate, event);
       }
     } else {
-      onChange(day, event);
+      onChange(isoDate, event);
     }
   };
 

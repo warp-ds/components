@@ -14,19 +14,6 @@
 @import './w-datepicker-nav.css';
 */
 
-.w-suffix {
-  position: absolute;
-  padding-left: 1.2rem;
-  padding-right: 1.2rem;
-  width: max-content;
-  justify-content: center;
-  top: 0rem;
-  right: 0rem;
-  bottom: 0rem;
-  align-items: center;
-  display: flex;
-  background-color: none;
-}
 .w-dropdown__popover {
   position: absolute;
   width: max-content;

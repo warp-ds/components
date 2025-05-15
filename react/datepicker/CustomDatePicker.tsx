@@ -26,10 +26,10 @@ export function CustomDatePicker({
   const [calendarOpen, setCalendarOpen] = useState(false);
 
   // refs
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const popupRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const datepickerId = useId();
 
   // helpers
@@ -50,22 +50,21 @@ export function CustomDatePicker({
         calendarOpen &&
         wrapperRef.current &&
         !wrapperRef.current.contains(e.target as Node) &&
-        popupRef.current &&
-        !popupRef.current.contains(e.target as Node) &&
+        popoverRef.current &&
+        !popoverRef.current.contains(e.target as Node) &&
         inputRef.current &&
         !inputRef.current.contains(e.target as Node) &&
         buttonRef.current &&
         !buttonRef.current.contains(e.target as Node)
       ) {
+        //console.log('click outside', e.target);
         hideCalendar();
       }
     };
-    document.addEventListener('click', onBodyClick);
     document.addEventListener('mousedown', onBodyClick);
     document.addEventListener('touchend', onBodyClick);
     document.addEventListener('focusin', onBodyClick);
     return () => {
-      document.removeEventListener('click', onBodyClick);
       document.removeEventListener('mousedown', onBodyClick);
       document.removeEventListener('touchend', onBodyClick);
       document.removeEventListener('focusin', onBodyClick);
@@ -137,7 +136,7 @@ export function CustomDatePicker({
         </div>
       </div>
       {calendarOpen && (
-        <div className={'w-dropdown__popover w-dropdown__popover--open'} ref={popupRef}>
+        <div className={'w-dropdown__popover w-dropdown__popover--open'} ref={popoverRef}>
           <DatePickerCalendar
             id={datepickerId}
             key={fromISOToDate(value)?.toString()}

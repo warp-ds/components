@@ -7,6 +7,7 @@ import { DatePickerCalendar } from './DatePickerCalendar.tsx';
 import phrases from './defaultPhrases.ts';
 import { DatePickerProps } from './props.ts';
 import { fromISOToDate } from './utils.ts';
+import { Button } from '../button/index.ts';
 /**
  * A date-input that hides the native picker and shows a custom react-datepicker popover.
  *
@@ -38,6 +39,10 @@ export function CustomDatePicker({ value, onChange, label, isDayDisabled = () =>
   const commitChange = (newVal: string) => {
     onChange?.(newVal);
   };
+  // hack for iOS date input
+  const ua = typeof navigator !== 'undefined' ? navigator.userAgent : ''
+  const isIOS = /iP(hone|od|ad)/.test(ua)
+  const inputType = isIOS ? 'text' : 'date'
 
   // close on outside click/tab/touch/focus
   useEffect(() => {
@@ -89,15 +94,15 @@ export function CustomDatePicker({ value, onChange, label, isDayDisabled = () =>
       <style href="CustomDatePickerCalendar" precedence="medium">
         {style}
       </style>
-      <div className="cdp-wrapper">
+      <div className="w-datepicker-wrapper">
         <label className="label" htmlFor={datepickerId}>
           {label}
         </label>
-        <div className="cdp-input-wrapper">
+        <div className="w-datepicker-input-wrapper">
           <input
             id={datepickerId}
-            type="date"
-            className="cdp-native-input"
+            type={inputType}
+            className="w-datepicker-input"
             value={internalValue}
             onClick={(e) => {
               e.preventDefault();
@@ -121,15 +126,15 @@ export function CustomDatePicker({ value, onChange, label, isDayDisabled = () =>
               }
             }}
           />
-          <button
-            type="button"
-            className="cdp-button"
+          <Button
+            variant="utilityQuiet"
+            className="w-datepicker-button"
             onClick={() => setCalendarOpen((calendarOpen) => !calendarOpen)}
             aria-label="Open calendar"
             ref={buttonRef}
           >
             <IconCalendar16 />
-          </button>
+          </Button>
         </div>
       </div>
       {calendarOpen && (

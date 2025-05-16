@@ -1,18 +1,18 @@
 /* CustomDatePicker.css */
 
 /* container */
-.cdp-wrapper {
+.w-datepicker-wrapper {
   position: relative;
   display: inline-block;
   width: 100%;
   font-size: var(--w-font-size-m);
   line-height: var(--w-line-height-m);
 }
-.cdp-input-wrapper {
+.w-datepicker-input-wrapper {
   position: relative;
 }
 /* hide the browser’s calendar icon, and prevent the native popup */
-.cdp-native-input {
+.w-datepicker-input {
   /* remove default arrows/appearance */
   -webkit-appearance: none;
   -moz-appearance: textfield;
@@ -26,14 +26,27 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   width: 100%;
+  cursor: pointer;
+}
+.w-datepicker-input:hover {
+    border-color: var(--w-s-color-border-hover);
+}
+.w-datepicker-input:active {
+    border-color: var(--w-s-color-border-selected);
+}
+
+.w-datepicker-input:focus,
+.w-datepicker-input:focus-visible {
+    outline: 2px solid var(--w-s-color-border-focus);
+    outline-offset: -2px;
 }
 
 /* extra rules for IE/Edge */
-.cdp-native-input::-ms-clear,
-.cdp-native-input::-ms-expand {
+.w-datepicker-input::-ms-clear,
+.w-datepicker-input::-ms-expand {
   display: none;
 }
-.label {
+.w-datepicker-input-label {
   font-size: var(--w-font-size-s);
   line-height: var(--w-line-height-s);
   font-weight: 700;
@@ -44,28 +57,21 @@
 }
 
 /* custom calendar button */
-.cdp-button {
+.w-datepicker-button {
   position: absolute;
-  right: 0px;
+  right: 2px;
   padding: 16px;
   top: 50%;
   transform: translateY(-50%);
-  background: none;
   border: none;
   cursor: pointer;
   pointer-events: auto; /* override parent’s none */
 }
 
-/* the popover that holds react-datepicker */
-.cdp-popover {
-  position: absolute;
-  z-index: 1000;
-  top: calc(100% + 4px);
-  left: 0;
-  background: white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  border-radius: 4px;
+.w-datepicker-button:not(:hover) {
+    background-color: white !important;
 }
+
 input[type="date"]::-webkit-inner-spin-button,
 input[type="date"]::-webkit-calendar-picker-indicator {
   display: none;

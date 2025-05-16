@@ -70,16 +70,12 @@ export type DatePickerMonthProps = {
   month: Date;
   navigationDate: Date;
   locale: Locale;
-  monthFormat: string;
   weekDayFormat: string;
   isDayDisabled: (day: Date) => boolean;
   selectedDate: Date | null;
-  phrases: Phrases;
   navigationDayRef: React.RefObject<HTMLTableCellElement>;
   dayAriaLabelFormat: string;
   onChange: (date: string, event: React.MouseEvent | React.KeyboardEvent | React.ChangeEvent) => void;
-  nextMonth: () => void;
-  prevMonth: () => void;
   setIsKeyboardNavigation: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
@@ -90,7 +86,6 @@ export type DatePickerDayProps = {
   locale: Locale;
   isDayDisabled: (day: Date) => boolean;
   selectedDate: Date | null;
-  phrases: Phrases;
   navigationDayRef: React.RefObject<HTMLTableCellElement>;
   dayAriaLabelFormat: string;
   onChange: (date: string, event: React.MouseEvent | React.KeyboardEvent | React.ChangeEvent) => void;

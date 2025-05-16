@@ -23,6 +23,7 @@ export function CustomDatePicker({ value, onChange, label, isDayDisabled = () =>
   // refs
   const buttonRef = useRef<HTMLButtonElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const navigationDayRef = useRef<HTMLTableCellElement>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const datepickerId = useId();
@@ -79,11 +80,9 @@ export function CustomDatePicker({ value, onChange, label, isDayDisabled = () =>
   }, [value]);
 
   //console.log('CustomDatePicker', { value, internalValue });
-  const displayFormat = 'P';
   const monthFormat = 'MMMM yyyy';
   const weekDayFormat = 'EEEEEE';
   const dayAriaLabelFormat = 'PPPP';
-  const navigationDayRef = useRef<HTMLTableCellElement>(null);
 
   return (
     <div ref={wrapperRef}>
@@ -100,7 +99,10 @@ export function CustomDatePicker({ value, onChange, label, isDayDisabled = () =>
             type="date"
             className="cdp-native-input"
             value={internalValue}
-            onClick={showCalendar}
+            onClick={(e) => {
+              e.preventDefault();
+              showCalendar();
+            }}
             ref={inputRef}
             onInput={(e) => {
               const v = (e.target as HTMLInputElement).value;

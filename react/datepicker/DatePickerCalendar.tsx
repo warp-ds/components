@@ -143,16 +143,12 @@ export const DatePickerCalendar = ({
           month={month}
           navigationDate={navigationDate}
           locale={locale}
-          monthFormat={monthFormat}
           weekDayFormat={weekDayFormat}
           isDayDisabled={isDayDisabled}
           selectedDate={selectedDate}
-          phrases={phrases}
           navigationDayRef={navigationDayRef}
           dayAriaLabelFormat={dayAriaLabelFormat}
           onChange={onChange}
-          nextMonth={nextMonth}
-          prevMonth={prevMonth}
           setIsKeyboardNavigation={setIsKeyboardNavigation}
         />
       </div>

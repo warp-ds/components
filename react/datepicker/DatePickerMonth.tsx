@@ -14,9 +14,6 @@ import {
 } from 'date-fns';
 import React from 'react';
 
-import IconChevronLeft16 from '@warp-ds/icons/react/chevron-left-16';
-import IconChevronRight16 from '@warp-ds/icons/react/chevron-right-16';
-import { Button } from '../button/Button.tsx';
 import { DatePickerDay } from './DatePickerDay.js';
 import type { DatePickerMonthProps } from './props.js';
 
@@ -24,16 +21,12 @@ export const DatePickerMonth = ({
   month,
   navigationDate,
   locale,
-  monthFormat,
   weekDayFormat,
   isDayDisabled,
   selectedDate,
-  phrases,
   navigationDayRef,
   dayAriaLabelFormat,
   onChange,
-  nextMonth,
-  prevMonth,
   setIsKeyboardNavigation,
 }: DatePickerMonthProps) => {
   const weeks = React.useMemo(() => getWeeks(month, locale), [month, locale]);
@@ -83,7 +76,6 @@ export const DatePickerMonth = ({
                     locale={locale}
                     isDayDisabled={isDayDisabled}
                     selectedDate={selectedDate}
-                    phrases={phrases}
                     navigationDayRef={navigationDayRef}
                     dayAriaLabelFormat={dayAriaLabelFormat}
                     onChange={onChange}

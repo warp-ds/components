@@ -100,7 +100,6 @@ export type DatePickerCalendarProps = {
   id: string; //The id of the datepicker. This is used for accessibility and to link the calendar to the input field.
   className?: string;
   style?: React.CSSProperties;
-  numberOfMonths?: number; //The number of months to display in the calendar.
   locale: Locale; //A date-fns locale object. This enables internationalization in the datepicker such as date formatting and which day a week starts on.,
   selectedDate: Date | null; //The current selected date
   navigationDayRef: React.RefObject<HTMLTableCellElement>; //A ref to the currently focused day in the calendar,

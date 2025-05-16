@@ -5,13 +5,8 @@ import classNames from 'classnames';
 import {
   addDays,
   addMonths,
-  differenceInCalendarMonths,
-  eachMonthOfInterval,
-  endOfMonth,
   endOfWeek,
   format,
-  isBefore,
-  isWithinInterval,
   startOfMonth,
   startOfToday,
   startOfWeek,
@@ -30,7 +25,6 @@ import type { DatePickerCalendarProps } from './props.js';
 export const DatePickerCalendar = ({
   id,
   className,
-  numberOfMonths = 1,
   locale,
   selectedDate,
   navigationDayRef,
@@ -50,9 +44,9 @@ export const DatePickerCalendar = ({
   );
   const [isKeyboardNavigation, setIsKeyboardNavigation] = React.useState<boolean>(false);
 
-  const months = useWindowingMonths(navigationDate, numberOfMonths);
-  const nextMonth = () => setNavigationDate(addMonths(months[months.length - 1], 1));
-  const prevMonth = () => setNavigationDate(subMonths(months[0], 1));
+  const month = startOfMonth(navigationDate);
+  const nextMonth = () => setNavigationDate(addMonths(month, 1));
+  const prevMonth = () => setNavigationDate(subMonths(month, 1));
 
   /**
    * Keyboard navigation for the calendar
@@ -108,7 +102,7 @@ export const DatePickerCalendar = ({
     }
   }, [navigationDayRef.current, navigationDate, isKeyboardNavigation]);
 
-  console.log(months);
+  console.log(month);
   //console.log('isKeyboardNavigation', isKeyboardNavigation);
 
   return (
@@ -133,7 +127,7 @@ export const DatePickerCalendar = ({
           >
             <IconChevronLeft16 />
           </Button>
-          <div className="w-datepicker__month__nav__header">{format(months[0], monthFormat, { locale })}</div>
+          <div className="w-datepicker__month__nav__header">{format(month, monthFormat, { locale })}</div>
           <Button
             variant="utilityQuiet"
             size="small"
@@ -144,54 +138,24 @@ export const DatePickerCalendar = ({
             <IconChevronRight16 />
           </Button>
         </div>
-        {months.map((month) => (
-          <DatePickerMonth
-            key={month.toString()}
-            month={month}
-            navigationDate={navigationDate}
-            locale={locale}
-            monthFormat={monthFormat}
-            weekDayFormat={weekDayFormat}
-            isDayDisabled={isDayDisabled}
-            selectedDate={selectedDate}
-            phrases={phrases}
-            navigationDayRef={navigationDayRef}
-            dayAriaLabelFormat={dayAriaLabelFormat}
-            onChange={onChange}
-            nextMonth={nextMonth}
-            prevMonth={prevMonth}
-            setIsKeyboardNavigation={setIsKeyboardNavigation}
-          />
-        ))}
+        <DatePickerMonth
+          key={month.toString()}
+          month={month}
+          navigationDate={navigationDate}
+          locale={locale}
+          monthFormat={monthFormat}
+          weekDayFormat={weekDayFormat}
+          isDayDisabled={isDayDisabled}
+          selectedDate={selectedDate}
+          phrases={phrases}
+          navigationDayRef={navigationDayRef}
+          dayAriaLabelFormat={dayAriaLabelFormat}
+          onChange={onChange}
+          nextMonth={nextMonth}
+          prevMonth={prevMonth}
+          setIsKeyboardNavigation={setIsKeyboardNavigation}
+        />
       </div>
     </>
   );
 };
-
-//  TODO: Memoize? Recalculate on numberOfMonths change
-function useWindowingMonths(navigationDate: Date, numberOfMonths: number): Date[] {
-  const intervalRef = React.useRef({
-    start: startOfMonth(navigationDate),
-    end: addMonths(navigationDate, numberOfMonths - 1),
-  });
-
-  const interval = intervalRef.current;
-
-  if (isWithinInterval(navigationDate, interval)) {
-    return eachMonthOfInterval(interval);
-  }
-
-  let differenceInMonths = 0;
-  if (isBefore(navigationDate, interval.start)) {
-    differenceInMonths = differenceInCalendarMonths(interval.start, navigationDate);
-  } else {
-    differenceInMonths = differenceInCalendarMonths(interval.end, navigationDate);
-  }
-
-  intervalRef.current = {
-    start: startOfMonth(subMonths(interval.start, differenceInMonths)),
-    end: endOfMonth(subMonths(interval.end, differenceInMonths)),
-  };
-
-  return eachMonthOfInterval(intervalRef.current);
-}

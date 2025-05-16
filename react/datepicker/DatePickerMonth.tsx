@@ -55,28 +55,6 @@ export const DatePickerMonth = ({
         {style}
       </style>
       <div className="w-datepicker__month">
-        <div className="w-datepicker__month-nav">
-          <Button
-            variant="utilityQuiet"
-            size="small"
-            className="w-datepicker__month__nav__button"
-            aria-label={phrases.jumpToPrevMonth}
-            onClick={prevMonth}
-          >
-            <IconChevronLeft16 />
-          </Button>
-          <div className="w-datepicker__month__nav__header">{format(month, monthFormat, { locale })}</div>
-          <Button
-            variant="utilityQuiet"
-            size="small"
-            className="w-datepicker__month__nav__button"
-            aria-label={phrases.jumpToNextMonth}
-            onClick={nextMonth}
-          >
-            <IconChevronRight16 />
-          </Button>
-        </div>
-
         <table
           className="w-datepicker__table"
           // biome-ignore lint/a11y/useSemanticElements: <explanation>

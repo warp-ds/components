@@ -9,7 +9,7 @@
   line-height: var(--w-line-height-m);
 }
 .cdp-input-wrapper {
-    position: relative;
+  position: relative;
 }
 /* hide the browser’s calendar icon, and prevent the native popup */
 .cdp-native-input {
@@ -34,13 +34,13 @@
   display: none;
 }
 .label {
-    font-size: var(--w-font-size-s);
-    line-height: var(--w-line-height-s);
-    font-weight: 700;
-    cursor: pointer;
-    padding-bottom: .4rem;
-    color: var(--w-s-color-text);
-    display: block;
+  font-size: var(--w-font-size-s);
+  line-height: var(--w-line-height-s);
+  font-weight: 700;
+  cursor: pointer;
+  padding-bottom: .4rem;
+  color: var(--w-s-color-text);
+  display: block;
 }
 
 /* custom calendar button */

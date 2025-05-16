@@ -1,12 +1,12 @@
 import style from 'inline:./styles/customDatePicker.css';
-import { useEffect, useRef, useState, useId } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 
 import IconCalendar16 from '@warp-ds/icons/react/calendar-16';
 import { nb } from 'date-fns/locale';
 import { DatePickerCalendar } from './DatePickerCalendar.tsx';
 import phrases from './defaultPhrases.ts';
-import { fromISOToDate } from './utils.ts';
 import { DatePickerProps } from './props.ts';
+import { fromISOToDate } from './utils.ts';
 /**
  * A date-input that hides the native picker and shows a custom react-datepicker popover.
  *
@@ -15,12 +15,7 @@ import { DatePickerProps } from './props.ts';
  *   onChange  - (newDate: Date) => void
  *   placeholder - string
  */
-export function CustomDatePicker({
-  value,
-  onChange,
-  label,
-  isDayDisabled = () => false,
-}: DatePickerProps) {
+export function CustomDatePicker({ value, onChange, label, isDayDisabled = () => false }: DatePickerProps) {
   // state
   const [internalValue, setInternalValue] = useState<string>(value);
   const [calendarOpen, setCalendarOpen] = useState(false);

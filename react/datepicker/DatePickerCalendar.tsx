@@ -1,4 +1,6 @@
 import style from 'inline:./styles/w-datepicker-calendar.css';
+import IconChevronLeft16 from '@warp-ds/icons/react/chevron-left-16';
+import IconChevronRight16 from '@warp-ds/icons/react/chevron-right-16';
 import classNames from 'classnames';
 import {
   addDays,
@@ -7,6 +9,7 @@ import {
   eachMonthOfInterval,
   endOfMonth,
   endOfWeek,
+  format,
   isBefore,
   isWithinInterval,
   startOfMonth,
@@ -16,9 +19,9 @@ import {
   subMonths,
 } from 'date-fns';
 import React from 'react';
+import { Button } from '../button/Button.tsx';
 import { DatePickerMonth } from './DatePickerMonth.js';
 import type { DatePickerCalendarProps } from './props.js';
-import { se } from 'date-fns/locale';
 
 /**
  * DatePickerCalendar
@@ -102,9 +105,10 @@ export const DatePickerCalendar = ({
     if (navigationDayRef.current && isKeyboardNavigation) {
       // Focus the currently selected day in the calendar
       navigationDayRef.current.focus();
-    } 
+    }
   }, [navigationDayRef.current, navigationDate, isKeyboardNavigation]);
 
+  console.log(months);
   //console.log('isKeyboardNavigation', isKeyboardNavigation);
 
   return (
@@ -119,6 +123,27 @@ export const DatePickerCalendar = ({
         onKeyDown={keyHandler}
         {...props}
       >
+        <div className="w-datepicker__month-nav">
+          <Button
+            variant="utilityQuiet"
+            size="small"
+            className="w-datepicker__month__nav__button"
+            aria-label={phrases.jumpToPrevMonth}
+            onClick={prevMonth}
+          >
+            <IconChevronLeft16 />
+          </Button>
+          <div className="w-datepicker__month__nav__header">{format(months[0], monthFormat, { locale })}</div>
+          <Button
+            variant="utilityQuiet"
+            size="small"
+            className="w-datepicker__month__nav__button"
+            aria-label={phrases.jumpToNextMonth}
+            onClick={nextMonth}
+          >
+            <IconChevronRight16 />
+          </Button>
+        </div>
         {months.map((month) => (
           <DatePickerMonth
             key={month.toString()}

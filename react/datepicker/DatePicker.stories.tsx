@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { DatePicker } from './index.js';
+import { isBefore, startOfDay } from 'date-fns';
+import { CustomDatePicker, DatePicker } from './index.js';
 
 const metadata = { title: 'Forms/DatePicker' };
 export default metadata;
@@ -11,6 +12,20 @@ const parseDate = (dateString: string): Date | null => {
   const parsedDate = new Date(year, month - 1, day);
   return !Number.isNaN(parsedDate.getTime()) ? parsedDate : null;
 };
+
+const DummyFields = ({ id }) => (
+  <div style={{ paddingBottom: '16px', paddingTop: '16px' }}>
+    <label htmlFor={id} className="antialiased block relative text-s font-bold pb-4 cursor-pointer s-text">
+      {id}
+    </label>
+    <input
+      id={id}
+      type="text"
+      className="block text-m leading-m mb-0 px-8 py-12 rounded-4 w-full focusable focus:[--w-outline-offset:-2px] caret-current placeholder:s-text-placeholder border-1 s-text s-bg s-border hover:s-border-hover active:s-border-selected"
+      placeholder={id}
+    />
+  </div>
+);
 
 function DatePickerExample() {
   const [date, setDate] = React.useState<Date | null>(null);
@@ -25,16 +40,51 @@ function DatePickerExample() {
         setDate(parsedDate);
       }
     }
+    if (event.target.value === '') {
+      setDate(null);
+    }
+  };
+
+  const isDayDisabled = (day: Date) => {
+    return isBefore(startOfDay(day), startOfDay(new Date()));
   };
 
   return (
-    <DatePicker
-      placeholder="dd.mm.yyyy"
-      textFieldLabel="Dato"
-      date={date}
-      onChange={setDate}
-      textFieldOnChange={setTextFieldValue}
-    />
+    <>
+      <DummyFields id="dummy-1" />
+      <DatePicker
+        placeholder="dd.mm.yyyy"
+        textFieldLabel="Dato"
+        date={date}
+        onChange={setDate}
+        textFieldOnChange={setTextFieldValue}
+        isDayDisabled={isDayDisabled}
+      />
+      <DummyFields id="dummy-2" />
+    </>
+  );
+}
+
+function CustomDatePickerExample() {
+  const [value, setValue] = React.useState<string>('');
+
+  const isDayDisabled = (day: Date) => {
+    return isBefore(startOfDay(day), startOfDay(new Date()));
+  };
+
+  return (
+    <>
+      <DummyFields id="dummy-1" />
+      <CustomDatePicker
+        value={value}
+        label="Dato"
+        //date={date}
+        onChange={setValue}
+        //textFieldOnChange={setTextFieldValue}
+        isDayDisabled={isDayDisabled}
+      />
+      <DummyFields id="dummy-2" />
+    </>
   );
 }
 
@@ -58,6 +108,9 @@ function DisabledDaysExample() {
         setDate(parsedDate);
       }
     }
+    if (event.target.value === '') {
+      setDate(null);
+    }
   };
 
   return (
@@ -72,5 +125,6 @@ function DisabledDaysExample() {
   );
 }
 
-export const SingleDate = () => <DatePickerExample />;
-export const DisabledDays = () => <DisabledDaysExample />;
+//export const SingleDate = () => <DatePickerExample />;
+export const CustomDate = () => <CustomDatePickerExample />;
+//export const DisabledDays = () => <DisabledDaysExample />;

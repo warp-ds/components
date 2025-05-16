@@ -21,14 +21,13 @@ export const DatePickerMonth = ({
   month,
   navigationDate,
   locale,
-  monthFormat,
   weekDayFormat,
   isDayDisabled,
   selectedDate,
-  phrases,
   navigationDayRef,
   dayAriaLabelFormat,
   onChange,
+  setIsKeyboardNavigation,
 }: DatePickerMonthProps) => {
   const weeks = React.useMemo(() => getWeeks(month, locale), [month, locale]);
 
@@ -49,14 +48,13 @@ export const DatePickerMonth = ({
         {style}
       </style>
       <div className="w-datepicker__month">
-        <div className="w-datepicker__month__nav">
-          {/* move prev month button here and give it .w-datepicker__month__nav__button as a class*/}
-          <div className="w-datepicker__month__nav__header">{format(month, monthFormat, { locale })}</div>
-          {/* move next month button here and give it .w-datepicker__month__nav__button as a class*/}
-        </div>
-
-        {/* biome-ignore lint/a11y/useSemanticElements: <explanation> */}
-        <table className="w-datepicker__table" role="grid">
+        <table
+          className="w-datepicker__table"
+          // biome-ignore lint/a11y/useSemanticElements: <explanation>
+          role="grid"
+          onFocus={() => setIsKeyboardNavigation(true)}
+          onBlur={() => setIsKeyboardNavigation(false)}
+        >
           <thead className="w-datepicker__weekdays" aria-hidden="true">
             <tr>
               {weeks[0].map((day) => (
@@ -78,7 +76,6 @@ export const DatePickerMonth = ({
                     locale={locale}
                     isDayDisabled={isDayDisabled}
                     selectedDate={selectedDate}
-                    phrases={phrases}
                     navigationDayRef={navigationDayRef}
                     dayAriaLabelFormat={dayAriaLabelFormat}
                     onChange={onChange}

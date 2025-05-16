@@ -1,14 +1,12 @@
 import style from 'inline:./styles/w-datepicker-calendar.css';
+import IconChevronLeft16 from '@warp-ds/icons/react/chevron-left-16';
+import IconChevronRight16 from '@warp-ds/icons/react/chevron-right-16';
 import classNames from 'classnames';
 import {
   addDays,
   addMonths,
-  differenceInCalendarMonths,
-  eachMonthOfInterval,
-  endOfMonth,
   endOfWeek,
-  isBefore,
-  isWithinInterval,
+  format,
   startOfMonth,
   startOfToday,
   startOfWeek,
@@ -16,8 +14,8 @@ import {
   subMonths,
 } from 'date-fns';
 import React from 'react';
+import { Button } from '../button/Button.tsx';
 import { DatePickerMonth } from './DatePickerMonth.js';
-import { DatePickerNavigation } from './DatePickerNavigation.js';
 import type { DatePickerCalendarProps } from './props.js';
 
 /**
@@ -27,7 +25,6 @@ import type { DatePickerCalendarProps } from './props.js';
 export const DatePickerCalendar = ({
   id,
   className,
-  numberOfMonths = 1,
   locale,
   selectedDate,
   navigationDayRef,
@@ -37,6 +34,7 @@ export const DatePickerCalendar = ({
   dayAriaLabelFormat,
   isDayDisabled,
   onChange,
+  setOpen,
   ...props
 }: DatePickerCalendarProps) => {
   const [navigationDate, setNavigationDate] = React.useState(
@@ -44,8 +42,11 @@ export const DatePickerCalendar = ({
     // otherwise todays date will be the only date in the calendar that doesn' start at 00:00:00
     selectedDate ?? startOfToday(),
   );
+  const [isKeyboardNavigation, setIsKeyboardNavigation] = React.useState<boolean>(false);
 
-  const months = useWindowingMonths(navigationDate, numberOfMonths);
+  const month = startOfMonth(navigationDate);
+  const nextMonth = () => setNavigationDate(addMonths(month, 1));
+  const prevMonth = () => setNavigationDate(subMonths(month, 1));
 
   /**
    * Keyboard navigation for the calendar
@@ -81,20 +82,28 @@ export const DatePickerCalendar = ({
       case 'PageDown':
         newDate = addMonths(navigationDate, 1);
         break;
+      case 'Escape':
+        setOpen(false);
+        break;
     }
 
     if (newDate) {
       // prevent scrolling
       event.preventDefault();
       setNavigationDate(newDate);
+      //setIsKeyboardNavigation(true);
     }
   };
 
-  React.useLayoutEffect(() => {
-    if (navigationDayRef.current) {
+  React.useEffect(() => {
+    if (navigationDayRef.current && isKeyboardNavigation) {
+      // Focus the currently selected day in the calendar
       navigationDayRef.current.focus();
     }
-  }, [navigationDayRef.current, navigationDate]);
+  }, [navigationDayRef.current, navigationDate, isKeyboardNavigation]);
+
+  console.log(month);
+  //console.log('isKeyboardNavigation', isKeyboardNavigation);
 
   return (
     <>
@@ -108,56 +117,41 @@ export const DatePickerCalendar = ({
         onKeyDown={keyHandler}
         {...props}
       >
-        <DatePickerNavigation
-          phrases={phrases}
-          nextMonth={() => setNavigationDate(addMonths(months[months.length - 1], 1))}
-          prevMonth={() => setNavigationDate(subMonths(months[0], 1))}
+        <div className="w-datepicker__month-nav">
+          <Button
+            variant="utilityQuiet"
+            size="small"
+            className="w-datepicker__month__nav__button"
+            aria-label={phrases.jumpToPrevMonth}
+            onClick={prevMonth}
+          >
+            <IconChevronLeft16 />
+          </Button>
+          <div className="w-datepicker__month__nav__header">{format(month, monthFormat, { locale })}</div>
+          <Button
+            variant="utilityQuiet"
+            size="small"
+            className="w-datepicker__month__nav__button"
+            aria-label={phrases.jumpToNextMonth}
+            onClick={nextMonth}
+          >
+            <IconChevronRight16 />
+          </Button>
+        </div>
+        <DatePickerMonth
+          key={month.toString()}
+          month={month}
+          navigationDate={navigationDate}
+          locale={locale}
+          weekDayFormat={weekDayFormat}
+          isDayDisabled={isDayDisabled}
+          selectedDate={selectedDate}
+          navigationDayRef={navigationDayRef}
+          dayAriaLabelFormat={dayAriaLabelFormat}
+          onChange={onChange}
+          setIsKeyboardNavigation={setIsKeyboardNavigation}
         />
-        {months.map((month) => (
-          <DatePickerMonth
-            key={month.toString()}
-            month={month}
-            navigationDate={navigationDate}
-            locale={locale}
-            monthFormat={monthFormat}
-            weekDayFormat={weekDayFormat}
-            isDayDisabled={isDayDisabled}
-            selectedDate={selectedDate}
-            phrases={phrases}
-            navigationDayRef={navigationDayRef}
-            dayAriaLabelFormat={dayAriaLabelFormat}
-            onChange={onChange}
-          />
-        ))}
       </div>
     </>
   );
 };
-
-//  TODO: Memoize? Recalculate on numberOfMonths change
-function useWindowingMonths(navigationDate: Date, numberOfMonths: number): Date[] {
-  const intervalRef = React.useRef({
-    start: startOfMonth(navigationDate),
-    end: addMonths(navigationDate, numberOfMonths - 1),
-  });
-
-  const interval = intervalRef.current;
-
-  if (isWithinInterval(navigationDate, interval)) {
-    return eachMonthOfInterval(interval);
-  }
-
-  let differenceInMonths = 0;
-  if (isBefore(navigationDate, interval.start)) {
-    differenceInMonths = differenceInCalendarMonths(interval.start, navigationDate);
-  } else {
-    differenceInMonths = differenceInCalendarMonths(interval.end, navigationDate);
-  }
-
-  intervalRef.current = {
-    start: startOfMonth(subMonths(interval.start, differenceInMonths)),
-    end: endOfMonth(subMonths(interval.end, differenceInMonths)),
-  };
-
-  return eachMonthOfInterval(intervalRef.current);
-}

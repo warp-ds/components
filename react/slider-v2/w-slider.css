@@ -2,8 +2,6 @@
    Component: w-slider
    ==========================================================================
    TODOs:
-   1. Replace opacity-based disabled state with semantic colors.
-   2. Refactor absolute positioning to flex for better vertical alignment?
    3. Double-check styling and colors against Figma sketches.
    Sections:
    1. Public override points
@@ -17,11 +15,12 @@
 .w-slider {
   --w-slider-track-background: var(--w-s-color-background-disabled-subtle);
   --w-slider-track-active-background: var(--w-s-color-background-primary);
-  --w-slider-track-height: 3px;
+  --w-slider-track-height: 4px;
+  --w-slider-track-active-height: 6px;
   --w-slider-thumb-background: var(--w-s-color-background-primary);
   --w-slider-thumb-border: var(--w-s-color-border-primary);
   --w-slider-thumb-shadow: none;
-  --w-slider-thumb-size: 29px;
+  --w-slider-thumb-size: 28px;
   --w-slider-tick-color: var(--w-s-color-background-disabled-subtle);
   --w-slider-tick-value-color: var(--w-s-color-text-subtle);
 }
@@ -54,9 +53,13 @@
 .w-slider__track-active {
   --_w-slider-track-active-background: var(--w-slider-track-active-background);
   height: var(--w-slider-track-height);
+  height: 6px;
   border-radius: inherit;
   flex-grow:0;
   background-color: var(--_w-slider-track-active-background);
+  top: -1px;
+  bottom: -1px;
+  position: absolute;
 }
 
 .w-slider__thumb {
@@ -88,7 +91,6 @@
 /* 5. Modifiers */
 .w-slider--is-disabled {
   pointer-events: none;
-  xopacity: 0.6; /* TODO 1: Replace this with semantic disabled colors */
 
   --w-slider-track-background: var(--w-s-color-background-disabled);
   --w-slider-thumb-background: var(--w-s-color-background-disabled);
@@ -133,18 +135,15 @@
   line-height: var(--w-line-height-s);
   font-weight: 700;
   cursor: pointer;
-  padding-bottom: .4rem;
+  padding-bottom: 4px;
   color: var(--w-s-color-text);
   position: relative;
   display: block;
 }
+
 .w-slider__input {
   margin-top: 12px;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
 }
-
-.w-slider,
-.w-slider__wrap
- {outline: 1px dashed red;}

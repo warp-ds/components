@@ -95,7 +95,7 @@ export function CustomDatePicker({ value, onChange, label, isDayDisabled = () =>
         {style}
       </style>
       <div className="w-datepicker-wrapper">
-        <label className="label" htmlFor={datepickerId}>
+        <label className="w-datepicker-input-label" htmlFor={datepickerId}>
           {label}
         </label>
         <div className="w-datepicker-input-wrapper">

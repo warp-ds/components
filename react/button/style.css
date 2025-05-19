@@ -50,6 +50,11 @@
   border-color: var(--_border-active);
 }
 
+.w-button:focus-visible {
+  outline: 2px solid var(--w-s-color-border-focus);
+  outline-offset: var(--w-outline-offset, 1px);
+}
+
 /* Variants config */
 .w-button--primary {
   --background: var(--w-s-color-background-primary);
@@ -65,6 +70,13 @@
   --color: var(--w-s-color-text-inverted);
   --border-width: 0px;
 }
+.w-button--negative-quiet {
+  --background: transparent;
+  --background-hover: var(--w-s-color-background-negative-subtle-hover);
+  --background-active: var(--w-s-color-background-negative-subtle-active);
+  --color: var(--w-s-color-text-negative);
+  --border-width: 0px;
+}
 .w-button--utility {
   --background: var(--w-s-color-background);
   --background-hover: var(--w-s-color-background-hover);
@@ -73,32 +85,44 @@
   --border-radius: 4px;
   --border-width: 1px;
 }
-
-.w-button--quiet {
-  --border-width: 0px;
-}
-.w-button--negative-quiet {
-  --background: transparent;
-  --background-hover: var(--w-s-color-background-negative-subtle-hover);
-  --background-active: var(--w-s-color-background-negative-subtle-active);
-  --color: var(--w-s-color-text-negative);
-  --border-width: 0px;
-}
-
 .w-button--utility-quiet {
   --background: transparent;
   --color: var(--w-s-color-text);
   --border-width: 0px;
 }
-
-.w-button--overlay-quiet {
-  --background: transparent;
-  --background-hover: var(--w-color-button-pill-background-hover);
-  --background-active: var(--w-color-button-pill-background-active);
+.w-button--overlay {
+  --background: var(--w-color-background);
+  --background-hover: var(--w-color-background-hover);
+  --background-active: var(--w-color-background-active);
   --color: var(--w-s-color-text);
   --border-radius: 9999px;
   --border-width: 0px;
 }
+.w-button--overlay-quiet {
+  --background: transparent;
+  --background-hover: var(--w-s-color-background-hover);
+  --background-active: var(--w-s-color-background-active);
+  --color: var(--w-s-color-text);
+  --border-radius: 9999px;
+  --border-width: 0px;
+}
+.w-button--overlay-inverted {
+  --background: var(--w-s-color-background-inverted);
+  --background-hover: var(--w-s-color-background-inverted-hover);
+  --background-active: var(--w-s-color-background-inverted-active);
+  --color: var(--w-s-color-text-inverted);
+  --border-radius: 9999px;
+  --border-width: 0px;
+}
+.w-button--overlay-inverted-quiet {
+  --background: transparent;
+  --background-hover: var(--w-s-color-background-inverted-hover);
+  --background-active: var(--w-s-color-background-inverted-active);
+  --color: var(--w-s-color-text-inverted);
+  --border-radius: 9999px;
+  --border-width: 0px;
+}
+
 
 .w-button--link {
   --background: none;
@@ -138,6 +162,15 @@
   width: 100%;
   max-width: 100%;
 }
+
+.w-button--has-icon-only {
+  width: auto;
+  max-width: none;
+  --_padding-x: var(--_padding-y);
+  aspect-ratio: 1 / 1;
+  xborder-radius: 9999px;
+}
+
 
 /* Copy of loading animation from warp  */
 .w-button--loading {

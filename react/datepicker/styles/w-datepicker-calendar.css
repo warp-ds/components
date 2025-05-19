@@ -8,4 +8,5 @@
 
   border: var(--_calendar-border-width) var(--_calendar-border-style) var(--_calendar-border-color);
   border-radius: var(--_calendar-border-radius);
+  padding: 16px;
 }

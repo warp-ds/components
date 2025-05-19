@@ -1,8 +1,7 @@
 import style from 'inline:./styles/w-datepicker-day.css';
-import { type Locale, format, getDate, isSameDay, isSameMonth, isToday } from 'date-fns';
+import { format, formatISO, getDate, isSameDay, isSameMonth, isToday } from 'date-fns';
 import type { KeyboardEvent, MouseEvent } from 'react';
 
-import type defaultPhrases from './defaultPhrases.ts';
 import type { DatePickerDayProps } from './props.js';
 
 export const DatePickerDay = ({
@@ -12,7 +11,6 @@ export const DatePickerDay = ({
   locale,
   isDayDisabled,
   selectedDate,
-  phrases,
   navigationDayRef,
   dayAriaLabelFormat,
   onChange,
@@ -23,27 +21,20 @@ export const DatePickerDay = ({
 
   const handleSelect = (event: MouseEvent | KeyboardEvent) => {
     if (isDisabled) return;
+    const isoDate = formatISO(day, { representation: 'date' });
+    //console.log('handleSelect', isoDate);
 
     // For key events we want to select on Enter and Space
     if ('key' in event) {
       if (event.key === 'Enter' || event.key === ' ') {
         // Prevents whitespace from being added to the input field
         event.preventDefault();
-        onChange(day, event);
+        onChange(isoDate, event);
       }
     } else {
-      onChange(day, event);
+      onChange(isoDate, event);
     }
   };
-
-  const ariaLabel = dayAriaLabel({
-    day,
-    phrases,
-    locale,
-    dayAriaLabelFormat,
-    isSelected,
-    isDisabled,
-  });
 
   const isNavigationDate = day === navigationDate;
 
@@ -58,7 +49,7 @@ export const DatePickerDay = ({
       <td
         aria-current={isToday(day) ? 'date' : undefined}
         aria-disabled={isDisabled}
-        aria-label={ariaLabel}
+        aria-label={format(day, dayAriaLabelFormat, { locale })}
         aria-selected={isSelected}
         // biome-ignore lint/a11y/noNoninteractiveElementToInteractiveRole: <explanation>
         // biome-ignore lint/a11y/useSemanticElements: <explanation>
@@ -79,29 +70,3 @@ export const DatePickerDay = ({
     </>
   );
 };
-
-function dayAriaLabel({
-  day,
-  phrases,
-  locale,
-  dayAriaLabelFormat,
-  isDisabled,
-  isSelected,
-}: {
-  day: Date;
-  phrases: typeof defaultPhrases;
-  locale: Locale;
-  dayAriaLabelFormat: string;
-  isSelected: boolean;
-  isDisabled: boolean;
-}): string {
-  if (isSelected) {
-    return phrases.dateIsSelected(format(day, dayAriaLabelFormat, { locale }));
-  }
-
-  if (isDisabled) {
-    return phrases.dateIsUnavailable(format(day, dayAriaLabelFormat, { locale }));
-  }
-
-  return format(day, dayAriaLabelFormat, { locale });
-}

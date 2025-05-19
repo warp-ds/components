@@ -1,116 +1,153 @@
 import style from 'inline:./styles/w-datepicker.css';
-import React from 'react';
-
-import { nb } from 'date-fns/locale';
+import { useEffect, useId, useRef, useState } from 'react';
 
 import IconCalendar16 from '@warp-ds/icons/react/calendar-16';
-import { Attention } from '@warp-ds/react/components/attention';
-import { TextField } from '@warp-ds/react/components/textfield';
-import { format, isValid } from 'date-fns';
+import { nb } from 'date-fns/locale';
 import { DatePickerCalendar } from './DatePickerCalendar.tsx';
-import defaultPhrases from './defaultPhrases.ts';
-import type { DatePickerProps } from './props.ts';
+import phrases from './defaultPhrases.ts';
+import { DatePickerProps } from './props.ts';
+import { fromISOToDate } from './utils.ts';
+import { Button } from '../button/index.ts';
 
-export const DatePicker = ({
-  locale = nb,
-  isDayDisabled = () => false,
-  date,
-  onChange,
-  textFieldOnChange,
-  placeholder,
-  textFieldLabel,
-  phrases = defaultPhrases,
-  displayFormat = 'P',
-  monthFormat = 'MMMM yyyy',
-  weekDayFormat = 'EEEEEE',
-  dayAriaLabelFormat = 'PPPP',
-}: DatePickerProps) => {
-  const datepickerId = React.useId();
+export function DatePicker({ value, onChange, label, isDayDisabled = () => false }: DatePickerProps) {
+  // state
+  const [internalValue, setInternalValue] = useState<string>(value);
+  const [calendarOpen, setCalendarOpen] = useState(false);
 
-  const [open, setOpen] = React.useState<boolean>(false);
-  const [isManual, setIsManual] = React.useState<boolean>(false);
-  const [manualValue, setManualValue] = React.useState<string>('');
+  // refs
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const navigationDayRef = useRef<HTMLTableCellElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const datepickerId = useId();
 
-  const navigationDayRef = React.useRef<HTMLTableCellElement>(null);
-  const textFieldRef = React.useRef<HTMLInputElement>(null);
+  // helpers
+  const showCalendar = () => setCalendarOpen(true);
+  const hideCalendar = () => setCalendarOpen(false);
+  const toggleCalendar = (e: MouseEvent | React.KeyboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    calendarOpen ? hideCalendar() : showCalendar();
+  };
+  const commitChange = (newVal: string) => {
+    onChange?.(newVal);
+  };
+  // hack for iOS date input
+  const ua = typeof navigator !== 'undefined' ? navigator.userAgent : ''
+  const isIOS = /iP(hone|od|ad)/.test(ua)
+  const inputType = isIOS ? 'text' : 'date'
 
-  const handleChange = React.useCallback(
-    (day: Date) => {
-      setIsManual(false);
-      onChange(day);
-    },
-    [onChange],
-  );
+  // close on outside click/tab/touch/focus
+  useEffect(() => {
+    const onBodyClick = (e: MouseEvent | FocusEvent) => {
+      if (
+        calendarOpen &&
+        wrapperRef.current &&
+        !wrapperRef.current.contains(e.target as Node) &&
+        popoverRef.current &&
+        !popoverRef.current.contains(e.target as Node) &&
+        inputRef.current &&
+        !inputRef.current.contains(e.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(e.target as Node)
+      ) {
+        //console.log('click outside', e.target);
+        hideCalendar();
+      }
+    };
+    document.addEventListener('mousedown', onBodyClick);
+    document.addEventListener('touchend', onBodyClick);
+    document.addEventListener('focusin', onBodyClick);
+    return () => {
+      document.removeEventListener('mousedown', onBodyClick);
+      document.removeEventListener('touchend', onBodyClick);
+      document.removeEventListener('focusin', onBodyClick);
+    };
+  }, [calendarOpen]);
 
-  const keyHandler = (event: React.KeyboardEvent) => {
-    switch (event.key) {
-      case 'Escape':
-        setOpen(false);
-        break;
-    }
+  // when user picks a date
+  const handleSelect = (date: string) => {
+    setInternalValue(date);
+    setCalendarOpen(false);
+    if (onChange) onChange(date);
   };
 
-  // The change handler for the TextField when user types manually.
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Switch to manual mode if not already.
-    if (!isManual) setIsManual(true);
-    const newValue = e.target.value;
-    setManualValue(newValue);
-    // Relay the event.
-    textFieldOnChange?.(e);
-  };
+  // update selected if prop `value` changes
+  useEffect(() => {
+    setInternalValue(value);
+  }, [value]);
 
-  const displayDate = isValid(date) ? format(date, displayFormat, { locale }) : '';
+  //console.log('CustomDatePicker', { value, internalValue });
+  const monthFormat = 'MMMM yyyy';
+  const weekDayFormat = 'EEEEEE';
+  const dayAriaLabelFormat = 'PPPP';
 
   return (
-    <div>
-      <style href="DatePickerCalendar" precedence="medium">
+    <div ref={wrapperRef}>
+      <style href="CustomDatePickerCalendar" precedence="medium">
         {style}
       </style>
-      {/* @ts-ignore */}
-      <TextField
-        // When not in manual mode, control the input using displayDate.
-        // When in manual mode, let the input be uncontrolled.
-        {...(isManual
-          ? { defaultValue: manualValue, onChange: handleInputChange }
-          : { value: displayDate, onChange: handleInputChange })}
-        label={textFieldLabel}
-        placeholder={placeholder}
-        onKeyDown={keyHandler}
-        // biome-ignore lint/a11y/useSemanticElements: <explanation>
-        role="combobox"
-        aria-haspopup="grid"
-        aria-controls={datepickerId}
-        aria-expanded={open}
-        ref={textFieldRef}
-      >
-        <button prefix="true" type="button" onClick={() => setOpen(!open)} className="w-prefix">
-          <IconCalendar16 />
-        </button>
-      </TextField>
-      <Attention
-        popover
-        placement="bottom"
-        noArrow={true}
-        flip={true}
-        crossAxis={true}
-        isShowing={open}
-        targetEl={textFieldRef}
-      >
-        <DatePickerCalendar
-          id={datepickerId}
-          key={date?.toDateString()}
-          selectedDate={date}
-          locale={locale}
-          phrases={phrases}
-          navigationDayRef={navigationDayRef}
-          monthFormat={monthFormat}
-          weekDayFormat={weekDayFormat}
-          dayAriaLabelFormat={dayAriaLabelFormat}
-          onChange={handleChange}
-          isDayDisabled={isDayDisabled}
-        />
-      </Attention>
+      <div className="w-datepicker-wrapper">
+        <label className="w-datepicker-input-label" htmlFor={datepickerId}>
+          {label}
+        </label>
+        <div className="w-datepicker-input-wrapper">
+          <input
+            id={datepickerId}
+            type={inputType}
+            className="w-datepicker-input"
+            value={internalValue}
+            onClick={(e) => {
+              e.preventDefault();
+              showCalendar();
+            }}
+            ref={inputRef}
+            onInput={(e) => {
+              const v = (e.target as HTMLInputElement).value;
+              //console.log('onInput', v);
+              setInternalValue(v);
+              //commitChange(v);
+            }}
+            onBlur={(e) => {
+              const v = (e.target as HTMLInputElement).value;
+              commitChange(v);
+            }}
+            onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+              if (e.key === ' ') return toggleCalendar(e);
+              if (e.key === ',' || e.key === 'Enter') {
+                e.preventDefault();
+              }
+            }}
+          />
+          <Button
+            variant="utilityQuiet"
+            className="w-datepicker-button"
+            onClick={() => setCalendarOpen((calendarOpen) => !calendarOpen)}
+            aria-label="Open calendar"
+            ref={buttonRef}
+          >
+            <IconCalendar16 />
+          </Button>
+        </div>
+      </div>
+      {calendarOpen && (
+        <div className={'w-dropdown__popover w-dropdown__popover--open'} ref={popoverRef}>
+          <DatePickerCalendar
+            id={datepickerId}
+            key={fromISOToDate(value)?.toString()}
+            selectedDate={fromISOToDate(value)}
+            locale={nb}
+            phrases={phrases}
+            navigationDayRef={navigationDayRef}
+            monthFormat={monthFormat}
+            weekDayFormat={weekDayFormat}
+            dayAriaLabelFormat={dayAriaLabelFormat}
+            onChange={handleSelect}
+            isDayDisabled={isDayDisabled}
+            setOpen={setCalendarOpen}
+          />
+        </div>
+      )}
     </div>
   );
-};
+}

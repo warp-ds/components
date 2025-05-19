@@ -49,20 +49,13 @@ export const Example = () => (
 
       <Button variant="utility">Utility</Button>
 
-      <Button variant="overlay">Overlay</Button>
-
-      <Button variant="overlayInverted">Overlay-Inverted</Button>
-
-      <Button variant="overlayQuiet">Overlay</Button>
-
-      <Button variant="overlayInvertedQuiet">Overlay-Inverted</Button>
-
       <Button variant="negativeQuiet">Negative-Quiet</Button>
 
       <Button variant="utilityQuiet">utility-Quiet</Button>
 
       <p style={{ marginTop: '10px' }}>
-        This is a <Button variant="link">button</Button> pretending to be a link.
+        This is a <Button variant="link">button</Button> pretending to
+        be a link.
       </p>
     </div>
 
@@ -86,8 +79,10 @@ export const Example = () => (
       <h3>States</h3>
       <p>Allowed values: empty(default) or any number of states</p>
       <p>
-        Loading state, Pattern is supposed to be: button is triggered, button is disabled until loading success, while
-        in the disabled state it also show loading animation to show something is happening.
+        Loading state, Pattern is supposed to be: button is triggered,
+        button is disabled until loading success, while in the
+        disabled state it also show loading animation to show
+        something is happening.
       </p>
       <Button>Default</Button>
 
@@ -184,35 +179,61 @@ export const Example = () => (
 
     <div>
       <h3>Link</h3>
-      This is a <Button variant="link">button</Button> pretending to be a link.
-    </div>
-
-    <div>
-      <h3>Overlay</h3>
-      <Button variant="overlay">Overlay</Button>
+      This is a <Button variant="link">button</Button> pretending to
+      be a link.
     </div>
     <div>
-      <h3>Overlay Quiet</h3>
-      <Button variant="overlayQuiet">Overlay Quiet</Button>
-    </div>
-    <div>
-      <h3>Overlay Inverted</h3>
-      <Button variant="overlayInverted">Overlay Inverted</Button>
-    </div>
-    <div>
-      <h3>Overlay Inverted Quiet</h3>
-      <Button variant="overlayInvertedQuiet">Overlay Inverted Quiet</Button>
-    </div>
-    <div>
-      <h3>Overlay with Icon</h3>
-      <Button variant="overlayInvertedQuiet" hasIconOnly>
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16" class="s-icon"><title>Three dots</title><circle cx="2.4" cy="8" r="1.4" fill="currentColor"></circle><circle cx="8" cy="8" r="1.4" fill="currentColor"></circle><circle cx="13.6" cy="8" r="1.4" fill="currentColor"></circle></svg>
+      <h3>Utility quiet with Icon</h3>
+      <Button variant="utilityQuiet" hasIconOnly>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="none"
+          viewBox="0 0 16 16"
+        >
+          <title>Three dots</title>
+          <circle
+            cx="2.4"
+            cy="8"
+            r="1.4"
+            fill="currentColor"
+          ></circle>
+          <circle cx="8" cy="8" r="1.4" fill="currentColor"></circle>
+          <circle
+            cx="13.6"
+            cy="8"
+            r="1.4"
+            fill="currentColor"
+          ></circle>
+        </svg>
       </Button>
     </div>
     <div>
-      <h3>Overlay with Icon</h3>
-      <Button variant="overlayInvertedQuiet" hasIconOnly>
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16" class="s-icon"><title>Three dots</title><circle cx="2.4" cy="8" r="1.4" fill="currentColor"></circle><circle cx="8" cy="8" r="1.4" fill="currentColor"></circle><circle cx="13.6" cy="8" r="1.4" fill="currentColor"></circle></svg>
+      <h3>Primary with Icon</h3>
+      <Button variant="primary" hasIconOnly>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="none"
+          viewBox="0 0 16 16"
+        >
+          <title>Three dots</title>
+          <circle
+            cx="2.4"
+            cy="8"
+            r="1.4"
+            fill="currentColor"
+          ></circle>
+          <circle cx="8" cy="8" r="1.4" fill="currentColor"></circle>
+          <circle
+            cx="13.6"
+            cy="8"
+            r="1.4"
+            fill="currentColor"
+          ></circle>
+        </svg>
       </Button>
     </div>
     <div>

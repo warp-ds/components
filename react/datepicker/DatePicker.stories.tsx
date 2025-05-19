@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { isBefore, startOfDay } from 'date-fns';
-import { CustomDatePicker, DatePicker } from './index.js';
+import { DatePicker } from './index.js';
 
 const metadata = { title: 'Forms/DatePicker' };
 export default metadata;
@@ -27,44 +27,6 @@ const DummyFields = ({ id }) => (
   </div>
 );
 
-function DatePickerExample() {
-  const [date, setDate] = React.useState<Date | null>(null);
-  const [value, setValue] = React.useState('');
-
-  const setTextFieldValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
-    const validFormatRegex = /^\d{2}\.\d{2}\.\d{4}$/;
-    if (validFormatRegex.test(event.target.value)) {
-      const parsedDate = parseDate(event.target.value);
-      if (parsedDate) {
-        setDate(parsedDate);
-      }
-    }
-    if (event.target.value === '') {
-      setDate(null);
-    }
-  };
-
-  const isDayDisabled = (day: Date) => {
-    return isBefore(startOfDay(day), startOfDay(new Date()));
-  };
-
-  return (
-    <>
-      <DummyFields id="dummy-1" />
-      <DatePicker
-        placeholder="dd.mm.yyyy"
-        textFieldLabel="Dato"
-        date={date}
-        onChange={setDate}
-        textFieldOnChange={setTextFieldValue}
-        isDayDisabled={isDayDisabled}
-      />
-      <DummyFields id="dummy-2" />
-    </>
-  );
-}
-
 function CustomDatePickerExample() {
   const [value, setValue] = React.useState<string>('');
 
@@ -75,7 +37,7 @@ function CustomDatePickerExample() {
   return (
     <>
       <DummyFields id="dummy-1" />
-      <CustomDatePicker
+      <DatePicker
         value={value}
         label="Dato"
         //date={date}
@@ -88,43 +50,4 @@ function CustomDatePickerExample() {
   );
 }
 
-function DisabledDaysExample() {
-  const [date, setDate] = React.useState<Date | null>(null);
-  const [value, setValue] = React.useState('');
-
-  // Disable weekends
-  const isDayDisabled = (day: Date) => {
-    // check if the day is on a weekend
-    // Sunday is 0, Saturday is 6
-    return day.getDay() === 0 || day.getDay() === 6;
-  };
-
-  const setTextFieldValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
-    const validFormatRegex = /^\d{2}\.\d{2}\.\d{4}$/;
-    if (validFormatRegex.test(event.target.value)) {
-      const parsedDate = parseDate(event.target.value);
-      if (parsedDate) {
-        setDate(parsedDate);
-      }
-    }
-    if (event.target.value === '') {
-      setDate(null);
-    }
-  };
-
-  return (
-    <DatePicker
-      placeholder="dd/mm/yyyy"
-      textFieldLabel="Date"
-      date={date}
-      onChange={setDate}
-      textFieldOnChange={setTextFieldValue}
-      isDayDisabled={isDayDisabled}
-    />
-  );
-}
-
-//export const SingleDate = () => <DatePickerExample />;
-export const CustomDate = () => <CustomDatePickerExample />;
-//export const DisabledDays = () => <DisabledDaysExample />;
+export const DatePickerExample = () => <CustomDatePickerExample />;

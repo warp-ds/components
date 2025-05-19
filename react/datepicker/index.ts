@@ -1,2 +1,1 @@
-export { DatePicker } from './DatePicker.tsx';
-export { CustomDatePicker } from './CustomDatePicker.tsx';
+export { DatePicker } from './DatePicker.js';

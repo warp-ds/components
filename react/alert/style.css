@@ -1,0 +1,38 @@
+.w-alert {
+  /* Local scoped vars. */
+  --_alert-background: var(--alert-background, var(--w-s-color-background));
+  --_alert-border: var(--alert-border, var(--w-s-color-border));
+  --_alert-border-width: var(--alert-border-width, 1px);
+  --_alert-border-radius: var(--alert-border-radius, 4px);
+
+  background-color: var(--_alert-background);
+  border: var(--_alert-border-width) solid var(--_alert-border);
+  border-radius: var(--_alert-border-radius);
+  border-left-width: 4px;
+
+  padding: 1.6rem;
+  display: flex;
+  font-size: var(--w-font-size-s);
+  line-height: var(--w-line-height-s);
+}
+
+.w-alert--negative {
+  --alert-border: var(--w-s-color-border-negative-subtle);
+  --alert-background: var(--w-s-color-background-negative-subtle);
+}
+.w-alert--positive {
+  --alert-border: var(--w-s-color-border-positive-subtle);
+  --alert-background: var(--w-s-color-background-positive-subtle);
+}
+.w-alert--warning {
+  --alert-border: var(--w-s-color-border-warning-subtle);
+  --alert-background: var(--w-s-color-background-warning-subtle);
+}
+.w-alert--info {
+  --alert-border: var(--w-s-color-border-info-subtle);
+  --alert-background: var(--w-s-color-background-info-subtle);
+}
+
+.w-alert--icon {
+  margin-right: 0.8rem;
+}

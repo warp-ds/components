@@ -1,0 +1,5 @@
+.w-expandtransition {
+  max-height: var(--expand-height);
+  overflow: hidden;
+  transition: max-height 0.2s ease-in-out;
+}

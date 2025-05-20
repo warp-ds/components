@@ -1,4 +1,6 @@
+import style from 'inline:./styles.css';
 import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import ToastItem from './ToastItem.tsx';
 import { ToastDuration, ToastId, ToastProps } from './props.ts';
 import { generateToastId, getStorageToasts, setStorageToasts } from './utils.tsx';
@@ -69,18 +71,25 @@ const ToastContainer = () => {
   }, []);
 
   return (
-    <div className="w-toast">
-      {toasts?.map((toast) => (
-        <ToastItem
-          key={toast.id}
-          id={toast.id}
-          text={toast.text}
-          variant={toast.variant}
-          duration={toast.duration}
-          dismissible={toast.dismissible}
-        />
-      ))}
-    </div>
+    <>
+      {createPortal(
+        //TODO: biome suggests removing role attr and replacing it with an output element in place of the div, looking into it
+        <div className="w-toast" role="status" aria-live="polite" aria-atomic="true">
+          <style>{style}</style>
+          {toasts?.map((toast) => (
+            <ToastItem
+              key={toast.id}
+              id={toast.id}
+              text={toast.text}
+              variant={toast.variant}
+              duration={toast.duration}
+              dismissible={toast.dismissible}
+            />
+          ))}
+        </div>,
+        document.body,
+      )}
+    </>
   );
 };
 

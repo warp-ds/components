@@ -78,6 +78,7 @@ const ToastContainer = () => {
           <style>{style}</style>
           {toasts?.map((toast) => (
             <ToastItem
+              //TODO: if using useId, do not use id for key
               key={toast.id}
               id={toast.id}
               text={toast.text}

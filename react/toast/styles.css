@@ -18,39 +18,42 @@
    ========================================================================== */
 
 /* 1. Public override points (can be safely overridden externally) */
-.w-toast {
-  --w-toast-color-background: var(--w-s-color-background);
-  --w-toast-color-border: var(--w-s-color-border);
-  --w-toast-color-text: var(--w-s-color-text);
-  --w-toast-color-icon: var(--w-s-color-icon);
-}
 
 /* 2. Base layout and structure */
 
 /* Outer container (formerly w-toast__wrapper) */
 .w-toast {
-  position: relative;
+  --w-toast-color-background: var(--w-s-color-background);
+  --w-toast-color-border: var(--w-s-color-border);
+  --w-toast-color-text: var(--w-s-color-text);
+  --w-toast-color-icon: var(--w-s-color-icon);
+
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  bottom: 0;
   overflow: hidden;
+  align-items: center;
   width: 100%;
+  z-index: 1000;
 }
 
 /* Toast block */
 .w-toast__item {
   display: flex;
   align-items: flex-start;
+  max-width: 420px;
   padding: 8px;
-  margin-top: 16px;
+  margin-bottom: 16px;
   border: 2px solid transparent;
   border-radius: 8px;
   pointer-events: auto;
-  transition: all 0.3s ease;
   gap: 8px;
 
   background-color: var(--_w-toast-background);
   border-color: var(--_w-toast-border);
   color: var(--_w-toast-text);
 }
-
 /* Icon */
 .w-toast__icon {
   flex-shrink: 0;

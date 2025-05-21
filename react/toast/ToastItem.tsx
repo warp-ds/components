@@ -1,4 +1,3 @@
-import style from 'inline:./styles.css';
 import IconClose16 from '@warp-ds/icons/react/close-16';
 import classNames from 'classnames';
 import { Button } from '../button/Button.tsx';
@@ -17,24 +16,22 @@ const ToastItem = ({ variant, text, dismissible = false, id }: ToastProps) => {
   });
 
   return (
-    <>
-      <style>{style}</style>
-      <div
-        className={toastClasses} // --warning, --success, --negative, --dismissible
-        role={role}
-        id={id}
-      >
-        <span className="w-toast__icon">
-          <Icon />
-        </span>
-        <p>{text}</p>
-        {dismissible && (
-          <Button variant="overlayQuiet" size="small" hasIconOnly onClick={() => removeToast(id)}>
-            <IconClose16 />
-          </Button>
-        )}
-      </div>
-    </>
+    <div
+      className={toastClasses} // --warning, --success, --negative, --dismissible
+      role={role}
+      id={id}
+    >
+      <span className="w-toast__icon">
+        <Icon />
+      </span>
+      <p>{text}</p>
+      <p>{id}</p>
+      {dismissible && (
+        <Button variant="overlayQuiet" size="small" hasIconOnly onClick={() => removeToast(id)}>
+          <IconClose16 />
+        </Button>
+      )}
+    </div>
   );
 };
 

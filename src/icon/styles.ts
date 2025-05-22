@@ -32,5 +32,6 @@ export default css`
     height: 1em;
     fill: none;
     vertical-align: middle;
+    pointer-events: none;
 }
 `;

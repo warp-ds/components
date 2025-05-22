@@ -25,6 +25,8 @@ jobs:
         with:
           version: 9
           run_install: true
+      - name: Compile lingui messages
+        run: pnpm messages:compile
       - name: Build storybook
         run: pnpm run build-storybook
       - name: Deploy preview

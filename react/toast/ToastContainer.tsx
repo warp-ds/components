@@ -49,6 +49,12 @@ const addToast = (toast: Omit<ToastProps, 'id'>) => {
 };
 
 const ToastContainer = () => {
+  const toastContainerAlreadyExists = typeof document !== 'undefined' && !!document.querySelector('.w-toast');
+
+  if (toastContainerAlreadyExists) {
+    return null;
+  }
+
   const [toasts, setToasts] = useState<ToastProps[]>([]);
   const handleStorage = (event: StorageEvent) => {
     if (event.key === 'wtoasts') {
@@ -64,7 +70,7 @@ const ToastContainer = () => {
 
     return () => {
       setToasts([]);
-      sessionStorage.removeItem('wtoasts');
+      sessionStorage?.removeItem('wtoasts');
       window?.removeEventListener('storage', handleStorage);
       window?.removeEventListener('beforeunload', () => setStorageToasts([]));
     };
@@ -74,17 +80,10 @@ const ToastContainer = () => {
     <>
       {createPortal(
         //TODO: biome suggests removing role attr and replacing it with an output element in place of the div, looking into it
-        <div className="w-toast" role="status" aria-live="polite" aria-atomic="true">
+        <div className="w-toast">
           <style>{style}</style>
           {toasts?.map((toast) => (
-            <ToastItem
-              key={toast.id}
-              id={toast.id}
-              text={toast.text}
-              variant={toast.variant}
-              duration={toast.duration}
-              dismissible={toast.dismissible}
-            />
+            <ToastItem {...toast} key={toast.id} />
           ))}
         </div>,
         document.body,

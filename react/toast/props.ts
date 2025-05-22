@@ -10,10 +10,4 @@ export type ToastProps = {
   text: string;
   dismissible?: boolean;
   id: ToastId;
-  createdAt?: number;
-};
-
-export type ToastContextType = {
-  addToast: (toast: Omit<ToastProps, 'id'>) => void;
-  removeToast: (id: ToastId) => void;
 };

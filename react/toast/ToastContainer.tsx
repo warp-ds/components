@@ -49,11 +49,7 @@ const addToast = (toast: Omit<ToastProps, 'id'>) => {
 };
 
 const ToastContainer = () => {
-  const toastContainerAlreadyExists = typeof document !== 'undefined' && !!document.querySelector('.w-toast');
 
-  if (toastContainerAlreadyExists) {
-    return null;
-  }
 
   const [toasts, setToasts] = useState<ToastProps[]>([]);
   const handleStorage = (event: StorageEvent) => {

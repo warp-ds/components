@@ -18,7 +18,6 @@
   --w-slider-track-height: 4px;
   --w-slider-track-active-height: 6px;
   --w-slider-thumb-background: var(--w-s-color-background-primary);
-  --w-slider-thumb-border: var(--w-s-color-border-primary);
   --w-slider-thumb-shadow: none;
   --w-slider-thumb-size: 28px;
   --w-slider-tick-color: var(--w-s-color-background-disabled-subtle);
@@ -31,7 +30,7 @@
   position: relative;
   user-select: none;
   touch-action: pan-y;
-  padding-inline:  calc(var(--w-slider-thumb-size)/2); /* Pull track half a thumb size in from the edges */
+  xpadding-inline:  calc(var(--w-slider-thumb-size)/2); /* Pull track half a thumb size in from the edges */
 }
 .w-slider__wrap{
   display: flex;
@@ -64,7 +63,6 @@
 
 .w-slider__thumb {
   --_w-slider-thumb-background: var(--w-slider-thumb-background);
-  --_w-slider-thumb-border: var(--w-slider-thumb-border);
   --_w-slider-thumb-shadow: var(--w-slider-thumb-shadow);
   --_w-slider-thumb-size: var(--w-slider-thumb-size);
   position: absolute;
@@ -74,18 +72,27 @@
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   background-color: var(--_w-slider-thumb-background);
-  border: 8px solid var(--_w-slider-thumb-border);
   box-shadow: var(--_w-slider-thumb-shadow);
 }
 
 /* 4. Interaction states (sets public tokens) */
-.w-slider__thumb:hover,
-.w-slider__thumb:focus-visible {
-  outline: none;
-  padding: 3px;
-  border-width: 5px;
 
+
+.w-slider__thumb:hover,
+.w-slider__thumb:focus {
+  outline: none;
   --w-slider-thumb-shadow: var(--w-shadow-slider-handle-hover);
+}
+
+.w-slider__thumb:focus-visible {
+    outline: 2px solid var(--w-s-color-border-focus);
+    outline-offset: var(--w-outline-offset, 1px);
+    --w-slider-thumb-shadow: none;
+}
+
+.w-slider__thumb:active {
+  --w-slider-thumb-background: var(--w-s-color-background-primary-active);
+  --w-slider-thumb-shadow: var(--w-shadow-slider-handle-active);
 }
 
 /* 5. Modifiers */
@@ -125,7 +132,8 @@
 .w-slider__min-value,
 .w-slider__max-value {
   --w_slider-tick-value-color: var(--w-slider-tick-value-color);
-  font-size: 12px;
+  font-size: var(--w-font-size-s);
+  line-height: var(--w-line-height-s);
   color: var(--_w-slider-tick-value-color);
   position: relative;
 }

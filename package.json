@@ -30,10 +30,10 @@
   "license": "ISC",
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
+    "@chromatic-com/storybook": "^3.2.4",
     "@lingui/cli": "5.2.0",
     "@lingui/conf": "5.2.0",
     "@lingui/core": "5.2.0",
-    "@chromatic-com/storybook": "^3.2.4",
     "@storybook/addon-a11y": "8.6.9",
     "@storybook/addon-essentials": "8.6.9",
     "@storybook/addon-interactions": "8.6.9",
@@ -60,13 +60,14 @@
     "react-dom": "^19.0.0",
     "rollup-plugin-inline-code": "^1.2.7",
     "storybook": "8.6.9",
+    "ts-lit-plugin": "^2.0.2",
     "typescript": "^5.7.3",
     "use-effect-reducer": "^0.7.0",
     "vite": "^6.1.0"
   },
   "peerDependencies": {
+    "@lingui/core": "5.x",
     "@lit/react": "^1.0.3",
-    "lit": "^3.1.2",
-    "@lingui/core": "5.x"
+    "lit": "^3.1.2"
   }
 }

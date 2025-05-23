@@ -98,8 +98,7 @@ export class WIcon extends LitElement {
       'w-icon--large': this.size === 'large',
       'w-icon--xtralarge': this.size === 'xtralarge',
     };
-
-    return html`<div class="${classMap(classes)}">${this.svg}</div>`;
+    return html`<div class="${classMap(classes)}" part="w-${this.name}">${this.svg}</div>`;
   }
 }
 

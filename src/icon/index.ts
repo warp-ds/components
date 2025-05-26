@@ -90,11 +90,11 @@ export class WIcon extends LitElement {
   render(): TemplateResult {
     const classes = {
       'w-icon': true,
-      'w-icon--small': this.size === 'small',
-      'w-icon--medium': this.size === 'medium',
-      'w-icon--large': this.size === 'large',
+      'w-icon--s': this.size === 'small',
+      'w-icon--m': this.size === 'medium',
+      'w-icon--l': this.size === 'large',
     };
-    const customStyle = typeof this.size === 'string' && this.size.endsWith('px') ? `font-size: ${this.size}; width: ${this.size}; height: ${this.size};` : '';
+    const customStyle = typeof this.size === 'string' && this.size.endsWith('px') ? `--w-icon-size: ${this.size};` : '';
     return html`<div class="${classMap(classes)}" style="${customStyle}" part="w-${this.name.toLowerCase()}">${this.svg}</div>`;
   }
 }

@@ -1,35 +1,23 @@
 :host {
-  color: var(--w-s-color-icon);
-  vertical-align: middle;
-  line-height: 1;
   display: inline-block;
 }
 .w-icon {
+  --_w-icon-size: var(--w-icon-size, 24px);
+  height: var(--_w-icon-size);
+  width: var(--_w-icon-size);
   display: flex;
 }
-
-.w-icon--small {
-  font-size: 16px;
-  width: 16px;
-  height: 16px;
-}
-
-.w-icon--medium {
-  font-size: 24px;
-  width: 24px;
-  height: 24px;
-}
-
-.w-icon--large {
-  font-size: 32px;
-  width: 32px;
-  height: 32px;
-}
-
-.w-icon > svg {
-  width: 1em;
-  height: 1em;
-  fill: none;
-  vertical-align: middle;
+.w-icon svg {
   pointer-events: none;
+  height: var(--_w-icon-size);
+  width: var(--_w-icon-size);
 }
+.w-icon--s {
+  --w-icon-size: 16px;
+}
+.w-icon--m {
+  --w-icon-size: 24px;
+}
+.w-icon--l {
+  --w-icon-size: 32px;
+} 

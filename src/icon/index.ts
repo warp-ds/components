@@ -94,7 +94,7 @@ export class WIcon extends LitElement {
       'w-icon--medium': this.size === 'medium',
       'w-icon--large': this.size === 'large',
     };
-    const customStyle = typeof this.size === 'string' && this.size.endsWith('px') ? `font-size: ${this.size};` : '';
+    const customStyle = typeof this.size === 'string' && this.size.endsWith('px') ? `font-size: ${this.size}; width: ${this.size}; height: ${this.size};` : '';
     return html`<div class="${classMap(classes)}" style="${customStyle}" part="w-${this.name.toLowerCase()}">${this.svg}</div>`;
   }
 }

@@ -10,14 +10,20 @@
 
 .w-icon--small {
   font-size: 16px;
+  width: 16px;
+  height: 16px;
 }
 
 .w-icon--medium {
   font-size: 24px;
+  width: 24px;
+  height: 24px;
 }
 
 .w-icon--large {
   font-size: 32px;
+  width: 32px;
+  height: 32px;
 }
 
 .w-icon > svg {

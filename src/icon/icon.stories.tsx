@@ -281,9 +281,11 @@ export const Default = {
 };
 
 export const Example = () => html`
-    <div>
+    <div><div>
       <w-icon name="Speedometer" size="small" locale="nb"></w-icon>
       <w-icon name="Speedometer" size="medium" locale="nb"></w-icon>
       <w-icon name="Speedometer" size="large" locale="nb"></w-icon>
+    </div>
+    some text below
     </div>
 `;

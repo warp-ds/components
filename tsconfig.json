@@ -3,7 +3,6 @@
     "target": "ESNext",
     "jsx": "react-jsx",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "useDefineForClassFields": true,
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "resolveJsonModule": true,
@@ -14,9 +13,17 @@
     "allowImportingTsExtensions": true,
     "esModuleInterop": false,
     "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "useDefineForClassFields": false,
     "isolatedModules": true,
     "skipLibCheck": true,
-    "typeRoots": ["./env.d.ts"]
+    "typeRoots": ["./env.d.ts"],
+    "plugins": [
+      {
+        "name": "ts-lit-plugin",
+        "strict": true
+      }
+    ]
   },
   "include": ["./src", "./react", "env.d.ts"],
   "exclude": ["node_modules"]

@@ -1,7 +1,7 @@
-import { LitElement, html, TemplateResult } from 'lit';
+import iconStyle from 'inline:./style.css';
+import { LitElement, TemplateResult, html, unsafeCSS } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import styles from './styles.ts';
 
 // Generic parser for fetch responses
 type ResponseParser<T> = (response: Response) => Promise<T>;
@@ -20,10 +20,7 @@ const ERROR_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><
  * @param options - Optional parser for the response
  * @returns Promise of parsed response
  */
-function cacheFetch<T = string>(
-  uri: string,
-  options: CacheFetchOptions<T> = {}
-): Promise<T> {
+function cacheFetch<T = string>(uri: string, options: CacheFetchOptions<T> = {}): Promise<T> {
   const parser = options.responseParser ?? ((res: Response) => res.text() as Promise<any>);
   if (!_fetchMap.has(uri)) {
     _fetchMap.set(uri, fetch(uri).then(parser));
@@ -32,7 +29,7 @@ function cacheFetch<T = string>(
 }
 
 export class WIcon extends LitElement {
-  static styles = [styles];
+  static styles = [unsafeCSS(iconStyle)];
 
   /** Icon filename (without .svg) */
   @property({ type: String, reflect: true })
@@ -97,10 +94,7 @@ export class WIcon extends LitElement {
       'w-icon--medium': this.size === 'medium',
       'w-icon--large': this.size === 'large',
     };
-    const customStyle =
-      typeof this.size === 'string' && this.size.endsWith('px')
-        ? `font-size: ${this.size};`
-        : '';
+    const customStyle = typeof this.size === 'string' && this.size.endsWith('px') ? `font-size: ${this.size};` : '';
     return html`<div class="${classMap(classes)}" style="${customStyle}" part="w-${this.name.toLowerCase()}">${this.svg}</div>`;
   }
 }

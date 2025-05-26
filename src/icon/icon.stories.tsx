@@ -285,6 +285,5 @@ export const Example = () => html`
       <w-icon name="Speedometer" size="small" locale="nb"></w-icon>
       <w-icon name="Speedometer" size="medium" locale="nb"></w-icon>
       <w-icon name="Speedometer" size="large" locale="nb"></w-icon>
-      <w-icon name="Speedometer" size="xtralarge" locale="nb"></w-icon>
     </div>
 `;

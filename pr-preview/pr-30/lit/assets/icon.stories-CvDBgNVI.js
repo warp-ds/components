@@ -1,51 +1,20 @@
-import{f as b,u as k,T as x,i as B,r as T,x as g}from"./lit-element-BBTAx0MG.js";/**
+import{f as b,u as k,T as x,r as B,a as T,x as g}from"./lit-element-CDx7zEkf.js";const D=":host{color:var(--w-s-color-icon);vertical-align:middle;line-height:1;display:inline-block}.w-icon{display:flex}.w-icon--small{font-size:16px}.w-icon--medium{font-size:24px}.w-icon--large{font-size:32px}.w-icon>svg{width:1em;height:1em;fill:none;vertical-align:middle;pointer-events:none}";/**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const D={attribute:!0,type:String,converter:k,reflect:!1,hasChanged:b},A=(t=D,e,r)=>{const{kind:i,metadata:o}=r;let s=globalThis.litPropertyMetadata.get(o);if(s===void 0&&globalThis.litPropertyMetadata.set(o,s=new Map),s.set(r.name,t),i==="accessor"){const{name:n}=r;return{set(l){const p=e.get.call(this);e.set.call(this,l),this.requestUpdate(n,p,t)},init(l){return l!==void 0&&this.P(n,void 0,t),l}}}if(i==="setter"){const{name:n}=r;return function(l){const p=this[n];e.call(this,l),this.requestUpdate(n,p,t)}}throw Error("Unsupported decorator location: "+i)};function h(t){return(e,r)=>typeof r=="object"?A(t,e,r):((i,o,s)=>{const n=o.hasOwnProperty(s);return o.constructor.createProperty(s,n?{...i,wrapped:!0}:i),n?Object.getOwnPropertyDescriptor(o,s):void 0})(t,e,r)}/**
+ */const A={attribute:!0,type:String,converter:k,reflect:!1,hasChanged:b},M=(t=A,e,r)=>{const{kind:i,metadata:o}=r;let s=globalThis.litPropertyMetadata.get(o);if(s===void 0&&globalThis.litPropertyMetadata.set(o,s=new Map),s.set(r.name,t),i==="accessor"){const{name:n}=r;return{set(l){const p=e.get.call(this);e.set.call(this,l),this.requestUpdate(n,p,t)},init(l){return l!==void 0&&this.P(n,void 0,t),l}}}if(i==="setter"){const{name:n}=r;return function(l){const p=this[n];e.call(this,l),this.requestUpdate(n,p,t)}}throw Error("Unsupported decorator location: "+i)};function h(t){return(e,r)=>typeof r=="object"?M(t,e,r):((i,o,s)=>{const n=o.hasOwnProperty(s);return o.constructor.createProperty(s,n?{...i,wrapped:!0}:i),n?Object.getOwnPropertyDescriptor(o,s):void 0})(t,e,r)}/**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */function M(t){return h({...t,state:!0,attribute:!1})}/**
+ */function z(t){return h({...t,state:!0,attribute:!1})}/**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const z={ATTRIBUTE:1},E=t=>(...e)=>({_$litDirective$:t,values:e});class F{constructor(e){}get _$AU(){return this._$AM._$AU}_$AT(e,r,i){this._$Ct=e,this._$AM=r,this._$Ci=i}_$AS(e,r){return this.update(e,r)}update(e,r){return this.render(...r)}}/**
+ */const E={ATTRIBUTE:1},F=t=>(...e)=>({_$litDirective$:t,values:e});class L{constructor(e){}get _$AU(){return this._$AM._$AU}_$AT(e,r,i){this._$Ct=e,this._$AM=r,this._$Ci=i}_$AS(e,r){return this.update(e,r)}update(e,r){return this.render(...r)}}/**
  * @license
  * Copyright 2018 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const L=E(class extends F{constructor(t){var e;if(super(t),t.type!==z.ATTRIBUTE||t.name!=="class"||((e=t.strings)==null?void 0:e.length)>2)throw Error("`classMap()` can only be used in the `class` attribute and must be the only part in the attribute.")}render(t){return" "+Object.keys(t).filter(e=>t[e]).join(" ")+" "}update(t,[e]){var i,o;if(this.st===void 0){this.st=new Set,t.strings!==void 0&&(this.nt=new Set(t.strings.join(" ").split(/\s/).filter(s=>s!=="")));for(const s in e)e[s]&&!((i=this.nt)!=null&&i.has(s))&&this.st.add(s);return this.render(e)}const r=t.element.classList;for(const s of this.st)s in e||(r.remove(s),this.st.delete(s));for(const s in e){const n=!!e[s];n===this.st.has(s)||(o=this.nt)!=null&&o.has(s)||(n?(r.add(s),this.st.add(s)):(r.remove(s),this.st.delete(s)))}return x}}),U=B`
-:host {
-    color: var(--w-s-color-icon);
-    vertical-align: middle;
-    line-height: 1;
-    display: inline-block;
-}
-.w-icon {
-    color: var(--w-s-color-icon);
-    display: flex;
-}
-
-.w-icon--small {
-    font-size: 16px;
-}
-
-.w-icon--medium {
-    font-size: 24px;
-}
-
-.w-icon--large {
-    font-size: 32px;
-}
-
-.w-icon > svg {
-    width: 1em;
-    height: 1em;
-    fill: none;
-    vertical-align: middle;
-    pointer-events: none;
-}
-`;var $=Object.defineProperty,u=(t,e,r,i)=>{for(var o=void 0,s=t.length-1,n;s>=0;s--)(n=t[s])&&(o=n(e,r,o)||o);return o&&$(e,r,o),o};const m=new Map,H='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"></svg>';function R(t,e={}){const r=e.responseParser??(i=>i.text());return m.has(t)||m.set(t,fetch(t).then(r)),m.get(t)}const w=class w extends T{constructor(){super(...arguments),this.name="",this.size="medium",this.locale="en",this.svg=null}async fetchIcon(e){const r=`https://assets.finn.no/pkg/eikons/v1/${this.locale}/${e}.svg`;try{const i=await R(r);return new DOMParser().parseFromString(i,"text/html").body.querySelector("svg")}catch{return null}}firstUpdated(){this.loadIcon()}updated(e){(e.has("name")||e.has("locale"))&&this.loadIcon()}async loadIcon(){if(!this.name){this.svg=null;return}let e=await this.fetchIcon(this.name);e||(e=new DOMParser().parseFromString(H,"text/html").body.firstElementChild),this.svg=e}render(){const e={"w-icon":!0,"w-icon--small":this.size==="small","w-icon--medium":this.size==="medium","w-icon--large":this.size==="large"},r=typeof this.size=="string"&&this.size.endsWith("px")?`font-size: ${this.size};`:"";return g`<div class="${L(e)}" style="${r}" part="w-${this.name.toLowerCase()}">${this.svg}</div>`}};w.styles=[U];let a=w;u([h({type:String,reflect:!0})],a.prototype,"name");u([h({type:String,reflect:!0})],a.prototype,"size");u([h({type:String,reflect:!0})],a.prototype,"locale");u([M()],a.prototype,"svg");customElements.define("w-icon",a);const O={component:"w-icon",title:"Icons",render:({name:t,size:e,locale:r})=>g`
+ */const U=F(class extends L{constructor(t){var e;if(super(t),t.type!==E.ATTRIBUTE||t.name!=="class"||((e=t.strings)==null?void 0:e.length)>2)throw Error("`classMap()` can only be used in the `class` attribute and must be the only part in the attribute.")}render(t){return" "+Object.keys(t).filter(e=>t[e]).join(" ")+" "}update(t,[e]){var i,o;if(this.st===void 0){this.st=new Set,t.strings!==void 0&&(this.nt=new Set(t.strings.join(" ").split(/\s/).filter(s=>s!=="")));for(const s in e)e[s]&&!((i=this.nt)!=null&&i.has(s))&&this.st.add(s);return this.render(e)}const r=t.element.classList;for(const s of this.st)s in e||(r.remove(s),this.st.delete(s));for(const s in e){const n=!!e[s];n===this.st.has(s)||(o=this.nt)!=null&&o.has(s)||(n?(r.add(s),this.st.add(s)):(r.remove(s),this.st.delete(s)))}return x}});var $=Object.defineProperty,u=(t,e,r,i)=>{for(var o=void 0,s=t.length-1,n;s>=0;s--)(n=t[s])&&(o=n(e,r,o)||o);return o&&$(e,r,o),o};const m=new Map,H='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"></svg>';function R(t,e={}){const r=e.responseParser??(i=>i.text());return m.has(t)||m.set(t,fetch(t).then(r)),m.get(t)}const f=class f extends B{constructor(){super(...arguments),this.name="",this.size="medium",this.locale="en",this.svg=null}async fetchIcon(e){const r=`https://assets.finn.no/pkg/eikons/v1/${this.locale}/${e}.svg`;try{const i=await R(r);return new DOMParser().parseFromString(i,"text/html").body.querySelector("svg")}catch{return null}}firstUpdated(){this.loadIcon()}updated(e){(e.has("name")||e.has("locale"))&&this.loadIcon()}async loadIcon(){if(!this.name){this.svg=null;return}let e=await this.fetchIcon(this.name);e||(e=new DOMParser().parseFromString(H,"text/html").body.firstElementChild),this.svg=e}render(){const e={"w-icon":!0,"w-icon--small":this.size==="small","w-icon--medium":this.size==="medium","w-icon--large":this.size==="large"},r=typeof this.size=="string"&&this.size.endsWith("px")?`font-size: ${this.size};`:"";return g`<div class="${U(e)}" style="${r}" part="w-${this.name.toLowerCase()}">${this.svg}</div>`}};f.styles=[T(D)];let a=f;u([h({type:String,reflect:!0})],a.prototype,"name");u([h({type:String,reflect:!0})],a.prototype,"size");u([h({type:String,reflect:!0})],a.prototype,"locale");u([z()],a.prototype,"svg");customElements.define("w-icon",a);const O={component:"w-icon",title:"Icons",render:({name:t,size:e,locale:r})=>g`
       <w-icon name=${t} size=${e} locale=${r} />
   `,argTypes:{name:{control:{type:"select"},options:["ActiveAds","Ads","AgricultureMachine","AirCon","AllWheelDrive","AnimalPaw","Archway","ArrowDown","ArrowLeft","ArrowRight","ArrowUp","Attachment","Automatic","AwardMedal","BackWheelDrive","Bag","Bank","BankIdNo","BatteryEmpty","BatteryFull","BatteryHalfFull","Beach","Bell","BellFilled","Bin","Block","Boat","BoatLength","Bolt","Bookmark","Browser","BrowserVerified","Building","BuildingPlot","Bulb","Burger","Bus","CabinHut","Calculator","Calendar","Camera","Cancel","Car","CarEngine","CarKey","CarLeft","CarRight","CarService","Charger","Charter","ChatRequest","ChatSupport","Check","CheckShield","Checklist","ChevronDoubleLeft","ChevronDoubleRight","ChevronDown","ChevronLeft","ChevronRight","ChevronUp","CirclePlus","CirclePlusFilled","CircleUser","CircleUserFilled","Clock","Close","Cog","ColorPalette","Copy","CottagePlot","CreditCard","Cursor","Delivery","Diner","Discount","Dislike","Door","Dots","DotsVertical","DoubleBed","Download","DragDots","Drawer","Drink","Edit","Energy","Engine","EngineBelt","Error","Exchange","Expand","EyeOff","EyeOn","Facebook","Farm","Feedback","FileAdd","Filter","Fireplace","Fishing","Fitness","FrontWheelDrive","GasDiesel","GasFuel","GasHybrid","GraphLine","GraphPie","Grid","Grill","Headset","Heart","HeartRate","Hiking","History","House","HouseBed","HouseCabin","HouseFilled","HouseModern","HousePerson","Image","Info","Instagram","JetSki","Keys","Krone","Lamp","Laundry","Layers","Leaf","Lift","Like","Link","LinkExternal","ListSort","LockShield","Logout","Mail","Mailbox","Manual","Map","Measure","Message","Messages","MessagesFilled","Minus","Mixer","Money","Mountain","NewAd","NoSmoking","NorwegianMotor","OfficeDesk","Organize","Parking","Phone","PhoneScratched","PhoneUsed","PictureStack","PinMarker","PinRound","PlaneLand","PlaneTakeOff","PlaneTicket","Play","Playhouse","Plots","Plus","ProductBlink","ProductBump","ProductCarousel","ProductHighlightListing","ProductNabolagsprofil","ProductNoAds","ProductStarred","ProductTop","Propeller","Question","Refresh","Road","RoomService","RowingBoat","Ruler","Sailing","Sauna","ScrollUp","Search","SearchFavorites","Seat","Send","Service","Share","Shipping","Shoes","ShoppingCart","Shower","SingleCylinder","Skyscraper","SmileyGood","SmileyHappy","SmileyNeutral","SmileySad","Sorting","Spa","Sparkles","Speedometer","Stairs","StarCheck","StarEmpty","StarFull","StarHalf","Store","Stove","Success","Suitcase","Support","Swimming","TV","Tag","TaskList","TextBold","TextItalic","TextStrikethrough","TextUnderline","Theater","ThreeSixty","TownHouse","TrendDown","TrendFlat","TrendUp","Twitter","Up","Upload","User","UserGroup","UserWoman","Users","Vacuum","Verification","Wallet","Warning","Warranty","WaterPitcher","Weight","Wheelchair","Wifi","Woods","YouTube"]},size:{control:{type:"select"},options:["small","medium","large","42px","64px","96px","128px"]},locale:{control:{type:"select"},options:["nb","sv","da","fi","en"]}}},c={args:{name:"Ads",size:"medium",locale:"nb"}},d=()=>g`
     <div>
@@ -54,7 +23,7 @@ import{f as b,u as k,T as x,i as B,r as T,x as g}from"./lit-element-BBTAx0MG.js"
       <w-icon name="Speedometer" size="large" locale="nb"></w-icon>
       <w-icon name="Speedometer" size="xtralarge" locale="nb"></w-icon>
     </div>
-`;var f,S,y;c.parameters={...c.parameters,docs:{...(f=c.parameters)==null?void 0:f.docs,source:{originalSource:`{
+`;var w,S,y;c.parameters={...c.parameters,docs:{...(w=c.parameters)==null?void 0:w.docs,source:{originalSource:`{
   args: {
     name: 'Ads',
     size: 'medium',

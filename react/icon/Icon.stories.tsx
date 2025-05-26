@@ -1,7 +1,7 @@
-import { WarpIcon } from './index.ts';
+import { WIcon } from './index.ts';
 
 export default {
-  component: WarpIcon,
+  component: WIcon,
   title: 'Icons',
   argTypes: {
     name: {
@@ -268,7 +268,7 @@ export default {
     },
   },
 };
-const Template = (args) => <WarpIcon {...args} />;
+const Template = (args) => <WIcon {...args} />;
 export const Default = Template.bind({});
 
 Default.args = {
@@ -280,13 +280,13 @@ Default.args = {
 export const Example = () => (
   <div>
     <div>
-      <WarpIcon name="Speedometer" size="small" locale="nb" />
-      <WarpIcon name="Speedometer" size="medium" locale="nb"/>
-      <WarpIcon name="Speedometer" size="large" locale="nb"/>
-      <WarpIcon name="Speedometer" size="42px" locale="nb"/>
-      <WarpIcon name="Speedometer" size="64px" locale="nb"/>
-      <WarpIcon name="Speedometer" size="96px" locale="nb"/>
-      <WarpIcon name="Speedometer" size="128px" locale="nb"/>
+      <WIcon name="Speedometer" size="small" locale="nb" />
+      <WIcon name="Speedometer" size="medium" locale="nb"/>
+      <WIcon name="Speedometer" size="large" locale="nb"/>
+      <WIcon name="Speedometer" size="42px" locale="nb"/>
+      <WIcon name="Speedometer" size="64px" locale="nb"/>
+      <WIcon name="Speedometer" size="96px" locale="nb"/>
+      <WIcon name="Speedometer" size="128px" locale="nb"/>
     </div>
     some text below
   </div>

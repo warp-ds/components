@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { isBefore, startOfDay } from 'date-fns';
-import { DatePicker } from './index.js';
+import { DatePicker } from './index.ts';
 
 const metadata = { title: 'Forms/DatePicker' };
 export default metadata;

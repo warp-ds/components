@@ -6816,7 +6816,7 @@ snapshots:
 
   react-clientside-effect@1.2.7(react@19.0.0):
     dependencies:
-      '@babel/runtime': 7.26.9
+      '@babel/runtime': 7.27.0
       react: 19.0.0
 
   react-confetti@6.2.2(react@19.0.0):

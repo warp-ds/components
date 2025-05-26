@@ -24,9 +24,6 @@ export default css`
     font-size: 32px;
 }
 
-.w-icon--xtralarge {
-    font-size: 42px;
-}
 .w-icon > svg {
     width: 1em;
     height: 1em;

@@ -18,7 +18,10 @@ export default {
         'small',
         'medium',
         'large',
-        'xtralarge',
+        '42px',
+        '64px',
+        '96px',
+        '128px',
       ],
     },
     locale: {

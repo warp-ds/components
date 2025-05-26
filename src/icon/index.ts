@@ -38,9 +38,9 @@ export class WIcon extends LitElement {
   @property({ type: String, reflect: true })
   name = '';
 
-  /** Size: small, medium, large, xtralarge */
+  /** Size: small, medium, large or pixel value (e.g. "32px") */
   @property({ type: String, reflect: true })
-  size: 'small' | 'medium' | 'large' | 'xtralarge' = 'medium';
+  size: 'small' | 'medium' | 'large' | string = 'medium';
 
   /** Locale used in CDN URL */
   @property({ type: String, reflect: true })
@@ -96,9 +96,12 @@ export class WIcon extends LitElement {
       'w-icon--small': this.size === 'small',
       'w-icon--medium': this.size === 'medium',
       'w-icon--large': this.size === 'large',
-      'w-icon--xtralarge': this.size === 'xtralarge',
     };
-    return html`<div class="${classMap(classes)}" part="w-${this.name}">${this.svg}</div>`;
+    const customStyle =
+      typeof this.size === 'string' && this.size.endsWith('px')
+        ? `font-size: ${this.size};`
+        : '';
+    return html`<div class="${classMap(classes)}" style="${customStyle}" part="w-${this.name.toLowerCase()}">${this.svg}</div>`;
   }
 }
 

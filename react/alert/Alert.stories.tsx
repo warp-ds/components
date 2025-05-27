@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Alert } from './Alert.tsx';
 import { expect, within } from '@storybook/test';
 import { AlertProps } from './props.ts';
 import { Button } from '../button/index.ts';
+import { Link } from '../link/Link.tsx';
 
 export default { title: 'FeedbackIndicators/Alert', component: Alert };
 
@@ -11,59 +12,39 @@ export const Default = Template.bind({});
 Default.args = {
   type: 'negative',
   show: true,
-  children: 'This is "negative" variant of the alert component',
+  children: 'This is a "negative" variant of the alert component',
 };
 
-export const Variants = () => {
-  const [show, setShow] = useState(false);
-  const [show2, setShow2] = useState(false);
-
-  // (Temp) demo code.
-  useEffect(() => {
-    setTimeout(() => {
-      setShow(!show);
-    }, 1500);
-  }, [show]);
-  useEffect(() => {
-    setTimeout(() => {
-      setShow2(!show2);
-    }, 900);
-  }, [show2]);
-
-  return (
-    <div className="flex flex-col gap-y-16">
-      <div data-testid="negative">
-        <h3>Negative</h3>
-        <Alert type="negative" show={show}>
-          This is "negative" variant of the alert component
-        </Alert>
-      </div>
-      <div data-testid="positive">
-        <h3>Positive</h3>
-        {/* biome-ignore lint/a11y/useSemanticElements: <explanation> */}
-        <Alert type="positive" show={show2} role="status">
-          This is "positive" variant of the alert component
-          <br />
-          <br />
-          This is "positive" variant of the alert component This is "positive" variant of the alert component
-        </Alert>
-      </div>
-      <div data-testid="warning">
-        <h3>Warning</h3>
-        <Alert type="warning" show>
-          This is "warning" variant of the alert component
-        </Alert>
-      </div>
-      <div data-testid="info">
-        <h3>Info</h3>
-        {/* biome-ignore lint/a11y/useSemanticElements: <explanation> */}
-        <Alert type="info" show role="status">
-          This is "info" variant of the alert component
-        </Alert>
-      </div>
+export const Variants = () => (
+  <div className="flex flex-col gap-y-16">
+    <div data-testid="negative">
+      <h3>Negative</h3>
+      <Alert type="negative" show role="alert">
+        This is a "negative" variant of the alert component
+      </Alert>
     </div>
-  );
-};
+    <div data-testid="positive">
+      <h3>Positive</h3>
+      {/* biome-ignore lint/a11y/useSemanticElements: <explanation> */}
+      <Alert type="positive" show role="status">
+        This is a "positive" variant of the alert component
+      </Alert>
+    </div>
+    <div data-testid="warning">
+      <h3>Warning</h3>
+      <Alert type="warning" show role="alert">
+        This is a "warning" variant of the alert component
+      </Alert>
+    </div>
+    <div data-testid="info">
+      <h3>Info</h3>
+      {/* biome-ignore lint/a11y/useSemanticElements: <explanation> */}
+      <Alert type="info" show role="status">
+        This is an "info" variant of the alert component
+      </Alert>
+    </div>
+  </div>
+);
 
 Variants.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
@@ -91,8 +72,10 @@ const h4Style = { fontSize: '1.4rem', lineHeight: '1.8rem' };
 
 const InteractiveContent = ({ type }: Pick<AlertProps, 'type'>) => (
   <>
-    <h4 style={h4Style}>This is {type} variant of the alert component</h4>
-    <p>With an additional description</p>
+    <h4 style={h4Style}>This is a {type} variant of the alert component</h4>
+    <p>Use this variant to call extra attention to useful, contextual information.</p>
+    <Link>Link to more information</Link>
+    <p />
     <div className="mt-8 space-x-8">
       <Button size="small">Primary CTA</Button>
       <Button size="small" variant="quiet">
@@ -154,7 +137,7 @@ export const WithDefaultRole = () => {
 
       <Alert id="negative-alert" type="negative" show={show}>
         <h4 style={h4Style}>This is "negative" variant of the alert component</h4>
-        <p>With an additional description</p>
+        <p>Use this variant to call extra attention to useful, contextual information.</p>
       </Alert>
     </>
   );
@@ -178,10 +161,9 @@ export const WithOverriddenRole = () => {
       >
         {show ? 'Hide warning alert' : 'Show warning alert'}
       </Button>
-      {/* biome-ignore lint/a11y/useValidAriaRole: <explanation> */}
-      <Alert id="overriden-role-example-alert" type="warning" show={show} role="">
-        <h4 style={h4Style}>This is "warning" variant of the alert component</h4>
-        <p>With an additional description that is not that important</p>
+      <Alert id="overriden-role-example-alert" type="warning" show={show}>
+        <h4 style={h4Style}>This is a "warning" variant of the alert component</h4>
+        <p role="alert">Use this variant to call extra attention to useful, contextual information.</p>
       </Alert>
     </>
   );

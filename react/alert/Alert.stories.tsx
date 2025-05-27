@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { Alert } from './Alert.tsx';
 import { expect, within } from '@storybook/test';
 import { AlertProps } from './props.ts';
@@ -10,13 +10,26 @@ export default { title: 'FeedbackIndicators/Alert', component: Alert };
 const Template = (args) => <Alert {...args} />;
 export const Default = Template.bind({});
 Default.args = {
-  type: 'negative',
+  type: 'info',
   show: true,
-  children: 'This is a "negative" variant of the alert component',
+  children: 'This is an "info" variant of the alert component',
 };
 
 export const Variants = () => (
   <div className="flex flex-col gap-y-16">
+    <div data-testid="info">
+      <h3>Info</h3>
+      {/* biome-ignore lint/a11y/useSemanticElements: <explanation> */}
+      <Alert type="info" show role="status">
+        This is an "info" variant of the alert component
+      </Alert>
+    </div>
+    <div data-testid="warning">
+      <h3>Warning</h3>
+      <Alert type="warning" show role="alert">
+        This is a "warning" variant of the alert component
+      </Alert>
+    </div>
     <div data-testid="negative">
       <h3>Negative</h3>
       <Alert type="negative" show role="alert">
@@ -28,19 +41,6 @@ export const Variants = () => (
       {/* biome-ignore lint/a11y/useSemanticElements: <explanation> */}
       <Alert type="positive" show role="status">
         This is a "positive" variant of the alert component
-      </Alert>
-    </div>
-    <div data-testid="warning">
-      <h3>Warning</h3>
-      <Alert type="warning" show role="alert">
-        This is a "warning" variant of the alert component
-      </Alert>
-    </div>
-    <div data-testid="info">
-      <h3>Info</h3>
-      {/* biome-ignore lint/a11y/useSemanticElements: <explanation> */}
-      <Alert type="info" show role="status">
-        This is an "info" variant of the alert component
       </Alert>
     </div>
   </div>
@@ -77,9 +77,11 @@ const InteractiveContent = ({ type }: Pick<AlertProps, 'type'>) => (
     <Link>Link to more information</Link>
     <p />
     <div className="mt-8 space-x-8">
-      <Button size="small">Primary CTA</Button>
-      <Button size="small" variant="quiet">
-        Secondary
+      <Button size="small" variant="secondary">
+        Button
+      </Button>
+      <Button size="small" variant="utilityQuiet">
+        Button
       </Button>
     </div>
   </>
@@ -87,6 +89,19 @@ const InteractiveContent = ({ type }: Pick<AlertProps, 'type'>) => (
 
 export const WithInteractiveContent = () => (
   <div className="flex flex-col gap-y-16">
+    <div>
+      <h3>Info</h3>
+      {/* biome-ignore lint/a11y/useSemanticElements: <explanation> */}
+      <Alert type="info" show role="status">
+        <InteractiveContent type="info" />
+      </Alert>
+    </div>
+    <div>
+      <h3>Warning</h3>
+      <Alert type="warning" show>
+        <InteractiveContent type="warning" />
+      </Alert>
+    </div>
     <div>
       <h3>Negative</h3>
       <Alert type="negative" show>
@@ -100,24 +115,11 @@ export const WithInteractiveContent = () => (
         <InteractiveContent type="positive" />
       </Alert>
     </div>
-    <div>
-      <h3>Warning</h3>
-      <Alert type="warning" show>
-        <InteractiveContent type="warning" />
-      </Alert>
-    </div>
-    <div>
-      <h3>Info</h3>
-      {/* biome-ignore lint/a11y/useSemanticElements: <explanation> */}
-      <Alert type="info" show role="status">
-        <InteractiveContent type="info" />
-      </Alert>
-    </div>
   </div>
 );
 
 export const WithDefaultRole = () => {
-  const [show, setShow] = React.useState(true);
+  const [show, setShow] = useState(true);
 
   return (
     <>
@@ -144,7 +146,7 @@ export const WithDefaultRole = () => {
 };
 
 export const WithOverriddenRole = () => {
-  const [show, setShow] = React.useState(true);
+  const [show, setShow] = useState(true);
 
   return (
     <>
@@ -169,9 +171,9 @@ export const WithOverriddenRole = () => {
   );
 };
 
-export const NegativeAlertTask = Template.bind({});
-NegativeAlertTask.args = { ...Default.args };
-NegativeAlertTask.play = async ({ canvasElement }) => {
+export const InfoAlertTask = Template.bind({});
+InfoAlertTask.args = { ...Default.args };
+InfoAlertTask.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
   await expect(canvas.getByRole('alert')).toBeInTheDocument();
 };

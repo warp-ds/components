@@ -1,17 +1,14 @@
 import classNames from 'classnames';
-import IconError16 from '@warp-ds/icons/react/error-16';
-import IconInfo16 from '@warp-ds/icons/react/info-16';
-import IconSuccess16 from '@warp-ds/icons/react/success-16';
-import IconWarning16 from '@warp-ds/icons/react/warning-16';
 import { AlertProps } from './props.ts';
 import { ExpandTransition } from '../expandtransition/index.ts';
+import { WIcon } from '../icon/index.ts';
 import style from 'inline:./style.css';
 
 const iconMap = {
-  negative: <IconError16 />,
-  positive: <IconSuccess16 />,
-  warning: <IconWarning16 />,
-  info: <IconInfo16 />,
+  negative: <WIcon name='Error' size='18px'/>,
+  positive: <WIcon name='Success' size='18px'/>,
+  warning: <WIcon name='Warning' size='18px'/>,
+  info: <WIcon name='Info' size='18px'/>,
 };
 
 const iconClass = {

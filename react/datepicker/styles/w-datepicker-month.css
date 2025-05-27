@@ -1,10 +1,8 @@
 .w-datepicker__month {
   /* Sets default used in the day fragment */
-  --month-padding: 16px;
   --day-width: 40px;
 
   --_month-color: var(--month-color, var(--w-s-color-text));
-  --_month-padding: var(--month-padding, 16px);
   --_month-font-size: var(--month-font-size, var(--w-font-size-m));
   --_month-line-height: var(--month-line-height, var(--w-line-height-m));
 
@@ -23,7 +21,6 @@
   user-select: none;
   display: inline-block;
 
-  padding: var(--_month-padding);
   color: var(--_month-color);
   font-size: var(--_month-font-size);
   line-height: var(--_month-line-height);
@@ -42,12 +39,13 @@
   width: 100%;
   border-spacing: 0;
   border-collapse: collapse;
+  display: block;
   min-width: var(--_month-table-min-width);
+  padding-top: 8px;
 }
 
 .w-datepicker__weekday {
   text-align: center;
-  text-transform: uppercase;
 
   font-size: var(--_weekdays-font-size);
   line-height: var(--_weekdays-line-height);
@@ -56,11 +54,10 @@
 }
 
 /* Proposed changes */
-/*
 
-Move navigation buttons (prev, and next month so they render directly into
+/*Move navigation buttons (prev, and next month so they render directly into
 w-datepicker__month-header div instead of all the absolute positioning mess)
-
+*/
 
 .w-datepicker__month-nav {
   display: flex;
@@ -80,4 +77,3 @@ w-datepicker__month-header div instead of all the absolute positioning mess)
   justify-content: center;
   text-align: center;
 }
-*/

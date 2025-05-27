@@ -6,7 +6,7 @@ export type DatePickerProps = {
   /**
    * The current selected date.
    */
-  date?: Date | null;
+  value?: string;
   /**
    * Called with the day of an entry in the calendar to determine if the day is disabled.
    *
@@ -22,23 +22,14 @@ export type DatePickerProps = {
    */
   locale?: Locale;
   /**
-   * Placeholder text shown on the input of the datepicker.
-   */
-  placeholder: string;
-  /**
    * Label shown on the input of the datepicker.
    */
-  textFieldLabel: string;
+  label: string;
   /**
    * Called with the date when the user makes a selection from the calendar or a changes the input.
    *
    */
-  onChange: (day: Date | null) => void;
-  /**
-   * Called with the value when user types in the date.
-   *
-   */
-  textFieldOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (day: string) => void;
   /**
    * An object of translation strings used by the datepicker for accessibility.
    */
@@ -79,14 +70,13 @@ export type DatePickerMonthProps = {
   month: Date;
   navigationDate: Date;
   locale: Locale;
-  monthFormat: string;
   weekDayFormat: string;
   isDayDisabled: (day: Date) => boolean;
   selectedDate: Date | null;
-  phrases: Phrases;
   navigationDayRef: React.RefObject<HTMLTableCellElement>;
   dayAriaLabelFormat: string;
-  onChange: (date: Date, event: React.MouseEvent | React.KeyboardEvent | React.ChangeEvent) => void;
+  onChange: (date: string, event: React.MouseEvent | React.KeyboardEvent | React.ChangeEvent) => void;
+  setIsKeyboardNavigation: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export type DatePickerDayProps = {
@@ -96,17 +86,15 @@ export type DatePickerDayProps = {
   locale: Locale;
   isDayDisabled: (day: Date) => boolean;
   selectedDate: Date | null;
-  phrases: Phrases;
   navigationDayRef: React.RefObject<HTMLTableCellElement>;
   dayAriaLabelFormat: string;
-  onChange: (date: Date, event: React.MouseEvent | React.KeyboardEvent | React.ChangeEvent) => void;
+  onChange: (date: string, event: React.MouseEvent | React.KeyboardEvent | React.ChangeEvent) => void;
 };
 
 export type DatePickerCalendarProps = {
   id: string; //The id of the datepicker. This is used for accessibility and to link the calendar to the input field.
   className?: string;
   style?: React.CSSProperties;
-  numberOfMonths?: number; //The number of months to display in the calendar.
   locale: Locale; //A date-fns locale object. This enables internationalization in the datepicker such as date formatting and which day a week starts on.,
   selectedDate: Date | null; //The current selected date
   navigationDayRef: React.RefObject<HTMLTableCellElement>; //A ref to the currently focused day in the calendar,
@@ -115,5 +103,6 @@ export type DatePickerCalendarProps = {
   weekDayFormat: string; //A date-fns format string for the weekday.
   dayAriaLabelFormat: string; //A date-fns format string for a day. Used for screen readers together with `phrases`.
   isDayDisabled: (day: Date) => boolean;
-  onChange: (date: Date, event: React.MouseEvent | React.KeyboardEvent | React.ChangeEvent) => void;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  onChange: (date: string, event: React.MouseEvent | React.KeyboardEvent | React.ChangeEvent) => void;
 };

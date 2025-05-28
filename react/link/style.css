@@ -1,0 +1,12 @@
+.w-link {
+  display: inline;
+}
+
+.w-link a {
+  text-decoration: none !important;
+}
+
+.w-link--disabled {
+  color: var(--w-s-color-text-disabled);
+  pointer-events: none;
+}

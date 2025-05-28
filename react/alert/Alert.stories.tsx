@@ -138,7 +138,7 @@ export const WithDefaultRole = () => {
       </Button>
 
       <Alert id="negative-alert" type="negative" show={show}>
-        <h4 style={h4Style}>This is "negative" variant of the alert component</h4>
+        <h4 style={h4Style}>This is a "negative" variant of the alert component</h4>
         <p>Use this variant to call extra attention to useful, contextual information.</p>
       </Alert>
     </>

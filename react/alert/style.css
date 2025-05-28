@@ -10,7 +10,7 @@
   border-radius: var(--_alert-border-radius);
   border-left-width: 4px;
 
-  padding: 1.6rem;
+  padding: 1.2rem;
   display: flex;
   font-size: var(--w-font-size-s);
   line-height: var(--w-line-height-s);
@@ -35,4 +35,8 @@
 
 .w-alert--icon {
   margin-right: 0.8rem;
+}
+
+.w-alert--content {
+  padding: 3.8px 0px;
 }

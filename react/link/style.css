@@ -1,0 +1,8 @@
+a.w-button {
+  text-decoration: none !important;
+}
+
+.w-link--disabled {
+  color: var(--w-s-color-text-disabled);
+  pointer-events: none;
+}

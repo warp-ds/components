@@ -40,6 +40,14 @@ export const Example = () => (
     </div>
     <p />
     <div>
+      <h3>Default link (disabled)</h3>
+
+      <Link href="https://google.com" disabled>
+        Link
+      </Link>
+    </div>
+    <p />
+    <div>
       <h3>Link styled as button</h3>
 
       <Link button href="https://google.com/" target="_blank">
@@ -78,7 +86,7 @@ export const Example = () => (
         Link with onClick
       </Link>
     </div>
-
+    <p />
     <div>
       <h3>Full width Link (href) styled as button</h3>
       <Link button fullWidth variant="primary" href="https://google.com/">

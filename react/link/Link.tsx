@@ -1,14 +1,14 @@
 import buttonStyle from 'inline:../button/style.css';
 import classNames from 'classnames';
-import { RefObject } from 'react';
 import { LinkProps } from './props.ts';
+import style from 'inline:./style.css';
 
 export const Link = (props: LinkProps) => {
   const { button, variant, size, fullWidth, disabled, className, target, href, ref, ...rest } = props;
 
   const classes = classNames(
-    'w-link',
     {
+      'w-link--disabled': disabled,
       'w-button': button,
       'w-button--primary': variant === 'primary',
       'w-button--secondary': variant === 'secondary',
@@ -19,13 +19,16 @@ export const Link = (props: LinkProps) => {
       'w-button--utility-quiet': variant === 'utilityQuiet',
       'w-button--small': size === 'small',
       'w-button--full-width': fullWidth,
-      'w-button--disabled': disabled,
+      'w-button--disabled': button && disabled,
     },
     className,
   );
 
   return (
     <>
+      <style href="Link" precedence="medium">
+        {style}
+      </style>
       <style href="Button" precedence="medium">
         {buttonStyle}
       </style>

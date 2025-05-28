@@ -1,8 +1,4 @@
-.w-link {
-  display: inline;
-}
-
-.w-link a {
+a.w-button {
   text-decoration: none !important;
 }
 

@@ -32,22 +32,20 @@ export const Link = (props: LinkProps) => {
       <style href="Button" precedence="medium">
         {buttonStyle}
       </style>
-      <div className="w-link">
-        <a
-          {...rest}
-          onClick={(e) => props.onClick?.(e)}
-          aria-current={props['aria-current']}
-          href={disabled ? undefined : href}
-          target={target}
-          rel={props.target === '_blank' ? props.rel || 'noopener' : undefined}
-          ref={ref}
-          className={classes}
-          role={button && 'button'}
-          aria-disabled={disabled}
-        >
-          {props.children}
-        </a>
-      </div>
+      <a
+        {...rest}
+        onClick={(e) => props.onClick?.(e)}
+        aria-current={props['aria-current']}
+        href={disabled ? undefined : href}
+        target={target}
+        rel={props.target === '_blank' ? props.rel || 'noopener' : undefined}
+        ref={ref}
+        className={classes}
+        role={button && 'button'}
+        aria-disabled={disabled}
+      >
+        {props.children}
+      </a>
     </>
   );
 };

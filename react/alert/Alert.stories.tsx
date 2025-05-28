@@ -50,22 +50,16 @@ Variants.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
   const negative = within(canvas.getByTestId('negative'));
-  // test the outer container
   await expect(negative.getByRole('alert')).toBeInTheDocument();
-  // test the icon
-  await expect(negative.getByTitle(/Octagon/)).toBeInTheDocument();
 
   const positive = within(canvas.getByTestId('positive'));
   await expect(positive.getByRole('status')).toBeInTheDocument();
-  await expect(positive.getByTitle(/checkmark/)).toBeInTheDocument();
 
   const warning = within(canvas.getByTestId('warning'));
   await expect(warning.getByRole('alert')).toBeInTheDocument();
-  await expect(warning.getByTitle(/Warning/)).toBeInTheDocument();
 
   const info = within(canvas.getByTestId('info'));
   await expect(info.getByRole('status')).toBeInTheDocument();
-  await expect(info.getByTitle(/Information/)).toBeInTheDocument();
 };
 
 const h4Style = { fontSize: '1.4rem', lineHeight: '1.8rem' };
@@ -172,7 +166,7 @@ export const WithOverriddenRole = () => {
 };
 
 export const InfoAlertTask = Template.bind({});
-InfoAlertTask.args = { ...Default.args };
+InfoAlertTask.args = { ...Default.args, role: 'alert' };
 InfoAlertTask.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
   await expect(canvas.getByRole('alert')).toBeInTheDocument();

@@ -29,21 +29,26 @@
 
 /* Outer container (formerly w-toast__wrapper) */
 .w-toast {
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  bottom: 0;
   overflow: hidden;
+  align-items: center;
   width: 100%;
+  z-index: 1000;
 }
 
 /* Toast block */
 .w-toast__item {
   display: flex;
   align-items: flex-start;
+  max-width: 420px;
   padding: 8px;
-  margin-top: 16px;
+  margin-bottom: 16px;
   border: 2px solid transparent;
   border-radius: 8px;
   pointer-events: auto;
-  transition: all 0.3s ease;
   gap: 8px;
 
   background-color: var(--_w-toast-background);

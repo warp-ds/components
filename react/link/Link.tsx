@@ -1,13 +1,11 @@
 import buttonStyle from 'inline:../button/style.css';
 import classNames from 'classnames';
-import { RefObject } from 'react';
 import { LinkProps } from './props.ts';
 
 export const Link = (props: LinkProps) => {
   const { button, variant, size, fullWidth, disabled, className, target, href, ref, ...rest } = props;
 
   const classes = classNames(
-    'w-link',
     {
       'w-button': button,
       'w-button--primary': variant === 'primary',
@@ -19,7 +17,7 @@ export const Link = (props: LinkProps) => {
       'w-button--utility-quiet': variant === 'utilityQuiet',
       'w-button--small': size === 'small',
       'w-button--full-width': fullWidth,
-      'w-button--disabled': disabled,
+      'w-button--disabled': button && disabled,
     },
     className,
   );

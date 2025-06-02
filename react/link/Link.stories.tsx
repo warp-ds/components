@@ -78,7 +78,7 @@ export const Example = () => (
         Link with onClick
       </Link>
     </div>
-
+    <p />
     <div>
       <h3>Full width Link (href) styled as button</h3>
       <Link button fullWidth variant="primary" href="https://google.com/">

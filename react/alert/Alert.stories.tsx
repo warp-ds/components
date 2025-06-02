@@ -66,7 +66,7 @@ const InteractiveContent = ({ type }: Pick<AlertProps, 'type'>) => (
   <>
     <h4>This is a {type} variant of the alert component</h4>
     <p>Use this variant to call extra attention to useful, contextual information.</p>
-    <Link>Link to more information</Link>
+    <Link href="https://google.com">Link to more information</Link>
     <p />
     <div className="mt-8 space-x-8">
       <Button size="default" variant="secondary">

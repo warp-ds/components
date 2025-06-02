@@ -168,9 +168,11 @@
   max-width: none;
   --_padding-x: var(--_padding-y);
   aspect-ratio: 1 / 1;
-  xborder-radius: 9999px;
 }
 
+a.w-button {
+  text-decoration: none !important;
+}
 
 /* Copy of loading animation from warp  */
 .w-button--loading {

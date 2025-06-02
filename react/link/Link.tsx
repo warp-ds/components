@@ -1,7 +1,6 @@
 import buttonStyle from 'inline:../button/style.css';
 import classNames from 'classnames';
 import { LinkProps } from './props.ts';
-import style from 'inline:./style.css';
 
 export const Link = (props: LinkProps) => {
   const { button, variant, size, fullWidth, disabled, className, target, href, ref, ...rest } = props;
@@ -25,9 +24,6 @@ export const Link = (props: LinkProps) => {
 
   return (
     <>
-      <style href="Link" precedence="medium">
-        {style}
-      </style>
       <style href="Button" precedence="medium">
         {buttonStyle}
       </style>

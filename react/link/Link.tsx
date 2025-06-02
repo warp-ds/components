@@ -8,7 +8,6 @@ export const Link = (props: LinkProps) => {
 
   const classes = classNames(
     {
-      'w-link--disabled': disabled,
       'w-button': button,
       'w-button--primary': variant === 'primary',
       'w-button--secondary': variant === 'secondary',

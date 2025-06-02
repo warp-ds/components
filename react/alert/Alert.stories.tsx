@@ -62,19 +62,17 @@ Variants.play = async ({ canvasElement }) => {
   await expect(info.getByRole('status')).toBeInTheDocument();
 };
 
-const h4Style = { fontSize: '1.4rem', lineHeight: '1.8rem' };
-
 const InteractiveContent = ({ type }: Pick<AlertProps, 'type'>) => (
   <>
-    <h4 style={h4Style}>This is a {type} variant of the alert component</h4>
+    <h4>This is a {type} variant of the alert component</h4>
     <p>Use this variant to call extra attention to useful, contextual information.</p>
     <Link>Link to more information</Link>
     <p />
     <div className="mt-8 space-x-8">
-      <Button size="small" variant="secondary">
+      <Button size="default" variant="secondary">
         Button
       </Button>
-      <Button size="small" variant="utilityQuiet">
+      <Button size="default" variant="utilityQuiet">
         Button
       </Button>
     </div>
@@ -120,7 +118,7 @@ export const WithDefaultRole = () => {
       <h3>Example with default role="alert"</h3>
       <Button
         className="mb-16"
-        size="small"
+        size="default"
         variant="primary"
         onClick={() => {
           setShow(!show);
@@ -132,8 +130,8 @@ export const WithDefaultRole = () => {
       </Button>
 
       <Alert id="negative-alert" type="negative" show={show}>
-        <h4 style={h4Style}>This is a "negative" variant of the alert component</h4>
-        <p>Use this variant to call extra attention to useful, contextual information.</p>
+        <h4>This is a "negative" variant of the alert component</h4>
+        <div>Use this variant to call extra attention to useful, contextual information.</div>
       </Alert>
     </>
   );
@@ -147,7 +145,7 @@ export const WithOverriddenRole = () => {
       <h3>Example with role="alert" on a descendant element</h3>
       <Button
         className="mb-16"
-        size="small"
+        size="default"
         variant="primary"
         onClick={() => {
           setShow(!show);
@@ -158,8 +156,8 @@ export const WithOverriddenRole = () => {
         {show ? 'Hide warning alert' : 'Show warning alert'}
       </Button>
       <Alert id="overriden-role-example-alert" type="warning" show={show}>
-        <h4 style={h4Style}>This is a "warning" variant of the alert component</h4>
-        <p role="alert">Use this variant to call extra attention to useful, contextual information.</p>
+        <h4>This is a "warning" variant of the alert component</h4>
+        <div role="alert">Use this variant to call extra attention to useful, contextual information.</div>
       </Alert>
     </>
   );

@@ -159,62 +159,65 @@ export const RegularSlider = ({
       <style href="w-slider" precedence="medium">
         {style}
       </style>
-      <div
-        onMouseDown={onStartDrag}
-        onTouchStart={onStartDrag}
-        data-body-scroll-lock-ignore
-        className={classNames(
-          'w-slider',
-          { 'w-slider--is-disabled': disabled },
-          className
-        )}
-        style={{ cursor: isDragging ? 'grabbing' : 'pointer' }}
-        ref={sliderRef}
-      >
-        <div className="w-slider__wrap">
-          <div className="w-slider__track">
+      <fieldset>
+        <legend className="w-slider__label">Some title</legend>
+        <div
+          onMouseDown={onStartDrag}
+          onTouchStart={onStartDrag}
+          data-body-scroll-lock-ignore
+          className={classNames(
+            'w-slider',
+            { 'w-slider--is-disabled': disabled },
+            className
+          )}
+          style={{ cursor: isDragging ? 'grabbing' : 'pointer' }}
+          ref={sliderRef}
+        >
+          <div className="w-slider__wrap">
+            <div className="w-slider__track">
+              <div
+                className="w-slider__track-active"
+                style={{
+                  width: `${ratio * 100}%`,
+                }}
+              />
+            </div>
             <div
-              className="w-slider__track-active"
+              aria-disabled={disabled}
+              aria-label={props['aria-label']}
+              aria-labelledby={props['aria-labelledby']}
+              aria-valuemax={max}
+              aria-valuemin={min}
+              aria-valuenow={ratioToValue(ratio, min, max, step)}
+              aria-valuetext={props['aria-valuetext']}
+              className="w-slider__thumb"
+              onKeyDown={handleKeyDown}
+              onFocus={() => setShowHandle(true)}
+              onBlur={() => setShowHandle(false)}
+              role="slider"
+              ref={handleRef}
               style={{
-                width: `${ratio * 100}%`,
+                left: `${ratio * 100}%`,
+                transform: 'translateX(-50%)',
+                cursor: 'inherit',
               }}
+              tabIndex={disabled ? undefined : 0}
             />
           </div>
-          <div
-            aria-disabled={disabled}
-            aria-label={props['aria-label']}
-            aria-labelledby={props['aria-labelledby']}
-            aria-valuemax={max}
-            aria-valuemin={min}
-            aria-valuenow={ratioToValue(ratio, min, max, step)}
-            aria-valuetext={props['aria-valuetext']}
-            className="w-slider__thumb"
-            onKeyDown={handleKeyDown}
-            onFocus={() => setShowHandle(true)}
-            onBlur={() => setShowHandle(false)}
-            role="slider"
-            ref={handleRef}
-            style={{
-              left: `${ratio * 100}%`,
-              transform: 'translateX(-50%)',
-              cursor: 'inherit',
-            }}
-            tabIndex={disabled ? undefined : 0}
-          />
+          <Attention
+            tooltip
+            placement="top"
+            flip
+            targetEl={handleRef}
+            isShowing={showHandle}
+          >
+            <p id="tooltip-bubbletext">
+              {ratioToValue(ratio, min, max, step)}
+            </p>
+          </Attention>
         </div>
-        <Attention
-          tooltip
-          placement="top"
-          flip
-          targetEl={handleRef}
-          isShowing={showHandle}
-        >
-          <p id="tooltip-bubbletext">
-            {ratioToValue(ratio, min, max, step)}
-          </p>
-        </Attention>
         {showMarks && getMarks(min, max)}
-      </div>
+      </fieldset>
     </>
   );
 };

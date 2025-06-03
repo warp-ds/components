@@ -20,6 +20,7 @@
   --w-slider-thumb-background: var(--w-s-color-background-primary);
   --w-slider-thumb-shadow: none;
   --w-slider-thumb-size: 28px;
+  --w-slider-thumb-offset: calc(var(--w-slider-thumb-size)/2);
   --w-slider-tick-color: var(--w-s-color-background-disabled-subtle);
   --w-slider-tick-value-color: var(--w-s-color-text-subtle);
 }
@@ -30,23 +31,26 @@
   position: relative;
   user-select: none;
   touch-action: pan-y;
-  xpadding-inline:  calc(var(--w-slider-thumb-size)/2); /* Pull track half a thumb size in from the edges */
+  padding-inline:  var(--w-slider-thumb-offset); /* Pull track half a thumb size in from the edges */
 }
+
 .w-slider__wrap{
   display: flex;
   align-items: center;
   height: var(--w-slider-thumb-size);
   position: relative;
 }
+
 /* 3. Internal variable resolution (scoped where used) */
 .w-slider__track {
   --_w-slider-track-background: var(--w-slider-track-background);
   display: flex;
   height: var(--w-slider-track-height);
-  width: 100%;
   border-radius: 4px;
   background-color: var(--_w-slider-track-background);
-  position: relative;
+  position: absolute;
+  left: calc(-1 * var(--w-slider-thumb-offset));
+  right: calc(-1 * var(--w-slider-thumb-offset));
 }
 
 .w-slider__track-active {
@@ -141,7 +145,7 @@
 .w-slider__label {
   font-size: var(--w-font-size-s);
   line-height: var(--w-line-height-s);
-  font-weight: 700;
+  font-weight: bold;
   cursor: pointer;
   padding-bottom: 4px;
   color: var(--w-s-color-text);

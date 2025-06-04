@@ -1,7 +1,7 @@
 .w-expandtransition {
   display: grid;
   grid-template-rows: 0fr;
-  transition: 200ms grid-template-rows ease;
+  transition: 400ms grid-template-rows ease;
 }
 
 .w-expandtransition--expanded {

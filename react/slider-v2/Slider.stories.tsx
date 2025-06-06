@@ -14,6 +14,7 @@ export const Regular = () => {
       <output>{output}</output>
       <div style={{ width: '320px', outline: '1px dashed red' }}>
         <RegularSlider
+          label="Pris"
           onChange={(value) => setValue(value)}
           onInput={setOutput}
           min={0}
@@ -42,6 +43,7 @@ export const DisabledRegular = () => {
       <output>{output}</output>
       <div style={{ width: '320px', outline: '1px dashed red' }}>
         <RegularSlider
+          label="Pris"
           disabled
           onChange={(value) => setValue(value)}
           onInput={setOutput}
@@ -93,6 +95,7 @@ export const Ranged = () => {
       </output>
       <div style={{ width: '320px', outline: '1px dashed red' }}>
         <RangeSlider
+          label="Pris"
           onChange={setValue}
           onInput={setOutput}
           min={1000000}
@@ -137,6 +140,7 @@ export const RangedSimple = () => {
       </output>
       <div style={{ width: '320px', outline: '1px dashed red' }}>
         <RangeSlider
+          label="Pris"
           onChange={setValue}
           onInput={setOutput}
           min={0}
@@ -175,6 +179,7 @@ export const DisabledRanged = () => {
       </output>
       <div style={{ width: '320px', outline: '1px dashed red' }}>
         <RangeSlider
+          label="Pris"
           disabled
           onChange={setValue}
           onInput={setOutput}

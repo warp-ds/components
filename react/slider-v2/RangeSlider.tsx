@@ -4,13 +4,7 @@ import classNames from 'classnames';
 import React, { useEffect, useRef, useState } from 'react';
 import { getMarks } from './Marks.tsx';
 import { Handle, type RangeSliderProps } from './props.ts';
-import {
-  clamp,
-  nextValue,
-  prevValue,
-  ratioToValue,
-  valueToRatio,
-} from './utils.ts';
+import { clamp, nextValue, prevValue, ratioToValue, valueToRatio } from './utils.ts';
 
 export const RangeSlider = ({
   className,
@@ -22,6 +16,7 @@ export const RangeSlider = ({
   min = 0,
   step = 1,
   showMarks = true,
+  label,
   ...props
 }: RangeSliderProps) => {
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -30,7 +25,7 @@ export const RangeSlider = ({
   const [showLowerHandle, setShowLowerHandle] = useState(false);
   const [showUpperHandle, setShowUpperHandle] = useState(false);
 
-  // Local state for the “ratio” positions (0 to 1) of each handle
+  // Local state for the "ratio" positions (0 to 1) of each handle
   const [ratios, setRatios] = useState({
     lower: valueToRatio(values[Handle.Lower], min, max),
     upper: valueToRatio(values[Handle.Upper], min, max),
@@ -64,14 +59,11 @@ export const RangeSlider = ({
     }
   };
 
-  const handleKeyDown = (
-    event: React.KeyboardEvent,
-    handle: Handle = Handle.Lower
-  ) => {
+  const handleKeyDown = (event: React.KeyboardEvent, handle: Handle = Handle.Lower) => {
     if (disabled) return;
 
     const oldValue = values[handle];
-    let newValue: number;
+    let newValue: number | undefined;
     switch (event.key) {
       case 'ArrowLeft':
       case 'ArrowDown':
@@ -89,14 +81,18 @@ export const RangeSlider = ({
       case 'End':
         newValue = max;
         break;
+      default:
+        return; // Don't prevent default for unhandled keys
     }
 
     if (newValue != null) {
-      newValue = clamp(
-        newValue,
-        handle === Handle.Lower ? min : values[Handle.Lower],
-        handle === Handle.Upper ? max : values[Handle.Upper]
-      );
+      // Proper boundary clamping - handles can't pass each other
+      if (handle === Handle.Lower) {
+        newValue = clamp(newValue, min, values[Handle.Upper]);
+      } else {
+        newValue = clamp(newValue, values[Handle.Lower], max);
+      }
+
       const newValues = values.slice() as [number, number];
       newValues[handle] = newValue;
       onInput(newValues);
@@ -111,34 +107,26 @@ export const RangeSlider = ({
   const onStartDrag = (e: React.MouseEvent | React.TouchEvent) => {
     if (disabled) return;
 
-    if (handleLowerRef.current === e.target) {
-      setShowLowerHandle(true);
-    } else if (handleUpperRef.current === e.target) {
-      setShowUpperHandle(true);
+    // Only start drag if clicking on a handle
+    const target = e.target as HTMLElement;
+    if (!target.classList.contains('w-slider__thumb')) {
+      return;
     }
 
-    let clientX = 0;
-    if ('touches' in e) {
-      clientX = e.touches[0].clientX;
+    let dragHandle: Handle;
+    if (target === handleLowerRef.current) {
+      dragHandle = Handle.Lower;
+      setShowLowerHandle(true);
+    } else if (target === handleUpperRef.current) {
+      dragHandle = Handle.Upper;
+      setShowUpperHandle(true);
     } else {
-      clientX = e.clientX;
+      return;
     }
+
     const rect = sliderRef.current?.getBoundingClientRect();
     if (!rect) return;
-    const ratio = clamp((clientX - rect.left) / rect.width, 0, 1);
 
-    // Determine which handle to drag
-    let dragHandle: Handle;
-    if (values[Handle.Lower] === max) {
-      dragHandle = Handle.Lower;
-    } else if (values[Handle.Upper] === min) {
-      dragHandle = Handle.Upper;
-    } else {
-      const lowerDiff = Math.abs(ratios.lower - ratio);
-      const upperDiff = Math.abs(ratios.upper + 0.0001 - ratio);
-      dragHandle =
-        lowerDiff < upperDiff ? Handle.Lower : Handle.Upper;
-    }
     draggingRef.current = { handle: dragHandle, sliderRect: rect };
     setIsDragging(true);
 
@@ -172,52 +160,26 @@ export const RangeSlider = ({
 
     const { handle, sliderRect } = dragState;
 
-    // 1. Calculate raw ratio from pointer position
-    let ratio = clamp((clientX - sliderRect.left) / sliderRect.width, 0, 1);
+    // Calculate raw ratio from pointer position
+    const ratio = clamp((clientX - sliderRect.left) / sliderRect.width, 0, 1);
 
-    // 2. Dynamically measure thumb width
-    const thumbEl = handle === Handle.Lower ? handleLowerRef.current : handleUpperRef.current;
-    const thumbWidth = thumbEl?.offsetWidth ?? 28; // fallback
-    const minRatioGap = thumbWidth / sliderRect.width;
+    // Convert ratio to value first
+    let dragValue = ratioToValue(ratio, min, max, step);
 
-    // 3. Apply collision clamping based on other thumb’s ratio
+    // Apply boundary constraints - handles can't pass each other
     if (handle === Handle.Lower) {
-      const upperRatio = valueToRatio(internalValue.current[Handle.Upper], min, max);
-      ratio = clamp(ratio, 0, upperRatio - minRatioGap);
+      dragValue = clamp(dragValue, min, internalValue.current[Handle.Upper]);
     } else {
-      const lowerRatio = valueToRatio(internalValue.current[Handle.Lower], min, max);
-      ratio = clamp(ratio, lowerRatio + minRatioGap, 1);
+      dragValue = clamp(dragValue, internalValue.current[Handle.Lower], max);
     }
 
-    // 4. Convert ratio to value and update
-    const dragValue = ratioToValue(ratio, min, max, step);
-    // Optional snap when thumbs visually collide
-    const otherHandle = handle === Handle.Lower ? Handle.Upper : Handle.Lower;
-    const otherValue = internalValue.current[otherHandle];
-    const valueGap = Math.abs(dragValue - otherValue);
-
-  // Snap thumbs if values are close enough
-  if (valueGap <= step) {
-    internalValue.current[Handle.Lower] = dragValue;
-    internalValue.current[Handle.Upper] = dragValue;
-    setRatios({
-      lower: valueToRatio(dragValue, min, max),
-      upper: valueToRatio(dragValue, min, max),
-    });
-    onInput([dragValue, dragValue]);
-    handleChange(dragValue, Handle.Lower);
-    handleChange(dragValue, Handle.Upper);
-    return; // done
-  }
+    // Update the ratio based on the clamped value
+    const finalRatio = valueToRatio(dragValue, min, max);
 
     if (dragValue !== internalValue.current[handle]) {
       internalValue.current[handle] = dragValue;
       onInput([...internalValue.current] as [number, number]);
-      setRatios((prev) =>
-        handle === Handle.Lower
-          ? { ...prev, lower: ratio }
-          : { ...prev, upper: ratio }
-      );
+      setRatios((prev) => (handle === Handle.Lower ? { ...prev, lower: finalRatio } : { ...prev, upper: finalRatio }));
     }
 
     e.preventDefault();
@@ -250,16 +212,12 @@ export const RangeSlider = ({
         {style}
       </style>
       <fieldset>
-        <legend className="w-slider__label">Some title</legend>
+        <legend className="w-slider__label">{label}</legend>
         <div
           onMouseDown={onStartDrag}
           onTouchStart={onStartDrag}
           data-body-scroll-lock-ignore
-          className={classNames(
-            'w-slider',
-            { 'w-slider--is-disabled': disabled },
-            className
-          )}
+          className={classNames('w-slider', { 'w-slider--is-disabled': disabled }, className)}
           style={{ cursor: isDragging ? 'grabbing' : 'pointer' }}
           ref={sliderRef}
         >
@@ -295,16 +253,8 @@ export const RangeSlider = ({
               }}
               tabIndex={disabled ? undefined : 0}
             />
-            <Attention
-              tooltip
-              placement="top"
-              flip
-              targetEl={handleLowerRef}
-              isShowing={showLowerHandle}
-            >
-              <p id="tooltip-bubbletext">
-                {ratioToValue(ratios.lower, min, max, step)}
-              </p>
+            <Attention tooltip placement="top" flip targetEl={handleLowerRef} isShowing={showLowerHandle}>
+              <p id="tooltip-bubbletext-lower">{ratioToValue(ratios.lower, min, max, step)}</p>
             </Attention>
             <div
               aria-disabled={disabled}
@@ -327,22 +277,13 @@ export const RangeSlider = ({
               }}
               tabIndex={disabled ? undefined : 0}
             />
-            <Attention
-              tooltip
-              placement="top"
-              flip
-              targetEl={handleUpperRef}
-              isShowing={showUpperHandle}
-            >
-              <p id="tooltip-bubbletext">
-                {ratioToValue(ratios.upper, min, max, step)}
-              </p>
+            <Attention tooltip placement="top" flip targetEl={handleUpperRef} isShowing={showUpperHandle}>
+              <p id="tooltip-bubbletext-upper">{ratioToValue(ratios.upper, min, max, step)}</p>
             </Attention>
           </div>
         </div>
         {showMarks && getMarks(min, max)}
       </fieldset>
-
     </>
   );
 };

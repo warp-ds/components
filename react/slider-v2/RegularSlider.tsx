@@ -22,6 +22,7 @@ export const RegularSlider = ({
   step = 1,
   value,
   showMarks = true,
+  label,
   ...props
 }: RegularSliderProps) => {
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -160,7 +161,7 @@ export const RegularSlider = ({
         {style}
       </style>
       <fieldset>
-        <legend className="w-slider__label">Some title</legend>
+        <legend className="w-slider__label">{label}</legend>
         <div
           onMouseDown={onStartDrag}
           onTouchStart={onStartDrag}

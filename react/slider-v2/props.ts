@@ -1,3 +1,5 @@
+import React from "react";
+
 export type RangeSliderProps = {
   /** String value that labels the slider. */
   'aria-label'?: [string, string];
@@ -34,6 +36,9 @@ export type RangeSliderProps = {
 
   /** The current value */
   value: [number, number];
+
+  /** The label for the slider. */
+  label: React.ReactNode;
 };
 
 export type RegularSliderProps = {
@@ -72,6 +77,9 @@ export type RegularSliderProps = {
 
   /** The current value. */
   value: number;
+
+  /** The label for the slider. */
+  label: React.ReactNode;
 };
 
 export enum Handle {

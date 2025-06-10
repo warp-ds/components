@@ -1,25 +1,88 @@
+import style from 'inline:./styles.css';
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import ToastItem from './ToastItem.tsx';
-import { ToastProps } from './toast.types.ts';
+import { ToastDuration, ToastId, ToastProps } from './props.ts';
+import { generateToastId, getStorageToasts, setStorageToasts } from './utils.ts';
 
-type ToastListProps = {
-  toasts: ToastProps[];
-};
+const defaultDuration: ToastDuration = 5000;
 
-const ToastContainer = ({ toasts }: ToastListProps) => {
-  return (
-    <div className="w-toast">
-      {toasts.map((toast) => (
-        <ToastItem
-          key={toast.id}
-          id={toast.id}
-          text={toast.text}
-          variant={toast.variant}
-          duration={toast.duration}
-          dismissible={toast.dismissible}
-        />
-      ))}
-    </div>
+const dispatchEvent = (existingToasts, updatedToasts) => {
+  window?.dispatchEvent(
+    new StorageEvent('storage', {
+      key: 'wtoasts',
+      newValue: JSON.stringify(updatedToasts),
+      oldValue: JSON.stringify(existingToasts),
+      storageArea: sessionStorage,
+    }),
   );
 };
 
-export default ToastContainer;
+const removeToast = (id: ToastId) => {
+  const existingToasts = getStorageToasts();
+  const updatedToasts = existingToasts.filter((toast: ToastProps) => toast.id !== id);
+  setStorageToasts(updatedToasts);
+
+  dispatchEvent(existingToasts, updatedToasts);
+};
+
+const addToast = (toast: Omit<ToastProps, 'id'>) => {
+  const newId: ToastId = generateToastId();
+
+  const newToast = {
+    ...toast,
+    duration: toast.duration || defaultDuration,
+    id: newId,
+  };
+  const existingToasts = getStorageToasts();
+  const updatedToasts = [...existingToasts, newToast];
+  setStorageToasts(updatedToasts);
+
+  dispatchEvent(existingToasts, updatedToasts);
+
+  setTimeout(() => {
+    removeToast(newId);
+  }, newToast.duration);
+};
+
+const ToastContainer = () => {
+  const [toasts, setToasts] = useState<ToastProps[]>([]);
+
+  const handleStorage = (event: StorageEvent) => {
+    if (event.key === 'wtoasts') {
+      const toasts = JSON.parse(event.newValue || '[]');
+      setToasts(toasts);
+    }
+  };
+
+  useEffect(() => {
+    window?.addEventListener('storage', handleStorage);
+
+    // Adding this to mitigate the Storybook issue
+    window?.addEventListener('beforeunload', () => setStorageToasts([]));
+
+    return () => {
+      setToasts([]);
+      sessionStorage?.removeItem('wtoasts');
+      window?.removeEventListener('storage', handleStorage);
+      window?.removeEventListener('beforeunload', () => setStorageToasts([]));
+    };
+  }, []);
+
+  return (
+    <>
+      {createPortal(
+        //TODO: biome suggests removing role attr and replacing it with an output element in place of the div, looking into it
+        <div className="w-toast">
+          <style>{style}</style>
+          {toasts?.map((toast) => (
+            <ToastItem {...toast} key={toast.id} />
+          ))}
+        </div>,
+        document.body,
+      )}
+    </>
+  );
+};
+
+export { addToast, removeToast, ToastContainer };

@@ -1,15 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { ToastProvider } from './ToastProvider.tsx';
-import { ToastDuration, ToastVariant } from './toast.types.ts';
-import { useToast } from './useToast.ts';
+import { WToast, addWToast } from './index.ts';
+import { ToastDuration, ToastVariant } from './props.ts';
 
 const toastDurations: ToastDuration[] = [5000, 8000, 10000];
 
 // ---- Meta Definition ----
 const meta = {
   title: 'Toast',
-  component: ToastProvider,
+  component: WToast,
   parameters: {
     layout: 'centered',
   },
@@ -41,7 +40,6 @@ type Story = StoryObj<{
   dismissible: boolean;
   duration: ToastDuration;
   text: string;
-  children: object;
 }>;
 
 // ---- Toast Demo Component ----
@@ -54,11 +52,10 @@ const ToastDemo = ({
   duration: ToastDuration;
   text: string;
 }) => {
-  const { addToast } = useToast();
   const [toastNum, setToastNum] = useState(0);
 
   const handleToast = (variant: ToastVariant) => {
-    addToast({
+    addWToast({
       text: `${text} #${toastNum}`,
       variant,
       duration,
@@ -81,6 +78,7 @@ const ToastDemo = ({
     >
       {(['success', 'warning', 'negative'] as const).map((variant) => (
         <button
+          type="button"
           key={variant}
           onClick={() => handleToast(variant)}
           style={{
@@ -100,15 +98,14 @@ const ToastDemo = ({
 
 // ---- Default Story ----
 export const Default: Story = {
-  argTypes: {
-    children: { table: { disable: true } },
-  },
   args: {
     text: 'This is a toast!',
   },
   render: (args) => (
-    <ToastProvider>
+    <>
+      <WToast />
+      <WToast />
       <ToastDemo {...args} />
-    </ToastProvider>
+    </>
   ),
 };

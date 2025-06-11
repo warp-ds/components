@@ -45,7 +45,7 @@ const ToastItem = ({ variant, text, dismissible = false, id, duration }: ToastPr
         <p>{text}</p>
         {dismissible && (
           <Button variant="overlayQuiet" size="small" hasIconOnly onClick={() => removeToast(id)}>
-            <WIcon name="Close" size="small" />
+            <WIcon name="Close" />
           </Button>
         )}
       </div>

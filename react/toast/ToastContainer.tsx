@@ -1,7 +1,7 @@
 import style from 'inline:./styles.css';
+import ToastItem from './ToastItem.tsx';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import ToastItem from './ToastItem.tsx';
 import { ToastDuration, ToastId, ToastProps } from './props.ts';
 import { generateToastId, getStorageToasts, setStorageToasts } from './utils.ts';
 
@@ -27,22 +27,17 @@ const removeToast = (id: ToastId) => {
 };
 
 const addToast = (toast: Omit<ToastProps, 'id'>) => {
-  const newId: ToastId = generateToastId();
-
   const newToast = {
     ...toast,
     duration: toast.duration || defaultDuration,
-    id: newId,
+    id: generateToastId(),
   };
+
   const existingToasts = getStorageToasts();
   const updatedToasts = [...existingToasts, newToast];
   setStorageToasts(updatedToasts);
 
   dispatchEvent(existingToasts, updatedToasts);
-
-  setTimeout(() => {
-    removeToast(newId);
-  }, newToast.duration);
 };
 
 const ToastContainer = () => {

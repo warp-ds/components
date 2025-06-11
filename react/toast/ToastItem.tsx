@@ -3,11 +3,13 @@ import { Button } from '../button/Button.tsx';
 import { removeToast } from './ToastContainer.tsx';
 import { ToastProps } from './props.ts';
 import { WIcon } from '../icon/index.ts';
+import { ExpandTransition } from '../expandtransition/index.ts';
+import { useEffect, useState } from 'react';
 
 const toastConfig = {
   success: {
     class: 'w-toast--positive',
-    icon: <WIcon name="Info" />,
+    icon: <WIcon name="Success" />,
     role: 'status',
   },
   warning: {
@@ -22,25 +24,32 @@ const toastConfig = {
   },
 };
 
-const ToastItem = ({ variant, text, dismissible = false, id }: ToastProps) => {
+const ToastItem = ({ variant, text, dismissible = false, id, duration }: ToastProps) => {
   const { icon, role, class: className } = toastConfig[variant];
+
+  const [showItem, setShowItem] = useState(false);
+
+  useEffect(() => {
+    setShowItem(true);
+
+    setTimeout(() => setShowItem(false), duration);
+    setTimeout(() => removeToast(id), duration + 400);
+  }, []);
 
   const toastClasses = classNames('w-toast__item', className);
 
   return (
-    <div
-      className={toastClasses} // --warning, --success, --negative, --dismissible
-      role={role}
-      id={id}
-    >
-      <span className="w-toast__icon">{icon}</span>
-      <p>{text}</p>
-      {dismissible && (
-        <Button variant="overlayQuiet" size="small" hasIconOnly onClick={() => removeToast(id)}>
-          <WIcon name="Close" />
-        </Button>
-      )}
-    </div>
+    <ExpandTransition show={showItem}>
+      <div className={toastClasses} role={role} id={id}>
+        <span className="w-toast__icon">{icon}</span>
+        <p>{text}</p>
+        {dismissible && (
+          <Button variant="overlayQuiet" size="small" hasIconOnly onClick={() => removeToast(id)}>
+            <WIcon name="Close" size='small' />
+          </Button>
+        )}
+      </div>
+    </ExpandTransition>
   );
 };
 

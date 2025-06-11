@@ -74,7 +74,7 @@ To ensure consistency across the design system, please follow these conventions 
 ## Component Exports
 
 - **React components** must be exported using the format: `WComponentName`
-  - `export const WToast = () => { ... }`
+  - `export const WToastContainer = () => { ... }`
 - **Web components (Lit/elements)** must be registered using kebab-case: `"w-component-name"`
   - `customElements.define('w-toast', ToastElement)`
 
@@ -112,7 +112,7 @@ To ensure consistency across the design system, please follow these conventions 
 
 ```
 Toast/
-├── index.tsx               # React component (WToast)
+├── index.tsx               # React component (WToastContainer)
 ├── element.ts              # Web Component (w-toast)
 ├── props.ts                # Typings for props
 ├── utils.ts                # Shared pure functions

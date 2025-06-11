@@ -1,50 +1,35 @@
-/* ==========================================================================
-   Component: w-toast
-   ==========================================================================
-
-   TODOs:
-   1. Confirm the `--dismissible` modifier is consistently applied and styled.
-   2. Audit spacing against vertical rhythm and grid tokens.
-   3. Add motion/transition handling if toasts will auto-dismiss.
-   4. MAke sure text aligns both when theres a single line and when it breaks to multiple lines.
-
-   Sections:
-   1. Public override points
-   2. Base layout and structure
-   3. Internal variable resolution (scoped fallback mapping: --_w-toast-*)
-   4. Interaction states (hover, focus)
-   5. Modifiers: variants (.w-toast--positive, etc.)
-
-   ========================================================================== */
-
-/* 1. Public override points (can be safely overridden externally) */
+/* Outer container */
 .w-toast {
+  /* Public override points (can be safely overridden externally) */
   --w-toast-color-background: var(--w-s-color-background);
   --w-toast-color-border: var(--w-s-color-border);
   --w-toast-color-text: var(--w-s-color-text);
   --w-toast-color-icon: var(--w-s-color-icon);
-}
 
-/* 2. Base layout and structure */
-
-/* Outer container (formerly w-toast__wrapper) */
-.w-toast {
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  bottom: 0;
   overflow: hidden;
+  align-items: center;
   width: 100%;
+  z-index: 1000;
+  pointer-events: none;
 }
 
 /* Toast block */
 .w-toast__item {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+  min-width: 343px;
+  max-width: 420px;
   padding: 8px;
-  margin-top: 16px;
+  padding-left: 6px;
+  margin-bottom: 16px;
   border: 2px solid transparent;
   border-radius: 8px;
   pointer-events: auto;
-  transition: all 0.3s ease;
-  gap: 8px;
+  gap: 1px;
 
   background-color: var(--_w-toast-background);
   border-color: var(--_w-toast-border);
@@ -53,12 +38,12 @@
 
 /* Icon */
 .w-toast__icon {
-  flex-shrink: 0;
-  width: 16px;
-  height: 16px;
   margin: 8px;
-  border-radius: 50%;
   color: var(--_w-toast-icon);
+}
+
+.w-toast__icon > * {
+  display: block;
 }
 
 .w-toast__button {
@@ -69,14 +54,13 @@
 .w-toast__item > p {
   align-self: center;
   margin: 0;
-  padding-top: 4px;
-  padding-bottom: 4px;
+  padding: 11px 0;
   margin-right: auto;
   font-size: var(--w-font-size-s);
   line-height: var(--w-line-height-s);
 }
 
-/* 3. Internal variable resolution */
+/* Internal variable resolution */
 .w-toast__item {
   --_w-toast-background: var(--w-toast-background);
   --_w-toast-border: var(--w-toast-border);
@@ -84,9 +68,7 @@
   --_w-toast-icon: var(--w-toast-icon);
 }
 
-/* 4. Interaction states */
-
-/* 5. Modifiers */
+/* Modifiers */
 /* Success */
 .w-toast--positive {
   --w-toast-background: var(--w-s-color-background-positive-subtle);

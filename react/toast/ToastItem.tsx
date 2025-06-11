@@ -1,48 +1,55 @@
-import style from 'inline:./toast.styles.css';
-import IconClose16 from '@warp-ds/icons/react/close-16';
 import classNames from 'classnames';
-import { createRef } from 'react';
 import { Button } from '../button/Button.tsx';
-import { toastIcon, toastRole, toastVariantClassMap } from './helpers.tsx';
-import { ToastProps } from './toast.types.ts';
-import { useToast } from './useToast.ts';
+import { removeToast } from './ToastContainer.tsx';
+import { ToastProps } from './props.ts';
+import { WIcon } from '../icon/index.ts';
+import { ExpandTransition } from '../expandtransition/index.ts';
+import { useEffect, useState } from 'react';
 
-/* 
-  TODO: REMOVE TEMP STYLES, TEST BROWSERS, TEST WEB/MOBILE
-  TODO: array vs map
-  TODO: Test all 3 variants simultaneously and see if the styles override each other
-  TODO: Check button component usage!! Currently using button overlayQuiet with custom padding
-  Q: Is the component self-contained?
-  */
+const toastConfig = {
+  success: {
+    class: 'w-toast--positive',
+    icon: <WIcon name="Success" />,
+    role: 'status',
+  },
+  warning: {
+    class: 'w-toast--warning',
+    icon: <WIcon name="Warning" />,
+    role: 'alert',
+  },
+  negative: {
+    class: 'w-toast--negative',
+    icon: <WIcon name="Error" />,
+    role: 'alert',
+  },
+};
 
-const ToastItem = ({ variant, text, dismissible = false, id }: ToastProps) => {
-  const { removeToast } = useToast();
-  const buttonRef = createRef<HTMLButtonElement>();
-  const VariantIcon = toastIcon[variant];
+const ToastItem = ({ variant, text, dismissible = false, id, duration }: ToastProps) => {
+  const { icon, role, class: className } = toastConfig[variant];
 
-  const toastClasses = classNames('w-toast__item', toastVariantClassMap[variant], {
-    // TODO: check that this class exists
-    'w-toast--dismissible': dismissible,
-  });
+  const [showItem, setShowItem] = useState(false);
+
+  useEffect(() => {
+    setShowItem(true);
+
+    setTimeout(() => setShowItem(false), duration);
+    setTimeout(() => removeToast(id), duration + 400); // Wait 400ms to allow for animation to complete before removing toast.
+  }, []);
+
+  const toastClasses = classNames('w-toast__item', className);
 
   return (
-    <>
-      <style>{style}</style>
-      <div
-        className={toastClasses} // --warning, --success, --negative, --dismissible
-        role={toastRole[variant]}
-      >
-        <span className="w-toast__icon">
-          <VariantIcon />
-        </span>
+    <ExpandTransition show={showItem}>
+      <div className={toastClasses} role={role} id={id}>
+        <span className="w-toast__icon">{icon}</span>
         <p>{text}</p>
         {dismissible && (
-          <Button variant="overlayQuiet" size="small" className="p-4" onClick={() => removeToast(id)}>
-            <IconClose16 />
+          <Button variant="overlayQuiet" size="small" hasIconOnly onClick={() => removeToast(id)}>
+            <WIcon name="Close" />
           </Button>
         )}
       </div>
-    </>
+    </ExpandTransition>
   );
 };
 

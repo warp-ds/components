@@ -33,7 +33,7 @@ const ToastItem = ({ variant, text, dismissible = false, id, duration }: ToastPr
     setShowItem(true);
 
     setTimeout(() => setShowItem(false), duration);
-    setTimeout(() => removeToast(id), duration + 400);
+    setTimeout(() => removeToast(id), duration + 400); // Wait 400ms to allow for animation to complete before removing toast.
   }, []);
 
   const toastClasses = classNames('w-toast__item', className);
@@ -45,7 +45,7 @@ const ToastItem = ({ variant, text, dismissible = false, id, duration }: ToastPr
         <p>{text}</p>
         {dismissible && (
           <Button variant="overlayQuiet" size="small" hasIconOnly onClick={() => removeToast(id)}>
-            <WIcon name="Close" size='small' />
+            <WIcon name="Close" size="small" />
           </Button>
         )}
       </div>

@@ -1,14 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { WToast, addWToast } from './index.ts';
+import { WToastContainer, addWToast } from './index.ts';
 import { ToastDuration, ToastVariant } from './props.ts';
+import { Button } from '../button/index.ts';
 
 const toastDurations: ToastDuration[] = [5000, 8000, 10000];
 
-// ---- Meta Definition ----
+// Meta Definition
 const meta = {
   title: 'Toast',
-  component: WToast,
+  component: WToastContainer,
   parameters: {
     layout: 'centered',
   },
@@ -35,26 +36,20 @@ const meta = {
 
 export default meta;
 
-// ---- Story Type ----
-type Story = StoryObj<{
-  dismissible: boolean;
-  duration: ToastDuration;
-  text: string;
-}>;
+// Story Type
+type Story = StoryObj<Props>;
 
-// ---- Toast Demo Component ----
-const ToastDemo = ({
-  dismissible,
-  duration,
-  text,
-}: {
+type Props = {
   dismissible: boolean;
   duration: ToastDuration;
   text: string;
-}) => {
+};
+
+// Toast Demo Component
+const ToastDemo = ({ dismissible, duration, text }: Props) => {
   const [toastNum, setToastNum] = useState(0);
 
-  const handleToast = (variant: ToastVariant) => {
+  const addToast = (variant: ToastVariant) => {
     addWToast({
       text: `${text} #${toastNum}`,
       variant,
@@ -73,24 +68,12 @@ const ToastDemo = ({
         display: 'flex',
         flexDirection: 'column',
         gap: '8px',
-        zIndex: 9999,
       }}
     >
       {(['success', 'warning', 'negative'] as const).map((variant) => (
-        <button
-          type="button"
-          key={variant}
-          onClick={() => handleToast(variant)}
-          style={{
-            padding: '8px 16px',
-            border: '1px solid grey',
-            borderRadius: 4,
-            backgroundColor: 'white',
-            cursor: 'pointer',
-          }}
-        >
+        <Button type="button" key={variant} onClick={() => addToast(variant)} variant="utility">
           Show {variant} toast
-        </button>
+        </Button>
       ))}
     </div>
   );
@@ -103,8 +86,7 @@ export const Default: Story = {
   },
   render: (args) => (
     <>
-      <WToast />
-      <WToast />
+      <WToastContainer />
       <ToastDemo {...args} />
     </>
   ),

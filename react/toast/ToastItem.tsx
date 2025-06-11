@@ -12,7 +12,7 @@ const toastConfig = {
   },
   warning: {
     class: 'w-toast--warning',
-    icon:  <WIcon name="Warning" />,
+    icon: <WIcon name="Warning" />,
     role: 'alert',
   },
   negative: {
@@ -22,15 +22,10 @@ const toastConfig = {
   },
 };
 
-//  TODO: TEST BROWSERS, TEST WEB/MOBILE
-
 const ToastItem = ({ variant, text, dismissible = false, id }: ToastProps) => {
   const { icon, role, class: className } = toastConfig[variant];
 
-  const toastClasses = classNames('w-toast__item', className, {
-    // TODO: check that this class exists
-    'w-toast--dismissible': dismissible,
-  });
+  const toastClasses = classNames('w-toast__item', className);
 
   return (
     <div

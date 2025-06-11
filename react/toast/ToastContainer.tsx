@@ -69,19 +69,14 @@ const ToastContainer = () => {
     };
   }, []);
 
-  return (
-    <>
-      {createPortal(
-        //TODO: biome suggests removing role attr and replacing it with an output element in place of the div, looking into it
-        <div className="w-toast">
-          <style>{style}</style>
-          {toasts?.map((toast) => (
-            <ToastItem {...toast} key={toast.id} />
-          ))}
-        </div>,
-        document.body,
-      )}
-    </>
+  return createPortal(
+    <div className="w-toast">
+      <style>{style}</style>
+      {toasts?.map((toast) => (
+        <ToastItem {...toast} key={toast.id} />
+      ))}
+    </div>,
+    document.body,
   );
 };
 

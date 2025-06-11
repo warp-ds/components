@@ -24,7 +24,7 @@
   --w-toast-color-text: var(--w-s-color-text);
   --w-toast-color-icon: var(--w-s-color-icon);
 
-  z-index: 10000 !important;
+  z-index: 1000 !important;
   pointer-events: none;
 }
 
@@ -46,6 +46,7 @@
 .w-toast__item {
   display: flex;
   align-items: flex-start;
+  min-width: 343px;
   max-width: 420px;
   padding: 8px;
   margin-bottom: 16px;
@@ -61,8 +62,7 @@
 
 /* Icon */
 .w-toast__icon {
-  flex-shrink: 0;
-
+  height: 0;
   margin: 8px;
   border-radius: 50%;
   color: var(--_w-toast-icon);

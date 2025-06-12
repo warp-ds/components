@@ -11,8 +11,8 @@
 
   --_month-table-min-width: var(--month-table-min-width, calc(var(--day-width) * 7));
 
-  --_weekdays-font-size: var(--weekdays-font-size, var(--w-font-size-s));
-  --_weekdays-line-height: var(--weekdays-font-size, var(--w-line-height-s));
+  --_weekdays-font-size: var(--weekdays-font-size, var(--w-font-size-xs));
+  --_weekdays-line-height: var(--weekdays-font-size, var(--w-line-height-xs));
   --_weekdays-font-weight: var(--weekdays-font-weight, bold);
 
   --_weekdays-padding: var(--weekdays-padding, 0 4px 0 0);
@@ -51,13 +51,8 @@
   line-height: var(--_weekdays-line-height);
   font-weight: var(--_weekdays-font-weight);
   padding: var(--_weekdays-padding);
+  text-transform: uppercase;
 }
-
-/* Proposed changes */
-
-/*Move navigation buttons (prev, and next month so they render directly into
-w-datepicker__month-header div instead of all the absolute positioning mess)
-*/
 
 .w-datepicker__month-nav {
   display: flex;

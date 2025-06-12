@@ -18,6 +18,7 @@
   --w-slider-track-height: 4px;
   --w-slider-track-active-height: 6px;
   --w-slider-thumb-background: var(--w-s-color-background-primary);
+  --w-slider-thumb-background-hover: var(--w-s-color-background-primary-hover);
   --w-slider-thumb-shadow: none;
   --w-slider-thumb-size: 28px;
   --w-slider-thumb-offset: calc(var(--w-slider-thumb-size)/2);
@@ -86,6 +87,7 @@
 .w-slider__thumb:focus {
   outline: none;
   --w-slider-thumb-shadow: var(--w-shadow-slider-handle-hover);
+  --w-slider-thumb-background: var(--w-slider-thumb-background-hover);
 }
 
 .w-slider__thumb:focus-visible {
@@ -147,7 +149,7 @@
   line-height: var(--w-line-height-s);
   font-weight: bold;
   cursor: pointer;
-  padding-bottom: 4px;
+  padding-bottom: 8px;
   color: var(--w-s-color-text);
   position: relative;
   display: block;

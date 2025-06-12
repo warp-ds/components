@@ -6,8 +6,6 @@
   --_month-font-size: var(--month-font-size, var(--w-font-size-m));
   --_month-line-height: var(--month-line-height, var(--w-line-height-m));
 
-  --_month-header-font-weight: var(--month-header-font-weight, bold);
-  --_month-nav-margin: var(--month-nav-margin, 0 0 8px 0);
 
   --_month-table-min-width: var(--month-table-min-width, calc(var(--day-width) * 7));
 
@@ -15,7 +13,7 @@
   --_weekdays-line-height: var(--weekdays-font-size, var(--w-line-height-xs));
   --_weekdays-font-weight: var(--weekdays-font-weight, bold);
 
-  --_weekdays-padding: var(--weekdays-padding, 0 4px 0 0);
+  --_weekdays-padding: var(--weekdays-padding, 8px 0 4px 0);
 
   text-align: center;
   user-select: none;
@@ -27,12 +25,12 @@
 }
 
 .w-datepicker__month__nav {
-  margin: var(--_month-nav-margin);
+  margin: 0 0 8px 0;
 }
 
 .w-datepicker__month__nav__header {
   text-align: center;
-  font-weight: var(--month-header-font-weight);
+  font-weight: Bold;
 }
 
 .w-datepicker__table {
@@ -46,12 +44,10 @@
 
 .w-datepicker__weekday {
   text-align: center;
-
   font-size: var(--_weekdays-font-size);
   line-height: var(--_weekdays-line-height);
   font-weight: var(--_weekdays-font-weight);
   padding: var(--_weekdays-padding);
-  text-transform: uppercase;
 }
 
 .w-datepicker__month-nav {

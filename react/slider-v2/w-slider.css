@@ -27,7 +27,7 @@
 }
 
 /* 2. Base layout and structure */
-.w-slider {
+.w-slider__slider {
   width: 100%;
   position: relative;
   user-select: none;
@@ -137,7 +137,7 @@
 
 .w-slider__min-value,
 .w-slider__max-value {
-  --w_slider-tick-value-color: var(--w-slider-tick-value-color);
+  --_w-slider-tick-value-color: var(--w-slider-tick-value-color);
   font-size: var(--w-font-size-s);
   line-height: var(--w-line-height-s);
   color: var(--_w-slider-tick-value-color);

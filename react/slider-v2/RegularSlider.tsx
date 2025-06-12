@@ -160,14 +160,14 @@ export const RegularSlider = ({
       <style href="w-slider" precedence="medium">
         {style}
       </style>
-      <fieldset>
+      <fieldset className="w-slider">
         <legend className="w-slider__label">{label}</legend>
         <div
           onMouseDown={onStartDrag}
           onTouchStart={onStartDrag}
           data-body-scroll-lock-ignore
           className={classNames(
-            'w-slider',
+            'w-slider__slider',
             { 'w-slider--is-disabled': disabled },
             className
           )}

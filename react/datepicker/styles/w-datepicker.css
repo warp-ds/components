@@ -28,6 +28,7 @@
   cursor: pointer;
   font-size: var(--w-font-size-m);
   line-height: var(--w-line-height-m);
+  background-color: var(--w-s-color-background);
 }
 .w-datepicker-input:hover {
     border-color: var(--w-s-color-border-hover);
@@ -71,7 +72,7 @@
 }
 
 .w-datepicker-button:not(:hover) {
-    background-color: white !important;
+    background-color: var(--w-s-color-background) !important;
 }
 
 input[type="date"]::-webkit-inner-spin-button,

@@ -4,7 +4,13 @@ import classNames from 'classnames';
 import React, { useEffect, useRef, useState } from 'react';
 import { getMarks } from './Marks.tsx';
 import { RegularSliderProps } from './props.ts';
-import { clamp, nextValue, prevValue, ratioToValue, valueToRatio } from './utils.ts';
+import {
+  clamp,
+  nextValue,
+  prevValue,
+  ratioToValue,
+  valueToRatio,
+} from './utils.ts';
 
 export const RegularSlider = ({
   className,
@@ -16,6 +22,7 @@ export const RegularSlider = ({
   step = 1,
   value,
   showMarks = true,
+  label,
   ...props
 }: RegularSliderProps) => {
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -97,7 +104,9 @@ export const RegularSlider = ({
     }
 
     if ('touches' in e) {
-      document.addEventListener('touchmove', onDrag, { passive: false });
+      document.addEventListener('touchmove', onDrag, {
+        passive: false,
+      });
       document.addEventListener('touchend', onEndDrag);
     } else {
       document.addEventListener('mousemove', onDrag);
@@ -151,47 +160,65 @@ export const RegularSlider = ({
       <style href="w-slider" precedence="medium">
         {style}
       </style>
-      <div
-        onMouseDown={onStartDrag}
-        onTouchStart={onStartDrag}
-        data-body-scroll-lock-ignore
-        className={classNames('w-slider', { 'w-slider--is-disabled': disabled }, className)}
-        style={{ cursor: isDragging ? 'grabbing' : 'pointer' }}
-        ref={sliderRef}
-      >
-        <div className="w-slider__track" />
+      <fieldset className="w-slider">
+        <legend className="w-slider__label">{label}</legend>
         <div
-          className="w-slider__track-active"
-          style={{
-            left: 0,
-            right: `${(1 - ratio) * 100}%`,
-          }}
-        />
-        <div
-          aria-disabled={disabled}
-          aria-label={props['aria-label']}
-          aria-labelledby={props['aria-labelledby']}
-          aria-valuemax={max}
-          aria-valuemin={min}
-          aria-valuenow={ratioToValue(ratio, min, max, step)}
-          aria-valuetext={props['aria-valuetext']}
-          className="w-slider__thumb"
-          onKeyDown={handleKeyDown}
-          onFocus={() => setShowHandle(true)}
-          onBlur={() => setShowHandle(false)}
-          role="slider"
-          ref={handleRef}
-          style={{
-            left: `max(calc(${ratio * 100}% - 15px), 0%)`,
-            cursor: 'inherit',
-          }}
-          tabIndex={disabled ? undefined : 0}
-        />
-        <Attention tooltip placement="top" flip targetEl={handleRef} isShowing={showHandle}>
-          <p id="tooltip-bubbletext">{ratioToValue(ratio, min, max, step)}</p>
-        </Attention>
+          onMouseDown={onStartDrag}
+          onTouchStart={onStartDrag}
+          data-body-scroll-lock-ignore
+          className={classNames(
+            'w-slider__slider',
+            { 'w-slider--is-disabled': disabled },
+            className
+          )}
+          style={{ cursor: isDragging ? 'grabbing' : 'pointer' }}
+          ref={sliderRef}
+        >
+          <div className="w-slider__wrap">
+            <div className="w-slider__track">
+              <div
+                className="w-slider__track-active"
+                style={{
+                  width: `${ratio * 100}%`,
+                }}
+              />
+            </div>
+            <div
+              aria-disabled={disabled}
+              aria-label={props['aria-label']}
+              aria-labelledby={props['aria-labelledby']}
+              aria-valuemax={max}
+              aria-valuemin={min}
+              aria-valuenow={ratioToValue(ratio, min, max, step)}
+              aria-valuetext={props['aria-valuetext']}
+              className="w-slider__thumb"
+              onKeyDown={handleKeyDown}
+              onFocus={() => setShowHandle(true)}
+              onBlur={() => setShowHandle(false)}
+              role="slider"
+              ref={handleRef}
+              style={{
+                left: `${ratio * 100}%`,
+                transform: 'translateX(-50%)',
+                cursor: 'inherit',
+              }}
+              tabIndex={disabled ? undefined : 0}
+            />
+          </div>
+          <Attention
+            tooltip
+            placement="top"
+            flip
+            targetEl={handleRef}
+            isShowing={showHandle}
+          >
+            <p id="tooltip-bubbletext">
+              {ratioToValue(ratio, min, max, step)}
+            </p>
+          </Attention>
+        </div>
         {showMarks && getMarks(min, max)}
-      </div>
+      </fieldset>
     </>
   );
 };

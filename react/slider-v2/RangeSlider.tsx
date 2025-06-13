@@ -16,6 +16,7 @@ export const RangeSlider = ({
   min = 0,
   step = 1,
   showMarks = true,
+  label,
   ...props
 }: RangeSliderProps) => {
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -24,7 +25,7 @@ export const RangeSlider = ({
   const [showLowerHandle, setShowLowerHandle] = useState(false);
   const [showUpperHandle, setShowUpperHandle] = useState(false);
 
-  // Local state for the “ratio” positions (0 to 1) of each handle
+  // Local state for the "ratio" positions (0 to 1) of each handle
   const [ratios, setRatios] = useState({
     lower: valueToRatio(values[Handle.Lower], min, max),
     upper: valueToRatio(values[Handle.Upper], min, max),
@@ -62,7 +63,7 @@ export const RangeSlider = ({
     if (disabled) return;
 
     const oldValue = values[handle];
-    let newValue: number;
+    let newValue: number | undefined;
     switch (event.key) {
       case 'ArrowLeft':
       case 'ArrowDown':
@@ -80,14 +81,18 @@ export const RangeSlider = ({
       case 'End':
         newValue = max;
         break;
+      default:
+        return; // Don't prevent default for unhandled keys
     }
 
     if (newValue != null) {
-      newValue = clamp(
-        newValue,
-        handle === Handle.Lower ? min : values[Handle.Lower],
-        handle === Handle.Upper ? max : values[Handle.Upper],
-      );
+      // Proper boundary clamping - handles can't pass each other
+      if (handle === Handle.Lower) {
+        newValue = clamp(newValue, min, values[Handle.Upper]);
+      } else {
+        newValue = clamp(newValue, values[Handle.Lower], max);
+      }
+
       const newValues = values.slice() as [number, number];
       newValues[handle] = newValue;
       onInput(newValues);
@@ -102,39 +107,34 @@ export const RangeSlider = ({
   const onStartDrag = (e: React.MouseEvent | React.TouchEvent) => {
     if (disabled) return;
 
-    if (handleLowerRef.current === e.target) {
-      setShowLowerHandle(true);
-    } else if (handleUpperRef.current === e.target) {
-      setShowUpperHandle(true);
+    // Only start drag if clicking on a handle
+    const target = e.target as HTMLElement;
+    if (!target.classList.contains('w-slider__thumb')) {
+      return;
     }
 
-    let clientX = 0;
-    if ('touches' in e) {
-      clientX = e.touches[0].clientX;
+    let dragHandle: Handle;
+    if (target === handleLowerRef.current) {
+      dragHandle = Handle.Lower;
+      setShowLowerHandle(true);
+    } else if (target === handleUpperRef.current) {
+      dragHandle = Handle.Upper;
+      setShowUpperHandle(true);
     } else {
-      clientX = e.clientX;
+      return;
     }
+
     const rect = sliderRef.current?.getBoundingClientRect();
     if (!rect) return;
-    const ratio = clamp((clientX - rect.left) / rect.width, 0, 1);
 
-    // Determine which handle to drag
-    let dragHandle: Handle;
-    if (values[Handle.Lower] === max) {
-      dragHandle = Handle.Lower;
-    } else if (values[Handle.Upper] === min) {
-      dragHandle = Handle.Upper;
-    } else {
-      const lowerDiff = Math.abs(ratios.lower - ratio);
-      const upperDiff = Math.abs(ratios.upper + 0.0001 - ratio);
-      dragHandle = lowerDiff < upperDiff ? Handle.Lower : Handle.Upper;
-    }
     draggingRef.current = { handle: dragHandle, sliderRect: rect };
     setIsDragging(true);
 
     // Add event listeners on document for dragging
     if ('touches' in e) {
-      document.addEventListener('touchmove', onDrag, { passive: false });
+      document.addEventListener('touchmove', onDrag, {
+        passive: false,
+      });
       document.addEventListener('touchend', onEndDrag);
     } else {
       document.addEventListener('mousemove', onDrag);
@@ -154,24 +154,34 @@ export const RangeSlider = ({
     } else {
       clientX = e.clientX;
     }
+
     const dragState = draggingRef.current;
     if (!dragState) return;
+
     const { handle, sliderRect } = dragState;
-    let ratio = clamp((clientX - sliderRect.left) / sliderRect.width, 0, 1);
-    // Use current values to determine the allowed range.
+
+    // Calculate raw ratio from pointer position
+    const ratio = clamp((clientX - sliderRect.left) / sliderRect.width, 0, 1);
+
+    // Convert ratio to value first
+    let dragValue = ratioToValue(ratio, min, max, step);
+
+    // Apply boundary constraints - handles can't pass each other
     if (handle === Handle.Lower) {
-      const currentUpper = valueToRatio(internalValue.current[Handle.Upper], min, max);
-      ratio = clamp(ratio, 0, currentUpper);
+      dragValue = clamp(dragValue, min, internalValue.current[Handle.Upper]);
     } else {
-      const currentLower = valueToRatio(internalValue.current[Handle.Lower], min, max);
-      ratio = clamp(ratio, currentLower, 1);
+      dragValue = clamp(dragValue, internalValue.current[Handle.Lower], max);
     }
-    const dragValue = ratioToValue(ratio, min, max, step);
+
+    // Update the ratio based on the clamped value
+    const finalRatio = valueToRatio(dragValue, min, max);
+
     if (dragValue !== internalValue.current[handle]) {
       internalValue.current[handle] = dragValue;
       onInput([...internalValue.current] as [number, number]);
-      setRatios((prev) => (handle === Handle.Lower ? { ...prev, lower: ratio } : { ...prev, upper: ratio }));
+      setRatios((prev) => (handle === Handle.Lower ? { ...prev, lower: finalRatio } : { ...prev, upper: finalRatio }));
     }
+
     e.preventDefault();
   };
 
@@ -201,70 +211,79 @@ export const RangeSlider = ({
       <style href="w-slider" precedence="medium">
         {style}
       </style>
-      <div
-        onMouseDown={onStartDrag}
-        onTouchStart={onStartDrag}
-        data-body-scroll-lock-ignore
-        className={classNames('w-slider', { 'w-slider--is-disabled': disabled }, className)}
-        style={{ cursor: isDragging ? 'grabbing' : 'pointer' }}
-        ref={sliderRef}
-      >
-        <div className="w-slider__track" />
+      <fieldset className="w-slider">
+        <legend className="w-slider__label">{label}</legend>
         <div
-          className="w-slider__track-active"
-          style={{
-            left: `${ratios.lower * 100}%`,
-            right: `${(1 - ratios.upper) * 100}%`,
-          }}
-        />
-        <div
-          aria-disabled={disabled}
-          aria-label={props['aria-label']?.[Handle.Lower]}
-          aria-labelledby={props['aria-labelledby']?.[Handle.Lower]}
-          aria-valuemax={values[Handle.Upper]}
-          aria-valuemin={min}
-          aria-valuenow={ratioToValue(ratios.lower, min, max, step)}
-          aria-valuetext={props['aria-valuetext']?.[Handle.Lower]}
-          className="w-slider__thumb"
-          onKeyDown={handleKeyDown}
-          onFocus={() => setShowLowerHandle(true)}
-          onBlur={() => setShowLowerHandle(false)}
-          role="slider"
-          ref={handleLowerRef}
-          style={{
-            left: `max(calc(${ratios.lower * 100}% - 15px), 0%)`,
-            cursor: 'inherit',
-          }}
-          tabIndex={disabled ? undefined : 0}
-        />
-        <Attention tooltip placement="top" flip targetEl={handleLowerRef} isShowing={showLowerHandle}>
-          <p id="tooltip-bubbletext">{ratioToValue(ratios.lower, min, max, step)}</p>
-        </Attention>
-        <div
-          aria-disabled={disabled}
-          aria-label={props['aria-label']?.[Handle.Upper]}
-          aria-labelledby={props['aria-labelledby']?.[Handle.Upper]}
-          aria-valuemax={max}
-          aria-valuemin={values[Handle.Lower]}
-          aria-valuenow={ratioToValue(ratios.upper, min, max, step)}
-          aria-valuetext={props['aria-valuetext']?.[Handle.Upper]}
-          className="w-slider__thumb"
-          onKeyDown={(event) => handleKeyDown(event, Handle.Upper)}
-          onFocus={() => setShowUpperHandle(true)}
-          onBlur={() => setShowUpperHandle(false)}
-          role="slider"
-          ref={handleUpperRef}
-          style={{
-            right: `max(calc(${(1 - ratios.upper) * 100}% - 15px), 0%)`,
-            cursor: 'inherit',
-          }}
-          tabIndex={disabled ? undefined : 0}
-        />
-        <Attention tooltip placement="top" flip targetEl={handleUpperRef} isShowing={showUpperHandle}>
-          <p id="tooltip-bubbletext">{ratioToValue(ratios.upper, min, max, step)}</p>
-        </Attention>
+          onMouseDown={onStartDrag}
+          onTouchStart={onStartDrag}
+          data-body-scroll-lock-ignore
+          className={classNames('w-slider__slider', { 'w-slider--is-disabled': disabled }, className)}
+          style={{ cursor: isDragging ? 'grabbing' : 'pointer' }}
+          ref={sliderRef}
+        >
+          <div className="w-slider__wrap">
+            <div className="w-slider__track">
+              <div
+                className="w-slider__track-active"
+                style={{
+                  left: `${ratios.lower * 100}%`,
+                  width: `${(ratios.upper - ratios.lower) * 100}%`,
+                }}
+              />
+            </div>
+
+            <div
+              aria-disabled={disabled}
+              aria-label={props['aria-label']?.[Handle.Lower]}
+              aria-labelledby={props['aria-labelledby']?.[Handle.Lower]}
+              aria-valuemax={values[Handle.Upper]}
+              aria-valuemin={min}
+              aria-valuenow={ratioToValue(ratios.lower, min, max, step)}
+              aria-valuetext={props['aria-valuetext']?.[Handle.Lower]}
+              className="w-slider__thumb"
+              onKeyDown={handleKeyDown}
+              onFocus={() => setShowLowerHandle(true)}
+              onBlur={() => setShowLowerHandle(false)}
+              role="slider"
+              ref={handleLowerRef}
+              style={{
+                left: `${ratios.lower * 100}%`,
+                transform: 'translateX(-50%)',
+                cursor: 'inherit',
+              }}
+              tabIndex={disabled ? undefined : 0}
+            />
+            <Attention tooltip placement="top" flip targetEl={handleLowerRef} isShowing={showLowerHandle}>
+              <p id="tooltip-bubbletext-lower">{ratioToValue(ratios.lower, min, max, step)}</p>
+            </Attention>
+            <div
+              aria-disabled={disabled}
+              aria-label={props['aria-label']?.[Handle.Upper]}
+              aria-labelledby={props['aria-labelledby']?.[Handle.Upper]}
+              aria-valuemax={max}
+              aria-valuemin={values[Handle.Lower]}
+              aria-valuenow={ratioToValue(ratios.upper, min, max, step)}
+              aria-valuetext={props['aria-valuetext']?.[Handle.Upper]}
+              className="w-slider__thumb"
+              onKeyDown={(event) => handleKeyDown(event, Handle.Upper)}
+              onFocus={() => setShowUpperHandle(true)}
+              onBlur={() => setShowUpperHandle(false)}
+              role="slider"
+              ref={handleUpperRef}
+              style={{
+                left: `${ratios.upper * 100}%`,
+                transform: 'translateX(-50%)',
+                cursor: 'inherit',
+              }}
+              tabIndex={disabled ? undefined : 0}
+            />
+            <Attention tooltip placement="top" flip targetEl={handleUpperRef} isShowing={showUpperHandle}>
+              <p id="tooltip-bubbletext-upper">{ratioToValue(ratios.upper, min, max, step)}</p>
+            </Attention>
+          </div>
+        </div>
         {showMarks && getMarks(min, max)}
-      </div>
+      </fieldset>
     </>
   );
 };

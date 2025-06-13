@@ -121,6 +121,7 @@ export function DatePicker({ value, onChange, label, isDayDisabled = () => false
           />
           <Button
             variant="utilityQuiet"
+            hasIconOnly
             className="w-datepicker-button"
             onClick={() => setCalendarOpen((calendarOpen) => !calendarOpen)}
             aria-label="Open calendar"

@@ -1,12 +1,22 @@
 {
   "name": "@warp-ds/components",
   "version": "1.0.0",
-  "description": "",
+  "description": "Next Gen Warp Components",
   "main": "index.js",
   "type": "module",
   "exports": {
     "./*": "./dist/packages/*/index.js",
     "./react/*": "./dist/react/*/index.js"
+  },
+  "typesVersions": {
+    "*": {
+      "./*": [
+        "./dist/packages/*/index.d.ts"
+      ],
+      "./react/*": [
+        "./dist/react/*/index.d.ts"
+      ]
+    }
   },
   "scripts": {
     "build-storybook:lit": "storybook build -c .storybook-lit -o storybook/lit",
@@ -44,6 +54,7 @@
     "@storybook/test": "8.6.9",
     "@storybook/web-components": "8.6.9",
     "@storybook/web-components-vite": "8.6.9",
+    "@types/node": "^24.0.3",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",

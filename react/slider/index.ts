@@ -1,1 +1,2 @@
-export { Slider } from './src/Slider.tsx';
+export { RangeSlider } from './RangeSlider.tsx';
+export { RegularSlider } from './RegularSlider.tsx';

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { RangeSlider, RegularSlider } from './index.ts';
 
 export default {
-  title: 'Forms/Slider-v2',
+  title: 'Forms/Sliders',
 };
 
 export const Regular = () => {

@@ -1,0 +1,19 @@
+.w-pageindicator {
+  display: grid;
+  height: max-content;
+  grid-auto-flow: column;
+  justify-self: center;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.w-pageindicator--dot {
+  background-color: var(--w-s-color-background-disabled);
+  border-radius: 5px;
+  width: 10px;
+  height: 10px;
+}
+
+.w-pageindicator--selecteddot {
+  background-color: var(--w-s-color-icon-selected);
+}

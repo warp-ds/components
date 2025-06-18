@@ -1,13 +1,12 @@
 import style from 'inline:./styles/w-datepicker.css';
-import { useEffect, useId, useRef, useState } from 'react';
-
 import IconCalendar16 from '@warp-ds/icons/react/calendar-16';
 import { nb } from 'date-fns/locale';
+import { useEffect, useId, useRef, useState } from 'react';
+import { Button } from '../button/index.ts';
 import { DatePickerCalendar } from './DatePickerCalendar.tsx';
 import phrases from './defaultPhrases.ts';
 import { DatePickerProps } from './props.ts';
 import { fromISOToDate } from './utils.ts';
-import { Button } from '../button/index.ts';
 
 export function DatePicker({ value, onChange, label, isDayDisabled = () => false }: DatePickerProps) {
   // state
@@ -33,9 +32,9 @@ export function DatePicker({ value, onChange, label, isDayDisabled = () => false
     onChange?.(newVal);
   };
   // hack for iOS date input
-  const ua = typeof navigator !== 'undefined' ? navigator.userAgent : ''
-  const isIOS = /iP(hone|od|ad)/.test(ua)
-  const inputType = isIOS ? 'text' : 'date'
+  const ua = typeof navigator !== 'undefined' ? navigator.userAgent : '';
+  const isIOS = /iP(hone|od|ad)/.test(ua);
+  const inputType = isIOS ? 'text' : 'date';
 
   // close on outside click/tab/touch/focus
   useEffect(() => {

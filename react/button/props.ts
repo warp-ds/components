@@ -53,9 +53,8 @@ export type ButtonProps = {
 
   /**
    * Tightens the button's facilitate a round button for icon.
-  */
+   */
   hasIconOnly?: boolean;
-
 
   disabled?: boolean;
 

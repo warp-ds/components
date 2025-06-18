@@ -281,12 +281,12 @@ export const Example = () => (
   <div>
     <div>
       <WIcon name="Speedometer" size="small" locale="nb" />
-      <WIcon name="Speedometer" size="medium" locale="nb"/>
-      <WIcon name="Speedometer" size="large" locale="nb"/>
-      <WIcon name="Speedometer" size="42px" locale="nb"/>
-      <WIcon name="Speedometer" size="64px" locale="nb"/>
-      <WIcon name="Speedometer" size="96px" locale="nb"/>
-      <WIcon name="Speedometer" size="128px" locale="nb"/>
+      <WIcon name="Speedometer" size="medium" locale="nb" />
+      <WIcon name="Speedometer" size="large" locale="nb" />
+      <WIcon name="Speedometer" size="42px" locale="nb" />
+      <WIcon name="Speedometer" size="64px" locale="nb" />
+      <WIcon name="Speedometer" size="96px" locale="nb" />
+      <WIcon name="Speedometer" size="128px" locale="nb" />
     </div>
     some text below
   </div>

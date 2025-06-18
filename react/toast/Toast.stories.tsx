@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { WToastContainer, addWToast } from './index.ts';
-import { ToastDuration, ToastVariant } from './props.ts';
 import { Button } from '../button/index.ts';
+import { addWToast, WToastContainer } from './index.ts';
+import { ToastDuration, ToastVariant } from './props.ts';
 
 const toastDurations: ToastDuration[] = [5000, 8000, 10000];
 

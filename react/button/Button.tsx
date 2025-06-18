@@ -1,15 +1,13 @@
 import style from 'inline:./style.css';
 import { i18n } from '@lingui/core';
 import classNames from 'classnames';
-import { RefObject } from 'react';
 import { activateI18n } from '../../i18n.ts';
-import { ButtonProps } from './props.ts';
-
 import { messages as daMessages } from './locales/da/messages.mjs';
 import { messages as enMessages } from './locales/en/messages.mjs';
 import { messages as fiMessages } from './locales/fi/messages.mjs';
 import { messages as nbMessages } from './locales/nb/messages.mjs';
 import { messages as svMessages } from './locales/sv/messages.mjs';
+import { ButtonProps } from './props.ts';
 
 activateI18n(enMessages, nbMessages, fiMessages, daMessages, svMessages);
 

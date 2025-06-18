@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export type RangeSliderProps = {
   /** String value that labels the slider. */

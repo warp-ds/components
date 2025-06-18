@@ -1,8 +1,7 @@
 {
   "name": "@warp-ds/components",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha.1",
   "description": "Next Gen Warp Components",
-  "main": "index.js",
   "type": "module",
   "exports": {
     "./*": "./dist/packages/*/index.js",
@@ -18,6 +17,9 @@
       ]
     }
   },
+  "files": [
+    "dist/"
+  ],
   "scripts": {
     "build-storybook:lit": "storybook build -c .storybook-lit -o storybook/lit",
     "build-storybook:react": "storybook build -c .storybook-react -o storybook/react",
@@ -39,7 +41,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
+    "@biomejs/biome": "2.0.0",
     "@chromatic-com/storybook": "^3.2.4",
     "@lingui/cli": "5.2.0",
     "@lingui/conf": "5.2.0",

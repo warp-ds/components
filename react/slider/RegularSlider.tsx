@@ -4,13 +4,7 @@ import classNames from 'classnames';
 import React, { useEffect, useRef, useState } from 'react';
 import { getMarks } from './Marks.tsx';
 import { RegularSliderProps } from './props.ts';
-import {
-  clamp,
-  nextValue,
-  prevValue,
-  ratioToValue,
-  valueToRatio,
-} from './utils.ts';
+import { clamp, nextValue, prevValue, ratioToValue, valueToRatio } from './utils.ts';
 
 export const RegularSlider = ({
   className,
@@ -166,11 +160,7 @@ export const RegularSlider = ({
           onMouseDown={onStartDrag}
           onTouchStart={onStartDrag}
           data-body-scroll-lock-ignore
-          className={classNames(
-            'w-slider__slider',
-            { 'w-slider--is-disabled': disabled },
-            className
-          )}
+          className={classNames('w-slider__slider', { 'w-slider--is-disabled': disabled }, className)}
           style={{ cursor: isDragging ? 'grabbing' : 'pointer' }}
           ref={sliderRef}
         >
@@ -205,16 +195,8 @@ export const RegularSlider = ({
               tabIndex={disabled ? undefined : 0}
             />
           </div>
-          <Attention
-            tooltip
-            placement="top"
-            flip
-            targetEl={handleRef}
-            isShowing={showHandle}
-          >
-            <p id="tooltip-bubbletext">
-              {ratioToValue(ratio, min, max, step)}
-            </p>
+          <Attention tooltip placement="top" flip targetEl={handleRef} isShowing={showHandle}>
+            <p id="tooltip-bubbletext">{ratioToValue(ratio, min, max, step)}</p>
           </Attention>
         </div>
         {showMarks && getMarks(min, max)}

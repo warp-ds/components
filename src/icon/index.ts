@@ -1,5 +1,5 @@
 import iconStyle from 'inline:./style.css';
-import { LitElement, TemplateResult, html, unsafeCSS } from 'lit';
+import { html, LitElement, TemplateResult, unsafeCSS } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 

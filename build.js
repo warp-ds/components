@@ -1,8 +1,8 @@
+import fs from 'node:fs';
 import esbuild from 'esbuild';
 import inlineImportPlugin from 'esbuild-plugin-inline-import';
 import { glob } from 'glob';
 import ts from 'typescript';
-import fs from 'node:fs';
 
 const components = glob.sync('src/**/index.ts');
 const reactComponents = glob.sync('react/**/index.ts');
@@ -106,7 +106,6 @@ function generateTypeDefinitions(inputFilePath, packageName, outDir, outfile = n
     fs.writeFileSync(updatedFilename, file.contents);
   });
 }
-
 
 buildComponents('dist');
 buildReactComponents('dist');

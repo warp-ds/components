@@ -1,8 +1,8 @@
+import style from 'inline:./style.css';
 import classNames from 'classnames';
-import { AlertProps } from './props.ts';
 import { ExpandTransition } from '../expandtransition/index.ts';
 import { WIcon } from '../icon/index.ts';
-import style from 'inline:./style.css';
+import { AlertProps } from './props.ts';
 
 const typeMap = {
   info: { class: 'w-alert--info', icon: <WIcon name="Info" size="medium" />, iconClass: 's-icon-info' },
@@ -24,7 +24,7 @@ export function Alert(props: AlertProps) {
       <ExpandTransition show={show}>
         <div role={role} className={classes} style={customStyle}>
           <div className={classNames('w-alert--icon', typeMap[type].iconClass)}>{typeMap[type].icon}</div>
-          <div className='w-alert--content'>{children}</div>
+          <div className="w-alert--content">{children}</div>
         </div>
       </ExpandTransition>
     </>

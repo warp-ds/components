@@ -20,7 +20,7 @@
 
   /* basic styling */
   display: block;
-  padding: 1.2rem .8rem;
+  padding: 1.2rem 0.8rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   width: 100%;
@@ -31,16 +31,16 @@
   background-color: var(--w-s-color-background);
 }
 .w-datepicker-input:hover {
-    border-color: var(--w-s-color-border-hover);
+  border-color: var(--w-s-color-border-hover);
 }
 .w-datepicker-input:active {
-    border-color: var(--w-s-color-border-selected);
+  border-color: var(--w-s-color-border-selected);
 }
 
 .w-datepicker-input:focus,
 .w-datepicker-input:focus-visible {
-    outline: 2px solid var(--w-s-color-border-focus);
-    outline-offset: -2px;
+  outline: 2px solid var(--w-s-color-border-focus);
+  outline-offset: -2px;
 }
 
 /* extra rules for IE/Edge */
@@ -53,7 +53,7 @@
   line-height: var(--w-line-height-s);
   font-weight: 700;
   cursor: pointer;
-  padding-bottom: .4rem;
+  padding-bottom: 0.4rem;
   color: var(--w-s-color-text);
   display: block;
 }
@@ -72,7 +72,7 @@
 }
 
 .w-datepicker-button:not(:hover) {
-    background-color: var(--w-s-color-background) !important;
+  background-color: var(--w-s-color-background) !important;
 }
 
 input[type="date"]::-webkit-inner-spin-button,

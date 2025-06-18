@@ -1,6 +1,5 @@
 import style from 'inline:./styles/w-datepicker-month.css';
 import {
-  type Locale,
   differenceInCalendarDays,
   eachDayOfInterval,
   eachWeekOfInterval,
@@ -8,6 +7,7 @@ import {
   format,
   getWeekOfMonth,
   isSameMonth,
+  type Locale,
   lastDayOfMonth,
   startOfMonth,
   startOfWeek,

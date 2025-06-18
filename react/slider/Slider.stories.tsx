@@ -24,11 +24,7 @@ export const Regular = () => {
           showMarks={true}
         />
         <div className="w-slider__input">
-          <TextField
-            label="value"
-            value={value.toString()}
-            onChange={(e) => setValue(+e.target.value)}
-          />
+          <TextField label="value" value={value.toString()} onChange={(e) => setValue(+e.target.value)} />
         </div>
       </div>
     </>
@@ -53,12 +49,7 @@ export const DisabledRegular = () => {
           value={value}
         />
         <div className="w-slider__input">
-          <TextField
-            label="value"
-            disabled
-            value={value.toString()}
-            onChange={(e) => setValue(+e.target.value)}
-          />
+          <TextField label="value" disabled value={value.toString()} onChange={(e) => setValue(+e.target.value)} />
         </div>
       </div>
     </>
@@ -66,9 +57,7 @@ export const DisabledRegular = () => {
 };
 
 export const Ranged = () => {
-  const [value, setValue] = useState<[number, number]>([
-    1000000, 10000000,
-  ]);
+  const [value, setValue] = useState<[number, number]>([1000000, 10000000]);
   const [output, setOutput] = useState(value);
   const [errorMax, setErrorMax] = useState(false);
   const [errorMin, setErrorMin] = useState(false);
@@ -109,9 +98,7 @@ export const Ranged = () => {
             value={value[0].toString()}
             type="number"
             invalid={errorMin}
-            helpText={
-              errorMin ? 'Min cannot be greater than max' : ''
-            }
+            helpText={errorMin ? 'Min cannot be greater than max' : ''}
             onBlur={onBlurMin}
             onChange={(e) => setValue([+e.target.value, value[1]])}
           />
@@ -151,16 +138,8 @@ export const RangedSimple = () => {
           aria-valuetext={[`${value[0]} kr`, `${value[1]} kr`]}
         />
         <div className="w-slider__input">
-          <TextField
-            label="Min"
-            value={value[0].toString()}
-            onChange={(e) => setValue([+e.target.value, value[1]])}
-          />
-          <TextField
-            label="Max"
-            value={value[1].toString()}
-            onChange={(e) => setValue([value[0], +e.target.value])}
-          />
+          <TextField label="Min" value={value[0].toString()} onChange={(e) => setValue([+e.target.value, value[1]])} />
+          <TextField label="Max" value={value[1].toString()} onChange={(e) => setValue([value[0], +e.target.value])} />
         </div>
       </div>
     </>
@@ -168,9 +147,7 @@ export const RangedSimple = () => {
 };
 
 export const DisabledRanged = () => {
-  const [value, setValue] = useState<[number, number]>([
-    1000000, 10000000,
-  ]);
+  const [value, setValue] = useState<[number, number]>([1000000, 10000000]);
   const [output, setOutput] = useState(value);
   return (
     <>

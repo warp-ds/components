@@ -6,7 +6,6 @@
   --_month-font-size: var(--month-font-size, var(--w-font-size-m));
   --_month-line-height: var(--month-line-height, var(--w-line-height-m));
 
-
   --_month-table-min-width: var(--month-table-min-width, calc(var(--day-width) * 7));
 
   --_weekdays-font-size: var(--weekdays-font-size, var(--w-font-size-xs));

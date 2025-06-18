@@ -1,8 +1,8 @@
 import style from 'inline:./styles.css';
-import ToastItem from './ToastItem.tsx';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { ToastDuration, ToastId, ToastProps } from './props.ts';
+import ToastItem from './ToastItem.tsx';
 import { generateToastId, getStorageToasts, setStorageToasts } from './utils.ts';
 
 const defaultDuration: ToastDuration = 5000;

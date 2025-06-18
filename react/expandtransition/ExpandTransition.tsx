@@ -1,12 +1,6 @@
 import style from 'inline:./style.css';
 
-export function ExpandTransition({
-  show,
-  children,
-}: {
-  show?: boolean;
-  children: any;
-}) {
+export function ExpandTransition({ show, children }: { show?: boolean; children: any }) {
   return (
     <>
       <style href="ExpandTransition" precedence="medium">

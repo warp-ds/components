@@ -21,7 +21,7 @@
   --w-slider-thumb-background-hover: var(--w-s-color-background-primary-hover);
   --w-slider-thumb-shadow: none;
   --w-slider-thumb-size: 28px;
-  --w-slider-thumb-offset: calc(var(--w-slider-thumb-size)/2);
+  --w-slider-thumb-offset: calc(var(--w-slider-thumb-size) / 2);
   --w-slider-tick-color: var(--w-s-color-background-disabled-subtle);
   --w-slider-tick-value-color: var(--w-s-color-text-subtle);
 }
@@ -32,10 +32,10 @@
   position: relative;
   user-select: none;
   touch-action: pan-y;
-  padding-inline:  var(--w-slider-thumb-offset); /* Pull track half a thumb size in from the edges */
+  padding-inline: var(--w-slider-thumb-offset); /* Pull track half a thumb size in from the edges */
 }
 
-.w-slider__wrap{
+.w-slider__wrap {
   display: flex;
   align-items: center;
   height: var(--w-slider-thumb-size);
@@ -59,7 +59,7 @@
   height: var(--w-slider-track-height);
   height: 6px;
   border-radius: inherit;
-  flex-grow:0;
+  flex-grow: 0;
   background-color: var(--_w-slider-track-active-background);
   top: -1px;
   bottom: -1px;
@@ -82,7 +82,6 @@
 
 /* 4. Interaction states (sets public tokens) */
 
-
 .w-slider__thumb:hover,
 .w-slider__thumb:focus {
   outline: none;
@@ -91,9 +90,9 @@
 }
 
 .w-slider__thumb:focus-visible {
-    outline: 2px solid var(--w-s-color-border-focus);
-    outline-offset: var(--w-outline-offset, 1px);
-    --w-slider-thumb-shadow: none;
+  outline: 2px solid var(--w-s-color-border-focus);
+  outline-offset: var(--w-outline-offset, 1px);
+  --w-slider-thumb-shadow: none;
 }
 
 .w-slider__thumb:active {
@@ -111,7 +110,7 @@
   --w-slider-thumb-border: var(--w-s-color-border-disabled);
 }
 
-.w-slider__ticks{
+.w-slider__ticks {
   margin-top: 8px;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -124,7 +123,7 @@
 }
 
 .w-slider__ticks--right {
-  justify-self: end;   /* align to the right */
+  justify-self: end; /* align to the right */
 }
 
 .w-slider__tick {

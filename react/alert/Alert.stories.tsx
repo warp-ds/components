@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { Alert } from './Alert.tsx';
 import { expect, within } from '@storybook/test';
-import { AlertProps } from './props.ts';
+import { useState } from 'react';
 import { Button } from '../button/index.ts';
 import { Link } from '../link/Link.tsx';
+import { Alert } from './Alert.tsx';
+import { AlertProps } from './props.ts';
 
 export default { title: 'FeedbackIndicators/Alert', component: Alert };
 

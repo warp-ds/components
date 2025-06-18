@@ -1,17 +1,9 @@
-import React from 'react';
-
 import { isBefore, startOfDay } from 'date-fns';
+import React from 'react';
 import { DatePicker } from './index.ts';
 
 const metadata = { title: 'Forms/DatePicker' };
 export default metadata;
-
-// Parse Norwegian format dd.mm.yyyy to Date object
-const parseDate = (dateString: string): Date | null => {
-  const [day, month, year] = dateString.split('.').map(Number);
-  const parsedDate = new Date(year, month - 1, day);
-  return !Number.isNaN(parsedDate.getTime()) ? parsedDate : null;
-};
 
 const DummyFields = ({ id }) => (
   <div style={{ paddingBottom: '16px', paddingTop: '16px' }}>

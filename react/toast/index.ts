@@ -1,4 +1,4 @@
 export {
-  ToastContainer as WToastContainer,
   addToast as addWToast,
+  ToastContainer as WToastContainer,
 } from './ToastContainer.tsx';

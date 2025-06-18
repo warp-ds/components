@@ -19,8 +19,7 @@ import{j as t}from"./jsx-runtime-D_zvdyIk.js";import{B as i}from"./Button-gaDUg6
       <p style={{
       marginTop: '10px'
     }}>
-        This is a <Button variant="link">button</Button> pretending to
-        be a link.
+        This is a <Button variant="link">button</Button> pretending to be a link.
       </p>
     </div>
 
@@ -44,10 +43,8 @@ import{j as t}from"./jsx-runtime-D_zvdyIk.js";import{B as i}from"./Button-gaDUg6
       <h3>States</h3>
       <p>Allowed values: empty(default) or any number of states</p>
       <p>
-        Loading state, Pattern is supposed to be: button is triggered,
-        button is disabled until loading success, while in the
-        disabled state it also show loading animation to show
-        something is happening.
+        Loading state, Pattern is supposed to be: button is triggered, button is disabled until loading success, while
+        in the disabled state it also show loading animation to show something is happening.
       </p>
       <Button>Default</Button>
 
@@ -146,17 +143,16 @@ import{j as t}from"./jsx-runtime-D_zvdyIk.js";import{B as i}from"./Button-gaDUg6
 
     <div>
       <h3>Link</h3>
-      This is a <Button variant="link">button</Button> pretending to
-      be a link.
+      This is a <Button variant="link">button</Button> pretending to be a link.
     </div>
     <div>
       <h3>Utility quiet with Icon</h3>
       <Button variant="utilityQuiet" hasIconOnly>
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
           <title>Three dots</title>
-          <circle cx="2.4" cy="8" r="1.4" fill="currentColor"></circle>
-          <circle cx="8" cy="8" r="1.4" fill="currentColor"></circle>
-          <circle cx="13.6" cy="8" r="1.4" fill="currentColor"></circle>
+          <circle cx="2.4" cy="8" r="1.4" fill="currentColor" />
+          <circle cx="8" cy="8" r="1.4" fill="currentColor" />
+          <circle cx="13.6" cy="8" r="1.4" fill="currentColor" />
         </svg>
       </Button>
     </div>
@@ -165,9 +161,9 @@ import{j as t}from"./jsx-runtime-D_zvdyIk.js";import{B as i}from"./Button-gaDUg6
       <Button variant="primary" hasIconOnly>
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
           <title>Three dots</title>
-          <circle cx="2.4" cy="8" r="1.4" fill="currentColor"></circle>
-          <circle cx="8" cy="8" r="1.4" fill="currentColor"></circle>
-          <circle cx="13.6" cy="8" r="1.4" fill="currentColor"></circle>
+          <circle cx="2.4" cy="8" r="1.4" fill="currentColor" />
+          <circle cx="8" cy="8" r="1.4" fill="currentColor" />
+          <circle cx="13.6" cy="8" r="1.4" fill="currentColor" />
         </svg>
       </Button>
     </div>

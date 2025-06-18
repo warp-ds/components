@@ -50,7 +50,6 @@ export const DatePickerMonth = ({
       <div className="w-datepicker__month">
         <table
           className="w-datepicker__table"
-          // biome-ignore lint/a11y/useSemanticElements: <explanation>
           role="grid"
           onFocus={() => setIsKeyboardNavigation(true)}
           onBlur={() => setIsKeyboardNavigation(false)}

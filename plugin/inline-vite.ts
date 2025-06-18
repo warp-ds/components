@@ -15,7 +15,7 @@ export default function inlinePlugin(options: InlinePluginOptions = {}): PluginO
     // A unique namespace (here used to tag our virtual module ids).
     namespace = `_${Math.random().toString(36).substr(2, 9)}`,
     // A transform function that can modify the file content.
-    transform = async (contents, { path: filePath }) => contents,
+    transform = async (contents) => contents,
   } = options;
 
   // We'll capture alias information from the resolved Vite config.

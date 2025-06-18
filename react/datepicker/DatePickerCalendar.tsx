@@ -110,6 +110,7 @@ export const DatePickerCalendar = ({
       <style href="DatePickerCalendar" precedence="medium">
         {style}
       </style>
+      {/** biome-ignore lint/a11y/useAriaPropsSupportedByRole: Based on a11y best practices */}
       <div
         className={classNames('w-datepicker__calendar', className)}
         aria-roledescription={phrases.roleDescription}

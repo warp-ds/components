@@ -20,6 +20,14 @@
     "enabled": true,
     "rules": {
       "recommended": true,
+      "nursery": {
+        "useUniqueElementIds": "off"
+      },
+      "a11y": {
+        "noStaticElementInteractions": "off",
+        "noNoninteractiveElementToInteractiveRole": "off",
+        "useSemanticElements": "off"
+      },
       "complexity": {
         "noForEach": "off",
         "noThisInStatic": "off",

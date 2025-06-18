@@ -58,8 +58,6 @@ export const Button = (props: ButtonProps) => {
         {props.children}
       </button>
       {props.loading ? (
-        // biome-ignore lint/a11y/useAriaPropsForRole: <explanation>
-        // biome-ignore lint/a11y/useFocusableInteractive: <explanation>
         <span className="sr-only" role="progressbar" aria-valuenow={0} aria-valuetext={ariaValueTextLoading} />
       ) : null}
     </>

@@ -19,7 +19,6 @@ export const Variants = () => (
   <div className="flex flex-col gap-y-16">
     <div data-testid="info">
       <h3>Info</h3>
-      {/* biome-ignore lint/a11y/useSemanticElements: <explanation> */}
       <Alert type="info" show role="status">
         This is an "info" variant of the alert component
       </Alert>
@@ -38,7 +37,6 @@ export const Variants = () => (
     </div>
     <div data-testid="positive">
       <h3>Positive</h3>
-      {/* biome-ignore lint/a11y/useSemanticElements: <explanation> */}
       <Alert type="positive" show role="status">
         This is a "positive" variant of the alert component
       </Alert>
@@ -83,7 +81,6 @@ export const WithInteractiveContent = () => (
   <div className="flex flex-col gap-y-16">
     <div>
       <h3>Info</h3>
-      {/* biome-ignore lint/a11y/useSemanticElements: <explanation> */}
       <Alert type="info" show role="status">
         <InteractiveContent type="info" />
       </Alert>
@@ -102,7 +99,6 @@ export const WithInteractiveContent = () => (
     </div>
     <div>
       <h3>Positive</h3>
-      {/* biome-ignore lint/a11y/useSemanticElements: <explanation> */}
       <Alert type="positive" show role="status">
         <InteractiveContent type="positive" />
       </Alert>

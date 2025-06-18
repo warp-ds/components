@@ -1,5 +1,3 @@
-import { Ref } from 'react';
-
 export type AlertProps = {
   children: React.ReactNode;
 

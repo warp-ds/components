@@ -57,7 +57,6 @@
 .w-slider__track-active {
   --_w-slider-track-active-background: var(--w-slider-track-active-background);
   height: var(--w-slider-track-height);
-  height: 6px;
   border-radius: inherit;
   flex-grow: 0;
   background-color: var(--_w-slider-track-active-background);

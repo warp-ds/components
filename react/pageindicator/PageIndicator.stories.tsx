@@ -44,8 +44,8 @@ export const InsideContainer10Pages = () => (
 );
 
 export const OutsideContainer = () => (
-  <div style={{ height: '400px', border: '1px solid lightgrey' }}>
-    <div style={{ height: '300px', border: '1px solid lightgrey' }} />
+  <div style={{ height: '450px', border: '1px solid lightgrey' }}>
+    <div style={{ height: '300px', borderBottom: '1px solid #e6e6e6' }} />
     <PageIndicator pageCount={5} selectedPage={1} style={{ paddingTop: '16px' }} />
   </div>
 );

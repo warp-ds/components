@@ -55,7 +55,7 @@ function buildReactComponents(outDir, extraBuildOptions = {}) {
         ...esbuildDefaults,
         ...extraBuildOptions,
       });
-      generateTypeDefinitions(item, match[1], `${outDir}/react/${match[1]}/`, `${outDir}/react/${match[1]}/index.d.ts`);
+      generateTypeDefinitions(item, match[1], `${outDir}/react/${match[1]}/`);
     } catch (err) {
       console.error(err);
     }
@@ -99,7 +99,11 @@ function generateTypeDefinitions(inputFilePath, packageName, outDir, outfile = n
   // Write the generated type definitions to the output file
   listOfTsFiles.forEach((file) => {
     // Doing this hack since typescript sometimes doesn't output the correct path
-    const packageTypePath = file.fileName.replace(outDir, '').replace('src/', '').replace(`${packageName}/`, '');
+    const packageTypePath = file.fileName
+      .replace(outDir, '')
+      .replace('react/', '')
+      .replace('src/', '')
+      .replace(`${packageName}/`, '');
     const updatedFilename = outDir + packageTypePath;
 
     fs.mkdirSync(updatedFilename.split('/').slice(0, -1).join('/'), { recursive: true });

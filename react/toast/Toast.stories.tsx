@@ -4,7 +4,7 @@ import { Button } from '../button/index.ts';
 import { addWToast, WToastContainer } from './index.ts';
 import { ToastDuration, ToastVariant } from './props.ts';
 
-const toastDurations: ToastDuration[] = [5000, 8000, 10000];
+const toastDurations: ToastDuration[] = [5000, 10000, 6000000];
 
 // Meta Definition
 const meta = {

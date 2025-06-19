@@ -20,7 +20,7 @@
 /* Toast block */
 .w-toast__item {
   display: flex;
-  align-items: center;
+  align-items: start;
   min-width: 343px;
   max-width: 420px;
   padding: 8px;

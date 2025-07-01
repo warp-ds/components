@@ -70,7 +70,7 @@ const ToastDemo = ({ dismissible, duration, text }: Props) => {
         gap: '8px',
       }}
     >
-      {(['success', 'warning', 'negative'] as const).map((variant) => (
+      {(['positive', 'warning', 'negative'] as const).map((variant) => (
         <Button type="button" key={variant} onClick={() => addToast(variant)} variant="utility">
           Show {variant} toast
         </Button>

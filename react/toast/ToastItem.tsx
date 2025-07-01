@@ -7,7 +7,7 @@ import { ToastProps } from './props.ts';
 import { removeToast } from './ToastContainer.tsx';
 
 const toastConfig = {
-  success: {
+  positive: {
     class: 'w-toast--positive',
     icon: <WIcon name="Success" />,
     role: 'status',

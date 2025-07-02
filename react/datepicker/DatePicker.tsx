@@ -8,7 +8,7 @@ import phrases from './defaultPhrases.ts';
 import { DatePickerProps } from './props.ts';
 import { fromISOToDate } from './utils.ts';
 
-export function DatePicker({ value, onChange, label, isDayDisabled = () => false }: DatePickerProps) {
+export function DatePicker({ value, onChange, locale, label, isDayDisabled = () => false }: DatePickerProps) {
   // state
   const [internalValue, setInternalValue] = useState<string>(value);
   const [calendarOpen, setCalendarOpen] = useState(false);
@@ -136,7 +136,7 @@ export function DatePicker({ value, onChange, label, isDayDisabled = () => false
             id={datepickerId}
             key={fromISOToDate(value)?.toString()}
             selectedDate={fromISOToDate(value)}
-            locale={nb}
+            locale={locale}
             phrases={phrases}
             navigationDayRef={navigationDayRef}
             monthFormat={monthFormat}

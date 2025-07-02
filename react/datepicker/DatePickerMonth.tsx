@@ -58,7 +58,7 @@ export const DatePickerMonth = ({
             <tr>
               {weeks[0].map((day) => (
                 <th className="w-datepicker__weekday" key={day.toISOString()}>
-                  {format(day, weekDayFormat, { locale })}
+                  {format(day, weekDayFormat, { locale : locale })}
                 </th>
               ))}
             </tr>

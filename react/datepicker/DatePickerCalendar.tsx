@@ -128,7 +128,7 @@ export const DatePickerCalendar = ({
           >
             <IconChevronLeft16 />
           </Button>
-          <div className="w-datepicker__month__nav__header">{format(month, monthFormat, { locale: locale })}</div>
+          <div className="w-datepicker__month__nav__header">{format(month, monthFormat, { locale })}</div>
           <Button
             variant="utilityQuiet"
             size="small"

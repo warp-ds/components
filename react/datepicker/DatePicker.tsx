@@ -1,6 +1,5 @@
 import style from 'inline:./styles/w-datepicker.css';
 import IconCalendar16 from '@warp-ds/icons/react/calendar-16';
-import { nb } from 'date-fns/locale';
 import { useEffect, useId, useRef, useState } from 'react';
 import { Button } from '../button/index.ts';
 import { DatePickerCalendar } from './DatePickerCalendar.tsx';

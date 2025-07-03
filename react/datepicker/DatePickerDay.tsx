@@ -49,7 +49,7 @@ export const DatePickerDay = ({
       <td
         aria-current={isToday(day) ? 'date' : undefined}
         aria-disabled={isDisabled}
-        aria-label={format(day, dayAriaLabelFormat, { locale : locale })}
+        aria-label={format(day, dayAriaLabelFormat, { locale: locale })}
         aria-selected={isSelected}
         role="gridcell"
         className={`w-datepicker__day

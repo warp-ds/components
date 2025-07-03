@@ -26,10 +26,13 @@ const toastConfig = {
 
 const ToastItem = ({ variant, text, dismissible = false, id, duration }: ToastProps) => {
   const { icon, role, class: className } = toastConfig[variant];
+  const [timestamp, setTimestamp] = useState('');
 
   const [showItem, setShowItem] = useState(false);
 
   useEffect(() => {
+    setTimestamp(new Date().toLocaleTimeString('nb-NO'));
+
     setShowItem(true);
 
     setTimeout(() => setShowItem(false), duration);
@@ -43,8 +46,17 @@ const ToastItem = ({ variant, text, dismissible = false, id, duration }: ToastPr
       <div className={toastClasses} role={role} id={id}>
         <span className="w-toast__icon">{icon}</span>
         <p>{text}</p>
+        <span className="sr-only">{timestamp}</span>
         {dismissible && (
-          <Button variant="overlayQuiet" size="small" hasIconOnly onClick={() => removeToast(id)}>
+          <Button
+            variant="overlayQuiet"
+            size="small"
+            hasIconOnly
+            onClick={() => removeToast(id)}
+            aria-hidden="true"
+            //@ts-ignore
+            tabIndex={-1}
+          >
             <WIcon name="Close" />
           </Button>
         )}

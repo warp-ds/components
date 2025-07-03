@@ -1,6 +1,6 @@
-export type ToastDuration = 5000 | 8000 | 10000;
+export type ToastDuration = 5000 | 10000 | 6000000;
 
-export type ToastVariant = 'success' | 'warning' | 'negative';
+export type ToastVariant = 'positive' | 'warning' | 'negative';
 
 export type ToastId = string;
 

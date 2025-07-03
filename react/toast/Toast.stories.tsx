@@ -4,7 +4,7 @@ import { Button } from '../button/index.ts';
 import { addWToast, WToastContainer } from './index.ts';
 import { ToastDuration, ToastVariant } from './props.ts';
 
-const toastDurations: ToastDuration[] = [5000, 8000, 10000];
+const toastDurations: ToastDuration[] = [5000, 10000, 6000000];
 
 // Meta Definition
 const meta = {
@@ -70,7 +70,7 @@ const ToastDemo = ({ dismissible, duration, text }: Props) => {
         gap: '8px',
       }}
     >
-      {(['success', 'warning', 'negative'] as const).map((variant) => (
+      {(['positive', 'warning', 'negative'] as const).map((variant) => (
         <Button type="button" key={variant} onClick={() => addToast(variant)} variant="utility">
           Show {variant} toast
         </Button>

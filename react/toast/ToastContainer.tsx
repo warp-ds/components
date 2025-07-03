@@ -53,7 +53,7 @@ const ToastContainer = () => {
   useEffect(() => {
     window?.addEventListener('storage', handleStorage);
 
-    // Adding this to mitigate the Storybook issue
+    // Adding this to mitigate the Storybook issue (not unmounting properly)
     window?.addEventListener('beforeunload', () => setStorageToasts([]));
 
     return () => {

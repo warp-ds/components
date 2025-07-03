@@ -1,5 +1,5 @@
-import { PageIndicatorProps } from './props.ts';
 import style from 'inline:./style.css';
+import { PageIndicatorProps } from './props.ts';
 
 export function PageIndicator(props: PageIndicatorProps) {
   const { pageCount, selectedPage, style: customStyle } = props;

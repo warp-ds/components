@@ -50,9 +50,6 @@ const ToastItem = ({ variant, text, dismissible = false, id, duration }: ToastPr
             size="small"
             hasIconOnly
             onClick={() => removeToast(id)}
-            aria-hidden="true"
-            //@ts-ignore
-            tabIndex={-1}
           >
             <WIcon name="Close" />
           </Button>

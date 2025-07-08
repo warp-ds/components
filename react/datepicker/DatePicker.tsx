@@ -1,6 +1,5 @@
 import style from 'inline:./styles/w-datepicker.css';
 import IconCalendar16 from '@warp-ds/icons/react/calendar-16';
-import { nb } from 'date-fns/locale';
 import { useEffect, useId, useRef, useState } from 'react';
 import { Button } from '../button/index.ts';
 import { DatePickerCalendar } from './DatePickerCalendar.tsx';
@@ -8,7 +7,7 @@ import phrases from './defaultPhrases.ts';
 import { DatePickerProps } from './props.ts';
 import { fromISOToDate } from './utils.ts';
 
-export function DatePicker({ value, onChange, label, isDayDisabled = () => false }: DatePickerProps) {
+export function DatePicker({ value, onChange, locale, label, isDayDisabled = () => false }: DatePickerProps) {
   // state
   const [internalValue, setInternalValue] = useState<string>(value);
   const [calendarOpen, setCalendarOpen] = useState(false);
@@ -136,7 +135,7 @@ export function DatePicker({ value, onChange, label, isDayDisabled = () => false
             id={datepickerId}
             key={fromISOToDate(value)?.toString()}
             selectedDate={fromISOToDate(value)}
-            locale={nb}
+            locale={locale}
             phrases={phrases}
             navigationDayRef={navigationDayRef}
             monthFormat={monthFormat}

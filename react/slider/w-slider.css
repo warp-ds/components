@@ -60,8 +60,6 @@
   border-radius: inherit;
   flex-grow: 0;
   background-color: var(--_w-slider-track-active-background);
-  top: -1px;
-  bottom: -1px;
   position: absolute;
 }
 

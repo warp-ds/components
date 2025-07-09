@@ -226,8 +226,8 @@ export const RangeSlider = ({
               <div
                 className="w-slider__track-active"
                 style={{
-                  left: `${ratios.lower * 100}%`,
-                  width: `${(ratios.upper - ratios.lower) * 100}%`,
+                  left: `calc(${ratios.lower * 100}% - 14px)`,
+                  width: `calc(${(ratios.upper - ratios.lower) * 100}% + 28px)`,
                 }}
               />
             </div>
@@ -247,8 +247,8 @@ export const RangeSlider = ({
               role="slider"
               ref={handleLowerRef}
               style={{
-                left: `${ratios.lower * 100}%`,
-                transform: 'translateX(-50%)',
+                left: `calc(${ratios.lower * 100}% - 28px)`,
+                //transform: 'translateX(-50%)',
                 cursor: 'inherit',
               }}
               tabIndex={disabled ? undefined : 0}
@@ -272,7 +272,7 @@ export const RangeSlider = ({
               ref={handleUpperRef}
               style={{
                 left: `${ratios.upper * 100}%`,
-                transform: 'translateX(-50%)',
+                //transform: 'translateX(-50%)',
                 cursor: 'inherit',
               }}
               tabIndex={disabled ? undefined : 0}

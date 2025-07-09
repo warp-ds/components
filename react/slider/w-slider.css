@@ -32,7 +32,7 @@
   position: relative;
   user-select: none;
   touch-action: pan-y;
-  padding-inline: var(--w-slider-thumb-offset); /* Pull track half a thumb size in from the edges */
+  padding-inline: var(--w-slider-thumb-size); /* Pull track half a thumb size in from the edges */
 }
 
 .w-slider__wrap {
@@ -50,8 +50,8 @@
   border-radius: 4px;
   background-color: var(--_w-slider-track-background);
   position: absolute;
-  left: calc(-1 * var(--w-slider-thumb-offset));
-  right: calc(-1 * var(--w-slider-thumb-offset));
+  left: -2px;
+  right: -2px;
 }
 
 .w-slider__track-active {

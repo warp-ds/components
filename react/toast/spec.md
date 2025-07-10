@@ -3,7 +3,7 @@
 ## Overview
 
 **Description**  
-Toasts are brief user feedback messages that overlay content, in 3 variants: success, warning and negative.
+Toasts are brief user feedback messages that overlay content, in 3 variants: positive, warning and negative.
 
 **Use Cases**  
 Status updates or warnings, such as:
@@ -65,7 +65,7 @@ Status updates or warnings, such as:
 
 | Property | Options / Values           | Default | Description                                           |
 |----------|----------------------------|---------|-------------------------------------------------------|
-| variant  | success, warning, negative | success | Change in background color, border, and prefix icon   |
+| variant  | positive, warning, negative | positive | Change in background color, border, and prefix icon   |
 | text     | string                     | ""      | Text string prop with toast message                   |
 
 ### Non-Visual / Code-Only Properties
@@ -110,7 +110,7 @@ Status updates or warnings, such as:
 | Element                | Role / ARIA | Announced Text / Label       |
 |------------------------|-------------|-------------------------------|
 | Toast variant “negative” | role="alert" |                               |
-| Toast variant “success”  | role="status"|                               |
+| Toast variant positive  | role="status"|                               |
 | Toast variant “warning”  | ?           | Should this be alert or status? |
 
 ### Focus & Keyboard

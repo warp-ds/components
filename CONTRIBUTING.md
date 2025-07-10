@@ -36,6 +36,21 @@ pnpm storybook:lit
 pnpm build
 ```
 
+## Extract and Compile Translations
+This repo uses [LinguiJS](https://lingui.dev/) for internationalization in both React and Lit implementations.
+
+Use the following commands to keep translation files up to date:
+
+### Step 1: Extract messages from source files
+```sh
+pnpm messages:extract
+```
+### Step 2: Compile message catalogs
+
+```sh
+pnpm messages:compile
+```
+
 ## Code Style
 We use Biome for linting, formatting, and code quality.
 
@@ -50,6 +65,8 @@ Before opening a PR:
 - Run pnpm check (lint, format)
 
 - Run pnpm build
+
+- Extract and compile lingui files
 
 - Add/Update Storybook stories
 

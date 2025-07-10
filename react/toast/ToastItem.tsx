@@ -7,7 +7,7 @@ import { ToastProps } from './props.ts';
 import { removeToast } from './ToastContainer.tsx';
 
 const toastConfig = {
-  success: {
+  positive: {
     class: 'w-toast--positive',
     icon: <WIcon name="Success" />,
     role: 'status',
@@ -30,6 +30,7 @@ const ToastItem = ({ variant, text, dismissible = false, id, duration }: ToastPr
   const [showItem, setShowItem] = useState(false);
 
   useEffect(() => {
+
     setShowItem(true);
 
     setTimeout(() => setShowItem(false), duration);
@@ -44,7 +45,12 @@ const ToastItem = ({ variant, text, dismissible = false, id, duration }: ToastPr
         <span className="w-toast__icon">{icon}</span>
         <p>{text}</p>
         {dismissible && (
-          <Button variant="overlayQuiet" size="small" hasIconOnly onClick={() => removeToast(id)}>
+          <Button
+            variant="overlayQuiet"
+            size="small"
+            hasIconOnly
+            onClick={() => removeToast(id)}
+          >
             <WIcon name="Close" />
           </Button>
         )}

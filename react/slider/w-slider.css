@@ -27,12 +27,20 @@
 }
 
 /* 2. Base layout and structure */
-.w-slider__slider {
+.w-slider__slider-regular {
   width: 100%;
   position: relative;
   user-select: none;
   touch-action: pan-y;
-  padding-inline: var(--w-slider-thumb-size); /* Pull track half a thumb size in from the edges */
+  padding-inline: var(--w-slider-thumb-offset); /* Pull track half a thumb size in from the edges */
+}
+
+.w-slider__slider-range {
+    width: 100%;
+    position: relative;
+    user-select: none;
+    touch-action: pan-y;
+    padding-inline: var(--w-slider-thumb-size);
 }
 
 .w-slider__wrap {
@@ -43,7 +51,7 @@
 }
 
 /* 3. Internal variable resolution (scoped where used) */
-.w-slider__track {
+.w-slider__track-range {
   --_w-slider-track-background: var(--w-slider-track-background);
   display: flex;
   height: var(--w-slider-track-height);
@@ -54,13 +62,38 @@
   right: -2px;
 }
 
+.w-slider__track-regular {
+  --_w-slider-track-background: var(--w-slider-track-background);
+  display: flex;
+  height: var(--w-slider-track-height);
+  border-radius: 4px;
+  background-color: var(--_w-slider-track-background);
+  position: absolute;
+  left: calc(-1 * var(--w-slider-thumb-offset));
+  right: calc(-1 * var(--w-slider-thumb-offset));
+}
+
 .w-slider__track-active {
   --_w-slider-track-active-background: var(--w-slider-track-active-background);
-  height: var(--w-slider-track-height);
+  height: 6px; /* Use a different height for the active track */
   border-radius: inherit;
   flex-grow: 0;
   background-color: var(--_w-slider-track-active-background);
   position: absolute;
+  top: -1px;
+  bottom: -1px;
+}
+
+.w-slider__track-inactive {
+    top: 12px;
+    left: 0px;
+    right: 0px;
+    --_w-slider-track-background: var(--w-slider-track-background);
+    display: flex;
+    height: var(--w-slider-track-height);
+    border-radius: 4px;
+    background-color: var(--_w-slider-track-background);
+    position: absolute;
 }
 
 .w-slider__thumb {

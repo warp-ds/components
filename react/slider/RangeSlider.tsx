@@ -217,12 +217,13 @@ export const RangeSlider = ({
           onMouseDown={onStartDrag}
           onTouchStart={onStartDrag}
           data-body-scroll-lock-ignore
-          className={classNames('w-slider__slider', { 'w-slider--is-disabled': disabled }, className)}
+          className={classNames('w-slider__slider-range', { 'w-slider--is-disabled': disabled }, className)}
           style={{ cursor: isDragging ? 'grabbing' : 'pointer' }}
           ref={sliderRef}
         >
+          <div className="w-slider__track-inactive" />
           <div className="w-slider__wrap">
-            <div className="w-slider__track">
+            <div className="w-slider__track-range">
               <div
                 className="w-slider__track-active"
                 style={{
@@ -253,7 +254,7 @@ export const RangeSlider = ({
               }}
               tabIndex={disabled ? undefined : 0}
             />
-            <Attention tooltip placement="top" flip targetEl={handleLowerRef} isShowing={showLowerHandle}>
+            <Attention tooltip placement="top" flip distance={16} targetEl={handleLowerRef} isShowing={showLowerHandle}>
               <p id="tooltip-bubbletext-lower">{ratioToValue(ratios.lower, min, max, step)}</p>
             </Attention>
             <div
@@ -277,7 +278,7 @@ export const RangeSlider = ({
               }}
               tabIndex={disabled ? undefined : 0}
             />
-            <Attention tooltip placement="top" flip targetEl={handleUpperRef} isShowing={showUpperHandle}>
+            <Attention tooltip placement="top" flip distance={16} targetEl={handleUpperRef} isShowing={showUpperHandle}>
               <p id="tooltip-bubbletext-upper">{ratioToValue(ratios.upper, min, max, step)}</p>
             </Attention>
           </div>

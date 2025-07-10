@@ -160,12 +160,12 @@ export const RegularSlider = ({
           onMouseDown={onStartDrag}
           onTouchStart={onStartDrag}
           data-body-scroll-lock-ignore
-          className={classNames('w-slider__slider', { 'w-slider--is-disabled': disabled }, className)}
+          className={classNames('w-slider__slider-regular', { 'w-slider--is-disabled': disabled }, className)}
           style={{ cursor: isDragging ? 'grabbing' : 'pointer' }}
           ref={sliderRef}
         >
           <div className="w-slider__wrap">
-            <div className="w-slider__track">
+            <div className="w-slider__track-regular">
               <div
                 className="w-slider__track-active"
                 style={{
@@ -195,7 +195,7 @@ export const RegularSlider = ({
               tabIndex={disabled ? undefined : 0}
             />
           </div>
-          <Attention tooltip placement="top" flip targetEl={handleRef} isShowing={showHandle}>
+          <Attention tooltip placement="top" flip distance={16} targetEl={handleRef} isShowing={showHandle}>
             <p id="tooltip-bubbletext">{ratioToValue(ratio, min, max, step)}</p>
           </Attention>
         </div>

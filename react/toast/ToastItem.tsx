@@ -26,15 +26,19 @@ const toastConfig = {
 
 const ToastItem = ({ variant, text, dismissible = false, id, duration }: ToastProps) => {
   const { icon, role, class: className } = toastConfig[variant];
-
   const [showItem, setShowItem] = useState(false);
+  // insertText boolean facilitates proper screen reader behavior
+  const [insertText, setInsertText] = useState(false);
 
   useEffect(() => {
-
     setShowItem(true);
+    setInsertText(true);
 
     setTimeout(() => setShowItem(false), duration);
-    setTimeout(() => removeToast(id), duration + 400); // Wait 400ms to allow for animation to complete before removing toast.
+    setTimeout(() => {
+      setInsertText(false);
+      removeToast(id);
+    }, duration + 400); // Wait 400ms to allow for animation to complete before removing toast.
   }, []);
 
   const toastClasses = classNames('w-toast__item', className);
@@ -43,7 +47,7 @@ const ToastItem = ({ variant, text, dismissible = false, id, duration }: ToastPr
     <ExpandTransition show={showItem}>
       <div className={toastClasses} role={role} id={id}>
         <span className="w-toast__icon">{icon}</span>
-        <p>{text}</p>
+        {insertText && <p>{text}</p>}
         {dismissible && (
           <Button
             variant="overlayQuiet"

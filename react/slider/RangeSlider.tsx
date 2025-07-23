@@ -217,17 +217,18 @@ export const RangeSlider = ({
           onMouseDown={onStartDrag}
           onTouchStart={onStartDrag}
           data-body-scroll-lock-ignore
-          className={classNames('w-slider__slider', { 'w-slider--is-disabled': disabled }, className)}
+          className={classNames('w-slider__slider-range', { 'w-slider--is-disabled': disabled }, className)}
           style={{ cursor: isDragging ? 'grabbing' : 'pointer' }}
           ref={sliderRef}
         >
+          <div className="w-slider__track-inactive" />
           <div className="w-slider__wrap">
-            <div className="w-slider__track">
+            <div className="w-slider__track-range">
               <div
                 className="w-slider__track-active"
                 style={{
-                  left: `${ratios.lower * 100}%`,
-                  width: `${(ratios.upper - ratios.lower) * 100}%`,
+                  left: `calc(${ratios.lower * 100}% - 14px)`,
+                  width: `calc(${(ratios.upper - ratios.lower) * 100}% + 28px)`,
                 }}
               />
             </div>
@@ -247,13 +248,13 @@ export const RangeSlider = ({
               role="slider"
               ref={handleLowerRef}
               style={{
-                left: `${ratios.lower * 100}%`,
-                transform: 'translateX(-50%)',
+                left: `calc(${ratios.lower * 100}% - 28px)`,
+                //transform: 'translateX(-50%)',
                 cursor: 'inherit',
               }}
               tabIndex={disabled ? undefined : 0}
             />
-            <Attention tooltip placement="top" flip targetEl={handleLowerRef} isShowing={showLowerHandle}>
+            <Attention tooltip placement="top" flip distance={16} targetEl={handleLowerRef} isShowing={showLowerHandle}>
               <p id="tooltip-bubbletext-lower">{ratioToValue(ratios.lower, min, max, step)}</p>
             </Attention>
             <div
@@ -272,12 +273,12 @@ export const RangeSlider = ({
               ref={handleUpperRef}
               style={{
                 left: `${ratios.upper * 100}%`,
-                transform: 'translateX(-50%)',
+                //transform: 'translateX(-50%)',
                 cursor: 'inherit',
               }}
               tabIndex={disabled ? undefined : 0}
             />
-            <Attention tooltip placement="top" flip targetEl={handleUpperRef} isShowing={showUpperHandle}>
+            <Attention tooltip placement="top" flip distance={16} targetEl={handleUpperRef} isShowing={showUpperHandle}>
               <p id="tooltip-bubbletext-upper">{ratioToValue(ratios.upper, min, max, step)}</p>
             </Attention>
           </div>

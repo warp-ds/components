@@ -105,4 +105,6 @@ declare global {
   }
 }
 
-customElements.define('w-icon', WIcon);
+if (!customElements.get('w-icon')) {
+  customElements.define('w-icon', WIcon);
+}

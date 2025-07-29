@@ -1,0 +1,1 @@
+{"v":5,"entries":{"icons--default":{"type":"story","id":"icons--default","name":"Default","title":"Icons","importPath":"./src/icon/icon.stories.tsx","tags":["dev","test"]},"icons--example":{"type":"story","id":"icons--example","name":"Example","title":"Icons","importPath":"./src/icon/icon.stories.tsx","tags":["dev","test"]}}}

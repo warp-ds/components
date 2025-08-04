@@ -35,12 +35,6 @@ export type DatePickerProps = {
    */
   phrases?: Phrases;
   /**
-   * A date-fns format string for the input.
-   *
-   * @see https://date-fns.org/
-   */
-  displayFormat?: string;
-  /**
    * A date-fns format string for the month.
    *
    * @see https://date-fns.org/

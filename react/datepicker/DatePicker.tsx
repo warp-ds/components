@@ -3,11 +3,21 @@ import IconCalendar16 from '@warp-ds/icons/react/calendar-16';
 import { useEffect, useId, useRef, useState } from 'react';
 import { Button } from '../button/index.ts';
 import { DatePickerCalendar } from './DatePickerCalendar.tsx';
-import phrases from './defaultPhrases.ts';
+import defaultPhrases from './defaultPhrases.ts';
 import { DatePickerProps } from './props.ts';
 import { fromISOToDate } from './utils.ts';
 
-export function DatePicker({ value, onChange, locale, label, isDayDisabled = () => false }: DatePickerProps) {
+export function DatePicker({ 
+  value,
+  onChange,
+  locale,
+  label,
+  isDayDisabled = () => false,
+  phrases = defaultPhrases,
+  monthFormat = 'MMMM yyyy',
+  weekDayFormat = 'EEEEEE',
+  dayAriaLabelFormat = 'PPPP',
+}: DatePickerProps) {
   // state
   const [internalValue, setInternalValue] = useState<string>(value);
   const [calendarOpen, setCalendarOpen] = useState(false);
@@ -49,7 +59,6 @@ export function DatePicker({ value, onChange, locale, label, isDayDisabled = () 
         buttonRef.current &&
         !buttonRef.current.contains(e.target as Node)
       ) {
-        //console.log('click outside', e.target);
         hideCalendar();
       }
     };
@@ -75,11 +84,6 @@ export function DatePicker({ value, onChange, locale, label, isDayDisabled = () 
     setInternalValue(value);
   }, [value]);
 
-  //console.log('CustomDatePicker', { value, internalValue });
-  const monthFormat = 'MMMM yyyy';
-  const weekDayFormat = 'EEEEEE';
-  const dayAriaLabelFormat = 'PPPP';
-
   return (
     <div ref={wrapperRef}>
       <style href="CustomDatePickerCalendar" precedence="medium">
@@ -102,9 +106,7 @@ export function DatePicker({ value, onChange, locale, label, isDayDisabled = () 
             ref={inputRef}
             onInput={(e) => {
               const v = (e.target as HTMLInputElement).value;
-              //console.log('onInput', v);
               setInternalValue(v);
-              //commitChange(v);
             }}
             onBlur={(e) => {
               const v = (e.target as HTMLInputElement).value;

@@ -1,4 +1,4 @@
-.badge {
+.w-badge {
   /* Local scoped vars */
   --_background: var(--background, var(--w-color-badge-neutral-background));
   --_color: var(--color, var(--w-s-color-text));
@@ -22,55 +22,55 @@
 /* Variants override the un-underscored props */
 
 /* Neutral */
-.badge--neutral {
+.w-badge--neutral {
   --background: var(--w-color-badge-neutral-background);
   --color: var(--w-s-color-text);
 }
 
 /* Info */
-.badge--info {
+.w-badge--info {
   --background: var(--w-color-badge-info-background);
   --color: var(--w-s-color-text);
 }
 
 /* Positive */
-.badge--positive {
+.w-badge--positive {
   --background: var(--w-color-badge-positive-background);
   --color: var(--w-s-color-text);
 }
 
 /* Warning */
-.badge--warning {
+.w-badge--warning {
   --background: var(--w-color-badge-warning-background);
   --color: var(--w-s-color-text);
 }
 
 /* Negative */
-.badge--negative {
+.w-badge--negative {
   --background: var(--w-color-badge-negative-background);
   --color: var(--w-s-color-text);
 }
 
 /* Disabled */
-.badge--disabled {
+.w-badge--disabled {
   --background: var(--w-s-color-background-disabled);
   --color: var(--w-s-color-text);
 }
 
 /* Price (semi-opaque black) */
-.badge--price {
+.w-badge--price {
   --background: rgba(var(--w-rgb-black), 0.7);
   --color: var(--w-s-color-text-inverted-static);
 }
 
 /* Sponsored */
-.badge--sponsored {
+.w-badge--sponsored {
   --background: var(--w-color-badge-sponsored-background);
   --color: var(--w-s-color-text);
 }
 
 /* Position base */
-.badge--position-base {
+.w-badge--position-base {
   position: absolute;
   backdrop-filter: blur(8px);
 }
@@ -78,7 +78,7 @@
 /* Position modifiers */
 
 /* Top-left */
-.badge--position-top-left {
+.w-badge--position-top-left {
   top: 0;
   left: 0;
   border-top-left-radius: 0;
@@ -87,7 +87,7 @@
 }
 
 /* Top-right */
-.badge--position-top-right {
+.w-badge--position-top-right {
   top: 0;
   right: 0;
   border-top-left-radius: 0;
@@ -96,7 +96,7 @@
 }
 
 /* Bottom-right */
-.badge--position-bottom-right {
+.w-badge--position-bottom-right {
   bottom: 0;
   right: 0;
   border-top-right-radius: 0;
@@ -105,7 +105,7 @@
 }
 
 /* Bottom-left */
-.badge--position-bottom-left {
+.w-badge--position-bottom-left {
   bottom: 0;
   left: 0;
   border-top-left-radius: 0;

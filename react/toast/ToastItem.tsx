@@ -49,12 +49,7 @@ const ToastItem = ({ variant, text, dismissible = false, id, duration }: ToastPr
         <span className="w-toast__icon">{icon}</span>
         {insertText && <p>{text}</p>}
         {dismissible && (
-          <Button
-            variant="overlayQuiet"
-            size="small"
-            hasIconOnly
-            onClick={() => removeToast(id)}
-          >
+          <Button variant="overlayQuiet" size="small" hasIconOnly onClick={() => removeToast(id)}>
             <WIcon name="Close" />
           </Button>
         )}

@@ -11,7 +11,7 @@ Default.args = {
 };
 
 export const Variants = () => (
-  <ul className="flex flex-wrap gap-8">
+  <ul style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
     <Badge as="li" variant="neutral">
       neutral badge
     </Badge>
@@ -37,7 +37,7 @@ export const Variants = () => (
       price badge
     </Badge>
     <Badge as="li" variant="warning">
-      <WIcon name="Shipping" size="small" style={{ paddingRight: '0.5rem' }} /> Fiks ferdig
+      <WIcon name="Shipping" size="small" style={{ paddingRight: '4px' }} /> Fiks ferdig
     </Badge>
   </ul>
 );

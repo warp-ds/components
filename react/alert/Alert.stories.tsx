@@ -1,4 +1,4 @@
-import { expect, within } from '@storybook/test';
+import { expect, within } from 'storybook/test';
 import { useState } from 'react';
 import { Button } from '../button/index.ts';
 import { Link } from '../link/Link.tsx';

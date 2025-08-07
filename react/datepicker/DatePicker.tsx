@@ -7,7 +7,7 @@ import defaultPhrases from './defaultPhrases.ts';
 import { DatePickerProps } from './props.ts';
 import { fromISOToDate } from './utils.ts';
 
-export function DatePicker({ 
+export function DatePicker({
   value,
   onChange,
   locale,

@@ -1,2 +1,9 @@
-export { PageIndicator } from './PageIndicator.tsx';
-export type { PageIndicatorProps } from './props.ts';
+import { createComponent } from '@lit/react';
+import React from 'react';
+import { WPageIndicator as WPageIndicatorWC } from '../../src/pageindicator/index.ts';
+
+export const WPageIndicator = createComponent({
+  tagName: 'w-pageindicator',
+  elementClass: WPageIndicatorWC,
+  react: React,
+});

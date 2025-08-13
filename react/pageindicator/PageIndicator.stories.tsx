@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { PageIndicator } from './PageIndicator.tsx';
+import { WPageIndicator } from './index.ts';
 
-export default { title: 'PageIndicator', component: PageIndicator };
+export default { title: 'PageIndicator', component: WPageIndicator };
 
-const Template = (args) => <PageIndicator {...args} />;
+const Template = (args) => <WPageIndicator {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   pageCount: 5,
@@ -12,7 +12,7 @@ Default.args = {
 
 export const InsideContainer = () => (
   <div style={{ display: 'grid', height: '60vh', border: '1px solid lightgrey' }}>
-    <PageIndicator pageCount={5} selectedPage={1} style={{ paddingBottom: '12px', alignSelf: 'end' }} />
+    <WPageIndicator pageCount={5} selectedPage={1} style={{ paddingBottom: '12px', alignSelf: 'end' }} />
   </div>
 );
 
@@ -32,20 +32,20 @@ export const InsideContainerChangePage = () => {
   return (
     <div style={{ display: 'grid', height: '60vh', border: '1px solid lightgrey' }}>
       <div style={{ alignSelf: 'center', justifySelf: 'center' }}>Page {page}</div>
-      <PageIndicator pageCount={5} selectedPage={page} style={{ paddingBottom: '12px', alignSelf: 'end' }} />
+      <WPageIndicator pageCount={5} selectedPage={page} style={{ paddingBottom: '12px', alignSelf: 'end' }} />
     </div>
   );
 };
 
 export const InsideContainer10Pages = () => (
   <div style={{ display: 'grid', height: '60vh', border: '1px solid lightgrey' }}>
-    <PageIndicator pageCount={10} selectedPage={3} style={{ paddingBottom: '12px', alignSelf: 'end' }} />
+    <WPageIndicator pageCount={10} selectedPage={3} style={{ paddingBottom: '12px', alignSelf: 'end' }} />
   </div>
 );
 
 export const OutsideContainer = () => (
   <div style={{ height: '450px', border: '1px solid lightgrey' }}>
     <div style={{ height: '300px', borderBottom: '1px solid #e6e6e6' }} />
-    <PageIndicator pageCount={5} selectedPage={1} style={{ paddingTop: '16px' }} />
+    <WPageIndicator pageCount={5} selectedPage={1} style={{ paddingTop: '16px' }} />
   </div>
 );

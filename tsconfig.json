@@ -25,6 +25,6 @@
       }
     ]
   },
-  "include": ["./src", "./react", "env.d.ts"],
+  "include": ["./src", "./react", "./react-old", "env.d.ts"],
   "exclude": ["node_modules"]
 }

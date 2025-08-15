@@ -1,0 +1,41 @@
+.w-box {
+  /* Local scoped vars */
+  --_background: var(--background, transparent);
+  --_padding: var(--padding, 16px);
+  --_border-radius: var(--border-radius, 8px);
+  --_border-width: var(--border-width, 0px);
+  --_border-color: var(--border-color, transparent);
+
+  /* Base layout */
+  display: block;
+  position: relative;
+  overflow-wrap: break-word;
+  padding: var(--_padding);
+  background-color: var(--_background);
+  border-radius: var(--_border-radius);
+  border: var(--_border-width) solid var(--_border-color);
+}
+
+/* Preserve the last-child margin reset */
+.w-box:last-child {
+  margin-bottom: 0;
+}
+
+/* Variants override the un-underscored props */
+
+/* Info */
+.w-box--info {
+  --background: var(--w-s-color-background-info-subtle);
+}
+
+/* Neutral */
+.w-box--neutral {
+  --background: var(--w-s-color-surface-sunken);
+}
+
+/* Bordered */
+.w-box--bordered {
+  --border-width: 2px;
+  --border-color: var(--w-s-color-border);
+  --background: var(--w-s-color-background);
+}

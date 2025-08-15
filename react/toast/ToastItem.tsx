@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import { Button } from '../button/Button.tsx';
-import { ExpandTransition } from '../expandtransition/index.ts';
+import { WExpandTransition } from '../expandtransition/index.ts';
 import { WIcon } from '../icon/index.ts';
 import { ToastProps } from './props.ts';
 import { removeToast } from './ToastContainer.tsx';
@@ -44,7 +44,7 @@ const ToastItem = ({ variant, text, dismissible = false, id, duration }: ToastPr
   const toastClasses = classNames('w-toast__item', className);
 
   return (
-    <ExpandTransition show={showItem}>
+    <WExpandTransition show={showItem}>
       <div className={toastClasses} role={role} id={id}>
         <span className="w-toast__icon">{icon}</span>
         {insertText && <p>{text}</p>}
@@ -54,7 +54,7 @@ const ToastItem = ({ variant, text, dismissible = false, id, duration }: ToastPr
           </Button>
         )}
       </div>
-    </ExpandTransition>
+    </WExpandTransition>
   );
 };
 

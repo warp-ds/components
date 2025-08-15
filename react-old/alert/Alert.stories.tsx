@@ -1,11 +1,13 @@
+import { expect, within } from 'storybook/test';
 import { useState } from 'react';
 import { Button } from '../button/index.ts';
 import { Link } from '../link/Link.tsx';
-import { WAlert } from './index.ts';
+import { Alert } from './Alert.tsx';
+import { AlertProps } from './props.ts';
 
-export default { title: 'Alert', component: WAlert };
+export default { title: 'FeedbackIndicators/Alert', component: Alert };
 
-const Template = (args) => <WAlert {...args} />;
+const Template = (args) => <Alert {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   type: 'info',
@@ -17,32 +19,48 @@ export const Variants = () => (
   <div className="flex flex-col gap-y-16">
     <div data-testid="info">
       <h3>Info</h3>
-      <WAlert type="info" show role="status">
+      <Alert type="info" show role="status">
         This is an "info" variant of the alert component
-      </WAlert>
+      </Alert>
     </div>
     <div data-testid="warning">
       <h3>Warning</h3>
-      <WAlert type="warning" show role="alert">
+      <Alert type="warning" show role="alert">
         This is a "warning" variant of the alert component
-      </WAlert>
+      </Alert>
     </div>
     <div data-testid="negative">
       <h3>Negative</h3>
-      <WAlert type="negative" show role="alert">
+      <Alert type="negative" show role="alert">
         This is a "negative" variant of the alert component
-      </WAlert>
+      </Alert>
     </div>
     <div data-testid="positive">
       <h3>Positive</h3>
-      <WAlert type="positive" show role="status">
+      <Alert type="positive" show role="status">
         This is a "positive" variant of the alert component
-      </WAlert>
+      </Alert>
     </div>
   </div>
 );
 
-const InteractiveContent = ({ type }) => (
+Variants.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  const negative = within(canvas.getByTestId('negative'));
+  await expect(negative.getByRole('alert')).toBeInTheDocument();
+
+  const positive = within(canvas.getByTestId('positive'));
+  await expect(positive.getByRole('status')).toBeInTheDocument();
+
+  const warning = within(canvas.getByTestId('warning'));
+  await expect(warning.getByRole('alert')).toBeInTheDocument();
+
+  const info = within(canvas.getByTestId('info'));
+  await expect(info.getByRole('status')).toBeInTheDocument();
+};
+
+const InteractiveContent = ({ type }: Pick<AlertProps, 'type'>) => (
   <>
     <h4>This is a {type} variant of the alert component</h4>
     <p>Use this variant to call extra attention to useful, contextual information.</p>
@@ -63,27 +81,27 @@ export const WithInteractiveContent = () => (
   <div className="flex flex-col gap-y-16">
     <div>
       <h3>Info</h3>
-      <WAlert type="info" show role="status">
+      <Alert type="info" show role="status">
         <InteractiveContent type="info" />
-      </WAlert>
+      </Alert>
     </div>
     <div>
       <h3>Warning</h3>
-      <WAlert type="warning" show>
+      <Alert type="warning" show>
         <InteractiveContent type="warning" />
-      </WAlert>
+      </Alert>
     </div>
     <div>
       <h3>Negative</h3>
-      <WAlert type="negative" show>
+      <Alert type="negative" show>
         <InteractiveContent type="negative" />
-      </WAlert>
+      </Alert>
     </div>
     <div>
       <h3>Positive</h3>
-      <WAlert type="positive" show role="status">
+      <Alert type="positive" show role="status">
         <InteractiveContent type="positive" />
-      </WAlert>
+      </Alert>
     </div>
   </div>
 );
@@ -107,10 +125,10 @@ export const WithDefaultRole = () => {
         {show ? 'Hide negative alert' : 'Show negative alert'}
       </Button>
 
-      <WAlert id="negative-alert" type="negative" show={show}>
+      <Alert id="negative-alert" type="negative" show={show}>
         <h4>This is a "negative" variant of the alert component</h4>
         <div>Use this variant to call extra attention to useful, contextual information.</div>
-      </WAlert>
+      </Alert>
     </>
   );
 };
@@ -133,10 +151,17 @@ export const WithOverriddenRole = () => {
       >
         {show ? 'Hide warning alert' : 'Show warning alert'}
       </Button>
-      <WAlert id="overriden-role-example-alert" type="warning" show={show}>
+      <Alert id="overriden-role-example-alert" type="warning" show={show}>
         <h4>This is a "warning" variant of the alert component</h4>
         <div role="alert">Use this variant to call extra attention to useful, contextual information.</div>
-      </WAlert>
+      </Alert>
     </>
   );
+};
+
+export const InfoAlertTask = Template.bind({});
+InfoAlertTask.args = { ...Default.args, role: 'alert' };
+InfoAlertTask.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await expect(canvas.getByRole('alert')).toBeInTheDocument();
 };

@@ -4,8 +4,21 @@
   "description": "Next Gen Warp Components",
   "type": "module",
   "exports": {
-    "./*": "./dist/packages/*/index.js",
-    "./react/*": "./dist/react/*/index.js"
+    ".": {
+      "types": "./types/jsx-integration.d.ts"
+    },
+    "./jsx": {
+      "types": "./types/jsx-integration.d.ts"
+    },
+    "./*": {
+      "types": "./dist/packages/*/index.d.ts",
+      "default": "./dist/packages/*/index.js"
+    },
+    "./react/*": {
+      "types": "./dist/react/*/index.d.ts",
+      "default": "./dist/react/*/index.js"
+    },
+    "./custom-elements.json": "./dist/custom-elements.json"
   },
   "typesVersions": {
     "*": {
@@ -17,14 +30,17 @@
       ]
     }
   },
+  "types": "./types/jsx-integration.d.ts",
   "files": [
-    "dist/"
+    "dist/",
+    "./types"
   ],
   "scripts": {
     "build-storybook:lit": "storybook build -c .storybook-lit -o storybook/lit",
     "build-storybook:react": "storybook build -c .storybook-react -o storybook/react",
     "build-storybook": "pnpm run build-storybook:react && pnpm run build-storybook:lit",
-    "build": "rm -rf dist && mkdir dist && node build.js",
+    "build:manifest": "cem analyze --config cem/config.js",
+    "build": "rm -rf dist && mkdir dist && node build.js && npm run build:manifest",
     "check": "pnpm biome check --write .",
     "format": "pnpm biome format --write .",
     "lint:check": "pnpm biome lint .",
@@ -80,5 +96,6 @@
     "@lingui/core": "5.x",
     "@lit/react": "^1.0.3",
     "lit": "^3.1.2"
-  }
+  },
+  "customElements": "dist/custom-elements.json"
 }

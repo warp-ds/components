@@ -21,7 +21,7 @@
 .w-toast__item {
   display: flex;
   align-items: start;
-  min-width:328px;
+  min-width: 328px;
   max-width: 420px;
   padding: 8px;
   padding-left: 6px;

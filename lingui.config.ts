@@ -10,6 +10,10 @@ const config: LinguiConfig = {
       include: ['react/button/**/*.{ts,tsx}'],
       path: 'react/button/locales/{locale}/messages',
     },
+    {
+      include: ['src/button/**/*.{ts,tsx}'],
+      path: 'src/button/locales/{locale}/messages',
+    }
   ],
   compileNamespace: 'es',
 };

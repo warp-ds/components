@@ -1,4 +1,4 @@
-import pageIndicatorStyle from 'inline:./style.css';
+import pageIndicatorStyle from './style.css?inline';
 import { html, LitElement, TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';

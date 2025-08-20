@@ -1,6 +1,6 @@
 import { LitElement, unsafeCSS, html, TemplateResult } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import style from 'inline:./style.css';
+import style from './style.css?inline';
 import { i18n } from '@lingui/core';
 import { activateI18n } from '../../i18n.ts';
 import { messages as daMessages } from './locales/da/messages.mjs';

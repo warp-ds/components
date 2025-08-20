@@ -1,4 +1,4 @@
-import iconStyle from 'inline:./style.css';
+import iconStyle from './style.css?inline';
 import { html, LitElement, TemplateResult, unsafeCSS } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';

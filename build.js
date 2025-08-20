@@ -1,6 +1,5 @@
 import fs from 'node:fs';
 import esbuild from 'esbuild';
-import inlineImportPlugin from 'esbuild-plugin-inline-import';
 import { glob } from 'glob';
 import ts from 'typescript';
 
@@ -13,10 +12,9 @@ const esbuildDefaults = {
   sourcemap: true,
   target: 'es2020',
   minify: false,
-  plugins: [
-    // Always include this plugin before others
-    inlineImportPlugin(),
-  ],
+  loader: {
+    '.css': 'text'
+  },
   //external: ["lit", "@warp-ds/elements-core"],
 };
 

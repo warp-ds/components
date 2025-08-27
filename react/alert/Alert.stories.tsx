@@ -5,7 +5,7 @@ import { Link } from '../link/Link.tsx';
 import { Alert } from './Alert.tsx';
 import { AlertProps } from './props.ts';
 
-export default { title: 'FeedbackIndicators/Alert', component: Alert };
+export default { title: 'Alert', component: Alert };
 
 const Template = (args) => <Alert {...args} />;
 export const Default = Template.bind({});

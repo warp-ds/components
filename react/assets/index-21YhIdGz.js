@@ -1,4 +1,4 @@
-import{n as a,r as m,a as d,e as w,x as u,l as f}from"./class-map-63b4Tez8.js";import{R as g}from"./iframe-PNrS-Gz9.js";const v=":host{display:inline-block}.w-icon{--_w-icon-size: var(--w-icon-size, 24px);height:var(--_w-icon-size);width:var(--_w-icon-size);display:flex}.w-icon svg{pointer-events:none;height:var(--_w-icon-size);width:var(--_w-icon-size)}.w-icon--s{--w-icon-size: 16px}.w-icon--m{--w-icon-size: 24px}.w-icon--l{--w-icon-size: 32px}";/**
+import{n as a,r as m,a as d,e as w,x as u,l as f}from"./class-map-63b4Tez8.js";import{R as g}from"./iframe-Bvb54jQi.js";const v=":host{display:inline-block}.w-icon{--_w-icon-size: var(--w-icon-size, 24px);height:var(--_w-icon-size);width:var(--_w-icon-size);display:flex}.w-icon svg{pointer-events:none;height:var(--_w-icon-size);width:var(--_w-icon-size)}.w-icon--s{--w-icon-size: 16px}.w-icon--m{--w-icon-size: 24px}.w-icon--l{--w-icon-size: 32px}";/**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause

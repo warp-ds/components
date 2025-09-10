@@ -4,7 +4,7 @@ import inlineImportPlugin from 'esbuild-plugin-inline-import';
 import { glob } from 'glob';
 import ts from 'typescript';
 
-const components = glob.sync('src/**/index.ts');
+const components = glob.sync('src/icon/index.ts');
 const reactComponents = glob.sync('react/**/index.ts');
 
 const esbuildDefaults = {

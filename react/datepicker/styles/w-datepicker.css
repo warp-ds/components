@@ -21,7 +21,7 @@
   /* basic styling */
   display: block;
   padding: 1.2rem 0.8rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--w-s-color-border-strong);
   border-radius: 4px;
   width: 100%;
   height: 48px;
@@ -31,7 +31,7 @@
   background-color: var(--w-s-color-background);
 }
 .w-datepicker-input:hover {
-  border-color: var(--w-s-color-border-hover);
+  border-color: var(--w-s-color-border-strong-hover);
 }
 .w-datepicker-input:active {
   border-color: var(--w-s-color-border-selected);

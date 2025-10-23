@@ -1,4 +1,4 @@
-import{r as O,a as N,x as r}from"./iframe-BPJOQEi1.js";import{e as T,n as j}from"./class-map-uejTtm6a.js";import"./preload-helper-C1FmrZbK.js";const q=".w-pageindicator{display:grid;justify-content:center;height:max-content;pointer-events:none}.w-pageindicator--container{display:grid;grid-auto-flow:column;gap:8px}.w-pageindicator--dot{background-color:var(--w-s-color-background-disabled);border-radius:5px;width:10px;height:10px}.w-pageindicator--selecteddot{background-color:var(--w-s-color-icon-selected)}";/**
+import{r as O,a as N,x as r}from"./iframe-ABP5Q0C4.js";import{e as T,n as j}from"./class-map-DDitnKbw.js";import"./preload-helper-C1FmrZbK.js";const q=".w-pageindicator{display:grid;justify-content:center;height:max-content;pointer-events:none}.w-pageindicator--container{display:grid;grid-auto-flow:column;gap:8px}.w-pageindicator--dot{background-color:var(--w-s-color-background-disabled);border-radius:5px;width:10px;height:10px}.w-pageindicator--selecteddot{background-color:var(--w-s-color-icon-selected)}";/**
  * @license
  * Copyright 2021 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause

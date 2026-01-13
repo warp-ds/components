@@ -1,5 +1,11 @@
+:host {
+  display: inline-block;
+  box-sizing: border-box;
+  position: relative;
+}
+
 .w-button,
-.w-button--secondary {
+.w-button--secondary, button  {
   /* Local scoped variables, given the default button (the secondary variant) as a default */
   --_background: var(--background, var(--w-s-color-background));
   --_background-hover: var(--background-hover, var(--w-s-color-background-hover));
@@ -56,28 +62,28 @@
 }
 
 /* Variants config */
-.w-button--primary {
+.w-button--primary, :host([variant=primary]) button {
   --background: var(--w-s-color-background-primary);
   --background-hover: var(--w-s-color-background-primary-hover);
   --background-active: var(--w-s-color-background-primary-active);
   --color: var(--w-s-color-text-inverted);
   --border-width: 0px;
 }
-.w-button--negative {
+.w-button--negative, :host([variant=negative]) button {
   --background: var(--w-s-color-background-negative);
   --background-hover: var(--w-s-color-background-negative-hover);
   --background-active: var(--w-s-color-background-negative-active);
   --color: var(--w-s-color-text-inverted);
   --border-width: 0px;
 }
-.w-button--negative-quiet {
+.w-button--negative-quiet, :host([variant=negative-quiet]) button {
   --background: transparent;
   --background-hover: var(--w-s-color-background-negative-subtle-hover);
   --background-active: var(--w-s-color-background-negative-subtle-active);
   --color: var(--w-s-color-text-negative);
   --border-width: 0px;
 }
-.w-button--utility {
+.w-button--utility, :host([variant=utility]) button {
   --background: var(--w-s-color-background);
   --background-hover: var(--w-s-color-background-hover);
   --background-active: var(--w-s-color-background-active);
@@ -85,12 +91,12 @@
   --border-radius: 4px;
   --border-width: 1px;
 }
-.w-button--utility-quiet {
+.w-button--utility-quiet, :host([variant=utility-quiet]) button {
   --background: transparent;
   --color: var(--w-s-color-text);
   --border-width: 0px;
 }
-.w-button--overlay {
+.w-button--overlay, :host([variant=overlay]) button {
   --background: var(--w-color-background);
   --background-hover: var(--w-color-background-hover);
   --background-active: var(--w-color-background-active);
@@ -98,7 +104,7 @@
   --border-radius: 9999px;
   --border-width: 0px;
 }
-.w-button--overlay-quiet {
+.w-button--overlay-quiet, :host([variant=overlay-quiet]) button {
   --background: transparent;
   --background-hover: var(--w-s-color-background-hover);
   --background-active: var(--w-s-color-background-active);
@@ -106,7 +112,7 @@
   --border-radius: 9999px;
   --border-width: 0px;
 }
-.w-button--overlay-inverted {
+.w-button--overlay-inverted, :host([variant=overlay-inverted]) button {
   --background: var(--w-s-color-background-inverted);
   --background-hover: var(--w-s-color-background-inverted-hover);
   --background-active: var(--w-s-color-background-inverted-active);
@@ -114,7 +120,7 @@
   --border-radius: 9999px;
   --border-width: 0px;
 }
-.w-button--overlay-inverted-quiet {
+.w-button--overlay-inverted-quiet, :host([variant=overlay-inverted-quiet]) button {
   --background: transparent;
   --background-hover: var(--w-s-color-background-inverted-hover);
   --background-active: var(--w-s-color-background-inverted-active);
@@ -123,7 +129,7 @@
   --border-width: 0px;
 }
 
-.w-button--link {
+.w-button--link, :host([variant=link]) button {
   --background: none;
   --background-hover: none;
   --background-active: none;
@@ -133,6 +139,8 @@
 }
 
 /* States config,  selects --loading as well since loading is always supposed to be disabled */
+:host([disabled]) button,
+:host([loading]) button,
 .w-button:disabled,
 .w-button--disabled,
 .w-button--loading {
@@ -144,12 +152,12 @@
   pointer-events: none;
 }
 
-.w-button--link:hover {
+.w-button--link:hover, :host([variant=link]) button:hover {
   text-decoration: underline;
 }
 
 /* Sizes config */
-.w-button--small {
+.w-button--small, :host([variant=small]) button {
   --padding-x: 12px;
   --padding-y: 8px;
   --font-size: var(--w-font-size-xs);
@@ -157,12 +165,12 @@
 }
 
 /* Width config */
-.w-button--full-width {
+.w-button--full-width, :host([full-width]) button, :host([full-width]) {
   width: 100%;
   max-width: 100%;
 }
 
-.w-button--has-icon-only {
+.w-button--has-icon-only, :host([has-icon-only]) button {
   width: auto;
   max-width: none;
   --_padding-x: var(--_padding-y);
@@ -174,7 +182,7 @@ a.w-button {
 }
 
 /* Copy of loading animation from warp  */
-.w-button--loading {
+.w-button--loading, :host([loading]) button {
   background-image: linear-gradient(
     135deg,
     rgba(0, 0, 0, 0.05) 25%,
